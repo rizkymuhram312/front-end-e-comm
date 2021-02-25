@@ -6,12 +6,14 @@ import Cart from './pages/cart'
 function App() {
   return (
     <BrowserRouter>
+      <div className="bg-background">
       <Header />
-      <div className="container mx-auto px-4 mt-40 lg:mt-20">
+      <div className="container mx-auto px-4 pt-40 lg:pt-20">
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/cart" component={Cart} />
         </Switch>
+      </div>
       </div>
     </BrowserRouter>
   );
