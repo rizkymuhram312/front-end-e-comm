@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaBars } from "react-icons/fa";
 
 export default function Navbar({ fixed }) {
  
@@ -27,7 +26,7 @@ export default function Navbar({ fixed }) {
             type="button"
             onClick={() => setNavbarOpen(!navbarOpen)}
           >
-            <FaBars />
+            <i className="fas fa-bars" />
           </button>
         </div>
         <div className="relative flex w-full md:w-7/12 px-4 flex-wrap items-stretch lg:ml-auto">
