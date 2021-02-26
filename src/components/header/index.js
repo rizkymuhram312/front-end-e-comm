@@ -41,16 +41,17 @@ export default function Navbar({ fixed }) {
             <li className="nav-item">
               <a
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
-                href="#pablo"
+                href="/daftar"
               >
                 <i className="fab fa-facebook-square text-lg leading-lg  opacity-75"></i>
+
                 <span className="ml-2">Sign Up</span>
               </a>
             </li>
             <li className="nav-item">
               <a
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
-                href="#pablo"
+                href="/login"
               >
                 <i className="fab fa-twitter text-lg leading-lg  opacity-75"></i>
                 <span className="ml-2">Login</span>
