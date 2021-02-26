@@ -4,6 +4,8 @@ import Home from './pages/home'
 import Cart from './pages/cart'
 import Daftar from './pages/users/Daftar'
 import Login from './pages/users/Login'
+import Dashboard from './pages/home/Dashboard'
+
 
 
 
@@ -18,6 +20,8 @@ function App() {
           <Route path="/cart" component={Cart} />
           <Route path="/login" component={Login} />
           <Route path="/daftar" component={Daftar} />
+          <Route path="/dashboard" component={Dashboard} />
+
 
 
         </Switch>
