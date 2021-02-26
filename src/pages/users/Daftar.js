@@ -44,7 +44,7 @@ const Daftar = () => {
             user_email : user_email,
             user_password : user_password
         }
-        axios.post('http://localhost:3001/api/users/signup', data)
+        axios.post('http://192.168.100.35:3001/api/users/signup', data)
         .then(result => {
             if ( result ) {
                 console.log(result.data)

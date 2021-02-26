@@ -31,7 +31,7 @@ const Login = () => {
             user_password : user_password
         }
         console.log(data)
-        axios.post('http://localhost:3001/api/users/signin', data)
+        axios.post('http://192.168.100.35:3001/api/users/signin', data)
         .then(result => {
             if(result) {
                 localStorage.setItem('token', result.data.token)
