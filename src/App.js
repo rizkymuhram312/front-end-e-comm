@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <div className="bg-background">
       <Header />
-      <div className="container mx-auto px-4 pt-40 lg:pt-20">
+      <div className="container mx-auto px-4 pt-40 lg:pt-20 pb-10">
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/cart" component={Cart} />
