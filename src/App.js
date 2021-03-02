@@ -6,6 +6,7 @@ import Orders from './pages/orders'
 import Daftar from './pages/users/Daftar'
 import Login from './pages/users/Login'
 import Dashboard from './pages/home/Dashboard'
+import MyOrders from './pages/orders/myOrders'
 
 
 
@@ -13,7 +14,7 @@ import Dashboard from './pages/home/Dashboard'
 function App() {
   return (
     <BrowserRouter>
-      <div className="bg-background">
+      <div className="">
       <Header />
       <div className="container mx-auto px-4 pt-40 lg:pt-20">
         <Switch>
@@ -23,7 +24,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/daftar" component={Daftar} />
           <Route path="/dashboard" component={Dashboard} />
-
+          <Route path="/myorders" component={MyOrders}/>
 
 
         </Switch>
