@@ -54,7 +54,7 @@ export default function Navbar({ fixed }) {
             <li className="nav-item">
               <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
                 href="#">
-                <i className="fab fa-twitter text-lg leading-lg  opacity-75"></i>
+                <i className="fas fa-sign-out-alt text-lg leading-lg  opacity-75"></i>
                 <span className="ml-2">Sign Out</span>
               </a>
               </li>
@@ -67,7 +67,7 @@ export default function Navbar({ fixed }) {
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
                 href="/daftar"
               >
-                <i className="fab fa-facebook-square text-lg leading-lg  opacity-75"></i>
+                <i className="fas fa-user-plus text-lg leading-lg  opacity-75"></i>
 
                 <span className="ml-2">Sign Up</span>
               </a>
@@ -77,7 +77,7 @@ export default function Navbar({ fixed }) {
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
                 href="/login"
               >
-                <i className="fab fa-twitter text-lg leading-lg  opacity-75"></i>
+                <i className="fas fa-sign-in-alt text-lg leading-lg  opacity-75"></i>
                 <span className="ml-2">Sign In</span>
               </a>
             </li>

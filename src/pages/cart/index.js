@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import ModalDelete from "../../components/modal/ModalDelete"
 
-export default function index() {
+export default function Cart() {
   const [checkedAll, setCheckedAll] = useState(false);
   const [checked, setChecked] = useState([]);
+  const [deleted, setDeleted] = useState([]);
   const [Cart, setCart] = useState([]);
   const [Order, setOrder] = useState({})
 
@@ -13,7 +15,7 @@ export default function index() {
   }, []);
 
   useEffect(() => {
-    console.log(checked)
+    // console.log(checked)
     let allChecked = true;
     for (const index in checked) {
       if (checked[index] === false) {
@@ -35,19 +37,31 @@ export default function index() {
     });
   };
 
+  const toggleDelete = (index) => {
+    setDeleted((prevState) => {
+      const newState = [...prevState];
+      newState[index] = !prevState[index];
+      console.log("tes")
+      return newState;
+    });
+  };
+
   const selectAll = (value) => {
     setCheckedAll(value);
     let total_qty = 0;
     let total_amount = 0;
+    let total_weight = 0;
     Cart.map(x=>{
       total_qty+=x.clit_qty;
       total_amount+=x.clit_subtotal;
+      total_weight+=x.clit_subweight
     })
     if(value){
       setOrder({
         ...Order,
         cart_total_qty: total_qty,
-        cart_total_amount: total_amount
+        cart_total_amount: total_amount,
+        cart_total_weight: total_weight
       }
     )
     }else{
@@ -67,7 +81,7 @@ export default function index() {
     });
   };
 
-  const plus = (id)=>{
+  const plus = (id,idx)=>{
       setCart(Cart.map(x=>{
         if(x.clit_id !== id) return x
         return{...x, 
@@ -75,9 +89,17 @@ export default function index() {
           clit_subweight: (x.clit_qty+1)*x.product.prod_weight, 
           clit_subtotal: (x.clit_qty+1)*x.product.prod_price}
       }))
+      if(checked[idx]===true){
+        setOrder({
+          ...Order,
+          cart_total_qty: Order.cart_total_qty+1,
+          cart_total_amount: Order.cart_total_amount+Order.cart_line_items[idx].product.prod_price,
+          cart_total_weight: Order.cart_total_weight+Order.cart_line_items[idx].product.prod_weight
+        })
+      }
   }
 
-  const minus = (id)=>{
+  const minus = (id,idx)=>{
     setCart(Cart.map(x=>{
       if(x.clit_id !== id || x.clit_qty===0) return x
       return{...x, 
@@ -85,6 +107,14 @@ export default function index() {
         clit_subweight: (x.clit_qty-1)*x.product.prod_weight,
         clit_subtotal: (x.clit_qty-1)*x.product.prod_price}
     }))
+    if(checked[idx]===true){
+      setOrder({
+        ...Order,
+        cart_total_qty: Order.cart_total_qty+1,
+        cart_total_amount: Order.cart_total_amount-Order.cart_line_items[idx].product.prod_price,
+        cart_total_weight: Order.cart_total_weight-Order.cart_line_items[idx].product.prod_weight
+      })
+    }
   }
 
   const check = (ev,el) =>{
@@ -116,7 +146,8 @@ export default function index() {
       .then((res) => {
         setOrder(res.data[0])
         for (let index = 0; index < res.data[0].cart_line_items.length; index++) {
-          setChecked( checked => [...checked,false]) 
+          setChecked( checked => [...checked,false])
+          setDeleted( deleted => [...deleted,false]) 
         }
         setCart(res.data[0].cart_line_items)
       })
@@ -143,6 +174,18 @@ export default function index() {
             {
               return (
               <div className="text-sm block my-4 p-3 text-white rounded border border-solid border-gray-200 bg-primary">
+                {
+                  deleted[y]===true?<ModalDelete 
+                  image={x.product.product_images[0].prim_filename} 
+                  name={x.product.prod_name}
+                  url={`http://localhost:3003/api/cartLineItems/${x.clit_id}`}
+                  close={()=>toggleDelete(y)}
+                  update={()=>{
+                    toggleDelete(y)
+                    fetchCart()
+                  }}
+                  />:null
+                }
                 <hr />
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
@@ -165,12 +208,13 @@ export default function index() {
                   </div>
                   <div>{x.product.prod_price}</div>
                     <div className="flex flex-row">
-                      <div className="border-2 border-white px-1" style={{cursor:'pointer'}} onClick={()=>plus(x.clit_id)}>+</div>
+                      <div className="border-2 border-white px-1" style={{cursor:'pointer'}} onClick={()=>plus(x.clit_id,y)}>+</div>
                       <div className="border-2 border-white px-1">{x.clit_qty}</div>
-                      <div className="border-2 border-white px-1" style={{cursor:'pointer'}} onClick={()=>minus(x.clit_id)}>-</div>
+                      <div className="border-2 border-white px-1" style={{cursor:'pointer'}} onClick={()=>minus(x.clit_id,y)}>-</div>
                     </div>
                   <div>{x.clit_subtotal}</div>
-                  <div className="lg:mr-10"> <button className=" font-bold bg-background text-black p-1 md:p-2 hover:bg-red-400 rounded">
+                  <div className="lg:mr-10"> 
+                  <button className=" font-bold bg-background p-1 md:p-2 hover:bg-pink-300 rounded text-black" onClick={()=> toggleDelete(y)}>
                   Hapus
                   </button></div>
                 </div>
