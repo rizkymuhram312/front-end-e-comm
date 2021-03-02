@@ -11,7 +11,7 @@ import City from './pages/city/city'
 import Users from './pages/users/users'
 import Kecamatan from './pages/kecamatan/kecamatan'
 import Kodepos from './pages/kodepos/kodepos'
-
+import MyOrders from './pages/orders/myOrders'
 
 
 
@@ -34,15 +34,7 @@ function App() {
           <Route path="/users" component={Users} exact />
           <Route path="/kecamatan" component={Kecamatan} exact />
           <Route path="/kodepos" component={Kodepos} exact />
-
-
-
-
-
-
-
-
-
+          <Route path="/myorders" component={MyOrders}/>
         </Switch>
       </div>
       </>
