@@ -47,7 +47,7 @@ export default function index() {
                   <div>
                     <input
                       type="checkbox"
-                      class="form-checkbox h-3 w-3 text-gray-600"
+                      className="form-checkbox h-3 w-3 text-gray-600"
                     />
                   </div>
                   <div className="h-20 w-20 m-2 rounded border border-solid border-white">
@@ -68,7 +68,7 @@ export default function index() {
             <div>
               <input
                 type="checkbox"
-                class="form-checkbox h-3 w-3 text-gray-600 mr-2"
+                className="form-checkbox h-3 w-3 text-gray-600 mr-2"
               />
               <span>Pilih Semua</span>
             </div>

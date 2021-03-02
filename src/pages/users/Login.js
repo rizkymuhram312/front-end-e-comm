@@ -31,16 +31,51 @@ const Login = () => {
             user_password : user_password
         }
         console.log(data)
+
+
+        
+
+
         axios.post('http://192.168.100.35:3001/api/users/signin', data)
         .then(result => {
             if(result) {
+                console.log(result)
+                
                 localStorage.setItem('token', result.data.token)
+                localStorage.setItem('dataUserPass', data.user_password)
+                localStorage.setItem('dataUserEmail', data.user_email)
+
+
+
+                const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
+                // console.log(a)
                 setRedirect(true)
             }
         })
         .catch(e => {
             setError(e.response.data.message)
+           
+
         })
+
+        
+
+        // const config = {
+        //     headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
+        // };
+        
+        // const bodyParameters = {
+        //    key: "value"
+        // };
+        
+        // axios.post( 
+        //   'http://192.168.100.35:3001/api/users',
+        //   bodyParameters,
+        //   config
+        // ).then(console.log).catch(console.log);
+
+
+      
     }
 
     return (
