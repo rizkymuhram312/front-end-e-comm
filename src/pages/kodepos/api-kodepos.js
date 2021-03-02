@@ -36,7 +36,7 @@ const create = async (kodepos) => {
   
   const updateKodepos = async (kodepos) => {
     try {
-        let response = await axios.put(`http://192.168.100.35:3001/api/kodepos/${kodepos.kec_id}`,{
+        let response = await axios.put(`http://192.168.100.35:3001/api/kodepos/${kodepos.kodepos}`,{
           data : kodepos
         })
         return await response.data
