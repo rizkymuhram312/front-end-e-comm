@@ -16,6 +16,7 @@ import Profil from '../userAccount/profil'
 import Account from '../userAccount/account'
 import Upload from '../userAccount/upload'
 import RegisterAccount from '../userAccount/registerAccount'
+import UbahPassword from '../users/ubahpassword'
 
 const axios = require('axios');
 
@@ -174,7 +175,7 @@ const DashboardUserAccount = () => {
                  
 
                   <div>
-                    sdagdbfn 
+                    <UbahPassword /> 
                   </div>
 
                 </div>
