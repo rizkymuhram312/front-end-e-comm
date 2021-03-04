@@ -5,9 +5,10 @@ export default class Home extends Component {
         return (
             <div>
                 <center>
-                <font size="7"><b>Selamat Datang {localStorage.getItem('dataUserEmail')}</b></font>
+                    <font size="7"><b>Selamat Datang {localStorage.getItem('dataUserEmail')}</b></font>
                 </center>
             </div>
+
         )
     }
 }
