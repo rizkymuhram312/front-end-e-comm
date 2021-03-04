@@ -24,19 +24,22 @@ export const TableKecamatan = props => {
                                 <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">kecamatan Id</th>
                                 <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">kecamatan Name</th>
                                 <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">city id</th>
+                                <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">city name</th>
                                 <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Action</th>
                             </tr>
                         </thead>
                         <tbody >
                             {
-                                props.kecamatan.length > 0 ?
-                                    props.kecamatan.map((kecamatan, index) => {
-                                        return (<tr key={kecamatan.id} >
-                                            
+                                 props.city.length > 0 ?
+                                 props.city.map(city => {
+                                     return city.kecamatans.map((kecamatan, index) => {
+                                         // return console.log(city)
+                                         return (<tr key={index} >
                                             
                                             <td className="text-center" key="{kec_id}">{kecamatan.kec_id}</td>
                                             <td className="text-center" key="{kec_name}">{kecamatan.kec_name}</td>
                                             <td className="text-center" key="{kec_city_id}">{kecamatan.kec_city_id}</td>
+                                            <td className="text-center" key="{city_name}">{city.city_name}</td>
 
                                             <td className="text-center">
                                                 <button onClick= {() => {
@@ -63,6 +66,8 @@ export const TableKecamatan = props => {
 
                                             </td>
                                         </tr>)
+                                     })
+
                                     }) :
                                     <tr>
                                         <td colSpan={3}>No Records Found.</td>

@@ -126,16 +126,16 @@ export default class AddEditForm extends Component {
                                                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
-                                                    Kodepos Id
+                                                    Kecamatan Name
                                             </label>
-                                                <input required
-                                                    type="text"
-                                                    name="kodeposKecId"
-                                                    value={kodeposKecId}
-                                                    onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                <select name="kodeposKecId" value={kodeposKecId} onChange={this.handleOnChange}>
+                                                    {
+                                                        this.props.kecamatan.map((e) => {
 
-                                                />
+                                                            return (<option value={e.kec_id}>{e.kec_name}</option>)
+                                                        })
+                                                    }
+                                                </select>
                                             </div>
                                         </div>
                                        
