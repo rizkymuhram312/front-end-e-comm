@@ -104,7 +104,7 @@ const Login = () => {
         <Fragment>
             {
                 redirect && (
-                    <Redirect to="/dashboard" />
+                    <Redirect to="/home" />
                 )
             }
 

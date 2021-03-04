@@ -29,7 +29,7 @@ const DashboardUsers = () => {
 
 
   if (!token) {
-    alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
+    // alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
     return <Redirect to="/login" />
   }
 
