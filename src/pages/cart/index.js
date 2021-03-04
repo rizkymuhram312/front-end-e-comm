@@ -156,7 +156,7 @@ export default function Cart() {
 
   return (
       <div className="flex flex-wrap">
-        <div className="md:w-3/12 md:mt-10 px-1 text-center font-bold text-xl pr-10">
+        <div className="w-full md:w-3/12 md:mt-10 px-1 text-center font-bold text-xl mb-4">
           My Cart
         </div>
         <div className="w-full md:w-9/12 px-1 ">
