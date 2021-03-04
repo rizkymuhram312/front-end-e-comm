@@ -13,8 +13,9 @@ import Kecamatan from './pages/kecamatan/kecamatan'
 import Kodepos from './pages/kodepos/kodepos'
 import MyOrders from './pages/orders/myOrders'
 import Advertising from './pages/advertising'
-
-
+import TambahProduct from './pages/product/tambahProduct';
+import Product from './pages/product/product';
+import ProductSaya from './pages/product/productSaya';
 
 function App() {
   return (
@@ -36,6 +37,9 @@ function App() {
           <Route path="/kodepos" component={Kodepos} exact />
           <Route path="/myorders" component={MyOrders}/>
           <Route path="/advertising" component={Advertising}/>
+          <Route path="/product" component={Product} />
+          <Route path="/productsaya" component={ProductSaya}/>
+          <Route path="/tambahproduct" component={TambahProduct} />
         </Switch>
       </div>
       </>
