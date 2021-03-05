@@ -16,6 +16,7 @@ import Advertising from './pages/advertising'
 import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
+import billTopup from './pages/billTopup'
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/product" component={Product} />
           <Route path="/productsaya" component={ProductSaya}/>
           <Route path="/tambahproduct" component={TambahProduct} />
+          <Route path="/billTopup" component={billTopup}/>
         </Switch>
       </div>
       </>
