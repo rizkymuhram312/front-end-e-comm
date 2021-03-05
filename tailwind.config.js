@@ -13,14 +13,7 @@ module.exports = {
       }
     },
     variants: {
-<<<<<<< HEAD
       // display: ["group-hover"]
     },
     plugins: []
   };
-=======
-      extend: {},
-    },
-    plugins: [],
-  }
->>>>>>> d4b7db39d1ddf5f8515cd1aca764a362a7021894

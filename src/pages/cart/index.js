@@ -15,7 +15,6 @@ export default function Cart() {
   }, []);
 
   useEffect(() => {
-    // console.log(checked)
     let allChecked = true;
     for (const index in checked) {
       if (checked[index] === false) {
@@ -29,12 +28,28 @@ export default function Cart() {
     }
   }, [checked])
 
+  useEffect(() => {
+    console.log(Cart)
+  }, [Cart])
+
   const toggleCheck = (index) => {
+    let check = false
     setChecked((prevState) => {
       const newState = [...prevState];
       newState[index] = !prevState[index];
+      check = !prevState[index];
       return newState;
     });
+    setCart((prevState)=>{
+      const newState = [...prevState]
+      if(check === false){
+        newState[index].clit_stat_name = 'PENDING'
+      } else {
+        newState[index].clit_stat_name = 'CHECKOUT'
+      }
+      return newState
+    })
+
   };
 
   const toggleDelete = (index) => {
@@ -105,7 +120,8 @@ export default function Cart() {
       return{...x, 
         clit_qty: x.clit_qty-1,
         clit_subweight: (x.clit_qty-1)*x.product.prod_weight,
-        clit_subtotal: (x.clit_qty-1)*x.product.prod_price}
+        clit_subtotal: (x.clit_qty-1)*x.product.prod_price,
+      }
     }))
     if(checked[idx]===true){
       setOrder({
@@ -137,7 +153,7 @@ export default function Cart() {
 
   async function fetchCart() {
     return await axios({
-      url: `http://localhost:3003/api/cart/1001`,
+      url: `http://localhost:3003/api/cart/1001/PENDING`,
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -152,6 +168,25 @@ export default function Cart() {
         setCart(res.data[0].cart_line_items)
       })
       .catch((err) => console.error(err));
+  }
+
+  const checkout = async () =>{
+      setOrder({
+        ...Order,
+        cart_line_items:Cart
+      })
+      return await axios({
+        url: `http://localhost:3003/api/cart/1`,
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          console.log(res)
+          return fetchCart()
+        })
+        .catch((err) => console.error(err));
   }
 
   return (
@@ -237,7 +272,8 @@ export default function Cart() {
             <div>Subtotal untuk Produk({Order.cart_total_qty} produk) </div>
             <div>{Order.cart_total_amount}</div>
             <div>
-              <button className=" font-bold bg-secondary text-white lg:p-3 p-2 hover:bg-item rounded lg:mr-5">
+              <button className=" font-bold bg-secondary text-white lg:p-3 p-2 hover:bg-item rounded lg:mr-5"
+              onClick={checkout}>
                 Checkout
               </button>
             </div>

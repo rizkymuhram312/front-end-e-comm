@@ -1,6 +1,5 @@
 @tailwind base;
 @tailwind components;
-<<<<<<< HEAD
 @tailwind utilities;
 
 body{
@@ -10,6 +9,3 @@ body{
 .dropdown:hover .dropdown-menu {
     display: block;
   }
-=======
-@tailwind utilities;
->>>>>>> d4b7db39d1ddf5f8515cd1aca764a362a7021894
