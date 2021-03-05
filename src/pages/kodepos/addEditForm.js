@@ -48,6 +48,7 @@ export default class AddEditForm extends Component {
             kodepos_kec_id : this.state.kodeposKecId,
 
         };
+        // console.log(this.state.isEdit)
  
         if (!this.state.isEdit){
             create(kodepos).then(response => {
@@ -126,16 +127,16 @@ export default class AddEditForm extends Component {
                                                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
-                                                    Kecamatan Name
+                                                    Kodepos Id
                                             </label>
-                                                <select name="kodeposKecId" value={kodeposKecId} onChange={this.handleOnChange}>
-                                                    {
-                                                        this.props.kecamatan.map((e) => {
+                                                <input required
+                                                    type="text"
+                                                    name="kodeposKecId"
+                                                    value={kodeposKecId}
+                                                    onChange={this.handleOnChange}
+                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
-                                                            return (<option value={e.kec_id}>{e.kec_name}</option>)
-                                                        })
-                                                    }
-                                                </select>
+                                                />
                                             </div>
                                         </div>
                                        
