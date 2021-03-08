@@ -100,17 +100,17 @@ export default function Navbar({ fixed }) {
                 <img src="cewe.jpg" alt="..." className="shadow rounded-full max-w-full h-6 align-middle border-none mr-4" /> 
                 <li className="nav-item">
                   
-                <div class="dropdown inline-block relative">
+                <div className="dropdown inline-block relative">
                   
                 <button className="text-center ">
-                  <span class="mr-1 font-semibold capitalize">{localStorage.getItem('dataUserName')}
-                  {/* <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /> </svg> */}
+                  <span className="mr-1 font-semibold capitalize">{localStorage.getItem('dataUserName')}
+                  {/* <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /> </svg> */}
                 </span>
                 </button>
-                <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
-                  <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser">Profil</a></li>
-                  <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Account</a></li>
-                  <li class=""><a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={klikLogout}>Sign Out</a></li>
+                <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
+                  <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser">Profil</a></li>
+                  <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard">Dashboard</a></li>
+                  <li className=""><a className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={klikLogout}>Sign Out</a></li>
                 </ul>
               </div>
                 </li>

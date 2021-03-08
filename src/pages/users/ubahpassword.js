@@ -91,8 +91,8 @@ const UbahPassword = (props) => {
                 <h1 className="font-bold text-xl">Ubah Password</h1>
                 <p>Untuk keamanan akun Anda, mohon untuk tidak menyebarkan password Anda ke orang lain.</p>
                 <hr className="my-4"></hr>
-                <div class=" flex-wrap">
-                    <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                <div className=" flex-wrap">
+                    <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                         <span></span>
 
                     {
@@ -113,9 +113,9 @@ const UbahPassword = (props) => {
                         <h1 hidden value={email}>{localStorage.getItem('dataUserEmail')}</h1>
                     </div>
 
-                    <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                    <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                         <h1 className="justify-self-end">Password Saat Ini : </h1>
-                        <input type="password" id="nama" class="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan"  value={currPassword} onChange={changeCurrPassword}/>
+                        <input type="password" id="currPassword" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan"  value={currPassword} onChange={changeCurrPassword}/>
 
                         {
                             errorCurrPassword && (
@@ -124,9 +124,9 @@ const UbahPassword = (props) => {
                         }
 
                     </div>
-                    <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                    <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                         <h1 className="justify-self-end">Password Yang Baru : </h1>
-                        <input type="password" id="nama" class="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={password} onChange={changePassword}/>
+                        <input type="password" id="newPassword" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={password} onChange={changePassword}/>
 
                         {
                             errorPassword && (
@@ -134,9 +134,9 @@ const UbahPassword = (props) => {
                                 )
                         }
                     </div>
-                    <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                    <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                         <h1 className="justify-self-end">Konfirmasi Password : </h1>
-                        <input type="password" id="nama" class="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={confirmPassword} onChange={changeConfirmPassword}/>
+                        <input type="password" id="confPassword" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={confirmPassword} onChange={changeConfirmPassword}/>
 
                         {
                             errorConfirmPassword && (

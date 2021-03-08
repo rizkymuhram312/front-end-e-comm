@@ -12,6 +12,7 @@ import Users from './pages/users/users'
 import Kecamatan from './pages/kecamatan/kecamatan'
 import Kodepos from './pages/kodepos/kodepos'
 import DashboardUserAccount from './pages/home/DashboardUserAccount'
+import Address from './pages/address/address'
 
 
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/kecamatan" component={Kecamatan} exact />
           <Route path="/kodepos" component={Kodepos} exact />
           <Route path="/dashboarduser" component={DashboardUserAccount} exact />
+          <Route path="/address" component={Address} exact />
 
 
 

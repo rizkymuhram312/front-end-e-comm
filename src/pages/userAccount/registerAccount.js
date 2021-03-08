@@ -84,7 +84,6 @@ const daftarAccount = () => {
   }
 
 
-
   axios.post('http://localhost:3001/api/account', data)
   .then(result => {
       if ( result ) {
@@ -98,7 +97,12 @@ const daftarAccount = () => {
               setBirthdate('')
               setAlert(result.data.message)
               setTimeout (() => {
-                  setAlert('')
+              setAlert('')
+              localStorage.setItem('dataAccountId', result.data.acco_id)
+              localStorage.setItem('dataAccountShopName', result.data.acco_shopname)
+              localStorage.setItem('dataAccountPhone', result.data.acco_phone)
+              localStorage.setItem('dataAccountBirthdate', result.data.acco_birthdate)
+              
               }, 2500)
           }
       }
@@ -136,53 +140,53 @@ const daftarAccount = () => {
                 <h1 className="font-bold text-xl">Profil Saya</h1>
                 <p>Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun</p>
                 <hr className="my-4"></hr>
-                <div class=" flex-wrap">
-                <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                <div className=" flex-wrap">
+                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <h1 className="justify-self-end">Username : </h1>
                     <h1>{localStorage.getItem('dataUserName')}</h1>
                 </div>
-                <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <h1 className="justify-self-end">Nama : </h1>
  
-                    <input type="text" id="nama" class="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={nama}
+                    <input type="text" id="nama" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={nama}
                     onChange={onChangeNama}/>
  
                 </div>
-                <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <h1 className="justify-self-end">Email : </h1>
                     <h1>{localStorage.getItem('dataUserEmail')}</h1>
                 </div>
-                <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <h1 className="justify-self-end">Nomor Telepon : </h1>
-                    <input type="text" id="nama" class="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={phone}
+                    <input type="text" id="notlp" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={phone}
                     onChange={onChangePhone}/>
                     
                 </div>
-                <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <h1 className="justify-self-end">Nama Toko : </h1>
-                    <input type="text" id="nama" class="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan"  value={shopName}
+                    <input type="text" id="namaToko" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan"  value={shopName}
                     onChange={onChangeShopName}/>
                 </div>
                
-                <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <label
-                        for="gender"
-                        class=" justify-self-end">
+                        htmlFor="gender"
+                        className=" justify-self-end">
                         Jenis Kelamin :
                     </label>
                     <span className="col-span-2">
                         <input type="radio" id="laki" name="gender" value="L"  onClick={onChangeGender}/>
-                        <label className="mr-10" for="male"> Lelaki</label>
+                        <label className="mr-10" htmlFor="male"> Lelaki</label>
                         <input type="radio" id="perempuan" name="gender" value="P" onClick={onChangeGender}/>
-                        <label for="female"> Perempuan </label>
+                        <label htmlFor="female"> Perempuan </label>
                     </span>
                 </div>
 
 
               
-                <div class=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                     
-                    <label for="birthdate" class=" justify-self-end">
+                    <label htmlFor="birthdate" className=" justify-self-end">
                     Tanggal Lahir
                     </label>
                      <input

@@ -17,6 +17,7 @@ import Account from '../userAccount/account'
 import Upload from '../userAccount/upload'
 import RegisterAccount from '../userAccount/registerAccount'
 import UbahPassword from '../users/ubahpassword'
+import Address from '../address/address'
 
 const axios = require('axios');
 
@@ -167,7 +168,7 @@ const DashboardUserAccount = () => {
                 <div className={openTab === 3 ? "block" : "hidden"} id="link2">
 
                   <div>
-                    sadbnhg,fxgfx sbfx
+                    <Address />
                   </div>
 
                 </div>
