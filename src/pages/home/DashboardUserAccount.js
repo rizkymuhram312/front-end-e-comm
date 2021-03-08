@@ -18,6 +18,7 @@ import Upload from '../userAccount/upload'
 import RegisterAccount from '../userAccount/registerAccount'
 import UbahPassword from '../users/ubahpassword'
 import Address from '../address/address'
+import Profil2 from '../userAccount/profil2'
 
 const axios = require('axios');
 
@@ -74,7 +75,7 @@ const DashboardUserAccount = () => {
                   setOpenTab(1);
                 }}
                 data-toggle="tab"
-                href="#"
+                href="#/profile"
                 role="tablist"
               >
                 Profil
@@ -96,7 +97,7 @@ const DashboardUserAccount = () => {
                   setOpenTab(2);
                 }}
                 data-toggle="tab"
-                href="#/province"
+                href="#/akun"
                 role="tablist"
               >
                 Akun Saya
@@ -115,7 +116,7 @@ const DashboardUserAccount = () => {
                   setOpenTab(3);
                 }}
                 data-toggle="tab"
-                href="#/city"
+                href="#/alamat"
                 role="tablist"
               >
                 Alamat
@@ -134,7 +135,7 @@ const DashboardUserAccount = () => {
                   setOpenTab(4);
                 }}
                 data-toggle="tab"
-                href="#link3"
+                href="#ubahpassword"
                 role="tablist"
               >
                 Ubah Password
@@ -151,7 +152,7 @@ const DashboardUserAccount = () => {
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
 
                   <div>
-                    <Profil />
+                    <Profil2 />
                   </div>
 
                 </div>

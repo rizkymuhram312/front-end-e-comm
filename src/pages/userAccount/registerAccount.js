@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Upload from "./upload";
+import { apiUserMaster } from '../../config/apiUrl'
 
 
 
@@ -84,7 +85,7 @@ const daftarAccount = () => {
   }
 
 
-  axios.post('http://localhost:3001/api/account', data)
+  axios.post(`${apiUserMaster}/account`, data)
   .then(result => {
       if ( result ) {
           console.log(result.data)

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+    background-color: #F6F7Fb;
+}
+
 .dropdown:hover .dropdown-menu {
     display: block;
   }

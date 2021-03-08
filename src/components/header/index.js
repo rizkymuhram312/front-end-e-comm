@@ -50,8 +50,8 @@ export default function Navbar({ fixed }) {
     <nav className="fixed z-50 w-full bg-background top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-          <a className="leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-gray-800" href='/'>
-            <span className="text-xl font-bold">E-Commerce CODE.ID</span>
+          <a className="leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-gray-800" href='/'> 
+            <span className="text-xl font-bold">E-Commerce</span>
           </a>
           <button
             className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
@@ -149,7 +149,7 @@ export default function Navbar({ fixed }) {
                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
                     href="/daftar"
                   >
-                    <i className="fab fa-facebook-square text-lg leading-lg  opacity-75"></i>
+                    <i className="fas fa-user-plus text-lg leading-lg  opacity-75"></i>
 
                     <span className="ml-2">Sign Up</span>
                   </a>
@@ -159,7 +159,7 @@ export default function Navbar({ fixed }) {
                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
                     href="/login"
                   >
-                    <i className="fab fa-twitter text-lg leading-lg  opacity-75"></i>
+                    <i className="fas fa-sign-in-alt text-lg leading-lg  opacity-75"></i>
                     <span className="ml-2">Sign In</span>
                   </a>
                 </li>

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 
+import { apiUserMaster } from '../../config/apiUrl'
 
 
 
@@ -70,7 +71,7 @@ const UbahPassword = (props) => {
 
         }
         console.log(data)
-        axios.post('http://192.168.100.35:3001/api/users/ubahpassword', data)
+        axios.post(`${apiUserMaster}/users/ubahpassword`, data)
         .then(res => {
             if(res) {
                 setPassword('')

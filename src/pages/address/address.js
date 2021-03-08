@@ -1,6 +1,7 @@
 import axios from "axios";
 import react from "react";
 import React, { useEffect, useState } from "react";
+import { apiUserMaster } from '../../config/apiUrl'
 
 
 
@@ -11,7 +12,7 @@ const Address = () => {
   const [alamat, setAddress] = useState([]);
 
   useEffect(() => {
-      axios.get('http://localhost:3001/api/address/')
+      axios.get(`${apiUserMaster}/address/`)
       .then(res => {
 
         setAddress(res.data)

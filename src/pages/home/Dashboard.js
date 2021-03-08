@@ -7,8 +7,6 @@ import { Route, Switch, Redirect, BrowserRouter, render } from 'react-router-dom
 
 import Province from '../province/province'
 import Users from '../users/users'
-
-import Donut from 'react-svg-donuts';
 import City from '../city/city'
 import Kecamatan from '../kecamatan/kecamatan'
 import Kodepos from '../kodepos/kodepos'

@@ -1,6 +1,7 @@
 import React, { useState , Fragment } from 'react';
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
+import { apiUserMaster } from '../../config/apiUrl'
 
 
 
@@ -36,13 +37,23 @@ const Login = () => {
         
 
 
-        axios.post('http://192.168.100.35:3001/api/users/signin', data)
+        axios.post(`${apiUserMaster}/users/signin`, data)
         .then(result => {
             console.log(result)
             if(result.data.users.accounts != null) {
                 // console.log(result)
                 let acco_id = result.data.users.accounts.acco_id
-                localStorage.setItem('acco_id', acco_id)
+                localStorage.setItem('dataAccountId', acco_id)
+
+                let acco_shopname = result.data.users.accounts.acco_shopname
+                localStorage.setItem('dataAccountShopName', acco_shopname)
+
+                let acco_birthdate = result.data.users.accounts.acco_birthdate
+                localStorage.setItem('dataAccountBirthdate', acco_birthdate)
+
+                let acco_phone = result.data.users.accounts.acco_phone
+                localStorage.setItem('dataAccountPhone', acco_phone)
+
                 localStorage.setItem('dataUserName', result.data.users.user_name)
                 localStorage.setItem('token', result.data.token)
                 localStorage.setItem('dataUserPass', data.user_password)
