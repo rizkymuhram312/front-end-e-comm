@@ -30,17 +30,63 @@ const Login = () => {
             user_email : user_email,
             user_password : user_password
         }
-        console.log(data)
+        // console.log(data)
+
+
+        
+
+
         axios.post('http://192.168.100.35:3001/api/users/signin', data)
         .then(result => {
             if(result) {
+                // console.log(result)
+                let acco_id = result.data.users.accounts.acco_id
+
+                localStorage.setItem('acco_id', acco_id)
+                localStorage.setItem('dataUserName', result.data.users.user_name)
                 localStorage.setItem('token', result.data.token)
+                localStorage.setItem('dataUserPass', data.user_password)
+                localStorage.setItem('dataUserEmail', data.user_email)
+
+               
+                const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
+
+                const tokenParts = result.data.token.split('.')
+                const encodedPayload = tokenParts[1]
+                const rawPayload = atob(encodedPayload)
+                const hasiltoken = JSON.parse(rawPayload)
+                console.log(hasiltoken) // outputs 'bob'
+                console.log(result.data.token) // outputs 'bob'
+
+
+                // console.log(a)
                 setRedirect(true)
             }
         })
         .catch(e => {
             setError(e.response.data.message)
+           
+
         })
+
+        
+
+        // const config = {
+        //     headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
+        // };
+        
+        // const bodyParameters = {
+        //    key: "value"
+        // };
+        
+        // axios.post( 
+        //   'http://192.168.100.35:3001/api/users',
+        //   bodyParameters,
+        //   config
+        // ).then(console.log).catch(console.log);
+
+
+      
     }
 
     return (

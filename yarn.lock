@@ -1183,24 +1183,24 @@
 
 "@fortawesome/fontawesome-common-types@^0.2.34":
   version "0.2.34"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.34.tgz#0a8c348bb23b7b760030f5b1d912e582be4ec915"
+  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.34.tgz"
   integrity sha512-XcIn3iYbTEzGIxD0/dY5+4f019jIcEIWBiHc3KrmK/ROahwxmZ/s+tdj97p/5K0klz4zZUiMfUlYP0ajhSJjmA==
 
 "@fortawesome/fontawesome-free@^5.15.2":
   version "5.15.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.2.tgz#218cd7276ab4f9ab57cc3d2efa2697e6a579f25d"
+  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.2.tgz"
   integrity sha512-7l/AX41m609L/EXI9EKH3Vs3v0iA8tKlIOGtw+kgcoanI7p+e4I4GYLqW3UXWiTnjSFymKSmTTPKYrivzbxxqA==
 
 "@fortawesome/fontawesome-svg-core@^1.2.34":
   version "1.2.34"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.34.tgz#1d1a7c92537cbc2b8a83eef6b6d824b4b5b46b26"
+  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.34.tgz"
   integrity sha512-0KNN0nc5eIzaJxlv43QcDmTkDY1CqeN6J7OCGSs+fwGPdtv0yOQqRjieopBCmw+yd7uD3N2HeNL3Zm5isDleLg==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.34"
 
 "@fortawesome/free-solid-svg-icons@^5.15.2":
   version "5.15.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.15.2.tgz#25bb035de57cf85aee8072965732368ccc8e8943"
+  resolved "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.15.2.tgz"
   integrity sha512-ZfCU+QjaFsdNZmOGmfqEWhzI3JOe37x5dF4kz9GeXvKn/sTxhqMtZ7mh3lBf76SvcYY5/GKFuyG7p1r4iWMQqw==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.34"
@@ -1243,6 +1243,11 @@
   integrity sha512-tAag0jEcjwH+P2quUfipd7liWCNX2F8NvYjQp2wtInsZxnMlypdw0FtAOLxtvvkO+GSRRbmNi8m/5y42PQJYCQ==
   dependencies:
     "@hapi/hoek" "^8.3.0"
+
+"@headlessui/react@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/@headlessui/react/-/react-0.3.1.tgz"
+  integrity sha512-GnAVXCLmDs3CFvmvYo4Iu/LqAWVIoS+bGo+eMADnbWgF8BeMX13sWMyb8eOdj7N9nqY9QA2AsMzqYdAIbbsRIw==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
@@ -1471,6 +1476,11 @@
     native-url "^0.2.6"
     schema-utils "^2.6.5"
     source-map "^0.7.3"
+
+"@popperjs/core@2.4.4":
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.4.tgz#11d5db19bd178936ec89cd84519c4de439574398"
+  integrity sha512-1oO6+dN5kdIA3sKPZhRGJTfGVP4SWV6KqlMOwry4J3HfyD68sl/3KmG7DeYUzvN+RbhXDnv/D8vNNB8168tAMg==
 
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
@@ -2567,7 +2577,7 @@ axe-core@^4.0.2:
 
 axios@^0.21.1:
   version "0.21.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  resolved "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz"
   integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
   dependencies:
     follow-redirects "^1.10.0"
@@ -9178,11 +9188,6 @@ react-error-overlay@^6.0.9:
   resolved "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.9.tgz"
   integrity sha512-nQTTcUu+ATDbrSD1BZHr5kgSD4oF8OFjxun8uAaL8RwPBacGBNPf/yAuVVdx17N8XNzRDMrZ9XcKZHCjPW+9ew==
 
-react-icons@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.npmjs.org/react-icons/-/react-icons-4.2.0.tgz"
-  integrity sha512-rmzEDFt+AVXRzD7zDE21gcxyBizD/3NqjbX6cmViAgdqfJ2UiLer8927/QhhrXQV7dEj/1EGuOTPp7JnLYVJKQ==
-
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -9192,6 +9197,13 @@ react-is@^17.0.1:
   version "17.0.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.1.tgz"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
+
+react-number-format@^4.4.4:
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-4.4.4.tgz#2a7f50be404f990ec15855cc6babfeae1be16351"
+  integrity sha512-/MuF1GOs1Z0xBaQie8+TTqCxUTT8xxjc6RqIFVWcWB6FM8GNIenSh2ayzN6Y1J2WMcXUDVwMdDXjweHKVjXm/w==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-refresh@^0.8.3:
   version "0.8.3"
@@ -9292,6 +9304,11 @@ react-scripts@4.0.2:
     workbox-webpack-plugin "5.1.4"
   optionalDependencies:
     fsevents "^2.1.3"
+
+react-svg-donuts@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-svg-donuts/-/react-svg-donuts-2.0.1.tgz#de82a638bd7cdc02ee49c5c92ea11031f86c0679"
+  integrity sha512-5lvE6/UQvy66/ixIcuBGXShVa3+B/I3fsUKXV6w4Tan6Ak5RqqB38Xce+O1wyXA1r/t8bWhvS4WkdQ4Y9SRSyQ==
 
 react@^17.0.1:
   version "17.0.1"

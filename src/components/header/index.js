@@ -1,21 +1,52 @@
 import React, { useEffect, useState } from "react";
-import { FaBars } from "react-icons/fa";
+import { Redirect } from "react-router-dom";
 
 export default function Navbar({ fixed }) {
- 
+
   const [isLogin, setisLogin] = useState(false)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+
+
+  const [value, setValue] = useState();
+  const refresh = () => {
+    // re-renders the component
+    setValue({});
+  }
+
+
+
   useEffect(() => {
-    console.log(isLogin)
-    if(localStorage.token==null || localStorage.token==undefined){
-      setisLogin(false)
+    // console.log(isLogin)
+    if (localStorage.token == null || localStorage.token == undefined) {
+      setisLogin(false);
+      setValue({});
+
     }
     else {
-      
-      setisLogin(true)
+
+      setisLogin(true);
+      setValue({});
     }
+    setValue({});
   }, [localStorage.token])
+
+  const klikLogout = () => {
+    localStorage.clear()
+
+    alert("Anda Berhasil Logout!");
+    setValue({});
+    <Redirect to="/home" />
+  }
+
+
+
+
+
+
+
+
   return (
+
     <nav className="fixed z-50 w-full bg-background top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
@@ -27,7 +58,7 @@ export default function Navbar({ fixed }) {
             type="button"
             onClick={() => setNavbarOpen(!navbarOpen)}
           >
-            <FaBars />
+            <i className="fas fa-bars" />
           </button>
         </div>
         <div className="relative flex w-full md:w-7/12 px-4 flex-wrap items-stretch lg:ml-auto">
@@ -49,41 +80,87 @@ export default function Navbar({ fixed }) {
           }
           id="example-navbar-danger"
         >
-          {isLogin?(
-            <>
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-            <li className="nav-item">
-              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
-                href="#">
-                <i className="fab fa-twitter text-lg leading-lg  opacity-75"></i>
-                <span className="ml-2">Sign Out</span>
-              </a>
-              </li>
-              </ul>
-            </>
-          ):(
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-            <li className="nav-item">
-              <a
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
-                href="/daftar"
-              >
-                <i className="fab fa-facebook-square text-lg leading-lg  opacity-75"></i>
 
-                <span className="ml-2">Sign Up</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
-                href="/login"
-              >
-                <i className="fab fa-twitter text-lg leading-lg  opacity-75"></i>
-                <span className="ml-2">Sign In</span>
-              </a>
-            </li>
-          </ul>
-          )}
+
+
+          {isLogin ? (
+
+            <>
+
+
+
+
+              
+
+
+
+
+              <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+                <li className="nav-item">
+                <div class="dropdown inline-block relative">
+                <button>
+                  <span class="mr-1 font-semibold">{localStorage.getItem('dataUserName')}
+                  {/* <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /> </svg> */}
+                </span>
+                </button>
+                <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+                  <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Profil</a></li>
+                  <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Account</a></li>
+                  <li class=""><a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={klikLogout}>Sign Out</a></li>
+                </ul>
+              </div>
+                </li>
+              </ul>
+
+
+
+
+
+
+              {/* <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+                <li className="nav-item">
+                  <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
+                    href="">
+                    <i className="fab fa-twitter text-lg leading-lg  opacity-75"></i>
+                    <span className="ml-2" onClick={klikLogout}>{localStorage.getItem('dataUserEmail')}</span>
+                  </a>
+                </li>
+              </ul> */}
+
+
+
+
+
+            </>
+
+
+
+          ) : (
+
+
+
+              <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+                <li className="nav-item">
+                  <a
+                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
+                    href="/daftar"
+                  >
+                    <i className="fas fa-user-plus text-lg leading-lg  opacity-75"></i>
+
+                    <span className="ml-2">Sign Up</span>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
+                    href="/login"
+                  >
+                    <i className="fas fa-sign-in-alt text-lg leading-lg  opacity-75"></i>
+                    <span className="ml-2">Sign In</span>
+                  </a>
+                </li>
+              </ul>
+            )}
         </div>
       </div>
     </nav>
