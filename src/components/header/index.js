@@ -1,8 +1,19 @@
-import React from "react";
-import { FaBars } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
 
 export default function Navbar({ fixed }) {
+ 
+  const [isLogin, setisLogin] = useState(false)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  useEffect(() => {
+    console.log(isLogin)
+    if(localStorage.token==null || localStorage.token==undefined){
+      setisLogin(false)
+    }
+    else {
+      
+      setisLogin(true)
+    }
+  }, [localStorage.token])
   return (
     <nav className="fixed z-50 w-full bg-background top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
@@ -15,7 +26,7 @@ export default function Navbar({ fixed }) {
             type="button"
             onClick={() => setNavbarOpen(!navbarOpen)}
           >
-            <FaBars />
+            <i className="fas fa-bars" />
           </button>
         </div>
         <div className="relative flex w-full md:w-7/12 px-4 flex-wrap items-stretch lg:ml-auto">
@@ -37,26 +48,41 @@ export default function Navbar({ fixed }) {
           }
           id="example-navbar-danger"
         >
-          <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+          {isLogin?(
+            <>
+            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+            <li className="nav-item">
+              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
+                href="#">
+                <i className="fab fa-twitter text-lg leading-lg  opacity-75"></i>
+                <span className="ml-2">Sign Out</span>
+              </a>
+              </li>
+              </ul>
+            </>
+          ):(
+            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
             <li className="nav-item">
               <a
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
-                href="#pablo"
+                href="/daftar"
               >
                 <i className="fab fa-facebook-square text-lg leading-lg  opacity-75"></i>
+
                 <span className="ml-2">Sign Up</span>
               </a>
             </li>
             <li className="nav-item">
               <a
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
-                href="#pablo"
+                href="/login"
               >
                 <i className="fab fa-twitter text-lg leading-lg  opacity-75"></i>
-                <span className="ml-2">Login</span>
+                <span className="ml-2">Sign In</span>
               </a>
             </li>
           </ul>
+          )}
         </div>
       </div>
     </nav>
