@@ -9,7 +9,7 @@ export const TableCity = props => {
                 <div className="rounded-t mb-0 px-4 py-3 border-0">
                     <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                            <h3 className="font-semibold text-base text-gray-800">List city</h3>
+                            <h3 className="uppercase font-semibold text-base text-gray-800">List city</h3>
                         </div>
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                             <button onClick={() => props.setShowModal(true)}
@@ -24,8 +24,8 @@ export const TableCity = props => {
                             <tr>
                                 <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">city Id</th>
                                 <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">city Name</th>
-                                <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">city Province Id</th>
-                                <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">province</th>
+                                <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Province Id</th>
+                                <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">province Name</th>
                                 <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Action</th>
                             </tr>
                         </thead>
@@ -39,10 +39,10 @@ export const TableCity = props => {
                                             // return console.log(city)
                                             return (<tr key={index} >
 
-                                                <td className="text-center">{city.city_id}</td>
-                                                <td className="text-center">{city.city_name}</td>
-                                                <td className="text-center">{city.city_prov_id}</td>
-                                                <td className="text-center">{province.prov_name}</td>
+                                                <td className="uppercase text-center">{city.city_id}</td>
+                                                <td className="uppercase text-center">{city.city_name}</td>
+                                                <td className="uppercase text-center">{city.city_prov_id}</td>
+                                                <td className="uppercase text-center">{province.prov_name}</td>
 
                                                 <td className="text-center">
                                                     <button onClick={() => {
