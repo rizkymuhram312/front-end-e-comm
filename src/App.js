@@ -16,13 +16,19 @@ import RegisterAccount from './pages/users/RegisterAccount'
 
 
 
+import MyOrders from './pages/orders/myOrders'
+import Advertising from './pages/advertising'
+import TambahProduct from './pages/product/tambahProduct';
+import Product from './pages/product/product';
+import ProductSaya from './pages/product/productSaya';
+import billTopup from './pages/billTopup'
 
 function App() {
   return (
     <BrowserRouter>
       <>
       <Header />
-      <div className="container mx-auto px-4 pt-40 lg:pt-20 pb-10">
+      <div className="container mx-auto sm:px-4 pt-40 lg:pt-20 pb-10">
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/cart" component={Cart} />
@@ -36,15 +42,12 @@ function App() {
           <Route path="/kecamatan" component={Kecamatan} exact />
           <Route path="/kodepos" component={Kodepos} exact />
           <Route path="/registerAccount" component={RegisterAccount} exact />
-
-
-
-
-
-
-
-
-
+          <Route path="/myorders" component={MyOrders}/>
+          <Route path="/advertising" component={Advertising}/>
+          <Route path="/product" component={Product} />
+          <Route path="/productsaya" component={ProductSaya}/>
+          <Route path="/tambahproduct" component={TambahProduct} />
+          <Route path="/billTopup" component={billTopup}/>
         </Switch>
       </div>
       </>

@@ -2,6 +2,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ModalDelete from "../../components/modal/ModalDelete"
+import {apiCart} from "../../config/apiUrl" 
 
 export default function Cart() {
   const [checkedAll, setCheckedAll] = useState(false);
@@ -15,7 +16,6 @@ export default function Cart() {
   }, []);
 
   useEffect(() => {
-    // console.log(checked)
     let allChecked = true;
     for (const index in checked) {
       if (checked[index] === false) {
@@ -29,12 +29,28 @@ export default function Cart() {
     }
   }, [checked])
 
+  useEffect(() => {
+    console.log(Cart)
+  }, [Cart])
+
   const toggleCheck = (index) => {
+    let check = false
     setChecked((prevState) => {
       const newState = [...prevState];
       newState[index] = !prevState[index];
+      check = !prevState[index];
       return newState;
     });
+    setCart((prevState)=>{
+      const newState = [...prevState]
+      if(check === false){
+        newState[index].clit_stat_name = 'PENDING'
+      } else {
+        newState[index].clit_stat_name = 'CHECKOUT'
+      }
+      return newState
+    })
+
   };
 
   const toggleDelete = (index) => {
@@ -105,7 +121,8 @@ export default function Cart() {
       return{...x, 
         clit_qty: x.clit_qty-1,
         clit_subweight: (x.clit_qty-1)*x.product.prod_weight,
-        clit_subtotal: (x.clit_qty-1)*x.product.prod_price}
+        clit_subtotal: (x.clit_qty-1)*x.product.prod_price,
+      }
     }))
     if(checked[idx]===true){
       setOrder({
@@ -137,7 +154,7 @@ export default function Cart() {
 
   async function fetchCart() {
     return await axios({
-      url: `http://localhost:3003/api/cart/1001`,
+      url: `${apiCart}/cart/1001/PENDING`,
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -154,9 +171,28 @@ export default function Cart() {
       .catch((err) => console.error(err));
   }
 
+  const checkout = async () =>{
+      setOrder({
+        ...Order,
+        cart_line_items:Cart
+      })
+      return await axios({
+        url: `${apiCart}/cart/${Order.cart_id}`,
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          console.log(res)
+          return fetchCart()
+        })
+        .catch((err) => console.error(err));
+  }
+
   return (
       <div className="flex flex-wrap">
-        <div className="md:w-3/12 md:mt-10 px-1 text-center font-bold text-xl pr-10">
+        <div className="w-full md:w-3/12 md:mt-10 px-1 text-center font-bold text-xl mb-4">
           My Cart
         </div>
         <div className="w-full md:w-9/12 px-1 ">
@@ -178,7 +214,7 @@ export default function Cart() {
                   deleted[y]===true?<ModalDelete 
                   image={x.product.product_images[0].prim_filename} 
                   name={x.product.prod_name}
-                  url={`http://localhost:3003/api/cartLineItems/${x.clit_id}`}
+                  url={`${apiCart}/cartLineItems/${x.clit_id}`}
                   close={()=>toggleDelete(y)}
                   update={()=>{
                     toggleDelete(y)
@@ -237,7 +273,8 @@ export default function Cart() {
             <div>Subtotal untuk Produk({Order.cart_total_qty} produk) </div>
             <div>{Order.cart_total_amount}</div>
             <div>
-              <button className=" font-bold bg-secondary text-white lg:p-3 p-2 hover:bg-item rounded lg:mr-5">
+              <button className=" font-bold bg-secondary text-white lg:p-3 p-2 hover:bg-item rounded lg:mr-5"
+              onClick={checkout}>
                 Checkout
               </button>
             </div>
