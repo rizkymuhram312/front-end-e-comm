@@ -1,6 +1,7 @@
 import React, { useState , Fragment } from 'react';
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
+import RegisterAccount from './RegisterAccount'
 
 
 
@@ -31,23 +32,90 @@ const Login = () => {
             user_password : user_password
             
         }
-        console.log(data)
+        // console.log(data)
+
+
+        
+
+
         axios.post('http://localhost:3001/api/users/signin', data)
         .then(result => {
-            if(result) {
-                let accoID = result.data.users.accounts.acco_id;
+            console.log(result)
+            if(result.data.users.accounts != null) {
+                // console.log(result)
+                let acco_id = result.data.users.accounts.acco_id
+                // const device_info = navigator.platform;
+                // console.log(device_info)
+
+                localStorage.setItem('acco_id', acco_id)
+                localStorage.setItem('dataUserName', result.data.users.user_name)
                 localStorage.setItem('token', result.data.token)
-                localStorage.setItem('username', result.data.users.user_name)
-                localStorage.setItem('id',accoID)
-                
-                // localStorage.setItem('acco_id',result.data.a)
+                // localStorage.setItem('dataUserPass', data.user_password)
+                // localStorage.setItem('dataUserEmail', data.user_email)
+                localStorage.setItem('dataId', result.data.users.user_id)
+
+               
+                const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
+
+                const tokenParts = result.data.token.split('.')
+                const encodedPayload = tokenParts[1]
+                const rawPayload = atob(encodedPayload)
+                const hasiltoken = JSON.parse(rawPayload)
+                console.log(hasiltoken) // outputs 'bob'
+                console.log(result.data.token) // outputs 'bob'
+
+
+                // console.log(a)
+                setRedirect(true)
+            }
+            else{
+                console.log(result)
+               
+                localStorage.setItem('dataUserName', result.data.users.user_name)
+                localStorage.setItem('token', result.data.token)
+                localStorage.setItem('dataUserPass', data.user_password)
+                localStorage.setItem('dataUserEmail', data.user_email)
+                localStorage.setItem('dataId', result.data.users.user_id)
+
+               
+                const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
+
+                const tokenParts = result.data.token.split('.')
+                const encodedPayload = tokenParts[1]
+                const rawPayload = atob(encodedPayload)
+                const hasiltoken = JSON.parse(rawPayload)
+                console.log(hasiltoken) // outputs 'bob'
+                console.log(result.data.token) // outputs 'bob'
+
+
                 setRedirect(true)
             }
         })
         .catch(e => {
-            alert('Tolong Buat Account')
-            setError( <Redirect to="/registerAccount" />)
+            
+            setError(e.response.data.message)
+           
+
         })
+
+        
+
+        // const config = {
+        //     headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
+        // };
+        
+        // const bodyParameters = {
+        //    key: "value"
+        // };
+        
+        // axios.post( 
+        //   'http://192.168.100.35:3001/api/users',
+        //   bodyParameters,
+        //   config
+        // ).then(console.log).catch(console.log);
+
+
+      
     }
 
     return (

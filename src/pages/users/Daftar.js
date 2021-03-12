@@ -39,10 +39,12 @@ const Daftar = () => {
     // }
 
     const klikDaftar = () => {
+        const device_info = navigator.platform;
         const data = {
             user_name : user_name,
             user_email : user_email,
-            user_password : user_password
+            user_password : user_password,
+            user_device_info : device_info
         }
         axios.post('http://localhost:3001/api/users/signup', data)
         .then(result => {
