@@ -37,14 +37,6 @@ export default function Navbar({ fixed }) {
     setValue({});
     <Redirect to="/home" />
   }
-
-
-
-
-
-
-
-
   return (
 
     <nav className="fixed z-50 w-full bg-background top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
@@ -78,23 +70,9 @@ export default function Navbar({ fixed }) {
             "lg:flex flex-grow items-center" +
             (navbarOpen ? " flex" : " hidden")
           }
-          id="example-navbar-danger"
-        >
-
-
-
-          {isLogin ? (
-
+          id="example-navbar-danger">
+                    {isLogin ? (
             <>
-
-
-
-
-              
-
-
-
-
               <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
                 <li className="nav-item">
                 <div class="dropdown inline-block relative">
@@ -111,11 +89,6 @@ export default function Navbar({ fixed }) {
               </div>
                 </li>
               </ul>
-
-
-
-
-
 
               {/* <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
                 <li className="nav-item">

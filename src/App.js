@@ -17,6 +17,7 @@ import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
 import billTopup from './pages/billTopup'
+import MyWallet from './pages/payment/MyWallet'
 
 function App() {
   return (
@@ -42,6 +43,8 @@ function App() {
           <Route path="/productsaya" component={ProductSaya}/>
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/billTopup" component={billTopup}/>
+          <Route path="/wallet" component={MyWallet}/>
+          <Route path="/payment" />
         </Switch>
       </div>
       </>
