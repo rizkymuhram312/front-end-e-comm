@@ -1,15 +1,16 @@
 import React from "react";
-import { FaBars } from "react-icons/fa";
 
 export default function footer() {
-  // const [navbarOpen, setNavbarOpen] = React.useState(false);
+   
   return (
  <>
 <div class="bg-gray-100">
    <div class="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-center">
       <div class="p-5 w-48 ">
-         <div class="text-xs uppercase text-gray-500 font-medium">Home</div>
-         <a class="my-3 block" href="/#">Services <span class="text-teal-600 text-xs p-1"></span></a><a class="my-3 block" href="/#">Products <span class="text-teal-600 text-xs p-1"></span></a><a class="my-3 block" href="/#">About Us <span class="text-teal-600 text-xs p-1"></span></a><a class="my-3 block" href="/#">Pricing <span class="text-teal-600 text-xs p-1"></span></a><a class="my-3 block" href="/#">Partners <span class="text-teal-600 text-xs p-1">New</span></a> 
+         <div class="text-xs uppercase text-gray-500 font-medium">Product Master</div>
+         <a class="my-3 block"  href={"/brand"}>Brand <span class="text-teal-600 text-xs p-1"></span></a><a class="my-3 block" 
+         // onclick={onClickCate} 
+         href={"/category"}>Category <span class="text-teal-600 text-xs p-1"></span></a><a class="my-3 block" href={"/condition"}>Condition <span class="text-teal-600 text-xs p-1"></span></a><a class="my-3 block" href="/#">Pricing <span class="text-teal-600 text-xs p-1"></span></a><a class="my-3 block" href="/#">Partners <span class="text-teal-600 text-xs p-1">New</span></a> 
       </div>
       <div class="p-5 w-48 ">
          <div class="text-xs uppercase text-gray-500 font-medium">User</div>

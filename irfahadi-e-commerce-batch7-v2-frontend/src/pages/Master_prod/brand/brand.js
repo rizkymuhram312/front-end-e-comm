@@ -23,36 +23,31 @@ export default class brand extends Component {
     // with data from listbrand()
     showListbrand = () => {
         listbrand().then(data => {
+            console.log(data);
             this.setState({
-                // this problem
                 brand: data
             })
         })
     }
     onShowModal = (value) => {
-
         this.setState({
             isModalShow: value
         })
     }
-
     onEditRow = (value) => {
-
         this.setState({
             dataEditRow: value
         })
         this.onShowModal(true);
     }
-
     onDeleteRow = (value) => {
         deletebrand(value).then(response => {
             console.log(response);
+            this.onRefreshTable()
         }).catch(function (error) {
             console.log(error)
-            console.log(error);
-            
+            console.log(error);            
         })
-        this.onRefreshTable()
     }
 
     onRefreshTable = () => {

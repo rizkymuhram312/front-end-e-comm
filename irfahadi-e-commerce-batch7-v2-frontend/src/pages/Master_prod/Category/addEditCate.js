@@ -3,7 +3,6 @@ import { create, updatecate } from '../../../api/api-category';
 
 
 export default class addEditCate extends Component {
-
     state = {
         cateId: null,
         cateName: '',
@@ -19,6 +18,7 @@ export default class addEditCate extends Component {
             })
         }
     }
+    
     handleOnChange = e => {
         const { target: { value, name } } = e;
         this.setState({
@@ -48,18 +48,14 @@ export default class addEditCate extends Component {
                 console.log(error);
             });;
         }
-
-
         this.props.setShowModal(false);
+        
         this.props.setRefreshTable();
     }
-
     render() {
         const { cateId, cateName } = this.state;
-
         return (
             <>
-
                 <div
                     className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                 >
@@ -77,8 +73,8 @@ export default class addEditCate extends Component {
 
                                 >
                                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                        ×
-                    </span>
+
+                                    </span>
                                 </button>
                             </div>
                             {/*body*/}
@@ -107,8 +103,7 @@ export default class addEditCate extends Component {
                                             <div className="relative w-full mb-3">
                                                 <label
                                                     className="block uppercase text-gray-700 text-md font-bold mb-2"
-                                                    htmlFor="grid-password"
-                                                >
+                                                    htmlFor="grid-password">
                                                     category Name
                                             </label>
                                                 <input required
@@ -121,30 +116,41 @@ export default class addEditCate extends Component {
                                                 />
                                             </div>
                                         </div>
+                                        {/* <div class="w-full  px-4">
+                                            <div class="relative w-full mb-3">
+                                                <label
+                                                    className="block uppercase text-gray-700 text-md font-bold mb-2"
+                                                    htmlFor="grid-password"
+                                                >
+                                                    Category Images
+                                            </label>
+                                                <label class=" mb-5 flex flex-col items-center px-1 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-black">
+                                                    <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                        <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                                    </svg>
+                                                    <span class="mt-2 text-xs leading-normal">Select a images</span>
+                                                    <input type='file' class="hidden" />
+                                                </label>
+                                            </div>
+                                        </div> */}
                                     </div>
                                     <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                                         <button
                                             onClick={() => this.props.setShowModal(false)}
                                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                            type="button"
-                                        >
+                                            type="button">
                                             Close
-                                </button>
+                                        </button>
                                         <button
                                             onClick={() => this.props.setRefreshTable()}
                                             className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-md px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                            type="submit"
-                                        >
+                                            type="submit">
                                             Save Changes
-                                </button>
+                                        </button>
                                     </div>
                                 </form>
-
-
                             </div>
-
                         </div>
-
                     </div>
                 </div>
                 <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>

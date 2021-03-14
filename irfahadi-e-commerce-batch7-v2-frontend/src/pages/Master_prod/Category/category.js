@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { listcate, deletecate } from '../../../api/api-category';
-import {  AllCate } from './formCategory';
+import { AllCate } from './formCategory';
 import AddEdit from './addEditCate';
 
 
@@ -24,20 +24,16 @@ export default class category extends Component {
     showListCategory = () => {
         listcate().then(data => {
             this.setState({
-                // this problem
                 category: data
             })
         })
     }
     onShowModal = (value) => {
-
         this.setState({
             isModalShow: value
         })
     }
-
     onEditRow = (value) => {
-
         this.setState({
             dataEditRow: value
         })
@@ -47,12 +43,11 @@ export default class category extends Component {
     onDeleteRow = (value) => {
         deletecate(value).then(response => {
             console.log(response);
+            this.onRefreshTable()
         }).catch(function (error) {
             console.log(error)
             console.log(error);
-
         })
-        this.onRefreshTable()
     }
 
     onRefreshTable = () => {

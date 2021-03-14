@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { listCond, deleteCond } from '../../../api/api-condition';
-import { Allcond } from './formCond';
+import { AllCond } from './formCond';
 import CondI from './addEditCond';
 
 
-export default class condition extends Component {
-    
+export default class condition extends Component {    
     state = {
-        condition: [],
+        conditions: [],
         dataEditRow: null,
         isModalShow: false
     }
@@ -21,14 +20,15 @@ export default class condition extends Component {
    
     showListCond = () => {
         listCond().then(data => {
+            console.log(data);
             this.setState({
                 // this problem
-                condition: data
+                conditions: data
             })
         })
     }
     onShowModal = (value) => {
-
+        // console.log(value);
         this.setState({
             isModalShow: value
         })
@@ -43,6 +43,7 @@ export default class condition extends Component {
     }
 
     onDeleteRow = (value) => {
+        console.log(deleteCond);
         deleteCond(value).then(response => {
             console.log(response);
         }).catch(function (error) {
@@ -58,16 +59,18 @@ export default class condition extends Component {
     }
 
     render() {
-        const { condition, isModalShow, dataEditRow } = this.state;
+        const { conditions, isModalShow, dataEditRow } = this.state;
+        console.log(conditions);
         return (
             <>
-                <Allcond
-                    condition={condition}
+                <AllCond
+                    conditions={conditions}
                     setShowModal={this.onShowModal}
                     setDelete={this.onDeleteRow}
                     setRefreshTable={this.onRefreshTable}
-                    setEdit={this.onEditRow}>
-                </Allcond>
+                    setEdit={this.onEditRow}
+                    >
+                </AllCond>
                 {
                     (isModalShow ? (
                         <CondI

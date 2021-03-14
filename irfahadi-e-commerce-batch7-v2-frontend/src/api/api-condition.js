@@ -44,4 +44,8 @@ const deleteCond = async (name) => {
     }
 };
 
-export {deleteCond,updateCond, create, listCond};
+export {
+    deleteCond,
+    updateCond, 
+    create, 
+    listCond};

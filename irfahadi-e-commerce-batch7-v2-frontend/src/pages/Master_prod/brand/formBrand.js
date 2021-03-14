@@ -1,28 +1,52 @@
 import { Link } from "react-router-dom"
-
+import axios from 'axios';
+import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 export const AllBrand = props => {
+    let history = useHistory()
+    const [brand, setBrand] = useState([]);
+
+    const onClickCate = () => {
+        history.push('/category',)
+    }
+    const onClickCond = () => {
+        history.push('/condition',)
+    }
+
+    useEffect(() => {
+        axios({
+            url: 'http://localhost:3002/api/brand/1',
+            method: "get",
+            headers: {
+                "Content-type": "application/json"
+            }
+        }).then((res) => setBrand(res.data[0].brands))
+            .catch((err) => console.error(err));
+    }, [])
     return (
         <>
-            <div class="grid grid-cols-3 gap-4 text-3xl rounded ">
+            <div class="flex flex-row justify-center gap-4 text-3xl rounded ">
                 <div class="flex mt-5">
                     <div class="m-5">
                         <button
-                            class="w-48 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-blue-500 hover:border-blue-600 hover:bg-blue-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-                            <span class="mx-auto">Category</span>
+                            onClick={onClickCate}
+                            class="w-50 bg-primary   tracking-wide text-gray-800 font-bold rounded  hover:border-item-600 hover:bg-item-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                            <span class="mx-auto uppercase ">Category</span>
                         </button>
                     </div>
                     <div class="m-5">
                         <button
-                            class="w-48 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-                            <span class="mx-auto">Brand</span>
+                            class="w-50 bg-primary   tracking-wide text-gray-800 font-bold rounded  hover:border-item-600 hover:bg-item-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                            <span class="mx-auto uppercase ">Brand</span>
 
                         </button>
                     </div>
                     <div class="m-5">
                         <button
-                            class="w-48 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-                            <span class="mx-auto">Condition</span>
+                            onClick={onClickCond}
+                            class="w-50 bg-primary   tracking-wide text-gray-800 font-bold rounded hover:bg-item-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                            <span class="mx-auto uppercase ">Condition</span>
 
                         </button>
                     </div>
@@ -39,35 +63,6 @@ export const AllBrand = props => {
                         </div>
                         <div class="my-2 flex sm:flex-row flex-col">
                             <div class="flex flex-row mb-1 sm:mb-0">
-                                <div class="relative">
-                                    <select
-                                        class="appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                        <option>5</option>
-                                        <option>10</option>
-                                        <option>20</option>
-                                    </select>
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="relative">
-                                    <select
-                                        class="appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
-                                        <option>All</option>
-                                        <option>Active</option>
-                                        <option>Inactive</option>
-                                    </select>
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                        </svg>
-                                    </div>
-                                </div>
-
                             </div>
                             <div class="block relative">
                                 <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
@@ -140,14 +135,10 @@ export const AllBrand = props => {
                                                                         onClick={() => {
                                                                             props.setDelete(brand.brand_id)
                                                                         }}
-                                                                        onClick={() => {
-                                                                            props.setRefreshTable(brand.brand_id)
-                                                                        }}
                                                                         className=" text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-md px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                                                         Delete
                                     </button>
                                                                 </div>
-
                                                             </td>
                                                         </tr>)
                                                 }) :
@@ -157,7 +148,7 @@ export const AllBrand = props => {
                                         }
                                     </tbody>
                                 </table>
-                                <div
+                                {/* <div
                                     class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
                                     <span class="text-xs xs:text-sm text-gray-900">
                                         Showing 1 to 4 of 50 Entries
@@ -165,14 +156,14 @@ export const AllBrand = props => {
                                     <div class="inline-flex mt-2 xs:mt-0">
                                         <button
                                             class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
-                                            Prev
-                            </button>
+                                            Previous
+                                            </button>
                                         <button
                                             class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
                                             Next
-                            </button>
+                                            </button>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

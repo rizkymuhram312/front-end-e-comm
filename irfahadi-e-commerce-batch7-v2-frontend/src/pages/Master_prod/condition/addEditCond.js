@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { create, updateCond } from '../../../api/api-condition';
+import { 
+    create, 
+    updateCond 
+} from '../../../api/api-condition';
 
 
 export default class addEditCond extends Component {
@@ -94,7 +97,7 @@ export default class addEditCond extends Component {
                                                 >
                                                     Condition Name
                                              </label>
-                                                <input disabled
+                                                <input required
                                                     type="text"
                                                     name="condName"
                                                     value={condName}

@@ -1,26 +1,40 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 export const AllCate = props => {
+
+    let history = useHistory()
+
+    const onClickBrand = () => {
+        history.push('/brand')
+      }
+    const onClickCond= () => {
+        history.push('/condition')
+      }
     return (
         <>
-            <div class="grid grid-cols-3 gap-4 text-3xl rounded ">
+             <div class="flex flex-row justify-center gap-4 text-3xl rounded ">
                 <div class="flex mt-5">
                     <div class="m-5">
                         <button
-                            class="w-48 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-blue-500 hover:border-blue-600 hover:bg-blue-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                            class="w-48 bg-primary tracking-wide text-gray-800 font-bold rounded  hover:border-item-600 hover:bg-item-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
                             <span class="mx-auto">Category</span>
                         </button>
                     </div>
                     <div class="m-5">
                         <button
-                            class="w-48 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-                            <span class="mx-auto">category</span>
+                                onClick={onClickBrand}
+                            class="w-48 bg-primary tracking-wide text-gray-800 font-bold rounded  hover:border-item-600 hover:bg-item-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                            <span class="mx-auto">Brand</span>
 
                         </button>
                     </div>
                     <div class="m-5">
                         <button
-                            class="w-48 bg-white tracking-wide text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                            onClick={onClickCond}
+                            class="w-48 bg-primary tracking-wide text-gray-800 font-bold rounded hover:bg-item-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
                             <span class="mx-auto">Condition</span>
 
                         </button>
@@ -34,39 +48,10 @@ export const AllCate = props => {
                 <div class="container mx-auto px-4 sm:px-8">
                     <div class="py-3">
                         <div>
-                            <h2 class="text-2xl font-semibold leading-tight">Table categorys</h2>
+                            <h2 class="text-2xl font-semibold leading-tight">Table Category</h2>
                         </div>
                         <div class="my-2 flex sm:flex-row flex-col">
                             <div class="flex flex-row mb-1 sm:mb-0">
-                                <div class="relative">
-                                    <select
-                                        class="appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                        <option>5</option>
-                                        <option>10</option>
-                                        <option>20</option>
-                                    </select>
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="relative">
-                                    <select
-                                        class="appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
-                                        <option>All</option>
-                                        <option>Active</option>
-                                        <option>Inactive</option>
-                                    </select>
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                        </svg>
-                                    </div>
-                                </div>
-
                             </div>
                             <div class="block relative">
                                 <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
@@ -122,7 +107,7 @@ export const AllCate = props => {
                                                         <tr key={category.id}>
                                                             <td className="text-center">{category.cate_id}</td>
                                                             <td className="text-center">{category.cate_name}</td>
-                                                            <td className="text-center">{category.caim_id}</td>
+                                                            {/* <td className="text-center">{category.caim_id}</td> */}
                                                             <td>
                                                                 <button
                                                                     onClick={() => {
@@ -136,9 +121,6 @@ export const AllCate = props => {
 
                                                                     onClick={() => {
                                                                         props.setDelete(category.cate_id)
-                                                                    }}
-                                                                    onClick={() => {
-                                                                        props.setRefreshTable(category.cate_id)
                                                                     }}
                                                                     className="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                                                     Delete
