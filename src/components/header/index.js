@@ -6,14 +6,11 @@ export default function Navbar({ fixed }) {
   const [isLogin, setisLogin] = useState(true)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
-
   const [value, setValue] = useState();
   const refresh = () => {
     // re-renders the component
     setValue({});
   }
-
-
 
   useEffect(() => {
     console.log(isLogin)
@@ -37,14 +34,6 @@ export default function Navbar({ fixed }) {
     setValue({});
     <Redirect to="/home" />
   }
-
-
-
-
-
-
-
-
   return (
 
     <nav className="fixed z-50 w-full bg-background top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
@@ -78,23 +67,9 @@ export default function Navbar({ fixed }) {
             "lg:flex flex-grow items-center" +
             (navbarOpen ? " flex" : " hidden")
           }
-          id="example-navbar-danger"
-        >
-
-
-
-          {isLogin ? (
-
+          id="example-navbar-danger">
+            {isLogin ? (
             <>
-
-
-
-
-              
-
-
-
-
               <ul className="flex flex-col lg:flex-row list-none lg:ml-auto align-center justify-center items-center">
                 
                 <img src="cewe.jpg" alt="..." className="shadow rounded-full max-w-full h-6 align-middle border-none mr-4" /> 
@@ -116,11 +91,6 @@ export default function Navbar({ fixed }) {
                 </li>
               </ul>
 
-
-
-            
-
-
               {/* <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
                 <li className="nav-item">
                   <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
@@ -130,15 +100,7 @@ export default function Navbar({ fixed }) {
                   </a>
                 </li>
               </ul> */}
-
-
-
-
-
             </>
-
-                
-
           ) : (
 
 
