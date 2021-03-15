@@ -1,8 +1,23 @@
+import React, { useEffect, useState } from 'react'
+import ModalOshipval from './OshipvalModal'
 
-const TabelOrderShipping = props =>{
-    return(
-        <>
-            <div class="flex flex-wrap">
+
+
+function Index() {
+
+    let [modal, setModal]= useState (false);
+
+
+    useEffect(()=>{
+
+    },[modal])
+    
+
+
+
+    return (
+        <div>
+             <div class="flex flex-wrap">
                     <div class="-my-2 p-8 overflow-x-auto">
                         <div class="py-2 align-middle inline-block max-w-full">
                                 <table class="min-w-full divide-y divide-gray-200 ">
@@ -32,45 +47,51 @@ const TabelOrderShipping = props =>{
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
-                                        {
-                                            props.expeditionRoutes.map((x) => {
-                                                return (
+                                        
+                                            
+                                            
                                                     <tr>     
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {x.order_name}
+                                                nama
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {x.order_created_on}
+                                                tangga;
                                             </td>
                                             <td class="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">
-                                                {x.order_subtotal}
+                                                subtotal
                                             </td>
                                             <td class="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">
-                                                {x.order_weight} Kg
+                                                weight Kg
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {x.order_discount} %
+                                                discon %
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    {x.status.stat_name}
+                                                    stat name
                                                 </span>
                                             </td>
                                             <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
-                                                <button className="py-2 px-4 bg-blue-500 hover:bg-blue-400 text-white reounded">SHIPPING</button>
+                                                <button className="py-2 px-4 bg-blue-500 hover:bg-blue-400 text-white reounded" onClick={()=>{setModal(true)}}>ARRIVED</button>
                                             </td>
                                         </tr>
-                                                )
-                                            })
-                                        }
                                         
                                     </tbody>
                                 </table>
                             </div>
                     </div>
                 </div>
-        </>
+
+                {
+                    modal ? 
+                    <ModalOshipval
+
+                    />
+                    :
+                    null
+                }
+        </div>
     )
 }
 
-export default TabelOrderShipping;
+export default Index

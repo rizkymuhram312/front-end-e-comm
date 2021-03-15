@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import TabelExpeditionRoutes from './Expedition_routes'
+import TabelexpeditionRoute from './Expedition_routes'
 import Modal from './Modal'
 import {ListExpeditionRoute, DeleteExpeditionRoute} from './api/api-expedition_route'
 import {listExpedition} from '../expedition/api/api-expedition'
@@ -8,7 +8,7 @@ export default class index extends Component {
     
     state = {
         isModalShow: false,
-        expeditionRoutes:[],
+        expeditionRoute:[],
         expedition:[],
         select: "",
         isSelected: false,
@@ -41,7 +41,7 @@ export default class index extends Component {
     showListExpeditionRoute=()=>{
         ListExpeditionRoute().then(data=>{
             this.setState({
-                expeditionRoutes: data
+                expeditionRoute: data
             })
         })
     }
@@ -85,12 +85,12 @@ export default class index extends Component {
 
 
     render() {
-        const {isModalShow, expeditionRoutes, expedition, select, isSelected, dataEditRow}= this.state;
+        const {isModalShow, expeditionRoute, expedition, select, isSelected, dataEditRow}= this.state;
         return (
             <div>
-                <TabelExpeditionRoutes
+                <TabelexpeditionRoute
                     setShowModal = {this.onShowModal}
-                    expeditionRoutes= {expeditionRoutes}
+                    expeditionRoute= {expeditionRoute}
                     expedition = {expedition}
                     select ={select}
                     isSelected={isSelected}
@@ -103,7 +103,7 @@ export default class index extends Component {
                         <Modal
                             setShowModal= {this.onShowModal}
                             setRefreshTabel={this.onRefreshTable}
-                            expeditionRoutes = {dataEditRow}
+                            expeditionRoute = {dataEditRow}
                         />
                     ) : null)
                 }

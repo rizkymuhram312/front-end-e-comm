@@ -9,6 +9,7 @@ const TabelExpeditionRoutes = (props)=>{
                         <div className="my-8 text-bold">
                         <label className="font-medium">Expedition Name</label>
                         <select value={props.select} onChange={props.onHandleSelect} className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option>Choose...</option>
                         {
                             props.expedition.map((x)=>
                             x == null ? "test" : <option key={x.expe_id}>{x.expe_name}</option>
@@ -46,30 +47,30 @@ const TabelExpeditionRoutes = (props)=>{
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
                                         {
-                                         props.expeditionRoutes.filter((x)=>x.expedition.expe_name === props.select).map((expeditionRoutes)=>{
+                                         props.expeditionRoute.filter((x)=>x.expedition.expe_name === props.select).map((expeditionRoute)=>{
                                                 return(
-                                                    <tr key={expeditionRoutes.exro_id}>     
+                                                    <tr key={expeditionRoute.exro_id}>     
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <p className="id_expedition">{expeditionRoutes.exro_id}</p>
+                                                <p className="id_expedition">{expeditionRoute.exro_id}</p>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <p className="name_expedition">{expeditionRoutes.exro_from}</p>
+                                                <p className="name_expedition">{expeditionRoute.exro_from}</p>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <p className="name_expedition">{expeditionRoutes.exro_to}</p>
+                                                <p className="name_expedition">{expeditionRoute.exro_to}</p>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <p className="name_expedition">{expeditionRoutes.exro_cost}</p>
+                                                <p className="name_expedition">{expeditionRoute.exro_cost}</p>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <p className="name_expedition">{expeditionRoutes.exro_duration}</p>
+                                                <p className="name_expedition">{expeditionRoute.exro_duration}</p>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <p className="name_expedition">{expeditionRoutes.exro_package}</p>
+                                                <p className="name_expedition">{expeditionRoute.exro_package}</p>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <button className="py-1 mx-1 px-2 bg-blue-500 text-white hover:bg-blue-400 reounded" onClick={()=> { props.setEdit(expeditionRoutes) }}>EDIT</button>
-                                                <button className="py-1 px-2 mx-1 bg-red-500 hover:bg-red-400 text-white reounded" onClick={()=> { props.setDelete(expeditionRoutes.exro_id) }}>HAPUS</button>                  
+                                                <button className="py-1 mx-1 px-2 bg-blue-500 text-white hover:bg-blue-400 reounded" onClick={()=> { props.setEdit(expeditionRoute) }}>EDIT</button>
+                                                <button className="py-1 px-2 mx-1 bg-red-500 hover:bg-red-400 text-white reounded" onClick={()=> { props.setDelete(expeditionRoute.exro_id) }}>HAPUS</button>                  
                                             </td>
                                         </tr>
                                                 )

@@ -29,7 +29,7 @@ function JNE() {
     return (
         <div>
             {
-                JNE.filter(x => x.expedition.expe_name === "JNE").map(x => 
+                JNE.filter(x => x.expedition.expe_name === "JNE" && x.exro_from === "Cimahi" && x.exro_to === "Bandung").map(x => 
                     
                     <div>
                         <label className=" font-bold text-xl mr-20">JNE  (EXPRESS)</label>

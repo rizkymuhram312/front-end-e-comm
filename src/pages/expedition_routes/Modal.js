@@ -21,16 +21,16 @@ export default class Modal extends Component {
 
     componentDidMount(){
         this.showListExpedition()
-        // console.log(this.props.expeditionRoutes)
-        if(this.props.expeditionRoutes !== null){
+        // console.log(this.props.expeditionRoute)
+        if(this.props.expeditionRoute !== null){
             this.setState({
-                exroId: this.props.expeditionRoutes.exro_id,
-                exroFrom: this.props.expeditionRoutes.exro_from,
-                exroTo: this.props.expeditionRoutes.exro_to,
-                exroCost: this.props.expeditionRoutes.exro_cost,
-                exroDuration: this.props.expeditionRoutes.exro_duration,
-                exroExpedition: this.props.expeditionRoutes.exro_expe_id,
-                exroPackage: this.props.expeditionRoutes.exro_package,
+                exroId: this.props.expeditionRoute.exro_id,
+                exroFrom: this.props.expeditionRoute.exro_from,
+                exroTo: this.props.expeditionRoute.exro_to,
+                exroCost: this.props.expeditionRoute.exro_cost,
+                exroDuration: this.props.expeditionRoute.exro_duration,
+                exroExpedition: this.props.expeditionRoute.exro_expe_id,
+                exroPackage: this.props.expeditionRoute.exro_package,
                 isEdit: true
             })
         }
@@ -60,25 +60,27 @@ export default class Modal extends Component {
 
     handleOnSubmit = e =>{
         e.preventDefault();
-        const expeditionRoutes = {
+        const expeditionRoute = {
             exro_from : this.state.exroFrom,
             exro_to: this.state.exroTo,
             exro_cost: this.state.exroCost,
             exro_duration: this.state.exroDuration,
-            exro_expe_id: this.state.exroExpedition,
             exro_package: this.state.exroPackage,
+            exro_expe_id: this.state.exroExpedition,
 
         }
+        console.log(expeditionRoute)
      
     
         if(!this.state.isEdit){
-            CreateExpeditionRoute(expeditionRoutes).then(res=>{
+            CreateExpeditionRoute(expeditionRoute).then(res=>{
+               console.log("aneh")
                 console.log(res)
             }).catch((err)=> {
                 console.log(err.message)
             });
         }else{
-            UpdateExpeditionRoute(expeditionRoutes).then(res=>{
+            UpdateExpeditionRoute(expeditionRoute).then(res=>{
                 console.log(res)
                 this.props.setRefreshTabel();
             }).catch((err)=>{
