@@ -1,11 +1,12 @@
 import axios from 'axios'
+import { apiUserMaster } from '../../config/apiUrl'
 
 
 
 
 const listKecamatan = async () => {
     try {
-        let response = await axios.get("http://192.168.100.35:3001/api/kecamatan/")
+        let response = await axios.get(`${apiUserMaster}/kecamatan/`)
         return await response.data
     }   catch(err){
         return await err.message
@@ -16,7 +17,7 @@ const listKecamatan = async () => {
 // di backend, jangan lupa pake req.body.data, agar bisa di extract ke tiap attribute
 const create = async (kecamatan) => {
     try {
-        let response = await axios.post("http://192.168.100.35:3001/api/kecamatan/",{
+        let response = await axios.post(`${apiUserMaster}/kecamatan/`,{
           data : kecamatan
         })
         return await response.data
@@ -27,7 +28,7 @@ const create = async (kecamatan) => {
   
   const deleteKecamatan = async (kecamatanId) => {
     try {
-        let response = await axios.delete(`http://192.168.100.35:3001/api/kecamatan/${kecamatanId}`)
+        let response = await axios.delete(`${apiUserMaster}/kecamatan/${kecamatanId}`)
         return await response.data
       } catch(err) {
         return await err.message
@@ -36,7 +37,7 @@ const create = async (kecamatan) => {
   
   const updateKecamatan = async (kecamatan) => {
     try {
-        let response = await axios.put(`http://192.168.100.35:3001/api/kecamatan/${kecamatan.kec_id}`,{
+        let response = await axios.put(`${apiUserMaster}/kecamatan/${kecamatan.kec_id}`,{
           data : kecamatan
         })
         return await response.data

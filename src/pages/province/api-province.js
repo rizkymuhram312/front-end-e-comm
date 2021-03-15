@@ -1,11 +1,12 @@
 import axios from 'axios'
+import { apiUserMaster } from '../../config/apiUrl'
 
 
 
 
 const listProvince = async () => {
     try {
-        let response = await axios.get("http://192.168.100.35:3001/api/province/")
+        let response = await axios.get(`${apiUserMaster}/province/`)
         return await response.data
     }   catch(err){
         return await err.message
@@ -16,7 +17,7 @@ const listProvince = async () => {
 // di backend, jangan lupa pake req.body.data, agar bisa di extract ke tiap attribute
 const create = async (province) => {
     try {
-        let response = await axios.post("http://192.168.100.35:3001/api/province/",{
+        let response = await axios.post(`${apiUserMaster}/province/`,{
           data : province
         })
         return await response.data
@@ -27,7 +28,7 @@ const create = async (province) => {
   
   const deleteProvince = async (provinceId) => {
     try {
-        let response = await axios.delete(`http://192.168.100.35:3001/api/province/${provinceId}`)
+        let response = await axios.delete(`${apiUserMaster}/province/${provinceId}`)
         return await response.data
       } catch(err) {
         return await err.message
@@ -36,7 +37,7 @@ const create = async (province) => {
   
   const updateProvince = async (province) => {
     try {
-        let response = await axios.put(`http://192.168.100.35:3001/api/province/${province.prov_id}`,{
+        let response = await axios.put(`${apiUserMaster}/province/${province.prov_id}`,{
           data : province
         })
         return await response.data
