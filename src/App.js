@@ -1,6 +1,6 @@
 import Header from './components/header'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Home from './pages/home'
+import Home from './pages/home/index'
 import Cart from './pages/cart'
 import Orders from './pages/orders'
 import Daftar from './pages/users/Daftar'
@@ -12,6 +12,8 @@ import Users from './pages/users/users'
 import Kecamatan from './pages/kecamatan/kecamatan'
 import Kodepos from './pages/kodepos/kodepos'
 import RegisterAccount from './pages/users/RegisterAccount'
+import DashboardUserAccount from './pages/home/DashboardUserAccount'
+import Address from './pages/address/address'
 
 
 
@@ -30,6 +32,7 @@ function App() {
       <Header />
       <div className="container mx-auto sm:px-4 pt-40 lg:pt-20 pb-10">
         <Switch>
+          <Route path="/home" component={Home} exact />
           <Route path="/" component={Home} exact />
           <Route path="/cart" component={Cart} />
           <Route path="/orders" component={Orders} />
@@ -42,6 +45,8 @@ function App() {
           <Route path="/kecamatan" component={Kecamatan} exact />
           <Route path="/kodepos" component={Kodepos} exact />
           <Route path="/registerAccount" component={RegisterAccount} exact />
+          <Route path="/dashboarduser" component={DashboardUserAccount} exact />
+          <Route path="/address" component={Address} exact />
           <Route path="/myorders" component={MyOrders}/>
           <Route path="/advertising" component={Advertising}/>
           <Route path="/product" component={Product} />

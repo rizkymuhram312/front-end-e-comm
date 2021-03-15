@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {deleteKodepos, listKodepos} from './api-kodepos'
 import { TableKodepos } from './kodepos-component';
 import AddEditForm from './addEditForm'
+import { listKecamatan } from '../kecamatan/api-kecamatan'
 
 
 
@@ -10,6 +11,7 @@ export default class Kodepos extends Component {
     // 1. declarasikan Kodepos[] state
     state = {
         kodepos : [],
+        kecamatan : [],
         dataEditRow : null,
         isModalShow : false
     }
@@ -24,6 +26,8 @@ export default class Kodepos extends Component {
     // 3. call showListKodepos to fill Kodepos[] on first time render
     componentDidMount() {
         this.showListKodepos();
+        this.showListKecamatan();
+
     }
 
 
@@ -33,6 +37,14 @@ export default class Kodepos extends Component {
         listKodepos().then(data => {
             this.setState({
                 kodepos: data
+            })
+        })
+    }
+
+    showListKecamatan = () => {
+        listKecamatan().then(data => {
+            this.setState({
+                kecamatan: data
             })
         })
     }
@@ -80,10 +92,11 @@ export default class Kodepos extends Component {
 
     render() {
   
-            const { kodepos , isModalShow, dataEditRow } = this.state;
+            const { kodepos , isModalShow, dataEditRow, kecamatan } = this.state;
             return (
                 <div>
                     <TableKodepos kodepos = {kodepos.sort((a, b) => a.kodepos - b.kodepos)}
+                        kecamatan = {kecamatan}
                         setShowModal = {this.onShowModal}
                         setDelete = {this.onDeleteRow}
                         setEdit = {this.onEditRow}
@@ -95,6 +108,7 @@ export default class Kodepos extends Component {
                             setShowModal = {this.onShowModal}
                             setRefreshTable = {this.onRefreshTable}
                             Kodepos = {dataEditRow}
+                            kecamatan = {kecamatan}
                             />) : null)
                     }
                 </div>

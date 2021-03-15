@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
+
 
 const Daftar = () => {
     const[user_name, setUsername] = useState('');
@@ -46,7 +48,7 @@ const Daftar = () => {
             user_password : user_password,
             user_device_info : device_info
         }
-        axios.post('http://localhost:3001/api/users/signup', data)
+        axios.post(`${apiUserAccount}/users/signup`, data)
         .then(result => {
             if ( result ) {
                 console.log(result.data)

@@ -7,33 +7,33 @@ export default class AddEditForm extends Component {
         kecamatanId: null,
         kecamatanName: '',
         kecamatanCityId: null,
-        isEdit : false
+        isEdit: false
     }
 
     refresh = () => {
         // re-renders the component
         this.setState({});
-      };
+    };
 
 
-    componentDidMount(){
+    componentDidMount() {
 
         console.log(this.props)
-        if (this.props.Kecamatan !== null){
+        if (this.props.Kecamatan !== null) {
             this.setState({
-                kecamatanId : this.props.Kecamatan.kec_id,
-                kecamatanName : this.props.Kecamatan.kec_name,
-                kecamatanCityId : this.props.Kecamatan.kec_city_id,
+                kecamatanId: this.props.Kecamatan.kec_id,
+                kecamatanName: this.props.Kecamatan.kec_name,
+                kecamatanCityId: this.props.Kecamatan.kec_city_id,
 
-                isEdit : true
+                isEdit: true
             })
-           
+
         }
 
     }
 
 
-    
+
 
     handleOnChange = e => {
         const { target: { value, name } } = e;
@@ -46,26 +46,26 @@ export default class AddEditForm extends Component {
     handleOnSubmit = e => {
         e.preventDefault();
         const kecamatan = {
-            kec_id : this.state.kecamatanId,
-            kec_name : this.state.kecamatanName,
-            kec_city_id : this.state.kecamatanCityId
+            kec_id: this.state.kecamatanId,
+            kec_name: this.state.kecamatanName,
+            kec_city_id: this.state.kecamatanCityId
 
         };
- 
-        if (!this.state.isEdit){
+
+        if (!this.state.isEdit) {
             create(kecamatan).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
             });;
-        }else{
+        } else {
             updateKecamatan(kecamatan).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
             });;
         }
-    
+
 
 
         // jika ada udah sukses or error then, close modal
@@ -77,7 +77,7 @@ export default class AddEditForm extends Component {
 
     render() {
         const { kecamatanId, kecamatanName, kecamatanCityId, updateKecamatan } = this.state;
-  
+
         return (
 
             <>
@@ -105,10 +105,10 @@ export default class AddEditForm extends Component {
                             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                                 <form onSubmit={this.handleOnSubmit}>
                                     <div className="flex flex-wrap">
-                                        <div className="w-full lg:w-6/12 px-4">
+                                        <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
                                                 <label
-                                                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                                    className="text-center block uppercase text-gray-700 text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
                                                     kecamatan Id
@@ -118,7 +118,7 @@ export default class AddEditForm extends Component {
                                                     name="kecamatanId"
                                                     value={kecamatanId}
                                                     onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                    className="px-3 py-3 text-center placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
                                                 />
                                             </div>
@@ -147,16 +147,16 @@ export default class AddEditForm extends Component {
                                                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
-                                                    kecamatan City Id
+                                                    city name
                                             </label>
-                                                <input required
-                                                    type="text"
-                                                    name="kecamatanCityId"
-                                                    value={kecamatanCityId}
-                                                    onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                <select name="kecamatanCityId" value={kecamatanCityId} onChange={this.handleOnChange}>
+                                                    {
+                                                        this.props.city.map((e) => {
 
-                                                />
+                                                            return (<option value={e.city_id}>{e.city_name}</option>)
+                                                        })
+                                                    }
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -164,13 +164,13 @@ export default class AddEditForm extends Component {
                                         <button onClick={() => this.props.setShowModal(false)
                                         }
 
-                                        
+
                                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button"
                                         >
 
-        
-                                            
+
+
 
                                             Close
                                 </button>

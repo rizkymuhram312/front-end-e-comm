@@ -1,11 +1,12 @@
 import axios from 'axios'
+import { apiUserMaster } from '../../config/apiUrl'
 
 
 
 
 const listKodepos = async () => {
     try {
-        let response = await axios.get("http://localhost:3001/api/kodepos/")
+        let response = await axios.get(`${apiUserMaster}/kodepos/`)
         return await response.data
     }   catch(err){
         return await err.message
@@ -16,7 +17,7 @@ const listKodepos = async () => {
 // di backend, jangan lupa pake req.body.data, agar bisa di extract ke tiap attribute
 const create = async (kodepos) => {
     try {
-        let response = await axios.post("http://localhost:3001/api/kodepos/",{
+        let response = await axios.post(`${apiUserMaster}/kodepos/`,{
           data : kodepos
         })
         return await response.data
@@ -27,7 +28,7 @@ const create = async (kodepos) => {
   
   const deleteKodepos = async (kodeposId) => {
     try {
-        let response = await axios.delete(`http://localhost:3001/api/kodepos/${kodeposId}`)
+        let response = await axios.delete(`${apiUserMaster}/kodepos/${kodeposId}`)
         return await response.data
       } catch(err) {
         return await err.message
@@ -36,7 +37,7 @@ const create = async (kodepos) => {
   
   const updateKodepos = async (kodepos) => {
     try {
-        let response = await axios.put(`http://localhost:3001/api/kodepos/${kodepos.kodepos}`,{
+        let response = await axios.put(`${apiUserMaster}/kodepos/${kodepos.kodepos}`,{
           data : kodepos
         })
         return await response.data
