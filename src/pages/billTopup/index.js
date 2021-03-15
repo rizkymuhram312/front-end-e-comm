@@ -9,9 +9,6 @@ const Tabs = ({ color }) => {
     const [openTab, setOpenTab] = React.useState(1);
     const [Pulsa,setPulsa] = useState([]);
     const [Bill,setBill] = useState([]);
-
-   
-
     
     useEffect( ()=>{
       fetchPulsa()
@@ -19,8 +16,6 @@ const Tabs = ({ color }) => {
     },[])
 
     
-    
-
     const fetchBill = async () => {
       return await axios({
         url: `http://localhost:3009/api/billTopup`,
@@ -74,7 +69,7 @@ const Tabs = ({ color }) => {
                   href="#link1"
                   role="tablist"
                 >
-                  <i className="fas fa-space-shuttle text-base mr-1"></i> Pulsa
+                  <i className="fas fa-mobile-alt text-base mr-1"></i> Pulsa
                 </a>
               </li>
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -93,7 +88,7 @@ const Tabs = ({ color }) => {
                   href="#link2"
                   role="tablist"
                 >
-                  <i className="fas fa-cog text-base mr-1"></i>  Internet
+                  <i className="fas fa-wifi text-base mr-1"></i>  Internet
                 </a>
               </li>
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -112,7 +107,7 @@ const Tabs = ({ color }) => {
                   href="#link3"
                   role="tablist"
                 >
-                  <i className="fas fa-briefcase text-base mr-1"></i>  Voucher Game
+                  <i className="fas fa-gamepad text-base mr-1"></i>  Voucher Game
                 </a>
               </li>
 
@@ -132,7 +127,7 @@ const Tabs = ({ color }) => {
                   href="#link4"
                   role="tablist"
                 >
-                  <i className="fas fa-briefcase text-base mr-1"></i>  PLN
+                  <i className="fas fa-bolt text-base mr-1"></i>  PLN
                 </a>
               </li>
 
@@ -152,7 +147,7 @@ const Tabs = ({ color }) => {
                   href="#link5"
                   role="tablist"
                 >
-                  <i className="fas fa-briefcase text-base mr-1"></i>  PDAM
+                  <i className="fas fa-tint text-base mr-1"></i>  PDAM
                 </a>
               </li>
 
@@ -197,7 +192,7 @@ const Tabs = ({ color }) => {
                   <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                     <h1 className ="font-semibold text-base text-gray-800">Tagihan Internet</h1>
                         <div class="mb-3 pt-0">
-                            <input type="text" placeholder="Nomer Telepon" class="px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full"/>
+                            <input type="text" placeholder="No Tagihan" class="px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full"/>
                         </div>
                         
 
