@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {numberWithCommas} from '../../utils/utils'
-import NumberFormat from 'react-number-format';
+
 
 
 export default function Orders() {
@@ -81,7 +81,6 @@ export default function Orders() {
           <div>{Account}</div>
           <div>({Phone})</div>
           <div>{Address}</div>
-          {/* <div>Rp.{numberWithCommas(100000)}</div> */}
         </div>
       </div>
 
@@ -115,9 +114,9 @@ export default function Orders() {
             <div className="w-full md:w-5/12">
               <div className="text-sm my-4 p-3 text-black">
                 <div className="flex justify-between text-black">
-                  <div><NumberFormat thousandSeparator={true} prefix={'Rp.'} value={x.orders_line_items[0].product.prod_price}/></div>
+                  <div>{x.orders_line_items[0].product.prod_price}</div>
                   <div>{x.order_total_qty}</div>
-                  <div><NumberFormat className=" text-right" thousandSeparator={true} prefix={'Rp.'} value={x.order_subtotal}/></div>
+                  <div>{x.order_subtotal}</div>
                 </div>
               </div>
             </div>

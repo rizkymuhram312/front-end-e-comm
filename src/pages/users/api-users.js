@@ -1,11 +1,11 @@
 import axios from 'axios'
-
+import {apiUserAccount} from '../../config/apiUrl'
 
 
 
 const listUsers = async () => {
     try {
-        let response = await axios.get("http://192.168.100.35:3001/api/users/")
+        let response = await axios.get(`${apiUserAccount}/users/`)
         // console.log(response.data.message)
         
         console.log(response.data)
@@ -19,7 +19,7 @@ const listUsers = async () => {
 // di backend, jangan lupa pake req.body.data, agar bisa di extract ke tiap attribute
 const create = async (users) => {
     try {
-        let response = await axios.post("http://192.168.100.35:3001/api/users/",{
+        let response = await axios.post(`${apiUserAccount}/users/`,{
           data : users
         })
         return await response.data

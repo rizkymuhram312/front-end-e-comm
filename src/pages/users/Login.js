@@ -36,7 +36,7 @@ const Login = () => {
         
 
 
-        axios.post('http://192.168.100.35:3001/api/users/signin', data)
+        axios.post('http://192.168.100.24:3001/api/users/signin', data)
         .then(result => {
             if(result) {
                 // console.log(result)
@@ -45,8 +45,8 @@ const Login = () => {
                 localStorage.setItem('acco_id', acco_id)
                 localStorage.setItem('dataUserName', result.data.users.user_name)
                 localStorage.setItem('token', result.data.token)
-                localStorage.setItem('dataUserPass', data.user_password)
-                localStorage.setItem('dataUserEmail', data.user_email)
+                // localStorage.setItem('dataUserPass', data.user_password)
+                // localStorage.setItem('dataUserEmail', data.user_email)
 
                
                 const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token

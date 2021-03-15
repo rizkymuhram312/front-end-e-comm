@@ -1,11 +1,12 @@
 import axios from 'axios'
+import {apiUserAccount} from '../../config/apiUrl'
 
 
 
 
 const listKodepos = async () => {
     try {
-        let response = await axios.get("http://192.168.100.35:3001/api/kodepos/")
+        let response = await axios.get(`${apiUserAccount}/kodepos/`)
         return await response.data
     }   catch(err){
         return await err.message
@@ -16,7 +17,7 @@ const listKodepos = async () => {
 // di backend, jangan lupa pake req.body.data, agar bisa di extract ke tiap attribute
 const create = async (kodepos) => {
     try {
-        let response = await axios.post("http://192.168.100.35:3001/api/kodepos/",{
+        let response = await axios.post(`${apiUserAccount}/kodepos/`,{
           data : kodepos
         })
         return await response.data
@@ -27,7 +28,7 @@ const create = async (kodepos) => {
   
   const deleteKodepos = async (kodeposId) => {
     try {
-        let response = await axios.delete(`http://192.168.100.35:3001/api/kodepos/${kodeposId}`)
+        let response = await axios.delete(`${apiUserAccount}/kodepos/${kodeposId}`)
         return await response.data
       } catch(err) {
         return await err.message
@@ -36,7 +37,7 @@ const create = async (kodepos) => {
   
   const updateKodepos = async (kodepos) => {
     try {
-        let response = await axios.put(`http://192.168.100.35:3001/api/kodepos/${kodepos.kodepos}`,{
+        let response = await axios.put(`${apiUserAccount}/kodepos/${kodepos.kodepos}`,{
           data : kodepos
         })
         return await response.data
