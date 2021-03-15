@@ -1,7 +1,7 @@
 import axios from 'axios'
-import url from '../../config/config'
+import {apiPayment} from '../../../config/apiUrl'
 
-const bankAccountApi = url+"/api/bankAccount"
+const bankAccountApi = apiPayment+"/bankAccount"
 
 const GetBankAccount = async (acco_id) => {
   const getBankAccountApi = bankAccountApi+"/"+acco_id
@@ -53,8 +53,8 @@ const UpdateBankAccount = (bankAccount) => {
   }
 
 const DeleteBankAccount = async (bacc_id) => {
-  const deleteBankAccountUrl = bankAccountApi+"/"+bacc_id
-  let result = await axios.delete(deleteBankAccountUrl,{bacc_id})
+  const deleteBankAccount = bankAccountApi+"/"+bacc_id
+  let result = await axios.delete(deleteBankAccount,{bacc_id})
   console.log(result.data.toString());
   return result.data.toString();
 }

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
-import url from '../../config/config'
+import {apiPayment} from '../../../config/apiUrl'
 
 const useBanks = () => {
-    const getBankApi = url+"/api/bank/"
+    const getBankApi = apiPayment+"/bank/"
     const [bank,setBank] = useState()
 
   useEffect(() => {

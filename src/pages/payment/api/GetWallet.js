@@ -1,10 +1,19 @@
 import axios from 'axios'
-import {paymentUrl} from '../../config/config'
+import {apiPayment} from '../../../config/apiUrl'
 
 const GetWallet = async (acco_id) => {
-  const getWalletApi = paymentUrl+"/api/wallet/"+acco_id
+  const getWalletApi = apiPayment+"/wallet/"+acco_id
   let getWallet = await axios.get(getWalletApi)
-  return getWallet.data[0]
+  console.log(getWallet)
+  return getWallet.data
 }
 
-export {GetWallet}
+const CreateWalletApi= async (data)=>{
+  console.log(data)
+  const createWalletApi = apiPayment+"/wallet"
+  let createWallet = await axios.post(createWalletApi,data)
+  console.log(createWallet)
+  return createWallet
+}
+
+export {GetWallet,CreateWalletApi}

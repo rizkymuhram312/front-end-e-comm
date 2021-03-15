@@ -1,10 +1,10 @@
 import axios from 'axios'
 import {useState,useEffect} from 'react'
-import url from '../../config/config'
+import {apiPayment} from '../../../config/apiUrl'
 
 const useTransactions = (acco_id) => {
     console.log(acco_id)
-    let transactionsApi = url+"/api/walletTransaction/"+acco_id
+    let transactionsApi = apiPayment+"/walletTransaction/"+acco_id
     const [transaction,setTransaction] = useState([])
     
     useEffect(() => {

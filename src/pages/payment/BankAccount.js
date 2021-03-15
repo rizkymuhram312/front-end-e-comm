@@ -1,8 +1,9 @@
-import {GetBankAccount,CreateBankAccount,UpdateBankAccount,DeleteBankAccount} from '../api/BankAccountApi'
+import {GetBankAccount,CreateBankAccount,UpdateBankAccount,DeleteBankAccount} from './api/index'
 import {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import AddBankAccountModal from './BankAccountModal'
 import {useBanks} from './api/index'
+
 const BankAccount = () => {
   let banks = useBanks({})
   let [editForm,setEditForm] = useState(false)
@@ -14,7 +15,6 @@ const BankAccount = () => {
   let [modal,setModal] = useState(false)
 
   useEffect(() => {
-    console.log(refresh);
     fetchData()
   },[refresh])
 
@@ -29,7 +29,7 @@ const BankAccount = () => {
     }else{
       setBankAccount([])
       setErrorApi("Belum ada akun bank")
-    } 
+    }
     }
   }
 

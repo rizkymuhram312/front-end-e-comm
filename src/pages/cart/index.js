@@ -2,6 +2,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ModalDelete from "../../components/modal/ModalDelete"
+import {apiCart} from "../../config/apiUrl" 
 
 export default function Cart() {
   const [checkedAll, setCheckedAll] = useState(false);
@@ -153,7 +154,7 @@ export default function Cart() {
 
   async function fetchCart() {
     return await axios({
-      url: `http://localhost:3003/api/cart/1001/PENDING`,
+      url: `${apiCart}/cart/1001/PENDING`,
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -176,7 +177,7 @@ export default function Cart() {
         cart_line_items:Cart
       })
       return await axios({
-        url: `http://localhost:3003/api/cart/1`,
+        url: `${apiCart}/cart/${Order.cart_id}`,
         method: "put",
         headers: {
           "Content-Type": "application/json",
@@ -213,7 +214,7 @@ export default function Cart() {
                   deleted[y]===true?<ModalDelete 
                   image={x.product.product_images[0].prim_filename} 
                   name={x.product.prod_name}
-                  url={`http://localhost:3003/api/cartLineItems/${x.clit_id}`}
+                  url={`${apiCart}/cartLineItems/${x.clit_id}`}
                   close={()=>toggleDelete(y)}
                   update={()=>{
                     toggleDelete(y)
