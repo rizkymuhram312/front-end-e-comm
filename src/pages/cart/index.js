@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import ModalDelete from "../../components/modal/ModalDelete"
 import {apiCart} from "../../config/apiUrl" 
 
@@ -10,6 +11,8 @@ export default function Cart() {
   const [deleted, setDeleted] = useState([]);
   const [Cart, setCart] = useState([]);
   const [Order, setOrder] = useState({})
+  let history = useHistory();
+
 
   useEffect(() => {
     fetchCart();
@@ -188,7 +191,7 @@ export default function Cart() {
   }
 
   const checkout = async () =>{
-    console.log(Order)
+    if(Order){
       return await axios({
         data:Order,
         url: `${apiCart}/cart/${Order.cart_id}`,
@@ -197,11 +200,12 @@ export default function Cart() {
           "Content-Type": "application/json",
         },
       })
-        .then((res) => {
-          return console.log(res)
-          // return fetchCart()
-        })
+        .then(() => history.push("/orders"))
+          // return fetchCart())
         .catch((err) => console.error(err));
+    }else{
+      return alert("anda belum order barang")
+    }
   }
 
   return (

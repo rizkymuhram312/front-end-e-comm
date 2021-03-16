@@ -9,8 +9,8 @@ export default function MyAdv() {
 
   const [Product, setProduct] = useState([]);
   const [Category, setCategory] = useState([]);
-  const onClickAddProduct = () => {
-    history.push("/tambahProduct");
+  const onClickAddAdv = () => {
+    history.push("/advertising/add-adv");
   };
   useEffect(() => {
     axios({
@@ -34,8 +34,13 @@ export default function MyAdv() {
 
   return (
     <div>
-      <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4">
-        <div className="w-full flex flex-wrap content-evenly">
+      <div className="flex flex-wrap">
+        <div className="w-full md:w-3/12 md:mt-10 px-1 text-center font-bold text-md flex flex-row justify-evenly md:flex-col md:justify-start ">
+          <div className="py-5 px-2 hover:text-secondary hover:bg-white" style={{cursor:'pointer'}} onClick={()=>history.push("/advertising/my-pkg")}>Package Adv</div>
+          <div className="py-5 px-2 hover:text-secondary hover:bg-white" style={{cursor:'pointer'}} onClick={()=>history.push("/advertising/my-adv")}>My Product</div>
+          <div className="py-5 px-2 hover:text-secondary hover:bg-white" style={{cursor:'pointer'}} onClick={()=>history.push("/advertising/add-adv")}>Advertising</div>
+        </div>
+        <div className="w-full md:w-9/12 flex flex-wrap content-evenly">
           <div className="w-2/12 md:mt-10 px-1 ml-10">Nama Product</div>
           <div className="w-3/12 md:mt-10 px-1 mr-5">
             <div class=" relative ">
@@ -62,14 +67,6 @@ export default function MyAdv() {
           <div className="w-2/12 md:mt-10 ml-10">
             <button class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto">
               Cari
-            </button>
-          </div>
-          <div className="w-3/12 mt-10">
-            <button
-              onClick={onClickAddProduct}
-              class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto"
-            >
-              Tambah Produk Baru
             </button>
           </div>
 
@@ -138,6 +135,11 @@ export default function MyAdv() {
                         weight
                       </span>
                       {x.prod_weight}
+                    </td>
+                    <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                      <button onClick={onClickAddAdv}>
+                        Promosikan
+                      </button>
                     </td>
                   </tr>
                 );
