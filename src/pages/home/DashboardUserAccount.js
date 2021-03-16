@@ -7,16 +7,26 @@ import { Route, Switch, Redirect, BrowserRouter, render } from 'react-router-dom
 
 import Province from '../province/province'
 import Users from '../users/users'
+
+import Donut from 'react-svg-donuts';
 import City from '../city/city'
 import Kecamatan from '../kecamatan/kecamatan'
 import Kodepos from '../kodepos/kodepos'
+import Profil from '../userAccount/profil'
+import Account from '../userAccount/account'
+import Upload from '../userAccount/upload'
+import RegisterAccount from '../userAccount/registerAccount'
+import UbahPassword from '../users/ubahpassword'
+import Address from '../address/address'
+import Profil2 from '../userAccount/profil2'
+
 const axios = require('axios');
 
 
 const progress = 50;
 
 
-const DashboardUsers = () => {
+const DashboardUserAccount = () => {
   const token = localStorage.getItem('token')
   // console.log(token)
 
@@ -27,7 +37,7 @@ const DashboardUsers = () => {
 
 
   if (!token) {
-    // alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
+    alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
     return <Redirect to="/login" />
   }
 
@@ -40,11 +50,22 @@ const DashboardUsers = () => {
 
   return (
     <>
+    
+
+
+
+
       <div className="flex flex-wrap">
         <div className="w-full md:full-mt-16">
-          <ul className="flex mb-0 list-none  flex-wrap pt-3 pb-4 flex-row" role="tablist">
+          <ul
+            className="flex mb-0 list-none  flex-wrap pt-3 pb-4 flex-row"
+            role="tablist"
+          >
+
+
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
-              <a className={
+              <a
+                className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 1
                     ? "text-white bg-gray-600"
@@ -55,10 +76,10 @@ const DashboardUsers = () => {
                   setOpenTab(1);
                 }}
                 data-toggle="tab"
-                href="#"
+                href="#/profile"
                 role="tablist"
               >
-                Dashboard
+                Profil
               </a>
             </li>
 
@@ -77,10 +98,10 @@ const DashboardUsers = () => {
                   setOpenTab(2);
                 }}
                 data-toggle="tab"
-                href="#/province"
+                href="#/akun"
                 role="tablist"
               >
-                Province
+                Akun Saya
               </a>
             </li>
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -96,10 +117,10 @@ const DashboardUsers = () => {
                   setOpenTab(3);
                 }}
                 data-toggle="tab"
-                href="#/city"
+                href="#/alamat"
                 role="tablist"
               >
-                City
+                Alamat
               </a>
             </li>
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -115,29 +136,10 @@ const DashboardUsers = () => {
                   setOpenTab(4);
                 }}
                 data-toggle="tab"
-                href="#link3"
+                href="#ubahpassword"
                 role="tablist"
               >
-                Kecamatan
-              </a>
-            </li>
-            <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
-              <a
-                className={
-                  "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
-                  (openTab === 5
-                    ? "text-white bg-gray-600"
-                    : "text-gray-600 bg-white")
-                }
-                onClick={e => {
-                  e.preventDefault();
-                  setOpenTab(5);
-                }}
-                data-toggle="tab"
-                href="#link4"
-                role="tablist"
-              >
-                Kodepos
+                Ubah Password
               </a>
             </li>
           </ul>
@@ -151,7 +153,7 @@ const DashboardUsers = () => {
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
 
                   <div>
-                    <Users />
+                    <Profil2 />
                   </div>
 
                 </div>
@@ -160,7 +162,7 @@ const DashboardUsers = () => {
                 <div className={openTab === 2 ? "block" : "hidden"} id="link1">
 
                   <div>
-                    <Province />
+                   <RegisterAccount />
                   </div>
 
 
@@ -168,7 +170,7 @@ const DashboardUsers = () => {
                 <div className={openTab === 3 ? "block" : "hidden"} id="link2">
 
                   <div>
-                    <City />
+                    <Address />
                   </div>
 
                 </div>
@@ -176,12 +178,9 @@ const DashboardUsers = () => {
                  
 
                   <div>
-                    <Kecamatan />
+                    <UbahPassword /> 
                   </div>
 
-                </div>
-                <div className={openTab === 5 ? "block" : "hidden"} id="link4">
-                  <Kodepos />
                 </div>
               </div>
             </div>
@@ -200,4 +199,4 @@ const DashboardUsers = () => {
   )
 }
 
-export default DashboardUsers
+export default DashboardUserAccount

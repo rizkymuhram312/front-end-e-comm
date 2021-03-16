@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Province from '../province/province';
 import { create, updateCity } from './api-city';
 
 export default class AddEditForm extends Component {
@@ -6,31 +7,32 @@ export default class AddEditForm extends Component {
     state = {
         cityId: null,
         cityName: '',
-        isEdit : false
+        isEdit: false
     }
 
     refresh = () => {
         // re-renders the component
         this.setState({});
-      };
+    };
 
-    componentDidMount(){
-        if (this.props.city !== null){
+    componentDidMount() {
+        if (this.props.city !== null) {
 
             this.setState({
-                cityId : this.props.city.city_id,
-                cityName : this.props.city.city_name,
-                cityProvId : this.props.city.city_prov_id,
+                cityId: this.props.city.city_id,
+                cityName: this.props.city.city_name,
+                cityProvId: this.props.city.city_prov_id,
 
-                isEdit : true
+                isEdit: true
             })
         }
 
-       
+
     }
 
     handleOnChange = e => {
         const { target: { value, name } } = e;
+
         this.setState({
             [name]: value
         })
@@ -40,26 +42,26 @@ export default class AddEditForm extends Component {
     handleOnSubmit = e => {
         e.preventDefault();
         const city = {
-            city_id : this.state.cityId,
-            city_name : this.state.cityName,
-            city_prov_id : this.state.cityProvId
-            
+            city_id: this.state.cityId,
+            city_name: this.state.cityName,
+            city_prov_id: this.state.cityProvId
+
         };
- 
-        if (!this.state.isEdit){
+
+        if (!this.state.isEdit) {
             create(city).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
             });;
-        }else{
+        } else {
             updateCity(city).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
             });;
         }
-    
+
 
 
         // jika ada udah sukses or error then, close modal
@@ -71,7 +73,7 @@ export default class AddEditForm extends Component {
 
     render() {
         const { cityId, cityName, cityProvId } = this.state;
-  
+
         return (
 
             <>
@@ -107,7 +109,7 @@ export default class AddEditForm extends Component {
                                                 >
                                                     city Id
                                              </label>
-                                                <input disabled 
+                                                <input disabled
                                                     type="text"
                                                     name="cityId"
                                                     value={cityId}
@@ -141,30 +143,34 @@ export default class AddEditForm extends Component {
                                                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
-                                                    city Province Id
+                                                    PROVINCE NAME
                                             </label>
-                                                <input required
-                                                    type="text"
-                                                    name="cityProvId"
-                                                    value={cityProvId}
-                                                    onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                <select name="cityProvId" value={cityProvId} onChange={this.handleOnChange}>
+                                                    {
+                                                        this.props.province.map((e) => {
 
-                                                />
+                                                            return (<option value={e.prov_id}>{e.prov_name}</option>)
+                                                        })
+                                                    }
+                                                </select>
                                             </div>
+
+
+
+
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                                         <button onClick={() => this.props.setShowModal(false)
                                         }
 
-                                        
+
                                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button"
                                         >
 
-        
-                                            
+
+
 
                                             Close
                                 </button>
