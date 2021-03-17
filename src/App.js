@@ -11,6 +11,7 @@ import City from './pages/city/city'
 import Users from './pages/users/users'
 import Kecamatan from './pages/kecamatan/kecamatan'
 import Kodepos from './pages/kodepos/kodepos'
+import RegisterAccount from './pages/users/RegisterAccount'
 import DashboardUserAccount from './pages/home/DashboardUserAccount'
 import Address from './pages/address/address'
 import Wallet from './pages/payment/MyWallet'
@@ -44,6 +45,7 @@ function App() {
           <Route path="/users" component={Users} exact />
           <Route path="/kecamatan" component={Kecamatan} exact />
           <Route path="/kodepos" component={Kodepos} exact />
+          <Route path="/registerAccount" component={RegisterAccount} exact />
           <Route path="/dashboarduser" component={DashboardUserAccount} exact />
           <Route path="/address" component={Address} exact />
           <Route path="/myorders" component={MyOrders}/>
