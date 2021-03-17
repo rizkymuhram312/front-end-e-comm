@@ -5,7 +5,7 @@ import {GetWallet} from './api/index'
 import Transactions from './Transactions'
 const MyWallet = () => {
     let [wallet,setWallet] = useState({})
-    let [acco_id] = useState(localStorage.getItem('acco_id') || 1001)
+    let [acco_id] = useState(localStorage.getItem('dataAccountId'))
     let [showHistoryTrans,setShowHistoryTrans] = useState(false)
     let [walletActivated,setWalletActivated] = useState(false)
     let [showActivateWalletForm,setShowActivateWalletForm] = useState(false)

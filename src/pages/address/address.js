@@ -239,6 +239,8 @@ const Address = () => {
                   <span>
                     {x.addr_address}
                     <br />
+                    {x.addr_optional}
+                    <br />
                     {x.city_name} - {x.kec_name}
                     <br />
                     {x.prov_name}
