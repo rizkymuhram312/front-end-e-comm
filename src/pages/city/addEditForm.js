@@ -103,14 +103,16 @@ export default class AddEditForm extends Component {
                                     <div className="flex flex-wrap">
                                         <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
-                                                <label
+                                                {/* <label
                                                     className="text-center block uppercase text-gray-700 text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
                                                     city Id
-                                             </label>
+                                             </label> */}
                                                 <input disabled
                                                     type="text"
+                                                    type="hidden"
+
                                                     name="cityId"
                                                     value={cityId}
                                                     onChange={this.handleOnChange}
@@ -119,10 +121,10 @@ export default class AddEditForm extends Component {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-full lg:w-6/12 px-4">
+                                        <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
                                                 <label
-                                                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                                    className="block uppercase text-xs font-bold "
                                                     htmlFor="grid-password"
                                                 >
                                                     city Name
@@ -132,20 +134,20 @@ export default class AddEditForm extends Component {
                                                     name="cityName"
                                                     value={cityName}
                                                     onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                    className="px-3 py-3 placeholder-gray-400 bg-white rounded  focus:ring-2 focus:ring-blue-600 shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-full lg:w-6/12 px-4">
-                                            <div className="relative w-full mb-3">
+                                        <div className="w-full lg:w-full px-4">
+                                            <div className=" w-full mb-3">
                                                 <label
-                                                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                                    className="block uppercase text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
                                                     PROVINCE NAME
                                             </label>
-                                                <select name="cityProvId" value={cityProvId} onChange={this.handleOnChange}>
+                                                <select className="w-full border border-gray-300 py-2 px-2 bg-white  focus:ring-2 focus:ring-blue-600 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2" name="cityProvId" value={cityProvId} onChange={this.handleOnChange}>
                                                     {
                                                         this.props.province.map((e) => {
 
@@ -174,7 +176,7 @@ export default class AddEditForm extends Component {
 
                                             Close
                                 </button>
-                                        <button onClick={() => this.props.setRefreshTable(false)}
+                                        <button onClick={() => this.props.setRefreshTable(true)}
                                             className="bg-gray-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit"
                                         >

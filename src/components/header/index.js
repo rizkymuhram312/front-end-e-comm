@@ -17,21 +17,33 @@ export default function Navbar({ fixed }) {
     if (localStorage.token == null || localStorage.token == undefined) {
       setisLogin(false);
       setValue({});
+      refresh()
 
     }
     else {
 
       setisLogin(true);
       setValue({});
+      refresh();
+      
     }
     setValue({});
+    refresh();
+    
+
+
   }, [localStorage.token])
+  
+ 
+
 
   const klikLogout = () => {
     localStorage.clear()
 
     alert("Anda Berhasil Logout!");
     setValue({});
+    
+    
     <Redirect to="/home" />
   }
   return (
@@ -79,7 +91,7 @@ export default function Navbar({ fixed }) {
                   
                 <button className="text-center ">
                   <span className="mr-1 font-semibold capitalize">{localStorage.getItem('dataUserName')}
-                  {/* <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /> </svg> */}
+                 
                 </span>
                 </button>
                 <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">

@@ -19,8 +19,10 @@ const Address2 = () => {
   const [latitude, setLatitude] = useState("");
   const ProvId = localStorage.getItem("AddProvId")
 
+  const apiAccoId = localStorage.getItem('dataAccountId')
+
   const GetAlamat = async () => {
-    const response = await axios.get(`${apiUserAccount}/address/search/1001`);
+    const response = await axios.get(`${apiUserAccount}/address/search/${apiAccoId}`);
     return response.data;
   };
 

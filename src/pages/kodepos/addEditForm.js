@@ -103,10 +103,10 @@ export default class AddEditForm extends Component {
                             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                                 <form onSubmit={this.handleOnSubmit}>
                                     <div className="flex flex-wrap">
-                                        <div className="w-full lg:w-6/12 px-4">
+                                        <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
                                                 <label
-                                                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                                    className="block uppercase text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
                                                     Kodepos Id
@@ -116,25 +116,25 @@ export default class AddEditForm extends Component {
                                                     name="kodeposId"
                                                     value={kodeposId}
                                                     onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                    className="px-3 py-3 placeholder-gray-400 focus:ring-2 focus:ring-blue-600  bg-white rounded shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-full lg:w-6/12 px-4">
+                                        <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
                                                 <label
-                                                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                                    className="block uppercase text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
-                                                    Kodepos Id
+                                                    Kodepos Kecamtan Id
                                             </label>
                                                 <input required
                                                     type="text"
                                                     name="kodeposKecId"
                                                     value={kodeposKecId}
                                                     onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                    className="px-3 py-3 placeholder-gray-400 focus:ring-2 focus:ring-blue-600  bg-white rounded shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
                                                 />
                                             </div>

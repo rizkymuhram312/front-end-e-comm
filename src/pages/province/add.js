@@ -65,15 +65,6 @@ export default class AddEditForm extends Component {
 
     }
 
-    onClose = () => {
-        this.props.setShowModal(false);
-        this.setState({
-            provinceId : null,
-            provinceName : '',
-        })
-        
-    }
-
     render() {
         const { provinceId, provinceName } = this.state;
   
@@ -119,7 +110,7 @@ export default class AddEditForm extends Component {
                                         <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
                                                 <label
-                                                    className="block uppercase text-xs font-bold mb-2"
+                                                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
                                                     province Name
@@ -129,14 +120,15 @@ export default class AddEditForm extends Component {
                                                     name="provinceName"
                                                     value={provinceName}
                                                     onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 bg-white rounded focus:ring-2 focus:ring-blue-600 shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
                                                 />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
-                                        <button onClick={this.onClose}
+                                        <button onClick={() => this.props.setShowModal(false)
+                                        }
 
                                         
                                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

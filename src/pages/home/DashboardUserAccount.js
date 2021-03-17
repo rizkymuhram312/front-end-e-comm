@@ -18,9 +18,9 @@ import Upload from '../userAccount/upload'
 import RegisterAccount from '../userAccount/registerAccount'
 import UbahPassword from '../users/ubahpassword'
 import Address from '../address/address'
-import Address2 from '../address/address2'
 
 import Profil2 from '../userAccount/profil2'
+import Address2 from '../address/address2'
 
 const axios = require('axios');
 
