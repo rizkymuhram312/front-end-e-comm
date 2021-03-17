@@ -21,7 +21,7 @@ export default function AddAdv() {
   useEffect(() => {
     let fetchProduct = async () => {
       await axios({
-        url: `${apiProductTransaction}/api/product/1511`,
+        url: `${apiProductTransaction}/product/1511`,
         method: "get",
         headers: {
           "Content-type": "application/json",
@@ -35,7 +35,6 @@ export default function AddAdv() {
 
   return (
     <div>
-        {/* {console.log(control.getValues("packageType").label)} */}
       <div className="flex flex-wrap">
         <div className="w-full md:w-3/12 md:mt-10 px-1 text-center font-bold text-md flex flex-row justify-evenly md:flex-col md:justify-start ">
           <div
@@ -61,7 +60,7 @@ export default function AddAdv() {
           </div>
         </div>
         <div className="w-full md:w-9/12">
-            <img src="../samsung.jpg" class=" ml-5 rounded-lg inset-0 w-50 h-50 object-cover " alt="product" style={{display:'block', margin:'auto'}}/>
+            <img src={`../${Product.product_images[0].prim_filename}`} class=" ml-5 rounded-lg inset-0 w-64 h-64 object-cover " alt="product" style={{display:'block', margin:'auto'}}/>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col content-evenly xl:px-32 md:px-24 p-5">
               <label>Published Date</label>
