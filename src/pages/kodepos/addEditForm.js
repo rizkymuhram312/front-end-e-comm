@@ -127,7 +127,7 @@ export default class AddEditForm extends Component {
                                                     className="block uppercase text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
-                                                    Kodepos Kecamtan Id
+                                                    Kodepos Kecamatan Id
                                             </label>
                                                 <input required
                                                     type="text"

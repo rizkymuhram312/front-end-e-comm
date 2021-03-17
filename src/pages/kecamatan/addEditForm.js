@@ -154,7 +154,7 @@ export default class AddEditForm extends Component {
                                                     {
                                                         this.props.city.map((e) => {
 
-                                                            return (<option value={e.city_id}>{e.city_name}</option>)
+                                                            return (<option value={e.city_id}>{e.city_id} - {e.city_name}</option>)
                                                         })
                                                     }
                                                 </select>

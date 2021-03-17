@@ -56,6 +56,7 @@ export const TableProvince = props => {
                                                 <button onClick = { () => {
                                                     if (window.confirm("apakah anda yakin ingin menghapus data ini?")) {
                                                         props.setDelete(province.prov_id);
+                                                        props.setDelete(province.prov_id);
                                                       }
                                                     
                                                 }}

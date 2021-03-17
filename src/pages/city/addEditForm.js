@@ -127,7 +127,7 @@ export default class AddEditForm extends Component {
                                                     className="block uppercase text-xs font-bold "
                                                     htmlFor="grid-password"
                                                 >
-                                                    city Name
+                                                    CITY NAME
                                             </label>
                                                 <input required
                                                     type="text"
@@ -147,11 +147,11 @@ export default class AddEditForm extends Component {
                                                 >
                                                     PROVINCE NAME
                                             </label>
-                                                <select className="w-full border border-gray-300 py-2 px-2 bg-white  focus:ring-2 focus:ring-blue-600 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2" name="cityProvId" value={cityProvId} onChange={this.handleOnChange}>
+                                                <select className="capitalize w-full border border-gray-300 py-2 px-2 bg-white  focus:ring-2 focus:ring-blue-600 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2" name="cityProvId" value={cityProvId} onChange={this.handleOnChange}>
                                                     {
                                                         this.props.province.map((e) => {
 
-                                                            return (<option value={e.prov_id}>{e.prov_name}</option>)
+                                                            return (<option value={e.prov_id}>{e.prov_id} - {e.prov_name}</option>)
                                                         })
                                                     }
                                                 </select>

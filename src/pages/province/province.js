@@ -44,10 +44,6 @@ export default class Province extends Component {
             isModalShow: value
         })
         this.refresh()
-        this.setState({
-            provinceId : null,
-            provinceName : '',
-        })
 
         
     }

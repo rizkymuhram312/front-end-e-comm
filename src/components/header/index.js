@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 
 export default function Navbar({ fixed }) {
 
-  const [isLogin, setisLogin] = useState(true)
+  const [isLogin, setisLogin] = useState(false)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
   const [value, setValue] = useState();
@@ -13,7 +13,7 @@ export default function Navbar({ fixed }) {
   }
 
   useEffect(() => {
-    console.log(isLogin)
+    // console.log(isLogin)
     if (localStorage.token == null || localStorage.token == undefined) {
       setisLogin(false);
       setValue({});
@@ -25,11 +25,12 @@ export default function Navbar({ fixed }) {
       setisLogin(true);
       setValue({});
       refresh();
+    <Redirect to="/home" />
       
     }
     setValue({});
     refresh();
-    
+    <Redirect to="/home" />
 
 
   }, [localStorage.token])
@@ -44,7 +45,7 @@ export default function Navbar({ fixed }) {
     setValue({});
     
     
-    <Redirect to="/home" />
+    <Redirect to="/login" />
   }
   return (
 

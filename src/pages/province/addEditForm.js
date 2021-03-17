@@ -9,14 +9,22 @@ export default class AddEditForm extends Component {
         isEdit : false
     }
 
+    
+
     refresh = () => {
         // re-renders the component
         this.setState({});
       };
 
     componentDidMount(){
-        if (this.props.province !== null){
+        if (this.props.province == null){
 
+            this.setState({
+                provinceId : null,
+                provinceName : '',
+                isEdit : false
+            })
+        }else {
             this.setState({
                 provinceId : this.props.province.prov_id,
                 provinceName : this.props.province.prov_name,
@@ -55,7 +63,8 @@ export default class AddEditForm extends Component {
                 console.log(error);
             });;
         }
-    
+
+      
 
 
         // jika ada udah sukses or error then, close modal
@@ -67,9 +76,11 @@ export default class AddEditForm extends Component {
 
     onClose = () => {
         this.props.setShowModal(false);
+        this.props.setRefreshTable(true);
         this.setState({
             provinceId : null,
             provinceName : '',
+            isEdit : false
         })
         
     }
