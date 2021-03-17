@@ -1,0 +1,74 @@
+import { useState, useEffect } from "react"
+import {AddSaldo} from './api/index'
+
+const TopUpWallet = (props) => {
+    let [amount,setAmount] = useState(0)
+    let [refresh,setRefresh] = useState(false)
+    let [loading,setLoading] = useState(false)
+    let text = "PLEASE WAIT . . . .".split("")
+    let [loadingText,setLoadingText] = useState(text[0])
+    let [counter,setCounter] = useState(0)
+    let [addSaldo,setAddSaldo] = useState()
+    let [dataTopUp,setDataTopUp] = useState(
+        {
+            "acco_id":props.acco_id,
+            "wale_id":props.wale_id,
+            "amount":0,
+            "transaction_type":"TFB",
+            "bank_acc_number":123456789
+        }
+    )
+
+    const onHandleChangeAmount = (e) => {
+        setAmount(e.target.value)
+    }
+
+    useEffect(()=>{
+        dataTopUp.amount = amount
+    },[amount])
+
+    const onHandleClickSubmitTopup = async () => {
+        let result = await AddSaldo(dataTopUp)
+        console.log(result.data.length > 1)
+        setAddSaldo(result)
+        props.setShowTopUpForm(false)
+        props.setRefresh(!props.refresh)
+    }
+
+    useEffect(() => {
+        if(loading){
+            if(counter > text.length-1){
+                setCounter(0)
+                setLoadingText("")
+            props.setRefresh(!props.refresh)
+        }else{
+            setCounter(counter+1)
+            setTimeout(()=>{
+                setLoadingText(loadingText+text[counter])
+            props.setRefresh(!props.refresh)
+            },50)
+        }
+    }else{
+        console.log("do nothing")
+    }
+    }, [props.refresh,loading])
+    
+    return(
+        <>
+        {
+        loading ?
+        (<div>
+                <h1 className="font-bold">{loadingText}</h1>
+        </div>)
+            :( 
+        <div className="grid w-80 mx-auto mt-10 my-2 text-center border shadow-md border-gray-300 rounded-md overflow-hidden text-black bg-gray-100">    
+            <h1 className="mt-2 py-2 font-bold">TOP UP WALLET</h1>
+            <input value={amount} onChange={onHandleChangeAmount} className=" px-2 py-2 mx-2 my-2 content-center border border-gray-200 text-center" type="number" placeholder="Amount"></input>
+            <button onClick={onHandleClickSubmitTopup} className="mx-2 my-2 px-2 py-2 bg-gray-800 text-white rounded-md">Topup</button>
+        </div>)
+        }
+        </>
+
+    )
+}
+export {TopUpWallet}
