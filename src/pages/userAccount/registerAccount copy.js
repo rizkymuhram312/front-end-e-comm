@@ -223,7 +223,7 @@ const updateAccount = () => {
                 </div>
                 <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <h1 className="justify-self-end">Nomor Telepon : </h1>
-                    <input type="text" id="notlp" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder={localStorage.getItem('dataAccountPhone')} value={phone}
+                    <input type="text" id="notlp" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={phone}
                     onChange={onChangePhone}/>
                     
                 </div>

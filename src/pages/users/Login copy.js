@@ -1,7 +1,6 @@
 import React, { useState , Fragment } from 'react';
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import { apiUserMaster,apiUserAccount } from '../../config/apiUrl'
 
 
 
@@ -32,95 +31,23 @@ const Login = () => {
             user_password : user_password
             
         }
-        // console.log(data)
-
-
-        
-
-
-        axios.post(`${apiUserAccount}/users/signin`, data)
+        console.log(data)
+        axios.post('http://localhost:3001/api/users/signin', data)
         .then(result => {
-            console.log(result)
-            if(result.data.users.accounts != null) {
-                // console.log(result)
-                let acco_id = result.data.users.accounts.acco_id
-                localStorage.setItem('dataAccountId', acco_id)
-
-                let acco_shopname = result.data.users.accounts.acco_shopname
-                localStorage.setItem('dataAccountShopName', acco_shopname)
-
-                let acco_birthdate = result.data.users.accounts.acco_birthdate
-                localStorage.setItem('dataAccountBirthdate', acco_birthdate)
-
-                let acco_phone = result.data.users.accounts.acco_phone
-                localStorage.setItem('dataAccountPhone', acco_phone)
-
-                let acco_gender = result.data.users.accounts.acco_gender
-                localStorage.setItem('dataAccountGender',acco_gender)
-
-                localStorage.setItem('dataUserName', result.data.users.user_name)
+            if(result) {
+                let accoID = result.data.users.accounts.acco_id;
                 localStorage.setItem('token', result.data.token)
-                // localStorage.setItem('dataUserPass', data.user_password)
-                localStorage.setItem('dataUserEmail', data.user_email)
-                localStorage.setItem('dataId', result.data.users.user_id)
-
-               
-                const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
-
-                const tokenParts = result.data.token.split('.')
-                const encodedPayload = tokenParts[1]
-                const rawPayload = atob(encodedPayload)
-                const hasiltoken = JSON.parse(rawPayload)
-                console.log(hasiltoken) // outputs 'bob'
-                console.log(result.data.token) // outputs 'bob'
-
-
-                // console.log(a)
+                localStorage.setItem('username', result.data.users.user_name)
+                localStorage.setItem('id',accoID)
+                
+                // localStorage.setItem('acco_id',result.data.a)
                 setRedirect(true)
             }
-            else{
-                console.log(result)
-               
-                localStorage.setItem('dataUserName', result.data.users.user_name)
-                localStorage.setItem('token', result.data.token)
-                localStorage.setItem('dataUserPass', data.user_password)
-                localStorage.setItem('dataUserEmail', data.user_email)
-                localStorage.setItem('dataUserId', result.data.users.user_id)
-                const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
-                const tokenParts = result.data.token.split('.')
-                const encodedPayload = tokenParts[1]
-                const rawPayload = atob(encodedPayload)
-                const hasiltoken = JSON.parse(rawPayload)
-                console.log(hasiltoken) // outputs 'bob'
-                console.log(result.data.token) // outputs 'bob'
-                // console.log(a)
-                setRedirect(true)
-            }
-            
         })
         .catch(e => {
-            
-            setError(e.response.data.message)
+            alert('Tolong Buat Account')
+            setError( <Redirect to="/registerAccount" />)
         })
-
-        
-
-        // const config = {
-        //     headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
-        // };
-        
-        // const bodyParameters = {
-        //    key: "value"
-        // };
-        
-        // axios.post( 
-        //   'http://192.168.100.35:3001/api/users',
-        //   bodyParameters,
-        //   config
-        // ).then(console.log).catch(console.log);
-
-
-      
     }
 
     return (
@@ -128,7 +55,7 @@ const Login = () => {
         <Fragment>
             {
                 redirect && (
-                    <Redirect to="/home" />
+                    <Redirect to="/dashboard" />
                 )
             }
 
