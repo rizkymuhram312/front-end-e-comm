@@ -1,11 +1,7 @@
 import {useState,useEffect} from 'react'
-import {useParams} from 'react-router-dom'
 
 const Transactions = (props) => {
     let [transactionsAccount,setTransactionsAccount] = useState([])
-
-    console.log(transactionsAccount.length)
-    console.log(transactionsAccount)
     const fixNotation = (n) => {
         try {
             let nString = ""
@@ -26,7 +22,7 @@ const Transactions = (props) => {
 
     useEffect(()=>{
         console.log(props)
-        if(props.length < 1){
+        if(props.length < 1 || props == undefined){
             setTransactionsAccount([])
         }else{
             setTransactionsAccount(props.transactions)
@@ -48,7 +44,7 @@ const Transactions = (props) => {
         </thead>
           <tbody>
               {
-                transactionsAccount.length < 1 ? (<tr className="text-black"><td>Belum ada transactions</td></tr>):(
+                transactionsAccount.length < 1 || transactionsAccount == undefined? (<tr className="text-black"><td>Belum ada transactions</td></tr>):(
                     transactionsAccount.map((x) => {
                         return (
                     <tr className=" text-black bg-white rounde-xl">

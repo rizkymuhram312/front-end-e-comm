@@ -1,6 +1,6 @@
 import {useEffect, useState } from 'react';
 import {CreateWallet} from './CreateNewWallet'
-import {GetWallet, useTransactions} from './api/index'
+import {GetWallet, GetTransactions} from './api/index'
 import Transactions from './Transactions'
 import {TopUpWallet} from './TopUpWallet'
 
@@ -11,24 +11,38 @@ const MyWallet = () => {
     let [walletActivated,setWalletActivated] = useState(false)
     let [showActivateWalletForm,setShowActivateWalletForm] = useState(false)
     let [showTopUpForm,setShowTopUpForm] = useState()
-    let transactions = useTransactions(acco_id)
+    let [transactions,setTransactions] = useState([])
     let [refresh,setRefresh] = useState(false)
 
     useEffect(() => {
-      const fetchData = async () => {
-        if(acco_id !== undefined) {
+      const fetchDataTrans = async () => {
+        try {
+          let result = await GetTransactions(acco_id)
+          setTransactions(result) 
+          console.log(result)
+        } catch (error) {
+          console.log(error)          
+        }      
+      }
 
-          let walletData = await GetWallet(acco_id)
-          console.log(walletData.length)
-          if(walletData.length > 0){
-            await saldoToString(walletData[0])
-            setWalletActivated(true)
-          }else{
-            setWalletActivated(false)
-            setWallet({
-              acco_id:"Wallet tida ada",
-              wale_saldo: ""
-            })
+      const fetchData = async () => {
+        console.log(acco_id)
+        if(acco_id !== undefined) {
+          try {
+            let walletData = await GetWallet(acco_id)
+            console.log(walletData.length)
+            if(walletData.length > 0){
+              await saldoToString(walletData[0])
+              setWalletActivated(true)
+            }else{
+              setWalletActivated(false)
+              setWallet({
+                acco_id:"Wallet tida ada",
+                wale_saldo: ""
+              })
+            }
+          } catch (error) {
+            console.log(error)
           }
         }else{
           setWallet({
@@ -40,10 +54,11 @@ const MyWallet = () => {
 
       try {
         fetchData()
+        fetchDataTrans()
       } catch (error) {
         console.log(error)
       }
-    }, [showActivateWalletForm,showTopUpForm,showHistoryTrans,refresh,transactions])
+    }, [showActivateWalletForm,showTopUpForm,showHistoryTrans,refresh])
 
     const saldoToString = async (data) => {
       let saldoStrings=""
@@ -120,6 +135,7 @@ const MyWallet = () => {
           setShowTopUpForm={setShowTopUpForm}
           setRefresh={setRefresh}
           refresh={refresh}
+          setShowHistoryTrans={setShowHistoryTrans}
           />
         ):null
       }

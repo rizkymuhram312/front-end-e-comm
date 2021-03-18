@@ -3,12 +3,10 @@ import {AddSaldo} from './api/index'
 
 const TopUpWallet = (props) => {
     let [amount,setAmount] = useState(0)
-    let [refresh,setRefresh] = useState(false)
     let [loading,setLoading] = useState(false)
-    let text = "PLEASE WAIT . . . .".split("")
+    let text = " PROCESSING YOUR REQUEST . . . .".split("")
     let [loadingText,setLoadingText] = useState(text[0])
     let [counter,setCounter] = useState(0)
-    let [addSaldo,setAddSaldo] = useState()
     let [dataTopUp,setDataTopUp] = useState(
         {
             "acco_id":props.acco_id,
@@ -28,11 +26,14 @@ const TopUpWallet = (props) => {
     },[amount])
 
     const onHandleClickSubmitTopup = async () => {
-        let result = await AddSaldo(dataTopUp)
-        console.log(result.data.length > 1)
-        setAddSaldo(result)
-        props.setShowTopUpForm(false)
-        props.setRefresh(!props.refresh)
+        await AddSaldo(dataTopUp)
+        setLoading(true)
+        setTimeout(()=>{
+            props.setShowTopUpForm(false)
+            props.setShowHistoryTrans(true)
+            props.setRefresh(!props.refresh)
+            setLoading(false)
+        },1000)
     }
 
     useEffect(() => {
@@ -46,18 +47,18 @@ const TopUpWallet = (props) => {
             setTimeout(()=>{
                 setLoadingText(loadingText+text[counter])
             props.setRefresh(!props.refresh)
-            },50)
+            },10)
         }
     }else{
         console.log("do nothing")
     }
-    }, [props.refresh,loading])
+    },[props.refresh,loading])
     
     return(
         <>
         {
         loading ?
-        (<div>
+        (<div className="grid w-80 mx-auto mt-10 my-2 text-center border shadow-md border-gray-300 rounded-md overflow-hidden text-black bg-gray-100">
                 <h1 className="font-bold">{loadingText}</h1>
         </div>)
             :( 

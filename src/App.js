@@ -24,6 +24,7 @@ import MyAdv from './pages/advertising/myAdv'
 import AddAdv from './pages/advertising/addAdv'
 import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
+import OrdersKw from './pages/payment/Orders'
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
           <Route path="/wallet" component={Wallet}/>
           <Route path="/bank-account/:acco_id" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
+          <Route path="/order-kw" component={OrdersKw}/>
         </Switch>
       </div>
       </>
