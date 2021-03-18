@@ -5,22 +5,23 @@ import { useHistory } from "react-router-dom";
 import { apiProductTransaction } from "../../config/apiUrl";
 
 export default function MyAdv() {
-  let history = useHistory();
-
+  const history = useHistory();
+  const accco_id = localStorage.getItem("dataAccountId")
   const [Product, setProduct] = useState([]);
   const [Category, setCategory] = useState([]);
-  const onClickAddAdv = () => {
+  const onClickAddAdv = (adv_id) => {
+    localStorage.setItem("adv_id",adv_id)
     history.push("/advertising/add-adv");
   };
   useEffect(() => {
     axios({
-      url: `${apiProductTransaction}/account/1`,
+      url: `${apiProductTransaction}/account/${accco_id}`,
       method: "get",
       headers: {
         "Content-type": "application/json",
       },
     })
-      .then((res) => setProduct(res.data[0].products))
+      .then((res) => setProduct(res.data.products))
       .catch((err) => console.error(err));
   }, []);
 
@@ -137,7 +138,7 @@ export default function MyAdv() {
                       {x.prod_weight}
                     </td>
                     <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                      <button onClick={onClickAddAdv}>
+                      <button onClick={onClickAddAdv(x.prod_id)}>
                         Promosikan
                       </button>
                     </td>

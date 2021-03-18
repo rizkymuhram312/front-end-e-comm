@@ -1,9 +1,11 @@
   
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { apiAdvertising } from '../../config/apiUrl';
 
 const AddEditForm = (props) => {
 
-    const initForm = { pack_id: null, pack_name: '', pack_desc: '', pack_duration: 0, pack_amount: 0, pack_satuan: '' }
+    const initForm = { pack_name: '', pack_desc: '', pack_duration: 0, pack_amount: 0, pack_satuan: '' }
     const [dataRow, setdataRow] = useState(initForm);
     const [isedit, setisedit] = useState(false)
 
@@ -20,25 +22,31 @@ const AddEditForm = (props) => {
         setdataRow(updateChange)
       }
 
-    const handleOnSubmit = e => {
+    const handleOnSubmit = async e => {
         e.preventDefault();
-    //     const { name, value } = e.target;
-    //    setdataRow({...dataRow, [name]:value});
-    //    if(isedit){
-    //         update(dataRow).then(response => {
-    //             console.log(response);
-    //         }).catch(function (error) {
-    //             console.log(error);
-    //         });;
-    //    }else{
-    //         create(dataRow).then(response => {
-    //             console.log(response);
-    //         }).catch(function (error) {
-    //             console.log(error);
-    //         });;
-    //    }
-        props.fetchAdv();
-        props.setShowModal(false);
+        const { name, value } = e.target;
+       setdataRow({...dataRow, [name]:value});
+       if(isedit){
+            await axios({
+            data: dataRow,
+            url: `${apiAdvertising}/packageType/${dataRow.pack_name}`,
+            method: "put",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+       }else{
+        await axios({
+            data: dataRow,
+            url: `${apiAdvertising}/packageType/`,
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+       }
+        await props.fetchAdv();
+        return props.setShowModal(false);
     }
 
     return (
@@ -69,24 +77,7 @@ const AddEditForm = (props) => {
                         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                             <form onSubmit={handleOnSubmit}>
                                 <div className="flex flex-wrap">
-                                    <div className="w-full lg:w-6/12 px-4">
-                                        <div className="relative w-full mb-3">
-                                            <label
-                                                className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                                htmlFor="grid-password"
-                                            >
-                                                Package Id
-                                             </label>
-                                            <input disabled
-                                                type="text"
-                                                name="pack_id"
-                                                value={dataRow.pack_id}
-                                                className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="w-full lg:w-6/12 px-4">
+                                    <div className="w-full px-4">
                                         <div className="relative w-full mb-3">
                                             <label
                                                 className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -100,7 +91,7 @@ const AddEditForm = (props) => {
                                                 value={dataRow.pack_name}
                                                 onChange={handleOnChange}
                                                 className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-
+                                                disabled={isedit===true}
                                             />
                                         </div>
                                     </div>
@@ -115,7 +106,7 @@ const AddEditForm = (props) => {
                                             <textarea 
                                                 rows="2" 
                                                 type="text area"
-                                                name="pack_name"
+                                                name="pack_desc"
                                                 value={dataRow.pack_desc}
                                                 onChange={handleOnChange}
                                                 className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
@@ -171,8 +162,8 @@ const AddEditForm = (props) => {
                                             <select name="pack_satuan"
                                                 value={dataRow.pack_satuan}
                                                 onChange={handleOnChange}>
-                                                <option value="days">days</option>
-                                                <option value="days">days</option>
+                                                <option value="click">Per Click</option>
+                                                <option value="days">Per Hari</option>
                                             </select>
                                             {/* <input
                                                 type="number"

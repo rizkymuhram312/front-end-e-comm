@@ -17,14 +17,14 @@ export default function Advertising() {
 
   async function fetchAdv(){
     return await axios({
-      url: `${apiAdvertising}/orderAdvertising/1001`,
+      url: `${apiAdvertising}/packageType/`,
       method: "get",
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((res) => {
-        setAdv(res.data[0])
+        setAdv(res.data)
       })
       .catch((err) => console.error(err));
   }
@@ -38,7 +38,7 @@ export default function Advertising() {
 
   const onDeleteRow = async (value) =>{
     return await axios({
-      url: `${apiAdvertising}/orderAdvertising/${value}`,
+      url: `${apiAdvertising}/packageType/${value}`,
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -62,14 +62,15 @@ export default function Advertising() {
         <div className="w-full md:w-9/12">
           <TableAdvertising adv={Adv}
           setShowModal = {onModalShow}
-          deleteRow = {onDeleteRow}
-          editRow = {onEditRow}
+          seteDelete = {onDeleteRow}
+          setEdit = {onEditRow}
           fetchAdv = {fetchAdv}
           />
           {
             isModalShow && <AddEditForm 
             setShowModal={onModalShow} 
             dataRow = {dataEditRow}
+            fetchAdv = {fetchAdv}
         />
           }
         </div>

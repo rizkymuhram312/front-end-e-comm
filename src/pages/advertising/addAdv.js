@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 
 export default function AddAdv() {
   let history = useHistory();
+  const adv_id = localStorage.getItem("adv_id")
   const { register, handleSubmit, watch, errors, reset  } = useForm();
   const onSubmit = (data) => {
     console.log(data);
@@ -19,9 +20,9 @@ export default function AddAdv() {
 
   const [Product, setProduct] = useState([]);
   useEffect(() => {
-    let fetchProduct = async () => {
-      await axios({
-        url: `${apiProductTransaction}/product/1511`,
+    const fetchProduct = async () => {
+      return await axios({
+        url: `${apiProductTransaction}/product/${adv_id}`,
         method: "get",
         headers: {
           "Content-type": "application/json",
@@ -60,7 +61,7 @@ export default function AddAdv() {
           </div>
         </div>
         <div className="w-full md:w-9/12">
-            <img src={`../${Product.product_images[0].prim_filename}`} class=" ml-5 rounded-lg inset-0 w-64 h-64 object-cover " alt="product" style={{display:'block', margin:'auto'}}/>
+            {Product.product_images && <img src={`../${Product.product_images[0].prim_filename}`} class=" ml-5 rounded-lg inset-0 w-64 h-64 object-cover " alt="product" style={{display:'block', margin:'auto'}}/>}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col content-evenly xl:px-32 md:px-24 p-5">
               <label>Published Date</label>
@@ -75,8 +76,8 @@ export default function AddAdv() {
             
               <label>Package Type</label>
               <select name="packageType" onChange={(e)=>setPackage(e.target.value)} ref={register} >
-                <option value="Per Click">Per Click</option>
-                <option value="Per Hari">Per Hari</option>
+                <option value="click">Per Click</option>
+                <option value="days">Per Hari</option>
               </select>
 
             {
