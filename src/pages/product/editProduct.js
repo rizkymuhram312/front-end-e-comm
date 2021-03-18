@@ -1,54 +1,50 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { useEffect, useState, useForm } from 'react'
+import { useEffect, useState } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
-import { apiProductMaster, apiProductTransaction } from '../../config/apiUrl'
-import { toast } from 'react-toastify'
+import {apiProductMaster, apiProductTransaction} from '../../config/apiUrl'
+import {toast} from 'react-toastify'
 
-export default function TambahProduct() {
 
+export default function EditProduct(props) {
     const history = useHistory()
+    const [Product, setProduct] = useState([])
+    const [Category, setCategory] = useState([])
+    const [Brand, setBrand] = useState([])
+    const [Condition, setCond] = useState([])
     const [prod_name, setProductName] = useState('');
     const [prod_desc, setProductDesc] = useState('');
     const [prod_price, setProductPrice] = useState('');
     const [prod_stock, setProductStock] = useState('');
     const [prod_cate_id, setProductCate] = useState('');
     const [prod_brand_id, setProductBrand] = useState('');
-    // const [prod_acco_id, setProductAco] = useState('');
+    const [prod_acco_id, setProductAco] = useState('');
     const [prod_weight, setProductWeight] = useState('');
     const [prod_cond_name, setProductCond] = useState('');
     const [prod_expire, setProductExpire] = useState('');
     const [erorr, setError] = useState('');
-    const [Product, setProduct] = useState([]);
-    const [Category, setCategory] = useState([])
-    const [Brand, setBrand] = useState([])
-    const [Condition, setCond] = useState([])
-    const prod_acco_id = localStorage.getItem("acco_id")
+    const [alert, setAlert] = useState('');
+    const id = localStorage.getItem("id")
+    const acco_id = localStorage.getItem("acco_id")
+    const [ProductVariant, setProductVariant] = useState([])
     const [prova_name, setProvaName] = useState('')
     const [prova_option, setProvaOption] = useState('')
-    // const [prova_prod_id, setProvaProdId] = useState('')
-    const prova_prod_id = localStorage.getItem("prod_id")
 
     toast.configure()
     const notify = () => {
-
-        toast.success('Data berhasil ditambahkan', {
+       
+        toast.success('Data berhasil diperbarui', {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000
         })
     }
 
     const notifyErr = () => {
-
-        toast.error('Gagal menambahkan data', {
+    
+        toast.error('Gagal menperbarui data', {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000
         })
-    }
-
-
-    const onCLickBackProduct = () => {
-        history.push('/productsaya')
     }
 
     const onChangeProductName = (e) => {
@@ -81,11 +77,11 @@ export default function TambahProduct() {
         setProductBrand(value)
         setError('')
     }
-    // const onChangeProductAco = (e) => {
-    //     const value = e.target.value
-    //     setProductAco(value)
-    //     setError('')
-    // }
+    const onChangeProductAco = (e) => {
+        const value = e.target.value
+        setProductAco(value)
+        setError('')
+    }
     const onChangeProductWeight = (e) => {
         const value = e.target.value
         setProductWeight(value)
@@ -101,6 +97,7 @@ export default function TambahProduct() {
         setProductExpire(value)
         setError('')
     }
+
     const onChangeProvaName = (e) => {
         const value = e.target.value
         setProvaName(value)
@@ -112,8 +109,65 @@ export default function TambahProduct() {
         setError('')
     }
 
-    const klikDaftar = (x) => {
-        x.preventDefault()
+
+    const onCLickBackProduct = () => {
+        history.push('/productsaya')
+    }
+
+    const GetProduct = async () => {
+        const response = await axios.get(`${apiProductTransaction}/product/${id}`);
+        return response.data
+    };
+
+    const GetProductVariant = async () => {
+        const response = await axios.get(`${apiProductTransaction}/productvariant/${id}`);
+        return response.data
+    };
+
+    useEffect(() => {
+        const getListProduct = async () => {
+            const listProduct = await GetProduct();
+            console.log(listProduct);
+            if (listProduct) {
+                setProductName(listProduct.prod_name);
+                setProductDesc(listProduct.prod_desc);
+                setProductPrice(listProduct.prod_price);
+                setProductStock(listProduct.prod_stock);
+                setProductCate(listProduct.prod_cate_id);
+                setProductBrand(listProduct.prod_brand_id);
+                setProductAco(listProduct.prod_acco_id);
+                setProductWeight(listProduct.prod_weight);
+                setProductCond(listProduct.prod_cond_name);
+                setProductExpire(listProduct.prod_expire);
+                setProvaName(listProduct.prova_name)
+                setProvaOption(listProduct.prova_option)
+
+            }
+        };
+        getListProduct();
+        console.log(Product);
+        // const getListProductVariant = async () => {
+        //     const listProductVariant = await GetProductVariant();
+        //     console.log(listProductVariant);
+        //     if (listProductVariant) {
+        //         setProvaName(listProductVariant.prova_name);
+        //         setProvaOption(listProductVariant.prova_option);
+                
+            
+
+        //     }
+        // };
+        // getListProductVariant();
+        // console.log(ProductVariant);
+
+    }, []);
+    useEffect(() => {}, [Product]);
+    useEffect(() => {}, [ProductVariant]);
+
+
+    const updateProduct = (e) => {
+        console.log(e)
+        e.preventDefault()
         const data = {
             prod_name: prod_name,
             prod_desc: prod_desc,
@@ -124,17 +178,20 @@ export default function TambahProduct() {
             prod_weight: Number(prod_weight),
             prod_cond_name: prod_cond_name,
             prod_expire: prod_expire,
-            prod_acco_id: prod_acco_id,
-
-        }
-
-        console.log(data)
-        axios.post(`${apiProductTransaction}/product`, data)
-            .then(async result => {
+            prod_acco_id: acco_id
+        };
+        console.log(data);
+        axios
+            .put(`${apiProductTransaction}/product/${id}`, data)
+            .then((result) => {
+                console.log(result)
                 if (result.data.error) {
+                    // console.log(result.data);
                     console.log(result.data)
-                    notifyErr()
-                } else {
+                        notifyErr()
+
+                    }else{
+                        console.log(result.data)
                     if (result.data) {
                         setProductName('')
                         setProductDesc('')
@@ -142,43 +199,25 @@ export default function TambahProduct() {
                         setProductStock('')
                         setProductCate('')
                         setProductBrand('')
+                        setProductAco('')
                         setProductWeight('')
                         setProductCond('')
                         setProductExpire('')
-                        setProvaName('')
-                        setProvaOption('')
-                        const dataVariant = {
-                            prova_name: prova_name,
-                            prova_option: prova_option,
-                            prova_prod_id: result.data.prod_id
-                        }
-                        console.log(dataVariant)
-                        await axios.post(`${apiProductTransaction}/productvariant`, dataVariant)
-                            .then(result => {
-                                if (result.dataVariant.error) {
-                                    console.log(result.dataVariant)
-                                    notifyErr()
-                                } else {
-                                    if (result.dataVariant) {
-                                        setProvaName('')
-                                        setProvaOption('')
-                                        // setProvaProdId('')
-                
-                                    } notify()
-                                }
-                            })
-                            .catch((e) => {
-                                setError(e)
-                            })
-                            //add gambarr
-                    } notify()
+                        setAlert(result.data.message);
+                        Redirect('/productsaya')
+                        setTimeout(() => {
+                            setAlert("");
+                        }, 2500);
+                    }
+                    notify()
+                    props.setShowEdit(false)
                 }
             })
             .catch((e) => {
-                setError(e.response.message)
-            })
-                
-    }
+                setError(e.response.message);
+            });
+    };
+
     useEffect(() => {
         axios({
             url: `${apiProductMaster}/category`,
@@ -190,8 +229,6 @@ export default function TambahProduct() {
             .catch((err) => console.error(err));
         console.log(Category)
     }, [])
-
-
 
     useEffect(() => {
         axios({
@@ -221,21 +258,21 @@ export default function TambahProduct() {
         <div>
             <div className="flex flex-wrap rounded-lg shadow border-4">
 
-                <form className="w-full flex flex-wrap content-evenly" onSubmit={klikDaftar}>
+                <form className="w-full flex flex-wrap content-evenly" onSubmit={updateProduct}>
                     <div className="w-full">
                         <h1 class="flex-auto text-xl font-bold dark:text-gray-50 ml-5">
-                            Tambah Produk Baru
+                            Edit produk
                             </h1>
                     </div>
                     <div className="w-full ml-5 text-xs mb-10">
-                        Pilih kategori yang tepat untuk produkmu
+                        Edit kategori yang tepat untuk produkmu
                 </div>
                     <div className="w-4/12 ml-5 text-base">
                         Nama Produk
                 </div>
                     <div className="w-6/12 ">
                         <div class=" relative ">
-                            <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2"
+                            <input type="text" id="prod_name" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2"
                                 placeholder="Mohon masukkan nama produk"
                                 value={prod_name}
                                 onChange={onChangeProductName} />
@@ -247,8 +284,7 @@ export default function TambahProduct() {
                     <div className="w-6/12">
 
                         <label class="text-gray-700" for="name">
-                            <textarea class="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                                id="comment"
+                            <textarea class="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent" id="comment"
                                 placeholder="Mohon masukkan deskripsi produk"
                                 name="comment" rows="5" cols="40"
                                 value={prod_desc}
@@ -263,8 +299,8 @@ export default function TambahProduct() {
                     <div className="w-6/12">
                         <select class="block w-52 text-gray-700 py-2 px-4 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 mb-2"
                             name="kategori"
-                            value={prod_cate_id}
-                            onChange={onChangeProductCate}>
+                            value={prod_cate_id} onChange={onChangeProductCate}
+                        >
                             <option value="oke">
                                 pilih kategori
                 </option>
@@ -282,9 +318,9 @@ export default function TambahProduct() {
                     <div className="w-6/12">
                         <select class="block w-52 text-gray-700 py-2 px-4 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 mb-2"
                             name="brand"
-                            value={prod_brand_id}
-                            onChange={onChangeProductBrand}>
-                            <option value="brand">
+                            value={prod_brand_id} onChange={onChangeProductBrand}
+                        >
+                            <option value="oke">
                                 pilih brand
                 </option>
                             {Brand.map((y) => {
@@ -302,8 +338,8 @@ export default function TambahProduct() {
                     <div className="w-6/12">
                         <select class="block w-52 text-gray-700 py-2 px-4 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 mb-2"
                             name="conditions"
-                            value={prod_cond_name}
-                            onChange={onChangeProductCond}>
+                            value={prod_cond_name} onChange={onChangeProductCond}
+                        >
                             <option value="kondisi">
                                 Pilih kondisi
                 </option>
@@ -342,10 +378,10 @@ export default function TambahProduct() {
                 </div>
                     <div className="w-6/12">
                         <div class=" relative ">
-                            <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2"
-                                placeholder="Mohon masukkan"
-                                value={prova_name}
-                                onChange={onChangeProvaName} />
+                            <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" 
+                            placeholder="Mohon masukkan"
+                            value={prova_name}
+                            onChange={onChangeProvaName} />
                         </div>
                     </div>
                     <div className="w-4/12 ml-5 text base">
@@ -353,10 +389,10 @@ export default function TambahProduct() {
                 </div>
                     <div className="w-6/12">
                         <div class=" relative ">
-                            <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2"
-                                placeholder="Mohon masukkan"
-                                value={prova_option}
-                                onChange={onChangeProvaOption} />
+                            <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" 
+                            placeholder="Mohon masukkan" 
+                            value={prova_option}
+                            onChange={onChangeProvaOption}/>
                         </div>
                     </div>
                     <div className="w-full ml-5 mb-2 text-xl font-semibold">
@@ -373,7 +409,8 @@ export default function TambahProduct() {
                                     Rp.
             </span>
                             </div>
-                            <input type="number" name="price" id="price" class=" mb-2 focus:ring-indigo-500 border-l border-b border-t border-gray-300 py-2 px-4 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm rounded-md" placeholder="0.00"
+                            <input type="number" name="price" id="price" class=" mb-2 focus:ring-indigo-500 border-l border-b border-t border-gray-300 py-2 px-4 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm rounded-md"
+                                placeholder="0.00"
                                 value={prod_price}
                                 onChange={onChangeProductPrice} />
                             <div class="absolute inset-y-0 right-0 flex items-center">
@@ -439,14 +476,12 @@ export default function TambahProduct() {
                     </div>
                     <div className="w-2/4 grid justify-items-end">
                         <button class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto"
-                            onClick={onCLickBackProduct}> Kembali
+                            onClick={()=>{props.setShowEdit(false)}}> Batal
 </button>
                     </div>
 
                     <div className="w-2/4 grid justify-items-end">
-                        <button class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto"
-                            values="klikDaftar" onClick={klikDaftar}> Simpan
-</button>
+                        <button type="submit" class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto" values="updateProduct"> Simpan </button>
                     </div>
                 </form>
             </div>

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import EditProduct from './editProduct'
 import { apiProductMaster, apiProductTransaction } from '../../config/apiUrl'
 
-export default function ProductSaya() {
+export default function ProductVariant() {
   const history = useHistory()
   const [Product, setProduct] = useState([]);
   const [Category, setCategory] = useState([]);
@@ -15,22 +15,23 @@ export default function ProductSaya() {
   const [filterProduct, setFilterProduct] = useState([])
   const [prodToEdit, setProdToEdit] = useState()
   const acco_id = localStorage.getItem("acco_id")
-  const onClickAddProduct = () => {
-    history.push('/tambahProduct')
-  }
-  const onClickEditProduct = (e) => {
-    console.log(e)
-    setProdToEdit(e.target.value)
-    setShowEdit(true)
-    // history.push('/editProduct')
-    localStorage.setItem("id", e.target.value)
-  }
+  const [ProductVariant, setProductVariant] = useState([])
+//   const onClickAddProduct = () => {
+//     history.push('/tambahProduct')
+//   }
+//   const onClickEditProduct = (e) => {
+//     console.log(e)
+//     setProdToEdit(e.target.value)
+//     setShowEdit(true)
+//     // history.push('/editProduct')
+//     localStorage.setItem("id", e.target.value)
+//   }
 
-  const deleteProduct = async (y) => {
+//   const deleteProduct = async (y) => {
 
-    const response = await axios.delete(`${apiProductTransaction}/product/${y}`)
-    return response.data
-  }
+//     const response = await axios.delete(`${apiProductTransaction}/product/${y}`)
+//     return response.data
+//   }
 
   useEffect(() => {
     axios({
@@ -39,23 +40,36 @@ export default function ProductSaya() {
       headers: {
         "Content-type": "application/json"
       }
-    }).then((res) => setProduct(res.data.products))
+    }).then((res) => setProductVariant(res.data.ProductVariant))
       .catch((err) => console.error(err));
+      console.log(ProductVariant)
   }, [showEdit])
 
 
+//    useEffect(() => {
+//     axios({
+//       url: `${apiProductTransaction}/productvariant`,
+//       method: "get",
+//       headers: {
+//         "Content-type": "application/json"
+//       }
+//     }).then((res) => setProductVariant(res.data.ProductVariant))
+//       .catch((err) => console.error(err));
+//     console.log(ProductVariant)
+//   }, [])
 
-  useEffect(() => {
-    axios({
-      url: `${apiProductMaster}/category`,
-      method: "get",
-      headers: {
-        "Content-type": "application/json"
-      }
-    }).then((res) => setCategory(res.data))
-      .catch((err) => console.error(err));
-    console.log(Category)
-  }, [])
+
+//   useEffect(() => {
+//     axios({
+//       url: `${apiProductMaster}/category`,
+//       method: "get",
+//       headers: {
+//         "Content-type": "application/json"
+//       }
+//     }).then((res) => setCategory(res.data))
+//       .catch((err) => console.error(err));
+//     console.log(Category)
+//   }, [])
   //  useEffect(() => {
   //       Product.map((x)=> {
   //         if(x.category.cate_name.includes(Category))
@@ -101,88 +115,65 @@ export default function ProductSaya() {
                   <option value="">
                     Select an kategori
                 </option>
-                  {Category.map((x) => (
+                  {/* {Category.map((x) => (
                     <option value={x.cate_id}>{x.cate_name}
 
-                    </option>))}
+                    </option>))} */}
 
                 </select>
 
               </div>
               <div className="w-full mt-10 flex justify-end">
-                <button onClick={onClickAddProduct} class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto">
+                {/* <button onClick={onClickAddProduct} class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto">
                   Tambah Produk Baru
-          </button>
+          </button> */}
               </div>
 
               <table class="border-collapse w-full mr-10 ml-10 mt-5">
                 <thead>
                   <tr>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Produk Id</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Nama Produk</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Deskripsi</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Harga</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Stok</th>
+                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Prova Id</th>
+                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Prova Name</th>
+                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Prova Option</th>
+                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Action</th>
+                    {/* <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Stok</th>
                     <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Berat</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Status</th>
+                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Status</th> */}
                     {/* <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Actions</th> */}
                   </tr>
                 </thead>
                 <tbody>
-                  {Product
-                    .filter((val) => {
-                      if (search == "") {
-                        return val
-                      } else if (val.prod_name.toLowerCase().includes(search.toLocaleLowerCase())) {
-                        return val
-                      }
-                      else if (val.prod_desc.toLowerCase().includes(search.toLowerCase())) {
-                        return val
-                      }
-                    })
+                  {/* {ProductVariant
                     .map((x) => {
                       return (
                         <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Produk Id</span>
 
-                            {x.prod_id}
+                            {x.prova_id}
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama Produk</span>
-                            {x.prod_name}
+                            {x.prova_name}
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Deskripsi</span>
-                            {x.prod_desc}
+                            {x.prova_option}
                           </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Harga</span>
-                            {x.prod_price}
-                          </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Stok</span>
-                            {x.prod_stock}
-                          </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Berat</span>
-                            {x.prod_weight}
-                          </td>
+                          
+                          
+                         
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
-                            <button class="text-blue-400 hover:text-blue-600 underline" value={x.prod_id} onClick={onClickEditProduct}>Edit</button>
-                            <a href="" class="text-blue-400 hover:text-blue-600 underline pl-6" onClick={() => {
-                              if (
-                                window.confirm(
-                                  "apakah anda yakin ingin menghapus data ini?"
-                                )
-                              ) {
-                                deleteProduct(x.prod_id)
-                              }
-                            }}>Hapus</a>
+                            <button class="text-blue-400 hover:text-blue-600 underline">Edit</button>
+                            <a href="" class="text-blue-400 hover:text-blue-600 underline pl-6" 
+                              
+                            
+                        
+                            >Hapus</a>
                           </td>
                         </tr>)
-                    })}
+                    })} */}
                 </tbody>
               </table>
             </div>

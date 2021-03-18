@@ -36,7 +36,7 @@ const Login = () => {
         
 
 
-        axios.post('http://192.168.100.35:3001/api/users/signin', data)
+        axios.post('http://192.168.100.24:3001/api/users/signin', data)
         .then(result => {
             if(result) {
                 // console.log(result)
