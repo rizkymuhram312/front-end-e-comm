@@ -1,7 +1,11 @@
 import React, { useState , Fragment } from 'react';
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
+<<<<<<< HEAD
 import { apiUserMaster,apiUserAccount } from '../../config/apiUrl'
+=======
+import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
+>>>>>>> d703d8de886112fe44bf7720776397a039367b5d
 
 
 
