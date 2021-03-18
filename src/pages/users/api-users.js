@@ -30,7 +30,7 @@ const create = async (users) => {
   
   const deleteUsers = async (usersId) => {
     try {
-        let response = await axios.delete(`http://192.168.100.35:3001/api/users/${usersId}`)
+        let response = await axios.delete(`${apiUserAccount}/users/${usersId}`)
         return await response.data
       } catch(err) {
         return await err.message
@@ -39,7 +39,7 @@ const create = async (users) => {
   
   const updateUsers = async (users) => {
     try {
-        let response = await axios.put(`http://192.168.100.35:3001/api/users/${users.user_id}`,{
+        let response = await axios.put(`${apiUserAccount}/users/${users.user_id}`,{
           data : users
         })
         return await response.data

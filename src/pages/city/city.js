@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {deleteCity, listCity} from './api-city'
 import { TableCity } from './city-component';
 import AddEditForm from './addEditForm'
-
+import { listProvince } from '../province/api-province'
 
 
 export default class City extends Component {
@@ -10,6 +10,7 @@ export default class City extends Component {
     // 1. declarasikan city[] state
     state = {
         city : [],
+        province : [],
         dataEditRow : null,
         isModalShow : false
     }
@@ -24,6 +25,7 @@ export default class City extends Component {
     // 3. call showListcity to fill city[] on first time render
     componentDidMount() {
         this.showListCity();
+        this.showListProvince();
     }
 
 
@@ -37,6 +39,13 @@ export default class City extends Component {
         })
     }
 
+    showListProvince = () => {
+        listProvince().then(data => {
+            this.setState({
+                province: data
+            })
+        })
+    }
 
 
     onShowModal = (value) => {
@@ -80,10 +89,11 @@ export default class City extends Component {
 
     render() {
   
-            const { city , isModalShow, dataEditRow } = this.state;
+            const { city , isModalShow, dataEditRow, province } = this.state;
             return (
                 <div>
                     <TableCity city = {city.sort((a, b) => a.city_id - b.city_id)}
+                        province = {province}
                         setShowModal = {this.onShowModal}
                         setDelete = {this.onDeleteRow}
                         setEdit = {this.onEditRow}
@@ -95,6 +105,7 @@ export default class City extends Component {
                             setShowModal = {this.onShowModal}
                             setRefreshTable = {this.onRefreshTable}
                             city = {dataEditRow}
+                            province = {province}
                             />) : null)
                     }
                 </div>

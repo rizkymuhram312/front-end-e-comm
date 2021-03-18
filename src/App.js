@@ -1,6 +1,6 @@
 import Header from './components/header'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Home from './pages/home'
+import Home from './pages/home/index'
 import Cart from './pages/cart'
 import Orders from './pages/orders/Orders'
 import Daftar from './pages/users/Daftar'
@@ -20,6 +20,11 @@ import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
 import billTopup from './pages/billTopup'
+import MyAdv from './pages/advertising/myAdv'
+import AddAdv from './pages/advertising/addAdv'
+import BankAccount from './pages/payment/BankAccount'
+import Transaction from './pages/payment/Transactions'
+import Wallet from './pages/payment/MyWallet'
 
 function App() {
   return (
@@ -28,6 +33,7 @@ function App() {
       <Header />
       <div className="container mx-auto sm:px-4 pt-40 lg:pt-20 pb-10">
         <Switch>
+          <Route path="/home" component={Home} exact />
           <Route path="/" component={Home} exact />
           <Route path="/cart" component={Cart} />
           <Route path="/cart-orders" component={CartOrders} />
@@ -48,6 +54,11 @@ function App() {
           <Route path="/productsaya" component={ProductSaya}/>
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/billTopup" component={billTopup}/>
+          <Route path="/advertising/my-adv" component={MyAdv}/>
+          <Route path="/advertising/add-adv" component={AddAdv}/>
+          <Route path="/wallet" component={Wallet}/>
+          <Route path="/bank-account/:acco_id" component={BankAccount}/>
+          <Route path="/transactions/:acco_id" component={Transaction}/>
         </Switch>
       </div>
       </>
