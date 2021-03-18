@@ -15,13 +15,13 @@ export default class Modal extends Component {
         exroDuration: '',
         exroExpedition: '',
         exroPackage: '',
-        isEdit: false
+        isEdit: false,
 
     }
 
     componentDidMount(){
         this.showListExpedition()
-        // console.log(this.props.expeditionRoute)
+        console.log(this.props.expeditionRoute)
         if(this.props.expeditionRoute !== null){
             this.setState({
                 exroId: this.props.expeditionRoute.exro_id,
@@ -58,29 +58,28 @@ export default class Modal extends Component {
 
 
 
-    handleOnSubmit = e =>{
+    handleOnSubmit =  e =>{
         e.preventDefault();
         const expeditionRoute = {
+            exro_id: this.state.exroId,
             exro_from : this.state.exroFrom,
             exro_to: this.state.exroTo,
-            exro_cost: this.state.exroCost,
+            exro_cost: Number(this.state.exroCost),
             exro_duration: this.state.exroDuration,
             exro_package: this.state.exroPackage,
-            exro_expe_id: this.state.exroExpedition,
+            exro_expe_id: Number(this.state.exroExpedition),
 
-        }
-        console.log(expeditionRoute)
-     
-    
+        }     
+        // console.log(expeditionRoute)
         if(!this.state.isEdit){
-            CreateExpeditionRoute(expeditionRoute).then(res=>{
-               console.log("aneh")
+             CreateExpeditionRoute(expeditionRoute).then(res=>{
                 console.log(res)
+                this.props.setRefreshTabel();
             }).catch((err)=> {
                 console.log(err.message)
             });
         }else{
-            UpdateExpeditionRoute(expeditionRoute).then(res=>{
+             UpdateExpeditionRoute(expeditionRoute).then(res=>{
                 console.log(res)
                 this.props.setRefreshTabel();
             }).catch((err)=>{

@@ -1,8 +1,80 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import {apiShipping} from '../../config/apiUrl'
+import {apiOrder} from '../../config/apiUrl'
 
-function OshipModal() {
+function OshipModal({
+    modal,
+    setModal,
+    dataFormOrderShipping,
+    updateOrderShipping,
+    setUpdateOrderShipping
+}) {
+
+
+    let[oshipCreatedOn]= useState(Date.now());
+    let[oshipShipDate] = useState(Date.now());
+    let[oshipArrivalDate] = useState(Date.now());
+    let[oshipDesc, setOshipDesc] = useState('');
+    let[oshipOrderName] = useState(dataFormOrderShipping.order_name);
+    let[orderStatName,] = ("Shipping")
+    // const[orderName,setOrderName]= useState("");
+    // const[orderStatName, setOrderStatName]= useState("");
+
+
+    const onChangeOshipDesc = e =>{
+        const value = e.target.value
+        setOshipDesc(value)
+    }
+    
+
+
+    const klikShipping= ()=>{
+        const data ={
+            oship_created_on : oshipCreatedOn,
+            oship_ship_date : oshipShipDate,
+            oship_arrival_date: oshipArrivalDate,
+            oship_desc: oshipDesc,
+            oship_order_name: oshipOrderName,
+            order_stat_name: orderStatName
+            // oship_order_name.order_stat_name: orderStatName
+
+        }
+        axios.post(`${apiShipping}/ordershipping`, data)
+        .then(result=>{
+            if(result){
+                console.log(result.data)  
+            }
+        }).catch((err)=> err.message)
+
+
+        axios.post(`${apiOrder}/orders/${dataFormOrderShipping.order_name}`, data)
+        .then(result=>{
+            if(result){
+                console.log(result.data)  
+            }
+        }).catch((err)=> err.message)
+        
+
+
+
+
+        
+    }
+
+  
+
+
+  
+    const onCancelEdit = ()=>{
+        setModal(false)
+    }
+
+
+
+
     return (
-        <div>
+        <div >
             <div
                     className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                 >
@@ -14,7 +86,7 @@ function OshipModal() {
                                 <h6 className="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
                                     Barang Akan Dikirim ?
                                 </h6>
-                                <button onClick={() => this.props.setShowModal(false)}
+                                <button onClick={onCancelEdit}
                                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
 
                                 >
@@ -32,22 +104,41 @@ function OshipModal() {
                                                
                                             <input required
                                                     type="text"
-                                                    name="expeditionName"
-                                                    // value={expeditionName}
-                                                    placeholder="Masukan Keteran"
+                                                    name="oshipDesc"
+                                                    value={oshipDesc}
+                                                    onChange={onChangeOshipDesc}
+                                                    placeholder="Masukan Keterangan"
                                                     className="px-3 py-3 my-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
                                                 />
+                                                {/* <input required
+                                                    type="text"
+                                                    name="orderName"
+                                                    value={dataFormOrderShipping.order_name}
+                                                    onChange={onChangeOshipDesc}
+                                                    placeholder="order name"
+                                                    className="px-3 py-3 my-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+
+                                                />
+                                                <input required
+                                                    type="text"
+                                                    name="orderStatName"
+                                                    value={dataFormOrderShipping.order_stat_name}
+                                                    onChange={onChangeOshipDesc}
+                                                    placeholder="status"
+                                                    className="px-3 py-3 my-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+
+                                                /> */}
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
-                                        <button onClick={() => this.props.setShowModal(false)}
+                                        <button onClick={onCancelEdit}
                                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button"
                                         >
                                             Close
                                 </button>
-                                        <button onClick={() => this.props.setRefreshTabel()}
+                                        <button onClick={klikShipping}
                                             className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit"
                                         >

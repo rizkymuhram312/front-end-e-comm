@@ -27,7 +27,7 @@ import Expedition from './pages/expedition/index'
 import ExpeditionRoutes from './pages/expedition_routes/index'
 import OrderShipping  from './pages/order_shipping/Index'
 import OrderShippingArrival from './pages/order_shipping_arival/Index'
-import JNE from './pages/expedition_routes/JNE/JNE'
+import TabOrderShippingExpedition from './pages/order_shipping/Tab/TabNavigation'
 
 function App() {
   return (
@@ -70,8 +70,7 @@ function App() {
           <Route path="/expedition_routes" component={ExpeditionRoutes}/>
           <Route path="/order_shipping" component={OrderShipping}/>
           <Route path="/order_shipping_arrival" component={OrderShippingArrival} />
-          <Route path="/jne" component={JNE}/>
-
+          <Route path="/ordershippingexpedition" component={TabOrderShippingExpedition}/>
         </Switch>
       </div>
       </>

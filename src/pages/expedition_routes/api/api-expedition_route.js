@@ -38,6 +38,7 @@ const DeleteExpeditionRoute = async (id)=>{
 
 
 const UpdateExpeditionRoute = async (expeditionRoute) => {
+    console.log(expeditionRoute)
     try {
         let response = await axios.put(`${apiExpedition}/expeditionroute/${expeditionRoute.exro_id}`,{
           data : expeditionRoute

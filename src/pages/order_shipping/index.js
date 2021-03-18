@@ -1,21 +1,27 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import {apiOrder} from '../../config/apiUrl'
 import ModalOship from './OshipModal'
 
 function Index() {
 
     let [OrderShipping, setOrderShipping] = useState([]);
+    let [updateOrderShipping, setUpdateOrderShipping]= useState()
+    let [orderName, setOrderName] = useState("")
     let [modal, setModal] = useState (false);
+    let [dataFormOrderShipping, setDataFormOrderShipping] = useState({})
+    // let [dataEditRow] = useState(null)
 
 
     useEffect(()=>{
         fetchOrderShipping()
-    }, [modal])
+        fetchUpdateOrderShipping()
+    }, [modal, dataFormOrderShipping])
 
 
     const fetchOrderShipping = async ()=>{
         return await axios({
-            url:`http://192.168.100.21:3004/api/orders`,
+            url:`${apiOrder}/orders`,
             method: "get",
             headers: {
                 "Content-Type": "application/json"
@@ -24,6 +30,38 @@ function Index() {
             setOrderShipping(res.data)
         }).catch((err)=> console.log(err))
     }
+
+    const fetchUpdateOrderShipping = async ()=>{
+        return await axios({
+            url:`${apiOrder}/orders/${orderName}`,
+            method: "put",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data:{
+                order_stat_name: OrderShipping.order_stat_name
+            }
+        }).then((res)=>{
+            setUpdateOrderShipping(res.data)
+        }).catch((err)=> console.log(err))
+    }
+
+
+    const onEditRow = (e)=> {
+        console.log(e.target.value)
+        OrderShipping.map((data)=>{
+            if(data.order_name === e.target.value){
+                setDataFormOrderShipping(data)
+                
+            }
+            return setDataFormOrderShipping(data)
+        }
+        )
+        setModal(true)
+    }
+
+
+
 
     return (
         <div>
@@ -59,9 +97,9 @@ function Index() {
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         {
-                                            OrderShipping.map(x=>
+                                            OrderShipping.filter((x)=> x.status.stat_name=== "PENDING" || x.status.stat_name=== "Paid" || x.status.stat_name=== "PAID").map(x=>
                                     
-                                                    <tr key={x.order_name}>     
+                                        <tr key={x.order_name}>     
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                 {x.order_name}
                                             </td>
@@ -79,11 +117,11 @@ function Index() {
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    {x.status.stat_name}
+                                                    {x.order_stat_name}
                                                 </span>
                                             </td>
                                             <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
-                                                <button className="py-2 px-4 bg-blue-500 hover:bg-blue-400 text-white reounded" onClick={()=>{setModal(true)}}>SHIPPING</button>
+                                                <button value={x.order_name} className="py-2 px-4 bg-blue-500 hover:bg-blue-400 text-white reounded" onClick={onEditRow}>SHIPPING</button>
                                             </td>
                                         </tr>
                                             )} 
@@ -96,7 +134,14 @@ function Index() {
                 {
                     modal ?
                     <ModalOship
-
+                    modal={modal}
+                    setModal={setModal}
+                    dataFormOrderShipping= {dataFormOrderShipping}
+                    updateOrderShipping={updateOrderShipping}
+                    setUpdateOrderShipping={setUpdateOrderShipping}
+                    // OrderShipping={OrderShipping}
+                    // setOrderShipping={setOrderShipping}
+                    // order = {onEditRow}
                     />
                     :
                     null

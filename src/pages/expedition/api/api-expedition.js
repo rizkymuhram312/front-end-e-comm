@@ -39,6 +39,7 @@ const updateExpedition = async (expedition) => {
         let response = await axios.put(`${apiExpedition}/expedition/${expedition.expe_id}`,{
           data : expedition
         })
+        console.log("naha")
         console.log(response.data)
         return await response.data
       } catch(err) {
