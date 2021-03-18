@@ -1,7 +1,7 @@
 import React, { useState , Fragment } from 'react';
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import { apiUserMaster } from '../../config/apiUrl'
+import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
 
 
 
@@ -37,7 +37,7 @@ const Login = () => {
         
 
 
-        axios.post(`${apiUserMaster}/users/signin`, data)
+        axios.post(`${apiUserAccount}/users/signin`, data)
         .then(result => {
             console.log(result)
             if(result.data.users.accounts != null) {
