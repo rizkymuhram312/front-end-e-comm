@@ -12,11 +12,8 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
-<<<<<<< HEAD
     "qrcode.react": "^1.0.1",
-=======
     "craco": "^0.0.3",
->>>>>>> d703d8de886112fe44bf7720776397a039367b5d
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.15.4",

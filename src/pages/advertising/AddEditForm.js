@@ -171,7 +171,8 @@ const AddEditForm = (props) => {
                                             <select name="pack_satuan"
                                                 value={dataRow.pack_satuan}
                                                 onChange={handleOnChange}>
-
+                                                <option value="days">days</option>
+                                                <option value="days">days</option>
                                             </select>
                                             {/* <input
                                                 type="number"
