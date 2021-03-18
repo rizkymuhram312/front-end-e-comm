@@ -7,7 +7,6 @@ import { useHistory } from "react-router";
 // asda
 
 const Address = () => {
-  
   const [alamat, setAddress] = useState([]);
   const [showModal, setShowModal] = React.useState(false);
   const [provinsi, setProvinsi] = useState([]);
@@ -31,6 +30,8 @@ const Address = () => {
   const [hapus, setHapus] = useState(false);
   const [Isedit, setIsEdit] = useState(false)
   let history = useHistory();
+
+  
 
   const GetAlamat = async () => {
     const response = await axios.get(`${apiUserAccount}/address/search/${apiAccoId}`);
@@ -245,18 +246,18 @@ const Address = () => {
       {alamat[0] ? (
         <>
           <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-purple-100">
-              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-gray-500">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-blue-400">
+              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-blue-500">
                 <div class="flex flex-wrap items-center">
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                    <h3 class="font-semibold text-xl text-gray-50">
+                    <h3 class="font-semibold text-xl text-blue-50">
                       Alamat Saya
                     </h3>
                   </div>
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button
                       onClick={() => setShowModal(true)}
-                      className="px-6 bg-gray-200 text-black align-middle border border-solid border-gray-800 hover:bg-green-200 hover:text-green-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                      className="px-6 bg-blue-700 text-blue-50 align-middle border border-solid border-blue-800 hover:bg-blue-200 hover:text-blue-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                       type="button"
                     >
                       Tambah Alamat
@@ -268,70 +269,65 @@ const Address = () => {
                  return (
                    <>
               <div className="grid grid-cols-6 relative p-6 flex-auto mb-2">
-                  <div className="col-span-5">
-                      <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center">
-                          <h1 className="justify-self-end">Nama Kamu/Toko : </h1>
-                          <h1 className="capitalize font-bold">{x.acco_nama}</h1>
-                      </div>
-                      <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center">
-                          <h1 className="justify-self-end">Telepon : </h1>
-                          <h1>{x.acco_phone}</h1>
-                      </div>
-                      <div className=" grid grid-cols-4 gap-4 my-2 justify-center place-content-center">
-                          <h1 className="justify-self-end">Alamat : </h1>
-                          <h1 className="capitalize">
-                            {x.addr_address}<br></br>
-                            {x.addr_optional}<br></br>
-                            {x.city_name} - {x.kec_name}
-                            <br />
-                            {x.prov_name}
-                            <br />
-                            {x.kodepos}
-                          </h1>
-                      </div>
-                  </div>
+                <div className="col-span-5">
+                   <label className="col-span-1">Nama : </label>
+                <span className="col-span-4">{x.acco_nama} </span>
+                <br />
+                <label>No. Telp : </label>
 
-                  <div className="col-span-1 my-4">
-                    <button className="mx-4 underline">Edit</button>
-                    <button className="mx-4 underline" onClick={() => {
-                                if (
-                                  window.confirm(
-                                    "apakah anda yakin ingin menghapus alamat ini?"
-                                  )
-                                ) {
-                                  deleteAddress(x.addr_id);
-                                }
-                              }}>
-                      Hapus
-                    </button>
-                    
-                    <button className="text-black bg-green-500 border border-solid border-gray-300 mt-1 hover:bg-green-800 hover:text-white active:bg-gray-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                      Atur Sebagai Utama
-                    </button>
-                  </div>
+                <span>{x.acco_phone}</span>
+                <br />
+                <label>Alamat :</label>
+                <div>
+                  <span>
+                    {x.addr_address}
+                    <br />
+                    {x.addr_optional}
+                    <br />
+                    {x.city_name} - {x.kec_name}
+                    <br />
+                    {x.prov_name}
+                    <br />
+                    {x.kodepos}
+                  </span>
+                </div>
+                {x.addr_is_primary ? (<button>Utama</button>) : (<label></label>)}
+                </div>
+                <div className="col-span-1 my-4">
+                  <button className="mx-4 underline" onClick={() => editAddress(x.addr_id)}>Edit</button>
+                  <button className="mx-4 underline" onClick={() => {
+                              if (
+                                window.confirm(
+                                  "apakah anda yakin ingin menghapus alamat ini?"
+                                )
+                              ) {
+                                deleteAddress(x.addr_id);
+                              }
+                            }}>Hapus</button>
+                </div>
+                
               </div>
-              <hr className="bg-gray-500 border-2"></hr>
                    </>
                  )
-                })}
+               })}
             </div>
           </div>
         </>
       ) : (
         <>
           <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-gray-400">
-              <div class="rounded-t mb-0 px-4 py-3 border-0">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-blue-400">
+              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-blue-500">
                 <div class="flex flex-wrap items-center">
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                    <h3 class="font-semibold text-xl">
+                    <h3 class="font-semibold text-xl text-blue-50">
                       Alamat Saya
                     </h3>
                   </div>
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button
                       onClick={() => setShowModal(true)}
-                      className="px-6 bg-gray-700 text-gray-50 align-middle border border-solid border-gray-800 hover:bg-gray-200 hover:text-gray-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                      className="px-6 bg-blue-700 text-blue-50 align-middle border border-solid border-blue-800 hover:bg-blue-200 hover:text-blue-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                       type="button"
                     >
                       Tambah Alamat
@@ -352,13 +348,13 @@ const Address = () => {
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
+              {/content/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
+                {/header/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
                   <h3 className="text-xl font-semibold">Tambah Alamat</h3>
                 </div>
-                {/*body*/}
+                {/body/}
                 <div className="relative p-6 flex-auto">
                   <div className=" grid grid-cols-6 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <h1 className="justify-self-end">Provinsi : </h1>
@@ -366,10 +362,12 @@ const Address = () => {
                       name="province"
                       id="province"
                       className="col-span-4 flex-1 capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
-                      
+                      // value={provinsiEdit}
                       onChange={OnChangeProvince} 
                     >
+                      
                       <option>Silahkan Pilih Provinsi</option>
+
                       {provinsi.map((e,index) => {
                         return <option value={e.prov_id} key={index} >{e.prov_name}</option>;
                       })}
@@ -471,10 +469,10 @@ const Address = () => {
             </div>
 
                 </div>
-                {/*footer*/}
+                {/footer/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                   <button
-                    className="text-gray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
                     type="button"
                     style={{ transition: "all .15s ease" }}
                     onClick={onClose}

@@ -17,11 +17,37 @@ export default function RegisterAccount() {
   const [birthdate, setBirthdate] = useState("");
   const [error, setError] = useState("");
   const [alert, setAlert] = useState("");
+  const [image, setImage] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const refresh = () => {
     // re-renders the component
     setValue({});
   };
+
+
+  const uploadImage = async e => {
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'andri2621')
+    setLoading(true)
+    const res = await fetch(
+      '	https://api.cloudinary.com/v1_1/codeid/image/upload',
+      {
+        method: 'POST',
+        body: data
+      }
+    )
+    const file = await res.json()
+
+    setImage(file.secure_url)
+    setLoading(false)
+  }
+
+
+  console.log(image)
+
 
   useEffect(() => {
     // console.log(isAccount)
@@ -82,7 +108,7 @@ export default function RegisterAccount() {
       acco_shopname: shopName,
       acco_gender: gender,
       acco_birthdate: birthdate,
-      acco_avatar: null,
+      acco_avatar: image,
       acco_user_id: user_id,
     };
 
@@ -111,6 +137,7 @@ export default function RegisterAccount() {
                 "dataAccountBirthdate",
                 result.data.acco_birthdate
               );
+              localStorage.setItem('profilImage', image)
             }, 2500);
           }
         }
@@ -233,7 +260,25 @@ export default function RegisterAccount() {
             </div>
           </div>
           <div className="flex justify-center items-baseline">
-            <Upload />
+            {/* <Upload /> */}
+
+
+
+            <h1>Upload Image</h1>
+            <input
+              type="file"
+              name="file"
+              placeholder="Upload an image"
+              onChange={uploadImage}
+            />
+            {loading ? (
+              <h3>Loading...</h3>
+            ) : (
+                <img src={image} style={{ width: '300px' }} />
+              )}
+
+
+
           </div>
         </div>
         <div className="flex justify-center items-baseline">
@@ -246,14 +291,14 @@ export default function RegisterAccount() {
               Update Account
             </button>
           ) : (
-            <button
-              className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg flex justify-center items-baseline"
-              values="daftarAccount"
-              onClick={daftarAccount}
-            >
-              Create Account
-            </button>
-          )}
+              <button
+                className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg flex justify-center items-baseline"
+                values="daftarAccount"
+                onClick={daftarAccount}
+              >
+                Create Account
+              </button>
+            )}
         </div>
       </div>
     </>

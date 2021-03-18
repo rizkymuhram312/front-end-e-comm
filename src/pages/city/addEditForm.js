@@ -39,7 +39,7 @@ export default class AddEditForm extends Component {
     }
 
 
-    handleOnSubmit = e => {
+    handleOnSubmit = async e => {
         e.preventDefault();
         const city = {
             city_id: this.state.cityId,
@@ -49,13 +49,13 @@ export default class AddEditForm extends Component {
         };
 
         if (!this.state.isEdit) {
-            create(city).then(response => {
+            await create(city).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
             });;
         } else {
-            updateCity(city).then(response => {
+            await updateCity(city).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
@@ -148,6 +148,8 @@ export default class AddEditForm extends Component {
                                                     PROVINCE NAME
                                             </label>
                                                 <select className="capitalize w-full border border-gray-300 py-2 px-2 bg-white  focus:ring-2 focus:ring-blue-600 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2" name="cityProvId" value={cityProvId} onChange={this.handleOnChange}>
+                                                <option>silakan pilih provinsi</option>
+                                                    
                                                     {
                                                         this.props.province.map((e) => {
 

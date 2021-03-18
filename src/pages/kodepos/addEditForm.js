@@ -41,7 +41,7 @@ export default class AddEditForm extends Component {
     }
 
 
-    handleOnSubmit = e => {
+    handleOnSubmit = async e => {
         e.preventDefault();
         const kodepos = {
             kodepos : this.state.kodeposId,
@@ -51,13 +51,13 @@ export default class AddEditForm extends Component {
         // console.log(this.state.isEdit)
  
         if (!this.state.isEdit){
-            create(kodepos).then(response => {
+            await create(kodepos).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
             });;
         }else{
-            updateKodepos(kodepos).then(response => {
+            await updateKodepos(kodepos, this.props.kodepos_id).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);

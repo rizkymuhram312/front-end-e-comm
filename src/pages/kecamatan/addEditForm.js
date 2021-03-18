@@ -43,7 +43,7 @@ export default class AddEditForm extends Component {
     }
 
 
-    handleOnSubmit = e => {
+    handleOnSubmit = async e => {
         e.preventDefault();
         const kecamatan = {
             kec_id: this.state.kecamatanId,
@@ -53,25 +53,27 @@ export default class AddEditForm extends Component {
         };
 
         if (!this.state.isEdit) {
-            create(kecamatan).then(response => {
+            await create(kecamatan).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
             });;
         } else {
-            updateKecamatan(kecamatan).then(response => {
-                console.log(response);
-            }).catch(function (error) {
-                console.log(error);
-            });;
+            await updateKecamatan(kecamatan)
+            // .then(response => {
+            //     console.log(response);
+            // }).catch(function (error) {
+            //     console.log(error);
+            // });;
         }
 
 
 
         // jika ada udah sukses or error then, close modal
         // lalu refresh table 
-        this.props.setShowModal(false);
         this.props.setRefreshTable();
+        this.props.setShowModal(false);
+        
 
     }
 
@@ -137,7 +139,7 @@ export default class AddEditForm extends Component {
                                                     name="kecamatanName"
                                                     value={kecamatanName}
                                                     onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400   focus:ring-2 focus:ring-blue-600 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                    className="px-3 py-3 placeholder-gray-400   focus:ring-2 focus:ring-blue-600 bg-white rounded  shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
                                                 />
                                             </div>
@@ -151,6 +153,7 @@ export default class AddEditForm extends Component {
                                                     city name
                                             </label>
                                                 <select className="w-full border border-gray-300 py-2 px-2 bg-white  focus:ring-2 focus:ring-blue-600 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2" name="kecamatanCityId" value={kecamatanCityId} onChange={this.handleOnChange}>
+                                                    <option>silakan pilih city</option>
                                                     {
                                                         this.props.city.map((e) => {
 

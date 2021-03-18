@@ -30,6 +30,7 @@ export default function Profil2({ fixed }) {
     }, [localStorage.dataAccountId])
 
 
+    const fotoprofil = localStorage.getItem('profilImage')
 
 
     return (
@@ -43,7 +44,7 @@ export default function Profil2({ fixed }) {
                     <div className="flex flex-wrap justify-center">
                         <div className="w-6/12 sm:w-4/12 px-4">
 
-                            <img src="cewe.jpg" alt="..." className="shadow rounded-full max-w-full h-40 align-middle border-none" />
+                            <img src={fotoprofil === "null" || fotoprofil === null  ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full max-w-full h-40 align-middle border-none" />
 
                             <div className=" grid grid-cols-1 gap-4 my-2 mt-12 content-center items-center justify-center place-content-center">
                                 <p className="justify-center font-semibold">Username : {localStorage.getItem('dataUserName')} </p>
