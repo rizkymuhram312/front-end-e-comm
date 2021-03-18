@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { apiUserMaster } from '../../config/apiUrl'
+import { apiUserMaster,apiUserAccount } from '../../config/apiUrl'
 
 
 
 
 const listAccount = async () => {
     try {
-        let response = await axios.get(`${apiUserMaster}/account/`)
+        let response = await axios.get(`${apiUserAccount}/account/`)
         return await response.data
     }   catch(err){
         return await err.message
@@ -17,7 +17,7 @@ const listAccount = async () => {
 // di backend, jangan lupa pake req.body.data, agar bisa di extract ke tiap attribute
 const create = async (account) => {
     try {
-        let response = await axios.post(`${apiUserMaster}/account/`,{
+        let response = await axios.post(`${apiUserAccount}/account/`,{
           data : account
         })
         return await response.data
@@ -28,7 +28,7 @@ const create = async (account) => {
   
   const deleteAccount = async (accountId) => {
     try {
-        let response = await axios.delete(`${apiUserMaster}/account/${accountId}`)
+        let response = await axios.delete(`${apiUserAccount}/account/${accountId}`)
         return await response.data
       } catch(err) {
         return await err.message
@@ -37,7 +37,7 @@ const create = async (account) => {
   
   const updateAccount = async (account) => {
     try {
-        let response = await axios.put(`${apiUserMaster}/account/${account.acco_id}`,{
+        let response = await axios.put(`${apiUserAccount}/account/${account.acco_id}`,{
           data : account
         })
         return await response.data

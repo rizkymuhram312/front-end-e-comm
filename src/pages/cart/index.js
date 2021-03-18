@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import ModalDelete from "../../components/modal/ModalDelete"
 import {apiCart} from "../../config/apiUrl" 
 
@@ -10,6 +11,8 @@ export default function Cart() {
   const [deleted, setDeleted] = useState([]);
   const [Cart, setCart] = useState([]);
   const [Order, setOrder] = useState({})
+  let history = useHistory();
+
 
   useEffect(() => {
     fetchCart();
@@ -30,7 +33,11 @@ export default function Cart() {
   }, [checked])
 
   useEffect(() => {
-    console.log(Cart)
+    setOrder({
+      ...Order,
+      cart_line_items:Cart
+    })
+    console.log(Order)
   }, [Cart])
 
   const toggleCheck = (index) => {
@@ -70,7 +77,7 @@ export default function Cart() {
     Cart.map(x=>{
       total_qty+=x.clit_qty;
       total_amount+=x.clit_subtotal;
-      total_weight+=x.clit_subweight
+      total_weight+=x.clit_subweight;
     })
     if(value){
       setOrder({
@@ -84,7 +91,8 @@ export default function Cart() {
       setOrder({
         ...Order,
         cart_total_qty: 0,
-        cart_total_amount: 0
+        cart_total_amount: 0,
+        cart_total_weight: 0
       }
     )
     }
@@ -95,6 +103,17 @@ export default function Cart() {
       }
       return newState;
     });
+    setCart((prevState)=>{
+      const newState = [...prevState]
+      for (const index in checked ){
+        if(value === false){
+          newState[index].clit_stat_name = 'PENDING'
+        } else {
+          newState[index].clit_stat_name = 'CHECKOUT'
+        }
+      }
+      return newState
+    })
   };
 
   const plus = (id,idx)=>{
@@ -172,22 +191,21 @@ export default function Cart() {
   }
 
   const checkout = async () =>{
-      setOrder({
-        ...Order,
-        cart_line_items:Cart
-      })
+    if(Order){
       return await axios({
+        data:Order,
         url: `${apiCart}/cart/${Order.cart_id}`,
         method: "put",
         headers: {
           "Content-Type": "application/json",
         },
       })
-        .then((res) => {
-          console.log(res)
-          return fetchCart()
-        })
+        .then(() => history.push("/orders"))
+          // return fetchCart())
         .catch((err) => console.error(err));
+    }else{
+      return alert("anda belum order barang")
+    }
   }
 
   return (
@@ -270,8 +288,8 @@ export default function Cart() {
               />
               <span>Pilih Semua</span>
             </div>
-            <div>Subtotal untuk Produk({Order.cart_total_qty} produk) </div>
-            <div>{Order.cart_total_amount}</div>
+            <div>Subtotal untuk Produk({Order?.cart_total_qty} produk) </div>
+            <div>{Order?.cart_total_amount}</div>
             <div>
               <button className=" font-bold bg-secondary text-white lg:p-3 p-2 hover:bg-item rounded lg:mr-5"
               onClick={checkout}>
