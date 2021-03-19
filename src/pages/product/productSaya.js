@@ -14,7 +14,7 @@ export default function ProductSaya() {
   const [showTambah, setShowTambah] = useState(false)
   const [filterProduct, setFilterProduct] = useState([])
   const [prodToEdit, setProdToEdit] = useState()
-  const acco_id = localStorage.getItem("acco_id")
+  const acco_id = localStorage.getItem("dataAccountId")
   const onClickAddProduct = () => {
     history.push('/tambahProduct')
   }
@@ -141,6 +141,7 @@ export default function ProductSaya() {
                       }
                     })
                     .map((x) => {
+                      console.log(x)
                       return (
                         <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">

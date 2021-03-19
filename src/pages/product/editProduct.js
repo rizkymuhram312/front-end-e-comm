@@ -25,10 +25,15 @@ export default function EditProduct(props) {
     const [erorr, setError] = useState('');
     const [alert, setAlert] = useState('');
     const id = localStorage.getItem("id")
-    const acco_id = localStorage.getItem("acco_id")
+    const acco_id = localStorage.getItem("dataAccountId")
     const [ProductVariant, setProductVariant] = useState([])
     const [prova_name, setProvaName] = useState('')
     const [prova_option, setProvaOption] = useState('')
+    const [prova_id, setProva_id] = useState('')
+    const [prova_id2, setProva_id2] = useState('')
+    const [prova_nameSize, setProvaNameSize] = useState('')
+    const [prova_optionSize, setProvaOptionSize] = useState('')
+    
 
     toast.configure()
     const notify = () => {
@@ -109,6 +114,17 @@ export default function EditProduct(props) {
         setError('')
     }
 
+    const onChangeProvaNameSize = (e) => {
+        const value = e.target.value
+        setProvaNameSize(value)
+        setError('')
+    }
+    const onChangeProvaOptionSize = (e) => {
+        const value = e.target.value
+        setProvaOptionSize(value)
+        setError('')
+    }
+
 
     const onCLickBackProduct = () => {
         history.push('/productsaya')
@@ -129,6 +145,7 @@ export default function EditProduct(props) {
             const listProduct = await GetProduct();
             console.log(listProduct);
             if (listProduct) {
+                
                 setProductName(listProduct.prod_name);
                 setProductDesc(listProduct.prod_desc);
                 setProductPrice(listProduct.prod_price);
@@ -139,30 +156,21 @@ export default function EditProduct(props) {
                 setProductWeight(listProduct.prod_weight);
                 setProductCond(listProduct.prod_cond_name);
                 setProductExpire(listProduct.prod_expire);
-                setProvaName(listProduct.prova_name)
-                setProvaOption(listProduct.prova_option)
+                setProvaName(listProduct.product_variants[0].prova_name)
+                setProvaOption(listProduct.product_variants[0].prova_option)
+                setProva_id(listProduct.product_variants[0].prova_id)
+                setProva_id2(listProduct.product_variants[1].prova_id)
+                setProvaNameSize(listProduct.product_variants[1].prova_name)
+                setProvaOptionSize(listProduct.product_variants[1].prova_option)
 
             }
         };
         getListProduct();
         console.log(Product);
-        // const getListProductVariant = async () => {
-        //     const listProductVariant = await GetProductVariant();
-        //     console.log(listProductVariant);
-        //     if (listProductVariant) {
-        //         setProvaName(listProductVariant.prova_name);
-        //         setProvaOption(listProductVariant.prova_option);
-                
-            
-
-        //     }
-        // };
-        // getListProductVariant();
-        // console.log(ProductVariant);
 
     }, []);
     useEffect(() => {}, [Product]);
-    useEffect(() => {}, [ProductVariant]);
+
 
 
     const updateProduct = (e) => {
@@ -183,7 +191,7 @@ export default function EditProduct(props) {
         console.log(data);
         axios
             .put(`${apiProductTransaction}/product/${id}`, data)
-            .then((result) => {
+            .then(result => {
                 console.log(result)
                 if (result.data.error) {
                     // console.log(result.data);
@@ -203,8 +211,53 @@ export default function EditProduct(props) {
                         setProductWeight('')
                         setProductCond('')
                         setProductExpire('')
+                        const dataVariant = {
+                            prova_name: prova_name,
+                            prova_option: prova_option,
+                            prova_prod_id: result.data.prod_id
+                        }
+                        console.log(dataVariant)
+                        axios.put(`${apiProductTransaction}/productvariant/${prova_id}`, dataVariant)
+                            .then(result => {
+                                if (result.dataVariant.error) {
+                                    console.log(result.dataVariant)
+                                    notifyErr()
+                                } else {
+                                    if (result.dataVariant) {
+                                        setProvaName('')
+                                        setProvaOption('')
+                                        // setProvaProdId('')
+                
+                                    } notify()
+                                }
+                            })
+                            .catch((e) => {
+                                setError(e)
+                            })
+                            const dataVariant2 = {
+                                prova_name: prova_nameSize,
+                                prova_option: prova_optionSize,
+                                prova_prod_id: result.data.prod_id
+                            }
+                            console.log(dataVariant2)
+                            axios.put(`${apiProductTransaction}/productvariant/${prova_id2}`, dataVariant2)
+                                .then(result => {
+                                    if (result.dataVariant2.error) {
+                                        console.log(result.dataVariant2)
+                                        notifyErr()
+                                    } else {
+                                        if (result.dataVariant2) {
+                                            setProvaNameSize('')
+                                            setProvaOptionSize('')
+                                            // setProvaProdId('')
+                    
+                                        } notify()
+                                    }
+                                })
+                                .catch((e) => {
+                                    setError(e)
+                                })
                         setAlert(result.data.message);
-                        Redirect('/productsaya')
                         setTimeout(() => {
                             setAlert("");
                         }, 2500);
@@ -381,7 +434,8 @@ export default function EditProduct(props) {
                             <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" 
                             placeholder="Mohon masukkan"
                             value={prova_name}
-                            onChange={onChangeProvaName} />
+                            // onChange={onChangeProvaName} 
+                            />
                         </div>
                     </div>
                     <div className="w-4/12 ml-5 text base">
@@ -393,6 +447,29 @@ export default function EditProduct(props) {
                             placeholder="Mohon masukkan" 
                             value={prova_option}
                             onChange={onChangeProvaOption}/>
+                        </div>
+                    </div>
+                    <div className="w-4/12 ml-5 text base">
+                        Nama Variant
+                </div>
+                    <div className="w-6/12">
+                        <div class=" relative ">
+                            <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" 
+                            placeholder="Mohon masukkan"
+                            value={prova_nameSize}
+                            // onChange={onChangeProvaNameSize} 
+                            />
+                        </div>
+                    </div>
+                    <div className="w-4/12 ml-5 text base">
+                        Variant Option
+                </div>
+                    <div className="w-6/12">
+                        <div class=" relative ">
+                            <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" 
+                            placeholder="Mohon masukkan" 
+                            value={prova_optionSize}
+                            onChange={onChangeProvaOptionSize}/>
                         </div>
                     </div>
                     <div className="w-full ml-5 mb-2 text-xl font-semibold">

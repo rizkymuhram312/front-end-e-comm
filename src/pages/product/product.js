@@ -18,7 +18,7 @@ export default function Product() {
     const [CartTotal, setCartTotal] = useState('')
     const [CartProdId, setCartProdId] = useState('')
     // const [CartQuantity, setCartQuantity] = useState('')
-    const acco_id = localStorage.getItem("acco_id")
+    const acco_id = localStorage.getItem("dataAccountId")
     const [CartId, setCartId] = useState()
     const [Error, setError] = useState('')
     const history = useHistory()
@@ -35,27 +35,6 @@ export default function Product() {
         fetchCart()
     }, [])
 
-    const onChangeCartWeight = (e) => {
-        const value = e.target.value
-        setCartWeight(value)
-        setError('')
-    }
-    const onChangeCartTotal = (e) => {
-        const value = e.target.value
-        setCartTotal(value)
-        setError('')
-    }
-    const onChangeCartProdId = (e) => {
-        const value = e.target.value
-        setCartProdId(value)
-        setError('')
-    }
-    // const onChangeCartQuantity = (e) => {
-    //     const value = e.target.value
-    //     setCartQuantity(value)
-    //     setError('')
-    // }
-
     const klikCart = (x) => {
         x.preventDefault()
         const data = {
@@ -69,7 +48,7 @@ export default function Product() {
         }
         if(CartId!==undefined){
             console.log(data)
-            axios.put(`${apiCart}/cartLineItems/${acco_id}/${CartId}/${prod_id}`, data)
+            axios.post(`${apiCart}/cartLineItems/${acco_id}/${CartId}/1511`, data)
                 .then(result => {
                     if (result.data.error) {
                         console.log(result.data)
@@ -121,7 +100,7 @@ export default function Product() {
     useEffect(() => {
         let fetchProduct = async () => {
             await axios({
-                url: `${apiProductTransaction}/product/1511`,
+                url: `${apiProductTransaction}/product/1569`,
                 method: "get",
                 headers: {
                     "Content-type": "application/json"
@@ -133,12 +112,26 @@ export default function Product() {
     }, [])
 
     useEffect(() => {
-        if (Product.product_variants) {
-            let variant = Product.product_variants[0].prova_option
-            setSize(variant.split(","))
-            let color = Product.product_variants[1].prova_option
-            setColor(color.split(","))
+        console.log(Product)
+        if (Product.product_variants && Product.product_variants.length > 0) {
+            Product.product_variants.map((x)=>{
+                switch (x.prova_name) {
+                    case "SIZE":
+                        let variant = x.prova_option
+                        setSize(variant.split(","))
+                        break;
+                    case "WARNA":
+                        let color = x.prova_option
+                        setColor(color.split(","))
 
+                    default:
+                        break;
+                }
+            })
+
+            if(Product.product_variants.length > 1){
+
+            }
             // console.log(variantArray)
         }
     }, [Product])
@@ -161,11 +154,11 @@ export default function Product() {
                 <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4" >
                     <div className="w-1/2 sm:w-1/3 product">
                         <img src={selectedImg} alt="Selected"
-                            class="selected"
+                            className="selected"
                         />
-                        <div class=" imgContainer">
+                        <div className=" imgContainer">
                             {Images.map((img, index) => (
-                                <img
+                                <img className="product-image"
                                     style={{ border: selectedImg === img ? " 4px solid grey " : "" }}
 
                                     key={index}

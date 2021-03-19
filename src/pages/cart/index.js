@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import ModalDelete from "../../components/modal/ModalDelete"
+import {apiCart} from "../../config/apiUrl" 
 
 export default function Cart() {
   const [checkedAll, setCheckedAll] = useState(false);
@@ -9,13 +11,15 @@ export default function Cart() {
   const [deleted, setDeleted] = useState([]);
   const [Cart, setCart] = useState([]);
   const [Order, setOrder] = useState({})
+  const history = useHistory();
+  const acco_id = localStorage.getItem("dataAccountId")
+
 
   useEffect(() => {
     fetchCart();
   }, []);
 
   useEffect(() => {
-    // console.log(checked)
     let allChecked = true;
     for (const index in checked) {
       if (checked[index] === false) {
@@ -29,12 +33,32 @@ export default function Cart() {
     }
   }, [checked])
 
+  useEffect(() => {
+    setOrder({
+      ...Order,
+      cart_line_items:Cart
+    })
+    console.log(Order)
+  }, [Cart])
+
   const toggleCheck = (index) => {
+    let check = false
     setChecked((prevState) => {
       const newState = [...prevState];
       newState[index] = !prevState[index];
+      check = !prevState[index];
       return newState;
     });
+    setCart((prevState)=>{
+      const newState = [...prevState]
+      if(check === false){
+        newState[index].clit_stat_name = 'PENDING'
+      } else {
+        newState[index].clit_stat_name = 'CHECKOUT'
+      }
+      return newState
+    })
+
   };
 
   const toggleDelete = (index) => {
@@ -54,7 +78,7 @@ export default function Cart() {
     Cart.map(x=>{
       total_qty+=x.clit_qty;
       total_amount+=x.clit_subtotal;
-      total_weight+=x.clit_subweight
+      total_weight+=x.clit_subweight;
     })
     if(value){
       setOrder({
@@ -68,7 +92,8 @@ export default function Cart() {
       setOrder({
         ...Order,
         cart_total_qty: 0,
-        cart_total_amount: 0
+        cart_total_amount: 0,
+        cart_total_weight: 0
       }
     )
     }
@@ -79,6 +104,17 @@ export default function Cart() {
       }
       return newState;
     });
+    setCart((prevState)=>{
+      const newState = [...prevState]
+      for (const index in checked ){
+        if(value === false){
+          newState[index].clit_stat_name = 'PENDING'
+        } else {
+          newState[index].clit_stat_name = 'CHECKOUT'
+        }
+      }
+      return newState
+    })
   };
 
   const plus = (id,idx)=>{
@@ -105,7 +141,8 @@ export default function Cart() {
       return{...x, 
         clit_qty: x.clit_qty-1,
         clit_subweight: (x.clit_qty-1)*x.product.prod_weight,
-        clit_subtotal: (x.clit_qty-1)*x.product.prod_price}
+        clit_subtotal: (x.clit_qty-1)*x.product.prod_price,
+      }
     }))
     if(checked[idx]===true){
       setOrder({
@@ -137,7 +174,7 @@ export default function Cart() {
 
   async function fetchCart() {
     return await axios({
-      url: `http://localhost:3003/api/cart/1001`,
+      url: `${apiCart}/cart/${acco_id}/PENDING`,
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -152,6 +189,24 @@ export default function Cart() {
         setCart(res.data[0].cart_line_items)
       })
       .catch((err) => console.error(err));
+  }
+
+  const checkout = async () =>{
+    if(Order){
+      return await axios({
+        data:Order,
+        url: `${apiCart}/cart/${Order.cart_id}`,
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then(() => history.push("/orders"))
+          // return fetchCart())
+        .catch((err) => console.error(err));
+    }else{
+      return alert("anda belum order barang")
+    }
   }
 
   return (
@@ -178,7 +233,7 @@ export default function Cart() {
                   deleted[y]===true?<ModalDelete 
                   image={x.product.product_images[0].prim_filename} 
                   name={x.product.prod_name}
-                  url={`http://localhost:3003/api/cartLineItems/${x.clit_id}`}
+                  url={`${apiCart}/cartLineItems/${x.clit_id}`}
                   close={()=>toggleDelete(y)}
                   update={()=>{
                     toggleDelete(y)
@@ -234,10 +289,11 @@ export default function Cart() {
               />
               <span>Pilih Semua</span>
             </div>
-            <div>Subtotal untuk Produk({Order.cart_total_qty} produk) </div>
-            <div>{Order.cart_total_amount}</div>
+            <div>Subtotal untuk Produk({Order?.cart_total_qty} produk) </div>
+            <div>{Order?.cart_total_amount}</div>
             <div>
-              <button className=" font-bold bg-secondary text-white lg:p-3 p-2 hover:bg-item rounded lg:mr-5">
+              <button className=" font-bold bg-secondary text-white lg:p-3 p-2 hover:bg-item rounded lg:mr-5"
+              onClick={checkout}>
                 Checkout
               </button>
             </div>

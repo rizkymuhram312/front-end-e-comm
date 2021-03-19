@@ -23,11 +23,11 @@ export default function TambahProduct() {
     const [Category, setCategory] = useState([])
     const [Brand, setBrand] = useState([])
     const [Condition, setCond] = useState([])
-    const prod_acco_id = localStorage.getItem("acco_id")
+    const prod_acco_id = localStorage.getItem("dataAccountId")
     const [prova_name, setProvaName] = useState('')
     const [prova_option, setProvaOption] = useState('')
-    // const [prova_prod_id, setProvaProdId] = useState('')
-    const prova_prod_id = localStorage.getItem("prod_id")
+    const [prova_nameSize, setProvaNameSize] = useState('')
+    const [prova_optionSize, setProvaOptionSize] = useState('')
 
     toast.configure()
     const notify = () => {
@@ -111,6 +111,19 @@ export default function TambahProduct() {
         setProvaOption(value)
         setError('')
     }
+    const onChangeProvaNameSize = (e) => {
+        const value = e.target.value
+        setProvaNameSize(value)
+        setError('')
+    }
+    const onChangeProvaOptionSize = (e) => {
+        const value = e.target.value
+        setProvaOptionSize(value)
+        setError('')
+    }
+    const uploadImage = (files) => {
+        console.log(files[0])
+    }
 
     const klikDaftar = (x) => {
         x.preventDefault()
@@ -147,11 +160,16 @@ export default function TambahProduct() {
                         setProductExpire('')
                         setProvaName('')
                         setProvaOption('')
+                        setProvaNameSize('')
+                        setProvaOptionSize('')
+                        
+                        
                         const dataVariant = {
                             prova_name: prova_name,
                             prova_option: prova_option,
                             prova_prod_id: result.data.prod_id
                         }
+                        
                         console.log(dataVariant)
                         await axios.post(`${apiProductTransaction}/productvariant`, dataVariant)
                             .then(result => {
@@ -162,6 +180,8 @@ export default function TambahProduct() {
                                     if (result.dataVariant) {
                                         setProvaName('')
                                         setProvaOption('')
+                                        setProvaNameSize('')
+                                        setProvaOptionSize('')
                                         // setProvaProdId('')
                 
                                     } notify()
@@ -170,7 +190,29 @@ export default function TambahProduct() {
                             .catch((e) => {
                                 setError(e)
                             })
-                            //add gambarr
+                            const dataVariant2 = {
+                                prova_name:prova_nameSize,
+                                prova_option:prova_optionSize,
+                                prova_prod_id: result.data.prod_id
+                            }
+                            await axios.post(`${apiProductTransaction}/productvariant`, dataVariant2)
+                            .then(result => {
+                                if (result.dataVariant2.error) {
+                                    console.log(result.dataVariant2)
+                                    notifyErr()
+                                } else {
+                                    if (result.dataVariant2) {
+                            
+                                        setProvaNameSize('')
+                                        setProvaOptionSize('')
+                                        // setProvaProdId('')
+                
+                                    } notify()
+                                }
+                            })
+                            .catch((e) => {
+                                setError(e)
+                            })//ADD GAMBAR
                     } notify()
                 }
             })
@@ -338,25 +380,47 @@ export default function TambahProduct() {
                         </div>
                     </div>
                     <div className="w-4/12 ml-5 text base">
-                        Nama Variant
+                        Nama Variant (WARNA)
                 </div>
                     <div className="w-6/12">
                         <div class=" relative ">
                             <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2"
-                                placeholder="Mohon masukkan"
+                                placeholder="Mohon masukkan WARNA"
                                 value={prova_name}
                                 onChange={onChangeProvaName} />
                         </div>
                     </div>
                     <div className="w-4/12 ml-5 text base">
-                        Variant Option
+                        Option Warna
                 </div>
                     <div className="w-6/12">
                         <div class=" relative ">
                             <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2"
-                                placeholder="Mohon masukkan"
+                                placeholder="Mohon masukkan variasi warna"
                                 value={prova_option}
                                 onChange={onChangeProvaOption} />
+                        </div>
+                    </div>
+                    <div className="w-4/12 ml-5 text base">
+                        Nama Variant (SIZE)
+                </div>
+                    <div className="w-6/12">
+                        <div class=" relative ">
+                            <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2"
+                                placeholder="Mohon masukkan SIZE"
+                                value={prova_nameSize}
+                                onChange={onChangeProvaNameSize} />
+                        </div>
+                    </div>
+                    <div className="w-4/12 ml-5 text base">
+                        Option Size
+                </div>
+                    <div className="w-6/12">
+                        <div class=" relative ">
+                            <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2"
+                                placeholder="Mohon masukkan variasi SIZE"
+                                value={prova_optionSize}
+                                onChange={onChangeProvaOptionSize} />
                         </div>
                     </div>
                     <div className="w-full ml-5 mb-2 text-xl font-semibold">
@@ -401,7 +465,12 @@ export default function TambahProduct() {
                         Foto Produk
                 </div>
                     <div className="w-6/12 grid grid-rows-2 grid-flow-col gap-4">
-                        <label class=" mb-5 flex flex-col items-center px-1 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-black">
+                        <input type ="file"
+                            onChange={(event)=> {
+                                uploadImage(event.target.files)
+                            }} >
+                        </input>
+                        {/* <label class=" mb-5 flex flex-col items-center px-1 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-black">
                             <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                             </svg>
@@ -435,7 +504,7 @@ export default function TambahProduct() {
                             </svg>
                             <span class="mt-2 text-xs leading-normal">Select a images</span>
                             <input type='file' class="hidden" />
-                        </label>
+                        </label> */}
                     </div>
                     <div className="w-2/4 grid justify-items-end">
                         <button class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto"

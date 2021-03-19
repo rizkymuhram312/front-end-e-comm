@@ -3,6 +3,8 @@ import {deleteKecamatan, listKecamatan} from './api-kecamatan'
 import { TableKecamatan } from './kecamatan-component';
 import AddEditForm from './addEditForm'
 
+import { listCity } from '../city/api-city'
+
 
 
 export default class Kecamatan extends Component {
@@ -10,6 +12,7 @@ export default class Kecamatan extends Component {
     // 1. declarasikan Kecamatan[] state
     state = {
         kecamatan : [],
+        city : [],
         dataEditRow : null,
         isModalShow : false
     }
@@ -24,6 +27,8 @@ export default class Kecamatan extends Component {
     // 3. call showListKecamatan to fill Kecamatan[] on first time render
     componentDidMount() {
         this.showListKecamatan();
+        this.showListCity();
+
     }
 
 
@@ -36,6 +41,15 @@ export default class Kecamatan extends Component {
             })
         })
     }
+
+    showListCity = () => {
+        listCity().then(data => {
+            this.setState({
+                city: data
+            })
+        })
+    }
+
 
 
 
@@ -80,10 +94,12 @@ export default class Kecamatan extends Component {
 
     render() {
   
-            const { kecamatan , isModalShow, dataEditRow } = this.state;
+            const { kecamatan , isModalShow, dataEditRow, city } = this.state;
             return (
                 <div>
                     <TableKecamatan kecamatan = {kecamatan.sort((a, b) => a.kec_id - b.kec_id)}
+                        city = {city}
+
                         setShowModal = {this.onShowModal}
                         setDelete = {this.onDeleteRow}
                         setEdit = {this.onEditRow}
@@ -95,6 +111,8 @@ export default class Kecamatan extends Component {
                             setShowModal = {this.onShowModal}
                             setRefreshTable = {this.onRefreshTable}
                             Kecamatan = {dataEditRow}
+                            city = {city}
+
                             />) : null)
                     }
                 </div>

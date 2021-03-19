@@ -48,6 +48,7 @@ export default class AddEditForm extends Component {
             kodepos_kec_id : this.state.kodeposKecId,
 
         };
+        // console.log(this.state.isEdit)
  
         if (!this.state.isEdit){
             create(kodepos).then(response => {
