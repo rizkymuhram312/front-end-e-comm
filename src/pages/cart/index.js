@@ -11,7 +11,8 @@ export default function Cart() {
   const [deleted, setDeleted] = useState([]);
   const [Cart, setCart] = useState([]);
   const [Order, setOrder] = useState({})
-  let history = useHistory();
+  const history = useHistory();
+  const acco_id = localStorage.getItem("dataAccountId")
 
 
   useEffect(() => {
@@ -173,7 +174,7 @@ export default function Cart() {
 
   async function fetchCart() {
     return await axios({
-      url: `${apiCart}/cart/1001/PENDING`,
+      url: `${apiCart}/cart/${acco_id}/PENDING`,
       method: "get",
       headers: {
         "Content-Type": "application/json",
