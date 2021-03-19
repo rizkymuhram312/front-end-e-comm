@@ -64,7 +64,7 @@ export default function Product() {
     
     
                         } 
-                    }history.push('./cart')
+                    }history.push('/cart')
                 })
                 .catch((e) => {
                     setError(e.response.message)
@@ -89,7 +89,7 @@ export default function Product() {
     
     
                         } 
-                    }history.push('./cart')
+                    }history.push('/cart')
                 })
                 .catch((e) => {
                     setError(e.response.message)

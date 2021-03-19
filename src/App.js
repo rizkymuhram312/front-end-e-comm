@@ -21,8 +21,8 @@ import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
 import EditProduct from './pages/product/editProduct'
-import TambahVariant from './pages/product/tambahVariant'
-import ProductVariant from './pages/product/productVariant'
+// import TambahVariant from './pages/product/tambahVariant'
+// import ProductVariant from './pages/product/productVariant'
 import billTopup from './pages/billTopup'
 import MyAdv from './pages/advertising/myAdv'
 import AddAdv from './pages/advertising/addAdv'
@@ -58,8 +58,8 @@ function App() {
           <Route path="/productsaya" component={ProductSaya}/>
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/editproduct" component={EditProduct}/>
-          <Route path="/tambahvariant" component={TambahVariant}/>
-          <Route path="/productvariant"component={ProductVariant}/>
+          {/* <Route path="/tambahvariant" component={TambahVariant}/> */}
+          {/* <Route path="/productvariant"component={ProductVariant}/> */}
           <Route path="/billTopup" component={billTopup}/>
           <Route path="/advertising/my-adv" component={MyAdv}/>
           <Route path="/advertising/add-adv" component={AddAdv}/>
