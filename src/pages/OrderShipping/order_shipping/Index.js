@@ -1,23 +1,25 @@
+import { data } from 'autoprefixer';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import {apiOrder} from '../../config/apiUrl'
+import {apiOrder} from '../../../config/apiUrl'
 import ModalOship from './OshipModal'
 
 function Index() {
 
     let [OrderShipping, setOrderShipping] = useState([]);
     let [updateOrderShipping, setUpdateOrderShipping]= useState()
-    let [orderName, setOrderName] = useState("")
+    // let [orderName, setOrderName] = useState("")
     let [modal, setModal] = useState (false);
-    let [dataFormOrderShipping, setDataFormOrderShipping] = useState({})
+    let [dataFormOrderShipping, setDataFormOrderShipping] = useState("")
     // let [dataEditRow] = useState(null)
 
 
     useEffect(()=>{
         fetchOrderShipping()
-        fetchUpdateOrderShipping()
+        // fetchUpdateOrderShipping()
     }, [modal, dataFormOrderShipping])
 
+        
 
     const fetchOrderShipping = async ()=>{
         return await axios({
@@ -31,36 +33,25 @@ function Index() {
         }).catch((err)=> console.log(err))
     }
 
-    const fetchUpdateOrderShipping = async ()=>{
-        return await axios({
-            url:`${apiOrder}/orders/${orderName}`,
-            method: "put",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            data:{
-                order_stat_name: OrderShipping.order_stat_name
-            }
-        }).then((res)=>{
-            setUpdateOrderShipping(res.data)
-        }).catch((err)=> console.log(err))
-    }
 
 
     const onEditRow = (e)=> {
         console.log(e.target.value)
-        OrderShipping.map((data)=>{
-            if(data.order_name === e.target.value){
-                setDataFormOrderShipping(data)
+        // OrderShipping.map((data)=>{
+        //     if(data.order_name === e.target.value){
+        //         setDataFormOrderShipping(data)
                 
-            }
-            return setDataFormOrderShipping(data)
-        }
-        )
+        //     }
+        //     return setDataFormOrderShipping(data)
+        // }
+        // )
+
+        OrderShipping.filter((data)=>
+            data.order_name === e.target.value
+        ).map(data => setDataFormOrderShipping(data))
+
         setModal(true)
     }
-
-
 
 
     return (
@@ -97,7 +88,7 @@ function Index() {
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         {
-                                            OrderShipping.filter((x)=> x.status.stat_name=== "PENDING" || x.status.stat_name=== "Paid" || x.status.stat_name=== "PAID").map(x=>
+                                            OrderShipping.filter((x)=> x.status.stat_name=== "PAID").map(x=>
                                     
                                         <tr key={x.order_name}>     
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -121,7 +112,7 @@ function Index() {
                                                 </span>
                                             </td>
                                             <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
-                                                <button value={x.order_name} className="py-2 px-4 bg-blue-500 hover:bg-blue-400 text-white reounded" onClick={onEditRow}>SHIPPING</button>
+                                                <button className="py-2 px-4 bg-blue-500 hover:bg-blue-400 text-white reounded" onClick={onEditRow}  value={x.order_name}>SHIPPING</button>
                                             </td>
                                         </tr>
                                             )} 
@@ -134,11 +125,11 @@ function Index() {
                 {
                     modal ?
                     <ModalOship
-                    modal={modal}
                     setModal={setModal}
+                    OrderShipping= {OrderShipping}
                     dataFormOrderShipping= {dataFormOrderShipping}
-                    updateOrderShipping={updateOrderShipping}
-                    setUpdateOrderShipping={setUpdateOrderShipping}
+                    // updateOrderShipping={updateOrderShipping}
+                    // setUpdateOrderShipping={setUpdateOrderShipping}
                     // OrderShipping={OrderShipping}
                     // setOrderShipping={setOrderShipping}
                     // order = {onEditRow}

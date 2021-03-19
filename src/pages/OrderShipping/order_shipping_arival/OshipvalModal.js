@@ -1,14 +1,40 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import {apiOrder} from '../../../config/apiUrl'
 
 function OshipvalModal({
-    modal,
-    setModal
+    setModal,
+    dataFormOrderArrival
 }) {
+    let[orderName, setOrderName]= useState(dataFormOrderArrival.order_name)
+    let[orderStatName, setOrderStatName]= useState("CLOSED")
 
-
-
+    console.log(dataFormOrderArrival.order_name)
     const onCancelEdit = ()=>{
         setModal(false)
+    }
+
+    // useEffect(()=>{
+    //     setOrderName()
+    //     setOrderStatName()
+    // },[])
+
+
+    const handleUpdate = async ()=>{
+        const data={
+            order_name: orderName,
+            order_stat_name: orderStatName
+        }
+        await axios.put(`${apiOrder}/orders`, data)
+        .then(result=>{
+            if(result){
+                console.log(result.data)  
+            }
+            
+            console.log(result.data)
+            return 0;
+
+        }).catch((err)=> err.message)
     }
 
 
@@ -46,7 +72,7 @@ function OshipvalModal({
                                         >
                                             Belum
                                 </button>
-                                        <button onClick={() => this.props.setRefreshTabel()}
+                                        <button onClick={handleUpdate}
                                             className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit"
                                         >

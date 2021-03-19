@@ -175,29 +175,29 @@ const DashboardUsers = () => {
                 <div className={openTab === 4 ? "block" : "hidden"} id="link3">
                  
 
-//                   <div>
-//                     <Kecamatan />
-//                   </div>
+                  <div>
+                   </div>
+                     <Kecamatan />
 
-//                 </div>
-//                 <div className={openTab === 5 ? "block" : "hidden"} id="link4">
-//                   <Kodepos />
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-
+                 </div>
+                 <div className={openTab === 5 ? "block" : "hidden"} id="link4">
+                   <Kodepos />
+               </div>
+                 </div>
+           </div>
+             </div>
+       </div>
+         </div>
 
 
 
-//     </>
+
+
+ </>
 
 
 
-//   )
-// }
+ )
+ }
 
-// export default DashboardUsers
+ export default DashboardUsers

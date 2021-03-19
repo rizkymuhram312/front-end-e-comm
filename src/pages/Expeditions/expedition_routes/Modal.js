@@ -182,7 +182,8 @@ export default class Modal extends Component {
                                                 value={exroPackage}
                                                 onChange={this.handleOnChange}
                                                 className="text-gray-700 mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ml-2">
-                                                    <option value="REGULER">Reguler</option>
+                                                    <option>Pilih Package..</option>
+                                                    <option value="reguler">Reguler</option>
                                                     <option value="EXPRESS">Express</option>
                                                 </select>
                                                 </div>  

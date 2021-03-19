@@ -8,11 +8,11 @@ function Index() {
 
     let [ShippingArrival, setShippingArrival]= useState([]);
     let [modal, setModal]= useState (false);
-
+    let [dataFormOrderArrival, setDataFormArrival] = useState({})
 
     useEffect(()=>{
         fetchShippingArrival()
-    },[modal])
+    },[modal, dataFormOrderArrival])
     
 
     const fetchShippingArrival = async ()=>{
@@ -26,6 +26,24 @@ function Index() {
             setShippingArrival(res.data)
         }).catch((err)=> console.log(err))
     }
+
+
+
+    const onEditRow = (e)=>{
+        // ShippingArrival.map((data)=>{
+        //     if(data.order_name === e.target.value){
+        //         setDataFormArrival(data)
+        //     }
+        //     return setDataFormArrival(data)
+        // })
+
+        ShippingArrival.filter((data)=>
+            data.order_name === e.target.value
+        ).map(data => setDataFormArrival(data))
+
+        setModal(true)
+    }
+
 
     return (
         <div>
@@ -60,7 +78,7 @@ function Index() {
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         {
-                                            ShippingArrival.filter((x)=> x.status.stat_name=== "PENDING" || x.status.stat_name=== "Paid" || x.status.stat_name=== "PAID" ||  x.status.stat_name=== "arrived" || x.status.stat_name=== "Arrived" || x.status.stat_name=== "ARRIVED").map(x=>
+                                            ShippingArrival.filter((x)=> x.status.stat_name=== "SHIPPING" || x.status.stat_name=== "CLOSED").map(x=>
                                             
                                             <tr key={x.order_name}>     
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -84,10 +102,10 @@ function Index() {
                                                 </span>
                                             </td>
                                             {
-                                            (x.status.stat_name === "PENDING") ?
+                                            (x.status.stat_name === "SHIPPING") ?
                                             
                                             <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
-                                            <button className="py-2 px-4 bg-blue-500 hover:bg-blue-400 text-white reounded" onClick={()=>{setModal(true)}}>ARRIVED</button>
+                                            <button value={x.order_name} className="py-2 px-4 bg-blue-500 hover:bg-blue-400 text-white reounded" onClick={onEditRow}>ARRIVED</button>
                                             </td>
                                             :
                                             <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
@@ -111,8 +129,9 @@ function Index() {
                 {
                     modal ? 
                     <ModalOshipval
-                    modal= {modal}
                     setModal={setModal}
+                    setDataFormArrival = {setDataFormArrival}
+                    dataFormOrderArrival= {dataFormOrderArrival}
                     />
                     :
                     null

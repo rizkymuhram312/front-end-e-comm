@@ -21,11 +21,10 @@ import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
 import billTopup from './pages/billTopup'
-import Expedition from './pages/expedition/index'
-import ExpeditionRoutes from './pages/expedition_routes/index'
-import OrderShipping  from './pages/order_shipping/Index'
-import OrderShippingArrival from './pages/order_shipping_arival/Index'
-import TabOrderShippingExpedition from './pages/order_shipping/Tab/TabNavigation'
+import ExpeditionRoutesIndex from './pages/Expeditions/ExpeditionRoutesIndex'
+import ExpeditionIndex from './pages/Expeditions/ExpeditionIndex'
+import OrderShippingIndex from './pages/OrderShipping/OrderShippingIndex'
+import OrderShippingArrivalIndex from './pages/OrderShipping/OrderShippingArrivalIndex'
 import MyAdv from './pages/advertising/myAdv'
 import AddAdv from './pages/advertising/addAdv'
 import BankAccount from './pages/payment/BankAccount'
@@ -59,11 +58,10 @@ function App() {
           <Route path="/productsaya" component={ProductSaya}/>
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/billTopup" component={billTopup}/>
-          <Route path="/expedition" component={Expedition}/>
-          <Route path="/expedition_routes" component={ExpeditionRoutes}/>
-          <Route path="/order_shipping" component={OrderShipping}/>
-          <Route path="/order_shipping_arrival" component={OrderShippingArrival} />
-          <Route path="/ordershippingexpedition" component={TabOrderShippingExpedition}/>
+          <Route path="/expeditionsroutes" component={ExpeditionRoutesIndex}/>
+          <Route path="/expeditions" component={ExpeditionIndex}/>
+          <Route path="/ordershipping" component={OrderShippingIndex}/>
+          <Route path="/ordershippingarrival" component={OrderShippingArrivalIndex}/>
           <Route path="/advertising/my-adv" component={MyAdv}/>
           <Route path="/advertising/add-adv" component={AddAdv}/>
           <Route path="/wallet" component={Wallet}/>

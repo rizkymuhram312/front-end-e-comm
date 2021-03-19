@@ -1,14 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import {apiShipping} from '../../config/apiUrl'
-import {apiOrder} from '../../config/apiUrl'
+import {apiShipping} from '../../../config/apiUrl'
+import {apiOrder} from '../../../config/apiUrl'
 
 function OshipModal({
-    modal,
     setModal,
     dataFormOrderShipping,
-    updateOrderShipping,
-    setUpdateOrderShipping
+    OrderShipping
 }) {
 
 
@@ -17,10 +15,12 @@ function OshipModal({
     let[oshipArrivalDate] = useState(Date.now());
     let[oshipDesc, setOshipDesc] = useState('');
     let[oshipOrderName] = useState(dataFormOrderShipping.order_name);
-    let[orderStatName,] = ("Shipping")
+    let[orderName] = useState(dataFormOrderShipping.order_name)
+    let[orderStatName] = useState("SHIPPING");
     // const[orderName,setOrderName]= useState("");
     // const[orderStatName, setOrderStatName]= useState("");
 
+    // console.log(OrderShipping.order_name)
 
     const onChangeOshipDesc = e =>{
         const value = e.target.value
@@ -28,37 +28,57 @@ function OshipModal({
     }
     
 
+console.log(dataFormOrderShipping.order_name)
+   
 
-    const klikShipping= ()=>{
+    const handleUpdate = async ()=>{
+        const data={
+            order_name: orderName,
+            order_stat_name: orderStatName
+        }
+        await axios.put(`${apiOrder}/orders`, data)
+        .then(result=>{
+            if(result){
+                console.log(result.data)  
+            }
+            
+            console.log(result.data)
+            return 0;
+
+        }).catch((err)=> err.message)
+    }
+
+
+     const klikShipping= async ()=>{
         const data ={
             oship_created_on : oshipCreatedOn,
             oship_ship_date : oshipShipDate,
             oship_arrival_date: oshipArrivalDate,
             oship_desc: oshipDesc,
             oship_order_name: oshipOrderName,
-            order_stat_name: orderStatName
-            // oship_order_name.order_stat_name: orderStatName
-
+            // order_name: orderName,
+            // order_stat_name: orderStatName
         }
-        axios.post(`${apiShipping}/ordershipping`, data)
+
+        await axios.post(`${apiShipping}/ordershipping`, data)
         .then(result=>{
             if(result){
                 console.log(result.data)  
             }
+            return 0
+
         }).catch((err)=> err.message)
+    }
 
 
-        axios.post(`${apiOrder}/orders/${dataFormOrderShipping.order_name}`, data)
-        .then(result=>{
-            if(result){
-                console.log(result.data)  
-            }
-        }).catch((err)=> err.message)
-        
-
-
-
-
+    const hasil = async ()=>{
+        try {
+            
+            await handleUpdate();
+            // await klikShipping();
+           } catch (err) {
+               console.log(err.message) 
+           }
         
     }
 
@@ -138,7 +158,8 @@ function OshipModal({
                                         >
                                             Close
                                 </button>
-                                        <button onClick={klikShipping}
+                                        {/* <button onClick={klikShipping}{handleUpdate} */}
+                                        <button onClick= {hasil}
                                             className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit"
                                         >

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {apiExpedition} from "../../../config/apiUrl"
+import {apiExpedition} from "../../../../config/apiUrl"
 
 const listExpedition = async ()=> {
     try {
