@@ -59,12 +59,11 @@ export default class AddEditForm extends Component {
                 console.log(error);
             });;
         } else {
-            await updateKecamatan(kecamatan)
-            // .then(response => {
-            //     console.log(response);
-            // }).catch(function (error) {
-            //     console.log(error);
-            // });;
+            await updateKecamatan(kecamatan).then(response => {
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });;
         }
 
 

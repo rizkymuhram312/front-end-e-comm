@@ -26,6 +26,10 @@ import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
 import billTopup from './pages/billTopup'
+import ExpeditionRoutesIndex from './pages/Expeditions/ExpeditionRoutesIndex'
+import ExpeditionIndex from './pages/Expeditions/ExpeditionIndex'
+import OrderShippingIndex from './pages/OrderShipping/OrderShippingIndex'
+import OrderShippingArrivalIndex from './pages/OrderShipping/OrderShippingArrivalIndex'
 import MyAdv from './pages/advertising/myAdv'
 import AddAdv from './pages/advertising/addAdv'
 import BankAccount from './pages/payment/BankAccount'
@@ -64,6 +68,10 @@ function App() {
           <Route path="/productsaya" component={ProductSaya}/>
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/billTopup" component={billTopup}/>
+          <Route path="/expeditionsroutes" component={ExpeditionRoutesIndex}/>
+          <Route path="/expeditions" component={ExpeditionIndex}/>
+          <Route path="/ordershipping" component={OrderShippingIndex}/>
+          <Route path="/ordershippingarrival" component={OrderShippingArrivalIndex}/>
           <Route path="/advertising/my-adv" component={MyAdv}/>
           <Route path="/advertising/add-adv" component={AddAdv}/>
           <Route path="/wallet" component={Wallet}/>
