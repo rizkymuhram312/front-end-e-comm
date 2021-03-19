@@ -58,7 +58,7 @@ function App() {
           <Route path="/advertising/my-adv" component={MyAdv}/>
           <Route path="/advertising/add-adv" component={AddAdv}/>
           <Route path="/wallet" component={Wallet}/>
-          <Route path="/bank-account/:acco_id" component={BankAccount}/>
+          <Route path="/bank-account/" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
           <Route path="/order-kw" component={OrdersKw}/>
         </Switch>

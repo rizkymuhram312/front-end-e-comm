@@ -1,4 +1,3 @@
-import { Redirect, useParams, Link, useHistory } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { apiPayment } from '../../config/apiUrl'
@@ -6,7 +5,7 @@ import { apiPayment } from '../../config/apiUrl'
 const VerifyPayment = (props) => {
     let acco_id = props.acco_id
     let apiPin = apiPayment + "/walletTransaction"
-    const [pin, setPin] = useState('')
+    const [pin, setPin] = useState(null)
     const data = props.data
     
     const onSubmit = (e) => {
@@ -46,7 +45,7 @@ const VerifyPayment = (props) => {
                     <header className="h-10 mt-28">
                         <h1 className="font-bold text-4xl">Securing your transaction</h1>
                     </header>
-                    <main className="mb-auto h-10 ">
+                    <main className="mb-auto h-10 ">    
                         <form onSubmit={onSubmit}>
                             <input type="password" value={pin} onChange={onHandlePinInputChange} name="pin" placeholder="WALLET PIN NUMBER" className="w-2/12 p-3 mt-5 shadow-lg bg-white rounded-xl mr-2 focus:outline-none focus:ring-2 font-light"></input>
                             <button type="submit" className="py-2 px-4 font-extralight text-white rounded-xl bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">VERIFY</button>
