@@ -35,14 +35,14 @@ const create = async (kecamatan) => {
       }
   };
   
-  const updateKecamatan = (kecamatan) => {
+  const updateKecamatan = async (kecamatan) => {
     try {
-        let response = axios.put(`${apiUserMaster}/kecamatan/${kecamatan.kec_id}`,{
+        let response = await axios.put(`${apiUserMaster}/kecamatan/${kecamatan.kec_id}`,{
           data : kecamatan
         })
-        return  response.data
+        return await response.data
       } catch(err) {
-        return  err.message
+        return await err.message
       }
   };
   
