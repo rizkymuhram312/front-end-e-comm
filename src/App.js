@@ -25,6 +25,9 @@ import Advertising from './pages/advertising'
 import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
+import EditProduct from './pages/product/editProduct'
+import TambahVariant from './pages/product/tambahVariant'
+import ProductVariant from './pages/product/productVariant'
 import billTopup from './pages/billTopup'
 import ExpeditionRoutesIndex from './pages/Expeditions/ExpeditionRoutesIndex'
 import ExpeditionIndex from './pages/Expeditions/ExpeditionIndex'
@@ -67,6 +70,9 @@ function App() {
           <Route path="/product/:prod_id" component={Product} />
           <Route path="/productsaya" component={ProductSaya}/>
           <Route path="/tambahproduct" component={TambahProduct} />
+          <Route path="/editproduct" component={EditProduct}/>
+          <Route path="/tambahvariant" component={TambahVariant}/>
+          <Route path="/productvariant"component={ProductVariant}/>
           <Route path="/billTopup" component={billTopup}/>
           <Route path="/expeditionsroutes" component={ExpeditionRoutesIndex}/>
           <Route path="/expeditions" component={ExpeditionIndex}/>
