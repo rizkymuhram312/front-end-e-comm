@@ -5,10 +5,10 @@ module.exports = {
     theme:  {
       extend: {
         colors: {
-          background : '#F6F7Fb',
-          primary: '#7A8392',
-          secondary: '#797474',
-          item: '#1C345A'
+          table : '#d3e0dc',
+          primary: '#fcd1d1',
+          secondary: '#ece2e1',
+          button: '#aee1e1'
         }
       }
     },

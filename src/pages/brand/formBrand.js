@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Pagination from '../../components/pagination/pagination'
+import { apiProductMaster } from "../../config/apiUrl";
 
 export const AllBrand = props => {
 
@@ -30,7 +31,7 @@ export const AllBrand = props => {
 
     useEffect(() => {
         axios({
-            url: 'http://localhost:3002/api/brand/1',
+            url: `${apiProductMaster}/brand/1`,
             method: "get",
             headers: {
                 "Content-type": "application/json"

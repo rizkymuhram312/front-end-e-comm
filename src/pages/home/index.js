@@ -193,7 +193,7 @@ export default function Navbar({ fixed }) {
 						{
 							Product.map((x) => {
 								return (
-									<div key={x.prod_id} class="bg-white w-48 shadow-lg cursor-pointer rounded transform hover:scale-105 hover:mt-2 duration-300 ease-in-out m-2"
+									<div key={x.prod_id} class="bg-white w-48 shadow-lg cursor-pointer rounded transform hover:scale-105 hover:mt-2 duration-300 ease-in-out m-2" onClick={()=>localStorage.setItem("prod_id",x.prod_id)}
 
 									// onClick={() => DetailProduct(x.prod_id)} 
 									>
