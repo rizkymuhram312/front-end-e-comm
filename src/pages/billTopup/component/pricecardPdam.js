@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-const PricecardInternet = (props) => {
+const PricecardPdam = (props) => {
     return(
         <div className="w-full md:w-6/12 px-4 text-left">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
-                    <h6 className="text-lg font-semibold text-gray-800">{props.vendor === 'TELKOM' ? 'INDIHOME':''}</h6>
+                    <h6 className="text-lg font-semibold text-gray-800">{props.vendor === 'PDAM' ? 'PDAM':''}</h6>
                     <hr className="mt-2 border-b-2 border-gray-300" />
                     <div>
                         <span class="float-left text-base font-semibold text-gray-400">Customer Name</span>
@@ -26,4 +26,4 @@ const PricecardInternet = (props) => {
     )
 }
 
-export default PricecardInternet
+export default PricecardPdam
