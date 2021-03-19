@@ -215,7 +215,7 @@ export default function Cart() {
           My Cart
         </div>
         <div className="w-full md:w-9/12 px-1 ">
-          <div className="text-sm block my-4 p-3 text-white rounded border border-solid border-gray-200 bg-primary">
+          <div className="text-sm block my-4 p-3  rounded border border-solid border-gray-200 bg-primary">
             <div className="flex justify-around items-center font-bold">
               <div className="lg:w-1/12 md:w-3/12 sm:w-2/12 w-4/12">Produk</div>
               <div>Harga</div>
@@ -228,7 +228,7 @@ export default function Cart() {
           {Cart.map((x,y) => 
             {
               return (
-              <div className="text-sm block my-4 p-3 text-white rounded border border-solid border-gray-200 bg-primary">
+              <div className="text-sm block my-4 p-3  rounded border border-solid border-gray-200 bg-primary">
                 {
                   deleted[y]===true?<ModalDelete 
                   image={x.product.product_images[0]?.prim_filename} 
@@ -269,7 +269,7 @@ export default function Cart() {
                     </div>
                   <div>{x.clit_subtotal}</div>
                   <div className="lg:mr-10"> 
-                  <button className=" font-bold bg-background p-1 md:p-2 hover:bg-pink-300 rounded text-black" onClick={()=> toggleDelete(y)}>
+                  <button className=" font-bold bg-button p-1 md:p-2 hover:bg-pink-300 rounded text-black" onClick={()=> toggleDelete(y)}>
                   Hapus
                   </button></div>
                 </div>
@@ -292,7 +292,7 @@ export default function Cart() {
             <div>Subtotal untuk Produk({Order?.cart_total_qty} produk) </div>
             <div>{Order?.cart_total_amount}</div>
             <div>
-              <button className=" font-bold bg-secondary text-white lg:p-3 p-2 hover:bg-item rounded lg:mr-5"
+              <button className=" font-bold bg-button  lg:p-3 p-2 hover:bg-button rounded lg:mr-5"
               onClick={checkout}>
                 Checkout
               </button>

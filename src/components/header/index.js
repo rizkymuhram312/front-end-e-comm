@@ -58,7 +58,7 @@ export default function Navbar({ fixed }) {
 
   return (
 
-    <nav className="fixed z-50 w-full bg-background top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
+    <nav className="fixed z-50 w-full bg-primary top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           <a className="leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-gray-800" href='/'> 
@@ -74,7 +74,7 @@ export default function Navbar({ fixed }) {
         </div>
         <div className="relative flex w-full md:w-7/12 px-4 flex-wrap items-stretch lg:ml-auto">
           <div className="flex">
-            <span className="font-normal leading-snug flex text-center white-space-no-wrap border border-solid border-gray-600 rounded-full text-sm bg-gray-100 items-center rounded-r-none pl-2 py-1 text-gray-800 border-r-0 placeholder-background">
+            <span className="font-normal leading-snug flex text-center white-space-no-wrap border border-solid border-gray-600 rounded-full text-sm bg-gray-100 items-center rounded-r-none pl-2 py-1 text-gray-800 border-r-0 placeholder-primary">
               <i className="fas fa-search"></i>
             </span>
           </div>
