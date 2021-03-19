@@ -26,6 +26,8 @@ export default class City extends Component {
     componentDidMount() {
         this.showListCity();
         this.showListProvince();
+
+
     }
 
 

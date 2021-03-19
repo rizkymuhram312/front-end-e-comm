@@ -35,9 +35,9 @@ const create = async (kodepos) => {
       }
   };
   
-  const updateKodepos = async (kodepos) => {
+  const updateKodepos = async (kodepos, kodepos_id) => {
     try {
-        let response = await axios.put(`${apiUserMaster}/kodepos/${kodepos.kodepos}`,{
+        let response = await axios.put(`${apiUserMaster}/kodepos/${kodepos_id}`,{
           data : kodepos
         })
         return await response.data

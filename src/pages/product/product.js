@@ -7,6 +7,7 @@ import {apiCart, apiProductTransaction, apiUserAccount, apiUserMaster} from "../
 import { useHistory } from 'react-router'
 
 export default function Product() {
+    // const { prod_id } = useParams();
 
     const [selectedImg, setSelectetImg] = useState(Images[0]);
     const [count, setCount] = useState(0)
@@ -228,8 +229,8 @@ export default function Product() {
                             }
                         </div>
 
-                        <div className="w-full flex">
-                            <div className="w-4/12 mb-10">Kuantitas</div>
+                    <div className="w-full flex">
+                        <div className="w-4/12 mb-10">Kuantitas</div>
 
                             <div class="flex flex-row h-10 w-2/12 rounded-lg relative bg-transparent mt-1">
                                 <button onClick={() => count > 1 ? setCount(count - 1) : setCount(0)} data-action="increment" class="bg-white-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
@@ -261,10 +262,10 @@ export default function Product() {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4" >
-                    <div className="w-1/3 ">
-                        <img src="./samsung logo.png" class=" ml-5 rounded-lg inset-0 w-full h-full object-cover " />
+                    <div className="w-4/12">
+                        <a href="#" class="uppercase py-2 px-4 rounded-lg bg-transparant border-2 border-black text-black-500 dark:text-white hover:bg-black-500 hover:text-black text-md">
+                            MASUKKAN KERANJANG
+    </a>
                     </div>
                     <div className="w-2/3 flex flex-wrap content-evenly">
                         <div className="w-3/4">
@@ -284,6 +285,10 @@ export default function Product() {
                     </div>
                 </div>
             </div>
+        // </div>
         )
+
+
     }
 }
+

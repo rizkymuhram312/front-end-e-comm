@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 export default function Navbar({ fixed }) {
+  const history = useHistory()
 
-  const [isLogin, setisLogin] = useState(true)
+  const [isLogin, setisLogin] = useState(false)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  let token = localStorage.token
 
   const [value, setValue] = useState();
   const refresh = () => {
@@ -13,27 +15,47 @@ export default function Navbar({ fixed }) {
   }
 
   useEffect(() => {
-    console.log(isLogin)
-    if (localStorage.token == null || localStorage.token == undefined) {
+    // console.log(isLogin)
+    if ( token == null || token == undefined) {
       setisLogin(false);
-      setValue({});
+      // setValue({});
+      // refresh()
 
     }
     else {
 
       setisLogin(true);
       setValue({});
+      refresh();
+    // <Redirect to="/home" />
+
+      
     }
     setValue({});
-  }, [localStorage.token])
+    // refresh();
+    // <Redirect to="/home" />
+    // history.push("/home")
+
+
+
+  }, [setisLogin])
+  
+ 
+
 
   const klikLogout = () => {
     localStorage.clear()
 
     alert("Anda Berhasil Logout!");
+    setisLogin(false)
     setValue({});
-    <Redirect to="/home" />
+    
+    
+    history.push("/login")
   }
+
+  const fotoprofil = localStorage.getItem('profilImage')
+
   return (
 
     <nav className="fixed z-50 w-full bg-background top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
@@ -71,21 +93,33 @@ export default function Navbar({ fixed }) {
             {isLogin ? (
             <>
               <ul className="flex flex-col lg:flex-row list-none lg:ml-auto align-center justify-center items-center">
-                
-                <img src="cewe.jpg" alt="..." className="shadow rounded-full max-w-full h-6 align-middle border-none mr-4" /> 
+            
+                <img src={fotoprofil === "null" || fotoprofil === null  ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle border-none mr-4" /> 
                 <li className="nav-item">
-                  
+            
                 <div className="dropdown inline-block relative">
                   
                 <button className="text-center ">
                   <span className="mr-1 font-semibold capitalize">{localStorage.getItem('dataUserName')}
-                  {/* <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /> </svg> */}
+                 
                 </span>
                 </button>
                 <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
-                  <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser">Profil</a></li>
-                  <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard">Dashboard</a></li>
-                  <li className=""><a className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={klikLogout}>Sign Out</a></li>
+                  <li className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={()=>history.push('/dashboarduser')} style={{cursor:'pointer'}}>
+                    {/* <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser"> */}
+                      Profil
+                      {/* </a> */}
+                      </li>
+                  <li className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={()=>history.push('/dashboard')} style={{cursor:'pointer'}}>
+                    {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
+                      Dashboard
+                      {/* </a> */}
+                      </li>
+                  <li className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={klikLogout} style={{cursor:'pointer'}}>
+                    {/* <a className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={klikLogout}> */}
+                      Sign Out
+                      {/* </a> */}
+                      </li>
                 </ul>
               </div>
                 </li>

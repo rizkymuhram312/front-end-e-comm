@@ -43,7 +43,7 @@ export default class AddEditForm extends Component {
     }
 
 
-    handleOnSubmit = e => {
+    handleOnSubmit = async e => {
         e.preventDefault();
         const kecamatan = {
             kec_id: this.state.kecamatanId,
@@ -53,13 +53,13 @@ export default class AddEditForm extends Component {
         };
 
         if (!this.state.isEdit) {
-            create(kecamatan).then(response => {
+            await create(kecamatan).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
             });;
         } else {
-            updateKecamatan(kecamatan).then(response => {
+            await updateKecamatan(kecamatan).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
@@ -70,8 +70,9 @@ export default class AddEditForm extends Component {
 
         // jika ada udah sukses or error then, close modal
         // lalu refresh table 
-        this.props.setShowModal(false);
         this.props.setRefreshTable();
+        this.props.setShowModal(false);
+        
 
     }
 
@@ -107,14 +108,15 @@ export default class AddEditForm extends Component {
                                     <div className="flex flex-wrap">
                                         <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
-                                                <label
+                                                {/* <label
                                                     className="text-center block uppercase text-gray-700 text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
                                                     kecamatan Id
-                                             </label>
+                                             </label> */}
                                                 <input disabled
                                                     type="text"
+                                                    type="hidden"
                                                     name="kecamatanId"
                                                     value={kecamatanId}
                                                     onChange={this.handleOnChange}
@@ -123,10 +125,10 @@ export default class AddEditForm extends Component {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-full lg:w-6/12 px-4">
+                                        <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
                                                 <label
-                                                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                                    className="block uppercase text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
                                                     kecamatan Name
@@ -136,24 +138,25 @@ export default class AddEditForm extends Component {
                                                     name="kecamatanName"
                                                     value={kecamatanName}
                                                     onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                    className="px-3 py-3 placeholder-gray-400   focus:ring-2 focus:ring-blue-600 bg-white rounded  shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-full lg:w-6/12 px-4">
+                                        <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
                                                 <label
-                                                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                                    className="block uppercase text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
                                                     city name
                                             </label>
-                                                <select name="kecamatanCityId" value={kecamatanCityId} onChange={this.handleOnChange}>
+                                                <select className="w-full border border-gray-300 py-2 px-2 bg-white  focus:ring-2 focus:ring-blue-600 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2" name="kecamatanCityId" value={kecamatanCityId} onChange={this.handleOnChange}>
+                                                    <option>silakan pilih city</option>
                                                     {
                                                         this.props.city.map((e) => {
 
-                                                            return (<option value={e.city_id}>{e.city_name}</option>)
+                                                            return (<option value={e.city_id}>{e.city_id} - {e.city_name}</option>)
                                                         })
                                                     }
                                                 </select>
@@ -174,7 +177,7 @@ export default class AddEditForm extends Component {
 
                                             Close
                                 </button>
-                                        <button onClick={() => this.props.setRefreshTable(false)}
+                                        <button onClick={() => this.props.setRefreshTable()}
                                             className="bg-gray-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit"
                                         >
