@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Pricecardpulsa from './component/pricecardPulsa'
+import {Pricecardpulsa} from './component/pricecardPulsa'
 import PricecardInternet from './component/pricecardInternet'
 import GameCard from './component/gameCard'
 import Pricevouchergame from './component/pricevoucherGame'
@@ -23,9 +23,14 @@ const Tabs = ({ color }) => {
   const [Pln, setPLN] = useState([])
   const [tokenNum, setTokenNum] = useState("")
   let [gameCard, setGameCard] = useState("Steam")
-  // const [allValPulsa, setAllValPulsa] = useState({
-  //   bito_acco_id : ''
-  // })
+  //State for get value Internet
+  const [internetAccId,setInternetAccId] = useState("")
+  const [internetAmount,setInternetAmount] = useState(0)
+  //State for get value Pulsa
+  const [valCard,setValCard] = useState(0)
+  //State for get value voucher game
+  let [valCardGame,setValCardGame] = useState(0)
+    
   
   const userId = localStorage.getItem('dataAccountId')
 
@@ -41,6 +46,13 @@ const Tabs = ({ color }) => {
     fetchVGame()
   }, [gameCard])
 
+  useEffect(()=>{
+    if (Bill.account !== undefined){
+    setInternetAccId(Bill.account.acco_id)
+    setInternetAmount(Bill.vendor.vendor_rules[0].veru_bill_price)
+    }
+    
+  },[Bill])  
   const onChangePln = (e) => {
     const value = e.target.value;
     setTokenNum(value)
@@ -90,6 +102,7 @@ const Tabs = ({ color }) => {
       console.log('internet : ' + { internet })
       fetchBill();
       console.log('id nyaa '+userId)
+      
     }
   }
 
@@ -104,14 +117,31 @@ const Tabs = ({ color }) => {
     }
   }
 
+  //---BUTTON ADD---
   const addPulsa = () =>{
-    
-    console.log(userId)
-    console.log(phoneNumber);
-    console.log();
-    
+  
+    addBillPulsa();
+    console.log('Succes Input Data');
   }
 
+  const addInternet =()=>{
+    console.log('Clicked');
+    console.log(internet);
+    // setInternetAccId(Bill.account.acco_id)
+    // setInternetAmount(Bill.vendor.vendor_rules[0].veru_bill_price)
+    console.log('this is account Id: '+internetAccId);
+    console.log('this is Amount : '+internetAmount);
+    addBillInternet()
+  }
+
+  const addVouchergame = () => {
+    addBillVGame()
+    console.log('--Input data success--');
+  }
+
+  const addPLN = ()=>{
+    console.log('Clicked');
+  }
   const fetchPLN = async () => {
     return await axios({
       url: `${apiTopup}/vendor/byVendorName/PLN`,
@@ -140,6 +170,7 @@ const Tabs = ({ color }) => {
         setBill(res.data)
         console.log('result bill : ')
         console.log(res.data);
+        
       }).catch((err) => console.log(err))
   }
 
@@ -190,21 +221,95 @@ const Tabs = ({ color }) => {
   }
 
   
-
+  //--- INPUT BILL TOPUP---
   const addBillPulsa = () => {
+    let date = new Date()
+    let bito_created_on = date  
+    let bito_type = "Pulsa"
+    let bito_amount = valCard
+    let bito_desc = "Pembelian Pulsa"
+    let bito_watr_numbers = null
+    let bito_token = phoneNumber
+    let bito_vendor_name = "TELKOM"
+    let bito_acco_id = userId
     const data = {
-      bito_created_on: "bito_created_on",
-      bito_type: "bito_type",
-      bito_amount: "bito_amount",
-      bito_desc: "bito_desc",
-      bito_watr_numbers: "bito_watr_numbers",
-      bito_token: "bito_token",
-      bito_vendor_name: "bito_vendor_name",
-      bito_acco_id: "bito_acco_id",
-      bito_watr_id: "bito_watr_id"
+      bito_created_on: bito_created_on,
+      bito_type: bito_type,
+      bito_amount: bito_amount,
+      bito_desc: bito_desc,
+      bito_watr_numbers: bito_watr_numbers,
+      bito_token: bito_token,
+      bito_vendor_name: bito_vendor_name,
+      bito_acco_id: bito_acco_id,
+      
     };
 
     axios.post(`${apiTopup}/billTopup/insertbillTopup`, data).
+    then((result)=>{
+      console.log(result.data);
+    }).
+      catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const addBillInternet = () => {
+    let date = new Date()
+    let bito_created_on = date  
+    let bito_type = "Tagihan"
+    let bito_amount = internetAmount
+    let bito_desc = "Pembayaran Tagihan Indihome"
+    let bito_watr_numbers = null
+    let bito_token = internet
+    let bito_vendor_name = "TELKOM"
+    let bito_acco_id = internetAccId
+    const data = {
+      bito_created_on: bito_created_on,
+      bito_type: bito_type,
+      bito_amount: bito_amount,
+      bito_desc: bito_desc,
+      bito_watr_numbers: bito_watr_numbers,
+      bito_token: bito_token,
+      bito_vendor_name: bito_vendor_name,
+      bito_acco_id: bito_acco_id,
+      
+    };
+
+    axios.post(`${apiTopup}/billTopup/insertbillTopup`, data).
+    then((result)=>{
+      console.log(result.data);
+    }).
+      catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const addBillVGame = () => {
+    let date = new Date()
+    let bito_created_on = date  
+    let bito_type = "Voucher"
+    let bito_amount = valCardGame
+    let bito_desc = "Pembelian Pulsa"
+    let bito_watr_numbers = null
+    let bito_token = gameCard
+    let bito_vendor_name = gameCard
+    let bito_acco_id = userId
+    const data = {
+      bito_created_on: bito_created_on,
+      bito_type: bito_type,
+      bito_amount: bito_amount,
+      bito_desc: bito_desc,
+      bito_watr_numbers: bito_watr_numbers,
+      bito_token: bito_token,
+      bito_vendor_name: bito_vendor_name,
+      bito_acco_id: bito_acco_id,
+      
+    };
+
+    axios.post(`${apiTopup}/billTopup/insertbillTopup`, data).
+    then((result)=>{
+      console.log(result.data);
+    }).
       catch((err) => {
         console.log(err);
       })
@@ -327,17 +432,26 @@ const Tabs = ({ color }) => {
                   <div class="mb-3 pt-0">
                     <input type="text" placeholder="Nomer Telepon" name="phoneNumber" value={phoneNumber} onChange={onChangePhoneNumber} class="px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full" />
                   </div>
-
+                  
                   <div class="flex flex-wrap">
+                    
                     {Pulsa.map((x) => {
+                      
                       if (x.vendor_name === "TELKOMSEL") {
                         return x.vendor_rules.map((y) => {
+                          const onClickVal = (e) =>{
+                            const value = e.target.value = y.veru_bill_price
+                            console.log(value);
+                            setValCard(value) 
+                        }
                           return (
                             <>
+                              <div value={valCard} onClick={onClickVal} class="cursor-pointer h-30 w-40 m-4 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
                               <Pricecardpulsa
                                 nominal={y.veru_bill_amount}
                                 harga={y.veru_bill_price}
                               />
+                              </div>
                             </>
                           )
                         })
@@ -369,6 +483,7 @@ const Tabs = ({ color }) => {
                   <div class="flex flex-wrap">
                     {
                       Bill.bilc_id > 0 ?
+                        
                         <PricecardInternet
                           vendor={Bill.bilc_vendor_name}
                           nama={Bill.account.acco_nama}
@@ -383,7 +498,11 @@ const Tabs = ({ color }) => {
 
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" type="button" style={{ transition: "all .15s ease" }}>
+                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" 
+                    type="button" 
+                    style={{ transition: "all .15s ease" }}
+                    onClick={addInternet}
+                    >
                       Beli Sekarang
                             </button>
                   </div>
@@ -463,29 +582,26 @@ const Tabs = ({ color }) => {
                           </>
                         )
                       }
-
-
-
-
-
                     })
-
-
-
                     }
-                    
-
-
+             
                   </div>
                   <div class="flex justify-center flex-wrap">
                   {
                       vGame.vendor_rules && vGame.vendor_rules.map((x) => {
-
+                        const onClickValGame = (e) =>{
+                          
+                          const value = e.target.value = x.veru_bill_price
+                          console.log(value);
+                          setValCardGame(value) 
+                      }
                         return (
                           <>
+                          <div value={valCardGame} onClick={onClickValGame} class="cursor-pointer h-30 w-40 m-4 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
                             <Pricevouchergame
                               nominal={x.veru_bill_amount}
                               harga={x.veru_bill_price} />
+                          </div>
                           </>
                         )
                       })
@@ -493,9 +609,12 @@ const Tabs = ({ color }) => {
                   </div>
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" type="button" style={{ transition: "all .15s ease" }}>
+                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" 
+                    type="button" 
+                    style={{ transition: "all .15s ease" }}
+                    onClick={addVouchergame}>
                       Beli Sekarang
-                            </button>
+                    </button>
                   </div>
 
                 </div>
@@ -522,7 +641,10 @@ const Tabs = ({ color }) => {
 
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" type="button" style={{ transition: "all .15s ease" }}>
+                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" 
+                    type="button" 
+                    style={{ transition: "all .15s ease" }}
+                    onClick={addPLN}>
                       Beli Sekarang
                         </button>
                   </div>
@@ -572,7 +694,7 @@ const Tabs = ({ color }) => {
 export default function TabsRender() {
   return (
     <>
-      <Tabs color="gray" />
+      <Tabs color="pink" />
 
     </>
   );
