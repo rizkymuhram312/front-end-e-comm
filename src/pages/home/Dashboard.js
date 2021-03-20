@@ -176,28 +176,28 @@ const DashboardUsers = () => {
                  
 
                   <div>
-                    <Kecamatan />
-                  </div>
+                   </div>
+                     <Kecamatan />
 
-                </div>
-                <div className={openTab === 5 ? "block" : "hidden"} id="link4">
-                  <Kodepos />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
+                 </div>
+                 <div className={openTab === 5 ? "block" : "hidden"} id="link4">
+                   <Kodepos />
+               </div>
+                 </div>
+           </div>
+             </div>
+       </div>
+         </div>
 
 
 
-    </>
+
+
+ </>
 
 
 
-  )
-}
+ )
+ }
 
-export default DashboardUsers
+ export default DashboardUsers
