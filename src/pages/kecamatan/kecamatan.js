@@ -34,16 +34,16 @@ export default class Kecamatan extends Component {
 
 
     // 2.panggil listKecamatan dari api-Kecamatan, kemudian isi Kecamatan[] state dengan data dari listKecamatan
-    showListKecamatan = () => {
-        listKecamatan().then(data => {
+    showListKecamatan = async () => {
+        await listKecamatan().then(data => {
             this.setState({
                 kecamatan: data
             })
         })
     }
 
-    showListCity = () => {
-        listCity().then(data => {
+    showListCity = async () => {
+        await listCity().then(data => {
             this.setState({
                 city: data
             })
