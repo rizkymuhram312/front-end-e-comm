@@ -17,7 +17,7 @@ const OrdersKw = () => {
     let [paid, setPaid] = useState(false)
     let [transferBank, setTransferBank] = useState(false)
     let [paymentBy, setPaymentBy] = useState('')
-    
+    let [expired,setExpired] = useState()
     let [token, setToken] = useState('')
     let apiToken = apiPayment + "/walletTransaction/generate-token"
 
@@ -34,7 +34,7 @@ const OrdersKw = () => {
 
     useEffect(async () => {
         data.bacc_id = selectedBank
-        if (loading) {
+        if (loading) { 
             if (counter > text.length - 1) {
                 setCounter(0)
                 setLoadingText("")
@@ -45,12 +45,11 @@ const OrdersKw = () => {
                     setLoadingText(loadingText + text[counter])
                     setRefresh(!refresh)
                 }, 500)
-            }
+            }  
         } else {
             console.log("do nothing")
         }
     }, [loading, refresh, paymentBy,selectedBank])
-
 
     const onHandleClickPay = async (e) => {
         console.log(paymentBy)
@@ -153,8 +152,11 @@ const OrdersKw = () => {
                         />
                         : transferBank ? 
                         <div className=" w-screen content-center mt-4 ml-4">
-                            <QRCode value={token.toString()} />
-                            <h1>QR Payment will be expired in 48 hours</h1>
+                            {/* <QRCode value={token.toString()} /> */}
+                            <h1>Link Payment will be expired in 48 hours</h1>
+                            <a href={token}>
+                                <button className="w-2/12 h-8 bg-gray-700 text-white rounded-md">Pay</button>
+                            </a>
                         </div>
                             : paid ? <div>
                                 <h1>Pembayaran Berhasil</h1>

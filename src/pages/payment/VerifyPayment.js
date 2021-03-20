@@ -5,7 +5,7 @@ import { apiPayment } from '../../config/apiUrl'
 const VerifyPayment = (props) => {
     let acco_id = props.acco_id
     let apiPin = apiPayment + "/walletTransaction"
-    const [pin, setPin] = useState(null)
+    const [pin, setPin] = useState('s')
     const data = props.data
     
     const onSubmit = (e) => {
