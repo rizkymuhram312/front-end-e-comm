@@ -1,36 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {useHistory} from 'react-router-dom';
-import {apiCart} from '../../config/apiUrl'
+import { useHistory } from "react-router-dom";
+import { apiCart } from "../../config/apiUrl";
 import { numberWithCommas } from "../../utils/utils";
-
 
 export default function AfterOrders() {
   let history = useHistory();
+  let [modal, setModal] = useState(false);
+  let [dataFormOrderArrival, setDataFormArrival] = useState({});
   const [AfterOrders, setAfterOrders] = useState([]);
   const [accId, setaccId] = useState(localStorage.getItem("dataAccountId"));
-  const [cartId, setcartId] = useState([]);
-  const [cartCreatedOn, setcartCreatedOn] = useState([]);
-  const [cartTotalWeight, setcartTotalWeight] = useState([]);
-  const [cartTotalAmount, setcartTotalAmount] = useState([]);
-  const [cartTotalQty, setcartTotalQty] = useState([]);
-
 
   useEffect(() => {
     fetchAfterOrders();
-  }, []);
-
-  useEffect(()=>{
-    if(AfterOrders[0]){
-      setcartId(AfterOrders[0].cart_id);
-      setcartCreatedOn(AfterOrders[0].cart_created_on);
-      setcartTotalWeight(AfterOrders[0].cart_total_weight);
-      setcartTotalAmount(AfterOrders[0].cart_total_amount);
-      setcartTotalQty(AfterOrders[0].cart_total_qty);
-    }
-
-
-  },[AfterOrders])
+  }, [modal, dataFormOrderArrival]);
 
   const fetchAfterOrders = async () => {
     return await axios({
@@ -42,19 +25,31 @@ export default function AfterOrders() {
     })
       .then((res) => {
         res.data.map((x, y) => {
-          let dateTrans = x.cart_created_on.toString()
-          let watrDate = new Date(dateTrans).toLocaleString()
-          res.data[y].cart_created_on = watrDate
-      })
+          let dateTrans = x.cart_created_on.toString();
+          let watrDate = new Date(dateTrans).toLocaleString();
+          res.data[y].cart_created_on = watrDate;
+        });
         setAfterOrders(res.data);
         console.log(res.data);
       })
       .catch((err) => console.error(err));
   };
 
-  const onShow = ()=>{
-    history.push('/cart-orders')
-  }
+  const onShow = (e) => {
+    // ShippingArrival.map((data)=>{
+    //     if(data.order_name === e.target.value){
+    //         setDataFormArrival(data)
+    //     }
+    //     return setDataFormArrival(data)
+    // })
+
+    AfterOrders.filter(
+      (data) => data.order_name === e.target.value
+    ).map((data) => setDataFormArrival(data));
+    history.push("/orders");
+
+    // setModal(true);
+  };
 
   return (
     <>
@@ -104,50 +99,75 @@ export default function AfterOrders() {
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                  <tr>
-                    <td>
-                      <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">
-                          {cartId}
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">
-                        {cartCreatedOn}
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">
-                          {cartTotalWeight}
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">
-                          Rp.{numberWithCommas(cartTotalAmount)}
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">
-                          {cartTotalQty}
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="ml-4">
-                        <button onClick={onShow} class="bg-blue-500 hover:bg-blue-800 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg">
-                          Show
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                  {AfterOrders
+                    ? AfterOrders.filter(
+                        (x) =>
+                          x.cart_stat_name === "PENDING" ||
+                          x.cart_line_items[0].clit_stat_name === "CHECKOUT"
+                      ).map((x) => (
+                        <>
+                          <tr>
+                            <td>
+                              <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">
+                                  {x.cart_id}
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">
+                                  {x.cart_created_on}
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">
+                                  {x.cart_total_weight}
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">
+                                  {x.cart_total_amount}
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">
+                                  {x.cart_total_qty}
+                                </div>
+                              </div>
+                            </td>
+                            {x.cart_line_items[0].clit_stat_name === "CHECKOUT" ? (
+                              <td>
+                                <div class="ml-4">
+                                  <button
+                                    onClick={onShow}
+                                    class="bg-blue-500 hover:bg-blue-800 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg"
+                                  >
+                                    Show
+                                  </button>
+                                </div>
+                              </td>
+                            ) : (
+                              <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
+                                <button
+                                  className="py-2 px-4 bg-gray-500 text-white reounded"
+                                  onClick={onShow}
+                                  disabled="true"
+                                >
+                                  Diterima
+                                </button>
+                              </td>
+                            )}
+                          </tr>
+                        </>
+                      ))
+                    : null}
                 </tbody>
               </table>
             </div>

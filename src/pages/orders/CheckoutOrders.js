@@ -13,6 +13,7 @@ import {
 import CartOrders from './CartOrders'
 import Orders from './Orders'
 import AfterOrders from './AfterOrders'
+import MyOrders from './MyOrders'
 const axios = require("axios");
 
 
@@ -75,7 +76,7 @@ const CheckoutOrders = () => {
                   </div>
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <CartOrders />
+                  <MyOrders />
                 </div>
               </div>
             </div>

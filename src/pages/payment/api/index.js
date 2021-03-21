@@ -1,8 +1,8 @@
-import {GetWallet} from './GetWallet'
+import {GetWallet,CreateWalletApi,AddSaldo} from './GetWallet'
 import {CreateNewTransaction} from './CreateNewTransaction'
 import {GetBankAccount,CreateBankAccount,UpdateBankAccount,DeleteBankAccount} from './BankAccountApi'
 import {useBanks} from './GetBank'
-import {useTransactions} from './TransactionsApi'
+import {GetTransactions} from './TransactionsApi'
 
 export {
     useBanks,
@@ -12,5 +12,7 @@ export {
     CreateBankAccount,
     UpdateBankAccount,
     DeleteBankAccount,
-    useTransactions
+    GetTransactions,
+    AddSaldo,
+    CreateWalletApi
 }

@@ -5,7 +5,6 @@ const useGetSaldo = (props)=> {
     let [saldo,setSaldo] = useState(0)
 
     useEffect(async () => {
-        console.log(props)
         let result = await GetWallet(props.acco_id)
         setSaldo(result[0].wale_saldo)
         console.log(result)
@@ -13,5 +12,4 @@ const useGetSaldo = (props)=> {
     },[])
     return saldo
 }
-
 export {useGetSaldo}

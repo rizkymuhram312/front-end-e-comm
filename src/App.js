@@ -59,6 +59,7 @@ function App() {
           <Route path="/wallet" component={Wallet}/>
           <Route path="/bank-account/:acco_id" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
+          {/* <Route path="/order-kw" component={OrdersKw}/> */}
         </Switch>
       </div>
       </>
