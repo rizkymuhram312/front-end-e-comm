@@ -6,6 +6,10 @@ export default function Navbar({ fixed }) {
 
   const [isLogin, setisLogin] = useState(false)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const [alertLogin, setAlertLogin] = useState('');
+
+
+
   let token = localStorage.token
 
   const [value, setValue] = useState();
@@ -16,7 +20,7 @@ export default function Navbar({ fixed }) {
 
   useEffect(() => {
     // console.log(isLogin)
-    if ( token == null || token == undefined) {
+    if (token == null || token == undefined) {
       setisLogin(false);
       // setValue({});
       // refresh()
@@ -25,11 +29,14 @@ export default function Navbar({ fixed }) {
     else {
 
       setisLogin(true);
+      
+
+
       setValue({});
       refresh();
-    // <Redirect to="/home" />
+      // <Redirect to="/home" />
 
-      
+
     }
     setValue({});
     // refresh();
@@ -39,8 +46,8 @@ export default function Navbar({ fixed }) {
 
 
   }, [setisLogin])
-  
- 
+
+
 
 
   const klikLogout = () => {
@@ -49,21 +56,26 @@ export default function Navbar({ fixed }) {
     alert("Anda Berhasil Logout!");
     setisLogin(false)
     setValue({});
-    
-    
+
+
     history.push("/login")
   }
 
   const fotoprofil = localStorage.getItem('profilImage')
 
+
+
   return (
 
+    
     <nav className="fixed z-50 w-full bg-background top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-          <a className="leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-gray-800" href='/'> 
+          <a className="leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-gray-800" href='/'>
             <span className="text-xl font-bold">E-Commerce</span>
+            
           </a>
+          
           <button
             className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
             type="button"
@@ -90,38 +102,41 @@ export default function Navbar({ fixed }) {
             (navbarOpen ? " flex" : " hidden")
           }
           id="example-navbar-danger">
-            {isLogin ? (
+            
+          {isLogin ? (
+              
             <>
               <ul className="flex flex-col lg:flex-row list-none lg:ml-auto align-center justify-center items-center">
-            
-                <img src={fotoprofil === "null" || fotoprofil === null  ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle border-none mr-4" /> 
+
+
+                <img src={fotoprofil === "null" || fotoprofil === null || fotoprofil === undefined || fotoprofil === "" ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle border-none mr-4" />
                 <li className="nav-item">
-            
-                <div className="dropdown inline-block relative">
-                  
-                <button className="text-center ">
-                  <span className="mr-1 font-semibold capitalize">{localStorage.getItem('dataUserName')}
-                 
-                </span>
-                </button>
-                <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
-                  <li className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={()=>history.push('/dashboarduser')} style={{cursor:'pointer'}}>
-                    {/* <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser"> */}
+
+                  <div className="dropdown inline-block relative">
+
+                    <button className="text-center ">
+                      <span className="mr-1 font-semibold capitalize">{localStorage.getItem('dataUserName')}
+
+                      </span>
+                    </button>
+                    <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
+                      <li className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboarduser')} style={{ cursor: 'pointer' }}>
+                        {/* <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser"> */}
                       Profil
                       {/* </a> */}
                       </li>
-                  <li className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={()=>history.push('/dashboard')} style={{cursor:'pointer'}}>
-                    {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
+                      <li className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboard')} style={{ cursor: 'pointer' }}>
+                        {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
                       Dashboard
                       {/* </a> */}
                       </li>
-                  <li className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={klikLogout} style={{cursor:'pointer'}}>
-                    {/* <a className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={klikLogout}> */}
+                      <li className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={klikLogout} style={{ cursor: 'pointer' }}>
+                        {/* <a className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={klikLogout}> */}
                       Sign Out
                       {/* </a> */}
                       </li>
-                </ul>
-              </div>
+                    </ul>
+                  </div>
                 </li>
               </ul>
 

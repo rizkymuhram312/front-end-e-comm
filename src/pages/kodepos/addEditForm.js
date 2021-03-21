@@ -123,22 +123,32 @@ export default class AddEditForm extends Component {
                                         </div>
                                         <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
-                                                <label
+                                            <label
                                                     className="block uppercase text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
                                                     Kodepos Kecamatan Id
                                             </label>
-                                                <input required
+                                                {/* <input required
                                                     type="text"
                                                     name="kodeposKecId"
                                                     value={kodeposKecId}
                                                     onChange={this.handleOnChange}
                                                     className="px-3 py-3 placeholder-gray-400 focus:ring-2 focus:ring-blue-600  bg-white rounded shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
-                                                />
+                                                /> */}
+                                                <select className="w-full border border-gray-300 py-2 px-2 bg-white  focus:ring-2 focus:ring-blue-600 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2" name="kodeposKecId" value={kodeposKecId} onChange={this.handleOnChange}>
+                                                    <option>silakan pilih kecamatan</option>
+                                                    {
+                                                        this.props.kecamatan.map((e) => {
+
+                                                            return (<option value={e.kec_id}>{e.kec_id} - {e.kec_name}</option>)
+                                                        })
+                                                    }
+                                                </select>
                                             </div>
                                         </div>
+                                        
                                        
                                     </div>
                                     <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">

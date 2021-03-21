@@ -39,7 +39,9 @@ export default class AddEditForm extends Component {
     }
 
 
-    handleOnSubmit = async e => {
+
+
+    handleOnSubmit =  e => {
         e.preventDefault();
         const city = {
             city_id: this.state.cityId,
@@ -49,14 +51,16 @@ export default class AddEditForm extends Component {
         };
 
         if (!this.state.isEdit) {
-            await create(city).then(response => {
+             create(city).then(response => {
                 console.log(response);
+                this.props.setRefreshTable();
             }).catch(function (error) {
                 console.log(error);
             });;
         } else {
-            await updateCity(city).then(response => {
+             updateCity(city).then(response => {
                 console.log(response);
+                this.props.setRefreshTable();
             }).catch(function (error) {
                 console.log(error);
             });;
@@ -178,7 +182,7 @@ export default class AddEditForm extends Component {
 
                                             Close
                                 </button>
-                                        <button onClick={() => this.props.setRefreshTable(true)}
+                                        <button onClick={() => this.props.setRefreshTable()}
                                             className="bg-gray-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit"
                                         >

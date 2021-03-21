@@ -9,3 +9,5 @@ export const apiShipping = 'http://192.168.100.23:3006/api'
 export const apiExpedition = 'http://192.168.100.23:3007/api'
 export const apiAdvertising = 'http://192.168.100.33:3008/api'
 export const apiTopup = 'http://192.168.100.16:3009/api'
+
+export const apiUpload = 'http://192.168.100.35:3001/api'

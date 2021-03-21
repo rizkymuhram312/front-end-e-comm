@@ -47,8 +47,8 @@ const DashboardUsers = () => {
               <a className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 1
-                    ? "text-white bg-gray-600"
-                    : "text-gray-600 bg-white")
+                    ? "text-white bg-pink-600"
+                    : "text-pink-600 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -69,8 +69,8 @@ const DashboardUsers = () => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 2
-                    ? "text-white bg-gray-600"
-                    : "text-gray-600 bg-white")
+                    ? "text-white bg-pink-600"
+                    : "text-pink-600 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -88,8 +88,8 @@ const DashboardUsers = () => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 3
-                    ? "text-white bg-gray-600"
-                    : "text-gray-600 bg-white")
+                    ? "text-white bg-pink-600"
+                    : "text-pink-600 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -107,8 +107,8 @@ const DashboardUsers = () => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 4
-                    ? "text-white bg-gray-600"
-                    : "text-gray-600 bg-white")
+                    ? "text-white bg-pink-600"
+                    : "text-pink-600 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -126,8 +126,8 @@ const DashboardUsers = () => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 5
-                    ? "text-white bg-gray-600"
-                    : "text-gray-600 bg-white")
+                    ? "text-white bg-pink-600"
+                    : "text-pink-600 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -141,7 +141,7 @@ const DashboardUsers = () => {
               </a>
             </li>
           </ul>
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+          <div className="relative flex flex-col box-border min-w-0 border-2 border-pink-600 break-words bg-white w-full mb-6 shadow-lg rounde">
             <div className="px-4 py-5 flex-auto">
 
 

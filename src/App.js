@@ -26,6 +26,9 @@ import AddAdv from './pages/advertising/addAdv'
 import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
 
+import FilesUpload from "./components/FilesUpload";
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -59,6 +62,8 @@ function App() {
           <Route path="/wallet" component={Wallet}/>
           <Route path="/bank-account/:acco_id" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
+          <Route path="/upload" component={FilesUpload}/>
+
         </Switch>
       </div>
       </>

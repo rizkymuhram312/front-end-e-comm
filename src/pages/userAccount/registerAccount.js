@@ -295,7 +295,7 @@ return (
             <div className="flex justify-center items-baseline">
               { isAccount ? (
             <button
-              className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg flex justify-center items-baseline"
+              className="mt-4 bg-pink-500 text-white py-2 px-6 rounded-lg flex justify-center items-baseline"
               values="daftarAccount"
               // onClick={updateAccount}
             >
@@ -303,7 +303,7 @@ return (
             </button>
             ):(
               <button
-              className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg flex justify-center items-baseline"
+              className="mt-4 bg-pink-500 text-white py-2 px-6 rounded-lg flex justify-center items-baseline"
               values="daftarAccount"
               onClick={daftarAccount}
             >

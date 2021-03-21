@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom'
+
 import axios from 'axios'
 import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
 
@@ -69,6 +71,18 @@ const Daftar = () => {
         })
     }
 
+    const token = localStorage.getItem('token')
+    // console.log(token)
+
+
+    const a = axios.defaults.headers.common['Authorization'] = 'bearer ' + token
+    console.log(a)
+
+
+    if (token) {
+        // alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
+        return <Redirect to="/home" />
+    }
 
 
     return (
