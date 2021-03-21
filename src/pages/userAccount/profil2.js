@@ -108,17 +108,26 @@ export default function Profil2({ fixed }) {
                 //   </div>
 
                 // </div>
-                <div class="grid grid-cols-8 gap-4">
-                    <div class="col-start-1 col-span-8 align-center text-center font-bold ...">FOTO PROFIl</div>
-                    <div class="col-span-8 align-center flex justify-center  items-center content-center align-items-center place-items-center align-self-center ml- text-center font-bold ..."><img src={fotoprofil === "null" || fotoprofil === null || fotoprofil === undefined || fotoprofil === ""  ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full max-w-full h-40 align-middle border-2 border-pink-600 object-center" /></div>
+                <div className="grid grid-cols-8 gap-4">
+                    <div className="col-start-1 col-span-8 align-center text-center font-bold ...">FOTO PROFIL</div>
+                    <div className="col-span-8 align-center flex justify-center  items-center content-center align-items-center place-items-center align-self-center ml- text-center font-bold ..."><img src={fotoprofil === "null" || fotoprofil === null || fotoprofil === undefined || fotoprofil === ""  ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full max-w-full h-40 align-middle border-2 border-pink-600 object-center" /></div>
                     
+                    <div class="col-start-2 col-end-4 col-span-2 flex justify-center font-semibold ...">
+                        <div className="underline">DATA USER</div>
+                    </div>
+
+                    <div class="col-start-6 col-end-8 col-span-2 flex justify-center font-semibold ...">
+                        <div className="underline">DATA ACCOUNT</div>
+                    </div>
+
                     <div class="col-start-2 flex justify-between font-semibold ...">
                         <div>Username</div>
                         <div>: </div>
-                        </div>
+                    </div>
                     <div class="col-start-3 col-end-3 justify-self-start font-semibold ...">{localStorage.getItem('dataUserName')}</div>
 
                     
+
                     <div class="col-start-6 flex justify-between font-semibold ...">
                         <div>Account ID</div>
                         <div>: </div>

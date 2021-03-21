@@ -274,7 +274,7 @@ const Address = () => {
       {alamat[0] ? (
         <>
           <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded bg-purple-100">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
               <div class="rounded-t mb-0 px-4 py-3 border-0 bg-pink-600">
                 <div class="flex flex-wrap items-center">
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
@@ -296,14 +296,14 @@ const Address = () => {
               {alamat.map((x, index) => {
                 return (
                   <>
-                    <div className="grid grid-cols-6 relative p-6 flex-auto bg-primary border-white">
+                    <div className="grid grid-cols-6 relative p-6 flex-auto bg-white border-white">
                       <div className="col-span-5 ">
                         <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center border-pink-500">
                           <h1 className="justify-self-end">Nama Kamu/Toko : </h1>
                           <h1 className="capitalize font-bold">{x.acco_nama}</h1>
                           
                           <div className="text-white text-center px-0 font-bold capitalize" value={x.addr_is_primary}>
-                            {x.addr_is_primary === false ? "" : (<button className="px-2 mr-20 text-xl bg-pink-600" disabled>Utama</button>)}
+                            {x.addr_is_primary === false ? "" : (<button className="px-2 mr-20 bg-white border-2 border-pink-600 text-pink-600" disabled>Utama</button>)}
 
                           </div>
 
@@ -346,7 +346,7 @@ const Address = () => {
 
                         {/* {x.addr_is_primary === false ? "Atur Sebagai Utama" : null} */}
 
-                        <button className={x.addr_is_primary === false ? "text-pink-600 bg-white mt-1 hover:bg-pink-600 hover:text-white active:bg-gray-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150": null} type="hidden" onClick={() => {
+                        <button className={x.addr_is_primary === false ? "text-white bg-pink-600 mt-1 hover:bg-pink-500 hover:text-white active:bg-gray-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150": null} type="hidden" onClick={() => {
                           if (
                             window.confirm(
                               "ubah menjadi utama?"
@@ -364,7 +364,7 @@ const Address = () => {
                         
                       </div>
                     </div>
-                    <hr className="bg-white border-white border-4"></hr>
+                    <hr className="bg-white border-pink-600 border-1"></hr>
                   </>
                 )
               })}
@@ -374,26 +374,26 @@ const Address = () => {
         </>
       ) : (
           <>
-            <div class="w-full mb-12 xl:mb-0 px-4 bg-white">
-              <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded bg-primary border-color-white">
-                <div class="rounded-t mb-0 px-4 py-3 border-0">
-                  <div class="flex flex-wrap items-center">
-                    <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                      <h3 class="font-semibold text-xl">
-                        Alamat Saya
+            <div class="w-full mb-12 xl:mb-0 px-4">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded ">
+              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-pink-600">
+                <div class="flex flex-wrap items-center">
+                  <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
+                    <h3 class="font-semibold text-xl text-gray-50">
+                      Alamat Saya
                     </h3>
-                    </div>
-                    <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                      <button
-                        onClick={() => setShowModal(true)}
-                        className="px-6 bg-gray-700 text-gray-50 align-middle border border-solid border-gray-800 hover:bg-gray-200 hover:text-gray-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
-                        type="button"
-                      >
-                        Tambah Alamat
+                  </div>
+                  <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                    <button
+                      onClick={() => setShowModal(true)}
+                      className="px-6 bg-gray-50 text-black align-middle hover:bg-pink-200 hover:text-pink-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                      type="button"
+                    >
+                      Tambah Alamat
                     </button>
-                    </div>
                   </div>
                 </div>
+              </div>
                 <div className="relative p-6 flex-auto">
                   <label>Tidak ada Alamat </label>
 

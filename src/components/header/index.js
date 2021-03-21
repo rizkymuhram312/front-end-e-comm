@@ -68,7 +68,7 @@ export default function Navbar({ fixed }) {
   return (
 
     
-    <nav className="fixed z-50 w-full bg-background top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
+    <nav className="fixed z-50 w-full bg-pink-600 top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           <a className="leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-gray-800" href='/'>
@@ -109,7 +109,7 @@ export default function Navbar({ fixed }) {
               <ul className="flex flex-col lg:flex-row list-none lg:ml-auto align-center justify-center items-center">
 
 
-                <img src={fotoprofil === "null" || fotoprofil === null || fotoprofil === undefined || fotoprofil === "" ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle border-none mr-4" />
+                <img src={fotoprofil === "null" || fotoprofil === null || fotoprofil === undefined || fotoprofil === "" ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle mr-4 border-2 border-white" />
                 <li className="nav-item">
 
                   <div className="dropdown inline-block relative">

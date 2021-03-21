@@ -91,7 +91,7 @@ const Login = () => {
 
                     localStorage.setItem('dataUserName', result.data.users.user_name)
                     localStorage.setItem('token', result.data.token)
-                    localStorage.setItem('dataUserPass', data.user_password)
+                    // localStorage.setItem('dataUserPass', data.user_password)
                     localStorage.setItem('dataUserEmail', data.user_email)
                     localStorage.setItem('dataUserId', result.data.users.user_id)
                     const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
@@ -165,21 +165,21 @@ const Login = () => {
                         }
                         <span className="text-2xl font-light">Login to your account</span>
                         <div className="relative mt-4 bg-white shadow-md sm:rounded-lg text-left">
-                            <div className="h-2 bg-indigo-400 rounded-t-md"></div>
+                            <div className="h-2 bg-pink-600 rounded-t-md"></div>
                             <div className="py-6 px-8">
                                 <label className="block font-semibold">Email</label>
-                                <input type="text" placeholder="Email" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md" value={user_email} onChange={onChangeEmail} />
+                                <input type="text" placeholder="Email" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_email} onChange={onChangeEmail} />
                                 <label className="block mt-3 font-semibold">Password</label>
-                                <input type="password" placeholder="Password" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md" value={user_password} onChange={onChangePassword} />
+                                <input type="password" placeholder="Password" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_password} onChange={onChangePassword} />
                                 <div className="flex justify-between items-baseline">
-                                    <button className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg" onClick={submitLogin}>Login</button>
+                                    <button className="mt-4 bg-pink-600 hover:bg-pink-500 text-white py-2 px-6 rounded-lg" onClick={submitLogin}>Login</button>
                                     <a href="#" className="text-sm hover:underline">Forgot password?</a>
                                 </div>
                             </div>
                         </div>
                         <div className="text-grey-dark mt-6">
                             don't have an account? &nbsp;
-                    <a className="underline font-semibold text-blue-600" href="/daftar">
+                    <a className="underline font-semibold text-pink-600" href="/daftar">
                                 Sign Up
                     </a>.
             </div>
