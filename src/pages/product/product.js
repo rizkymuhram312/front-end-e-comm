@@ -49,7 +49,7 @@ export default function Product() {
         }
         if(CartId!==undefined){
             console.log(data)
-            axios.post(`${apiCart}/cartLineItems/${acco_id}/${CartId}/1511`, data)
+            axios.post(`${apiCart}/cartLineItems/${acco_id}/${CartId}/${prod_id}`, data)
                 .then(result => {
                     if (result.data.error) {
                         console.log(result.data)
@@ -65,7 +65,7 @@ export default function Product() {
     
     
                         } 
-                    }history.push('./cart')
+                    }history.push('/cart')
                 })
                 .catch((e) => {
                     setError(e.response.message)
@@ -90,7 +90,7 @@ export default function Product() {
     
     
                         } 
-                    }history.push('./cart')
+                    }history.push('/cart')
                 })
                 .catch((e) => {
                     setError(e.response.message)
@@ -101,7 +101,7 @@ export default function Product() {
     useEffect(() => {
         let fetchProduct = async () => {
             await axios({
-                url: `${apiProductTransaction}/product/1569`,
+                url: `${apiProductTransaction}/product/${prod_id}`,
                 method: "get",
                 headers: {
                     "Content-type": "application/json"

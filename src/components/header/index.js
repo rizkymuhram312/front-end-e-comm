@@ -62,15 +62,15 @@ export default function Navbar({ fixed }) {
   const fotoprofil = localStorage.getItem('profilImage')
 
   return (
-    <div class="container mx-auto px-6 py-3 mb-5">
-      <div class="flex items-center justify-between">
-        <div class="hidden w-full text-gray-600 md:flex md:items-center">
+    <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white">
+      <div class="container flex items-center justify-between">
+        <div class="hidden w-full text-white md:flex md:items-center">
           <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.06298 10.063 6.27212 12.2721 6.27212C14.4813 6.27212 16.2721 8.06298 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16755 11.1676 8.27212 12.2721 8.27212C13.3767 8.27212 14.2721 9.16755 14.2721 10.2721Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.39409 5.48178 3.79417C8.90918 0.194243 14.6059 0.054383 18.2059 3.48178C21.8058 6.90918 21.9457 12.6059 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.97318 6.93028 5.17324C9.59603 2.3733 14.0268 2.26452 16.8268 4.93028C19.6267 7.59603 19.7355 12.0268 17.0698 14.8268Z" fill="currentColor" />
           </svg>
           <span class="mx-1 text-sm">NY</span>
         </div>
-        <a href="/" class="w-full text-gray-700 md:text-center text-2xl font-semibold">
+        <a href="/" class="w-full md:text-center text-2xl font-semibold">
           E-Commerce
             </a>
         <div class="flex items-center justify-end w-full lg:gap-2">
@@ -130,19 +130,18 @@ export default function Navbar({ fixed }) {
             </>
           ) : (
             <>
-              {/* cart start */}
-              < button class="text-gray-600 focus:outline-none mx-2 sm:mx-0">
+              < button class=" focus:outline-none mx-2 sm:mx-0">
                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
               </button>
               {/* cart end */}
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="htts://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
               </svg>
               {/* profil start */}
-              <div class="flex justify-between">
-                <button class="text-gray-600 focus:outline-none mx-2 sm:mx-0 flex items-center gap-2 hover:text-white hover:bg-gray-500 rounded" onClick={onClickRegister}>
+              <div class="flex justify-between text-white">
+                <button class="focus:outline-none mx-2 sm:mx-0 flex items-center gap-2 hover:text-black hover:bg-pink-100 rounded" onClick={onClickRegister}>
 
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -152,7 +151,7 @@ export default function Navbar({ fixed }) {
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                 </svg>
-                <button class="text-gray-600 focus:outline-none mx-2 sm:mx-0 flex items-center gap-2 hover:text-white hover:bg-gray-500 rounded " onClick={onClickLogin}>
+                <button class="focus:outline-none mx-2 sm:mx-0 flex items-center gap-2 hover:text-black hover:bg-pink-100 rounded " onClick={onClickLogin}>
 
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -169,7 +168,7 @@ export default function Navbar({ fixed }) {
           {/* profil end */}
 
           <div class="flex sm:hidden" >
-            <button type="button" onClick={() => setIsOpen(!isOpen)} class="text-gray-600 hover:text-gray-500 focus:outline-none focus:text-gray-500" aria-label="toggle menu">
+            <button type="button" onClick={() => setIsOpen(!isOpen)} class="text-white hover:text-white focus:outline-none focus:text-white" aria-label="toggle menu">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path className={!isOpen ? 'block' : 'hidden'} stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 <path className={isOpen ? 'block' : 'hidden'} stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -180,12 +179,12 @@ export default function Navbar({ fixed }) {
       </div>
       {/* navbar */}
       <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
-        <div class="flex flex-col sm:flex-row ">
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded text-black hover:text-white hover:bg-gray-500" href="/">Home</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded text-black hover:text-white hover:bg-gray-500" href="/shop">Shop</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded text-black hover:text-white hover:bg-gray-500" href="#">Categories</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded text-black hover:text-white hover:bg-gray-500" href="#">Contact</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded text-black hover:text-white hover:bg-gray-500" href="#">About</a>
+        <div class="flex flex-col sm:flex-row text-white ">
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/shop">Shop</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">Categories</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">Contact</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">About</a>
         </div>
       </nav>
       {/* search */}

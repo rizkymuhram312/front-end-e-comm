@@ -74,7 +74,7 @@ const AddBrand = () => {
                 
 
             <div class=" flex flex-col items-center justify-center my-10">
-                <div class="flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
+                <div class="flex flex-col bg-primary shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
                     <div class="font-medium self-center text-4xl sm:text-3xl uppercase text-gray-800">Insert Brand</div>
                     <div class="relative mt-7 h-px bg-gray-300">
                         <div class="absolute left-0 top-0 flex justify-center w-full -mt-2">
@@ -94,11 +94,11 @@ const AddBrand = () => {
                             </div>
                             <div class="flex w-full gap-4">
 
-                                <Link onClick={insertBrand} type="submit" class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                                <Link onClick={insertBrand} type="submit" class="flex items-center justify-center focus:outline-none text-black text-md sm:text-base bg-button hover:bg-blue-700 hover:text-white rounded py-2 w-full transition duration-150 ease-in">
 
                                     Save
                             </Link>
-                                <Link to="/brand" type="submit" class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                                <Link to="/brand" type="submit" class="flex items-center justify-center focus:outline-none text-black text-md sm:text-base bg-button hover:bg-blue-700 hover:text-white rounded py-2 w-full transition duration-150 ease-in">
 
                                     Cancel
                             </Link>
