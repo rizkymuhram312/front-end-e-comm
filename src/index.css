@@ -1,19 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* 
-body{
-    background-color: #F6F7Fb;
-}
 
 .dropdown:hover .dropdown-menu {
     display: block;
-  } */
+  }
 
-/* .btn-info{
-    @apply .bg-blue-500  .cursor-pointer .text-white .transition .duration-200 .font-sans-serif .py-2 .px-8 .rounded .shadow;
+.product-image{
+    display: block;
+    cursor: pointer;
+
+}
+.product{
+    margin: auto;
+    width: 100%;
+    max-width : 540px
+}
+.product .selected {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    border : 4px grey
 }
 
-.btn-info:hover{
-    @apply .bg-blue-700;
-} */
+.product .imgContainer {
+    width: 100%;
+    margin : auto;
+    display: flex;
+    justify-content : center;
+    flex-wrap: wrap;
+    padding: 20px 0 0 0
+}
+.product .imgContainer img {
+    width: 100px;
+    height: 100px ;
+    margin : 2%
+
+}
+

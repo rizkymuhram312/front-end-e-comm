@@ -13,7 +13,8 @@ export default class Kodepos extends Component {
         kodepos : [],
         kecamatan : [],
         dataEditRow : null,
-        isModalShow : false
+        isModalShow : false,
+        kodepos_id: null
     }
 
 
@@ -55,6 +56,11 @@ export default class Kodepos extends Component {
         this.setState({
             isModalShow: value
         })
+        if(value==false){
+            this.setState({
+                dataEditRow : null
+            })
+        }
         this.refresh()
 
         
@@ -63,7 +69,8 @@ export default class Kodepos extends Component {
     onEditRow = (value)=>{
 
         this.setState({
-            dataEditRow : value
+            dataEditRow : value,
+            kodepos_id: value.kodepos
         })
         this.onShowModal(true);
         this.onRefreshTable();
@@ -92,7 +99,7 @@ export default class Kodepos extends Component {
 
     render() {
   
-            const { kodepos , isModalShow, dataEditRow, kecamatan } = this.state;
+            const { kodepos , isModalShow, dataEditRow, kecamatan, kodepos_id} = this.state;
             return (
                 <div>
                     <TableKodepos kodepos = {kodepos.sort((a, b) => a.kodepos - b.kodepos)}
@@ -109,6 +116,7 @@ export default class Kodepos extends Component {
                             setRefreshTable = {this.onRefreshTable}
                             Kodepos = {dataEditRow}
                             kecamatan = {kecamatan}
+                            kodepos_id = {kodepos_id}
                             />) : null)
                     }
                 </div>

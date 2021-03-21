@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import { apiUserMaster } from '../../config/apiUrl'
+import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
 
 
 const Daftar = () => {
@@ -41,12 +41,14 @@ const Daftar = () => {
     // }
 
     const klikDaftar = () => {
+        const device_info = navigator.platform;
         const data = {
             user_name : user_name,
             user_email : user_email,
-            user_password : user_password
+            user_password : user_password,
+            user_device_info : device_info
         }
-        axios.post(`${apiUserMaster}/users/signup`, data)
+        axios.post(`${apiUserAccount}/users/signup`, data)
         .then(result => {
             if ( result ) {
                 console.log(result.data)

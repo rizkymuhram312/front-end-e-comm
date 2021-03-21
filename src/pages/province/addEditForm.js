@@ -9,14 +9,22 @@ export default class AddEditForm extends Component {
         isEdit : false
     }
 
+    
+
     refresh = () => {
         // re-renders the component
         this.setState({});
       };
 
     componentDidMount(){
-        if (this.props.province !== null){
+        if (this.props.province == null){
 
+            this.setState({
+                provinceId : null,
+                provinceName : '',
+                isEdit : false
+            })
+        }else {
             this.setState({
                 provinceId : this.props.province.prov_id,
                 provinceName : this.props.province.prov_name,
@@ -55,14 +63,26 @@ export default class AddEditForm extends Component {
                 console.log(error);
             });;
         }
-    
+
+      
 
 
         // jika ada udah sukses or error then, close modal
         // lalu refresh table 
         this.props.setShowModal(false);
-        this.props.setRefreshTable();
+        this.props.setRefreshTable(true);
 
+    }
+
+    onClose = () => {
+        this.props.setShowModal(false);
+        this.props.setRefreshTable(true);
+        this.setState({
+            provinceId : null,
+            provinceName : '',
+            isEdit : false
+        })
+        
     }
 
     render() {
@@ -94,17 +114,11 @@ export default class AddEditForm extends Component {
                             {/*body*/}
                             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                                 <form onSubmit={this.handleOnSubmit}>
-                                    <div className="flex flex-wrap">
-                                        <div className="w-full lg:w-6/12 px-4">
+                                    <div className="flex flex-wrap ">
+                                        <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
-                                                <label
-                                                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                                    htmlFor="grid-password"
-                                                >
-                                                    province Id
-                                             </label>
                                                 <input disabled
-                                                    type="text"
+                                                    type="hidden"
                                                     name="provinceId"
                                                     value={provinceId}
                                                     onChange={this.handleOnChange}
@@ -113,10 +127,10 @@ export default class AddEditForm extends Component {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-full lg:w-6/12 px-4">
+                                        <div className="w-full lg:w-full px-4">
                                             <div className="relative w-full mb-3">
                                                 <label
-                                                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                                    className="block uppercase text-xs font-bold mb-2"
                                                     htmlFor="grid-password"
                                                 >
                                                     province Name
@@ -126,15 +140,14 @@ export default class AddEditForm extends Component {
                                                     name="provinceName"
                                                     value={provinceName}
                                                     onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                    className="px-3 py-3 placeholder-gray-400 bg-white rounded focus:ring-2 focus:ring-blue-600 shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
                                                 />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
-                                        <button onClick={() => this.props.setShowModal(false)
-                                        }
+                                        <button onClick={this.onClose}
 
                                         
                                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -146,7 +159,7 @@ export default class AddEditForm extends Component {
 
                                             Close
                                 </button>
-                                        <button onClick={() => this.props.setRefreshTable(false)}
+                                        <button onClick={() => this.props.setRefreshTable(true)}
                                             className="bg-gray-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit"
                                         >
