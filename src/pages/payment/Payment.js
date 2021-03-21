@@ -9,7 +9,6 @@ const Payment = () => {
     let [paid, setPaid] = useState(false)
 
     useEffect(() => {
-        console.log(counter)
         if (loading) {
             if (counter > text.length - 1) {
                 setCounter(0)
@@ -22,23 +21,8 @@ const Payment = () => {
                     setRefresh(!refresh)
                 }, 500)
             }
-        } else {
-            console.log("do nothing")
         }
     }, [loading, refresh])
-
-    const onHandleClickPay = async (e) => {
-        try {
-            setLoading(true)
-            // await CreateNewTransaction(data)
-            setTimeout(() => {
-                setLoading(false)
-                setShowVerifyPin(true)
-            }, 2000)
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     return (
         <>

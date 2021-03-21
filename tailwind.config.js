@@ -8,7 +8,8 @@ module.exports = {
           table : '#d3e0dc',
           primary: '#fcd1d1',
           secondary: '#ece2e1',
-          button: '#aee1e1'
+          button: '#aee1e1',
+          text_primary:'#374151'
         }
       }
     },

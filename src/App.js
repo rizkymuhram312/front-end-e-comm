@@ -38,6 +38,7 @@ import AddAdv from './pages/advertising/addAdv'
 import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
 import OrdersKw from './pages/payment/Orders'
+import WalletAndBank from './pages/payment/WalletAndBank'
 
 function App() {
   return (
@@ -84,6 +85,8 @@ function App() {
           <Route path="/bank-account/" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
           <Route path="/order-kw" component={OrdersKw}/>
+          <Route path="/wallet-bank" component={WalletAndBank}/>
+          <Route component={ <div>Page Not Found</div>}/>
         </Switch>
       </div>
       <Footer></Footer>

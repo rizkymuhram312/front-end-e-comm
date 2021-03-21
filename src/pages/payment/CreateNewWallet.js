@@ -1,7 +1,6 @@
 import {useState,useEffect} from 'react'
 import {CreateWalletApi} from './api/GetWallet'
 const CreateWallet = (props) => {
-    let [pinNumber,setPinNumber] = useState()
     let [valid,setValid] = useState(null)
     let [pin1,setPin1] = useState()
     let [pin2,setPin2] = useState()
@@ -9,14 +8,12 @@ const CreateWallet = (props) => {
     const onHandleSubmitPinNumber = async (e) => {
         e.preventDefault()
         if(valid){
-            console.log("valid")
             const data = {
                 wale_acco_id:props.acco_id,
                 wale_pin_number:pin1,
                 wale_saldo:0
             }
             let result = await CreateWalletApi(data)
-            console.log(result)
             props.setShowActivateWalletForm(false)
         }
     }
