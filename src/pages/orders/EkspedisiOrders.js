@@ -17,7 +17,7 @@ export default function EkspedisiOrders(props) {
 
   return (
     <div>
-      <select value={props.selectedEkspedisi} onChange={(e)=>props.setSelectedEkspedisi(e.target.value)} class="text-black font-sans-serif py-2 px-4 ml-4 border border-gray-600 outline-none w-100">
+      <select value={props.selectedEkspedisi} onChange={(e)=>props.setSelectedEkspedisi(e.target.value)} class="border-current hover:border-pink-600 hover:text-pink-600 focus:outline-none  text-black font-sans-serif py-2 px-4 ml-4 border rounded-lg w-100">
         {EkspedisiOrders !== undefined
           ? EkspedisiOrders.map((x) => (
               <>

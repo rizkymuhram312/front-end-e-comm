@@ -86,12 +86,12 @@ export default function MyOrders() {
                     >
                       Weight
                     </th>
-                    <th
+                    {/* <th
                       scope="col"
                       class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Discount
-                    </th>
+                    </th> */}
                     <th
                       scope="col"
                       class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -110,8 +110,6 @@ export default function MyOrders() {
                   {MyOrders
                     ? MyOrders.filter(
                         (x) =>
-                          x.order_stat_name === "SHIPPING" ||
-                          x.order_stat_name === "PAID" ||
                           x.order_stat_name === "ARRIVED" ||
                           x.order_stat_name === "CLOSED"
                       ).map((x) => (
@@ -145,13 +143,13 @@ export default function MyOrders() {
                                 </div>
                               </div>
                             </td>
-                            <td>
+                            {/* <td>
                               <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
                                   {x.order_watr_numbers}
                                 </div>
                               </div>
-                            </td>
+                            </td> */}
                             <td>
                               <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
@@ -174,7 +172,7 @@ export default function MyOrders() {
                             ) : (
                               <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
                                 <button
-                                  className="py-2 px-4 bg-gray-500 text-white reounded"
+                                  className="py-2 px-4 bg-gray-500 text-white reounded-lg w-100"
                                   onClick={() => {
                                     setModal(true);
                                   }}
@@ -184,7 +182,7 @@ export default function MyOrders() {
                                   }}
                                   disabled="true"
                                 >
-                                  Diterima
+                                  Finish
                                 </button>
                               </td>
                             )}

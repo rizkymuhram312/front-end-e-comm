@@ -14,6 +14,8 @@ import Ekspedisi from "./EkspedisiOrders";
 import { data } from "autoprefixer";
 import { useHistory } from "react-router-dom";
 import VerifyPayment from "../payment/VerifyPayment";
+import { toast } from "react-toastify";
+
 // import PaymentGateway from '../payment'
 
 export default function CartOrders() {
@@ -59,6 +61,26 @@ export default function CartOrders() {
     payment_by: "wallet",
   });
   let [watrNumber, setWatrNumber] = useState();
+  
+  toast.configure();
+  const notifyLogin = () => {
+    toast.error("Jangan Bandel Harap Login Dulu ", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+  }
+
+  const token = localStorage.getItem("token");
+  // console.log(token)
+
+  const a = (axios.defaults.headers.common["Authorization"] =
+    "bearer " + token);
+  console.log(a);
+  if (!token) {
+    notifyLogin();
+    history.push("/login");
+  }
+
 
   useEffect(() => {
     fetchCartOrders();
@@ -300,7 +322,7 @@ export default function CartOrders() {
         </div>
       ) : (
         <div>
-          <div class="container-md mx-auto p-4 rounded-lg py-4 mb-5 border-4">
+          <div class="container-md mx-auto p-4 rounded-lg py-4 mb-5 border-4 border-pink-400">
             <h1 class="text-red-500 text-left font-sans-serif fas fa-map-marker-alt">
               Alamat Pengiriman
             </h1>
@@ -316,7 +338,7 @@ export default function CartOrders() {
             </div>
           </div>
 
-          <div class="flex flex-wrap rounded-lg shadow py-2 mb-5 border-4">
+          <div class="flex flex-wrap rounded-lg shadow py-2 mb-5 border-4 border-pink-400">
             <div class="md:w-6/12 md:mt-6 px-5 text-gray-600 text-left font-sans-serif">
               Product dipesan
             </div>
@@ -336,7 +358,7 @@ export default function CartOrders() {
                     <div class="flex flex-wrap md:w-6/12 md:mt-1 px-5 font-normal md:font-light text-left font-sans-serif">
                       <img
                         class="h-20 w-20 "
-                        src={x.product.product_images[0]?.prim_filename}
+                        src={x.product.product_images[0].prim_filename}
                       />
                       <label class="p-5">{x.product.prod_name} </label>
                     </div>

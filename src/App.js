@@ -38,15 +38,11 @@ import MyAdv from './pages/advertising/myAdv'
 import AddAdv from './pages/advertising/addAdv'
 import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
-<<<<<<< HEAD
-// import Wallet from './pages/payment/MyWallet'
-=======
 import OrdersKw from './pages/payment/Orders'
 import productMaster from './components/sideBarMenu/productMaster';
 import Brand from './pages/brand/brand';
 import AddBrand from './pages/brand/addBrand';
 import {EditBrand} from './pages/brand/editBrand';
->>>>>>> a00eeb0fb226c2a69c04a4bc5ec28ebb29079200
 
 function App() {
   return (

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Orders from "./Orders";
+import { Redirect } from "react-router-dom";
+
 import { numberWithCommas } from "../../utils/utils";
 import {
   apiUrl,
@@ -14,8 +16,10 @@ import Ekspedisi from "./EkspedisiOrders";
 import { data } from "autoprefixer";
 import { useHistory } from "react-router-dom";
 import VerifyPayment from "../payment/VerifyPayment";
+import { toast } from "react-toastify";
+
 // import PaymentGateway from '../payment'
-import { toast } from 'react-toastify'
+
 
 export default function CartOrders() {
   let history = useHistory();
@@ -41,7 +45,7 @@ export default function CartOrders() {
   const [selectedEkspedisi, setSelectedEkspedisi] = useState();
   let saldo = useGetSaldo({ acco_id: localStorage.getItem("dataAccountId") });
   let [SubTotal, setSubtotal] = useState(0);
-  let subTotalPajak = SubTotal + (SubTotal * (10 / 100));
+  let subTotalPajak = SubTotal + SubTotal * (10 / 100);
   let [less, setLess] = useState();
   let [dataEkspedisi, setdataEkspedisi] = useState();
   let [counter, setCounter] = useState(0);
@@ -52,38 +56,42 @@ export default function CartOrders() {
   let [loading, setLoading] = useState(false);
   let [verified, setVerified] = useState(null);
   let [paid, setPaid] = useState(false);
-  let [data,setData] = useState({
+  let [data, setData] = useState({
     acco_id: accId,
     total_amount: 0,
     transaction_type: "order",
     order_name: "#",
-    payment_by: 'wallet'
-  })
-  let [watrNumber,setWatrNumber] = useState()
+    payment_by: "wallet",
+  });
+  let [watrNumber, setWatrNumber] = useState();
 
-  toast.configure()
+  toast.configure();
   const notify = () => {
-
-      toast.success("Saldo Codepay : Rp. " + numberWithCommas(saldo), {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000
-      })
-  }
+    toast.success("Saldo Codepay : Rp. " + numberWithCommas(saldo), {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+  };
 
   const notifyErr = () => {
-
-      toast.error("Saldo Kurang : Rp. " + numberWithCommas(saldo), {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000
-      })
-  }
+    toast.error("Saldo Kurang : Rp. " + numberWithCommas(saldo), {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+  };
 
   const notifyErrEks = () => {
-    toast.error('Harap pilih ekspedisi ', {
+    toast.error("Harap pilih ekspedisi ", {
       position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000
-  })
+      autoClose: 2000,
+    });
+  };
 
+  const notifyLogin = () => {
+    toast.error("Jangan Bandel Harap Login Dulu ", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
   }
 
   useEffect(() => {
@@ -129,7 +137,7 @@ export default function CartOrders() {
 
   useEffect(() => {
     console.log(ongkir);
-    data.total_amount =subTotalPajak + Number(ongkir)
+    data.total_amount = subTotalPajak + Number(ongkir);
     settotalOrder(subTotalPajak + Number(ongkir));
   }, [ongkir]);
 
@@ -165,8 +173,8 @@ export default function CartOrders() {
         console.log(res.data[0]);
         setCartOrders(res.data[0]);
         setaccIdProd(res.data[0].prod_acco_id);
-        setWeight(res.data[0].cart_total_weight)
-        setQty(res.data[0].cart_total_qty)
+        setWeight(res.data[0].cart_total_weight);
+        setQty(res.data[0].cart_total_qty);
         console.log(accIdProd);
         // setaccId(res.data[0].cart_acco_id)
       })
@@ -185,7 +193,6 @@ export default function CartOrders() {
     setAddress(result.data[0]);
 
     setCityTo(result.data[0].city_name);
-
   };
 
   const fetchAddressProd = async () => {
@@ -227,7 +234,7 @@ export default function CartOrders() {
   };
 
   const fetchCitySeller = async () => {
-    console.log({accId})
+    console.log({ accId });
     const result = await axios({
       url: `${apiOrder}/v1/orders/${accId}`,
       method: "get",
@@ -235,11 +242,11 @@ export default function CartOrders() {
         "Content-Type": "application/json",
       },
     });
-    console.log(result)
+    console.log(result);
     console.log("city : " + result.data[0].city_name);
     setCitySeller(result.data[0].city_name);
     setaccIdSeller(result.data[0].acco_id);
-    console.log({citySeller});
+    console.log({ citySeller });
   };
 
   function onHandleClickCodePay() {
@@ -247,62 +254,72 @@ export default function CartOrders() {
       setLess(true);
       notify();
     } else {
-      setLess(false); 
+      setLess(false);
       notifyErr();
     }
   }
 
-  const onCreateOrder =()=>{
+  const onCreateOrder = () => {
     if (saldo < totalOrder) {
       notifyErr();
     } else if (ongkir === 0) {
       notifyErrEks();
     } else {
       setShowVerifyPin(true);
-      console.log('oncreateorder');
-      let orders ={
-        order_subtotal:SubTotal,
-        order_weight:weight,
-        order_discount:0,
-        order_tax:subTotalPajak,
-        order_total_due:totalOrder,
-        order_total_qty:qty,
-        order_acco_id:accId,
+      console.log("oncreateorder");
+      let orders = {
+        order_subtotal: SubTotal,
+        order_weight: weight,
+        order_discount: 0,
+        order_tax: subTotalPajak,
+        order_total_due: totalOrder,
+        order_total_qty: qty,
+        order_acco_id: accId,
         order_acco_id_seller: accIdSeller,
-        order_line_items:[]
-       // ongkir : ongkir,
-      }
-      CartOrders.cart_line_items.map((x)=>{
-        axios.delete(`${apiCart}/cartLineItems/${x.clit_id}`)
-        return orders.order_line_items.push(JSON.stringify(x))
-      })
-      console.log(orders)
-      createOrders(orders)
+        order_line_items: [],
+        // ongkir : ongkir,
+      };
+      CartOrders.cart_line_items.map((x) =>
+        orders.order_line_items.push(JSON.stringify(x))
+      );
+      console.log(orders);
+      createOrders(orders);
     }
     // history.push('/orders')
-  }
+  };
 
-  const createOrders = async (orders) =>{
-    try{
-      let response = await axios.post(`${apiOrder}/orders/newOrder/${accId}`,{
-        data : orders
-      })
-      data.order_name = response.data.order_name
-      return await response.data
-    }catch(err){
-      return await err.message
+  const createOrders = async (orders) => {
+    try {
+      let response = await axios.post(`${apiOrder}/orders/newOrder/${accId}`, {
+        data: orders,
+      });
+      data.order_name = response.data.order_name;
+      return await response.data;
+    } catch (err) {
+      return await err.message;
     }
-  }
+  };
 
   useEffect(() => {
-    console.log(watrNumber)
-    axios.put("http://localhost:3004/api/orders",{
-      order_name:data.order_name,
-      order_watr_numbers:watrNumber
-    })
-  }, [watrNumber])
+    console.log(watrNumber);
+    axios.put("http://localhost:3004/api/orders", {
+      order_name: data.order_name,
+      order_watr_numbers: watrNumber,
+    });
+  }, [watrNumber]);
 
   useEffect(() => {}, [selectedEkspedisi]);
+
+  const token = localStorage.getItem("token");
+  // console.log(token)
+
+  const a = (axios.defaults.headers.common["Authorization"] =
+    "bearer " + token);
+  console.log(a);
+  if (!token) {
+    notifyLogin();
+    history.push("/login");
+  }
 
   return (
     <>
@@ -328,7 +345,7 @@ export default function CartOrders() {
         </div>
       ) : (
         <div>
-          <div class="container-md mx-auto p-4 rounded-lg shadow py-4 mb-5 border-4">
+          <div class="container-md mx-auto p-4 rounded-lg shadow py-4 mb-5 border-4 border-pink-600">
             <h1 class="text-red-500 text-left font-sans-serif fas fa-map-marker-alt">
               Alamat Pengiriman
             </h1>
@@ -350,13 +367,13 @@ export default function CartOrders() {
             </div>
           </div>
 
-          <div class="flex flex-wrap rounded-lg shadow py-2 mb-5 border-4">
+          <div class="flex flex-wrap rounded-lg shadow py-2 mb-5 border-4 border-pink-600">
             <div class="md:w-6/12 md:mt-6 px-5 text-gray-600 text-left font-sans-serif">
               Product dipesan
             </div>
             <div className="w-full md:w-5/12">
               <div className="text-sm block my-4 p-3 text-black">
-                <div className="flex justify-between text-gray-300">
+                <div className="flex justify-between text-gray-600">
                   <div>Harga Satuan</div>
                   <div>Jumlah</div>
                   <div>Subtotal Produk</div>
@@ -370,7 +387,7 @@ export default function CartOrders() {
                     <div class="flex flex-wrap md:w-6/12 md:mt-1 px-5 font-normal md:font-light text-left font-sans-serif">
                       <img
                         class="h-20 w-20 "
-                        src={x.product.product_images[0]?.prim_filename}
+                        src={x.product.product_images[0].prim_filename}
                       />
                       <label class="p-5">{x.product.prod_name} </label>
                     </div>
@@ -388,7 +405,7 @@ export default function CartOrders() {
               : null}
           </div>
 
-          <div class="flex flex-wrap mx-auto rounded-lg shadow py-2 mb-5 border-4">
+          <div class="flex flex-wrap mx-auto rounded-lg shadow py-2 mb-5 border-4 border-pink-600">
             <div class="md:w-2/12 md:mt-6 px-5 text-gray-600 text-left font-sans-serif">
               Metode Pembayaran
             </div>
@@ -438,7 +455,7 @@ export default function CartOrders() {
                     Indomaret
                   </button>
                 </div>
-                <p>Saldo CodePay Anda : Rp. {numberWithCommas(saldo)}</p>
+                {/* <p>Saldo CodePay Anda : Rp. {numberWithCommas(saldo)}</p> */}
               </div>
               <div class="mt-10 py-3 border-t border-gray-300">
                 <div class="flex flex-col-2">
@@ -466,15 +483,16 @@ export default function CartOrders() {
                   />
                   <button
                     onClick={cekOngkir}
-                    class="border-current hover:border-yellow-500 hover:text-yellow-500 focus:outline-none  text-black font-sans-serif py-2 px-4 ml-4 border rounded-lg w-40"
+                    class="border-current hover:border-pink-600 hover:text-pink-600 focus:outline-none  text-black font-sans-serif py-2 px-4 ml-4 border rounded-lg w-40"
                   >
                     Cek Ongkir
                   </button>
-                  <p>Pengiriman dari kota  {citySeller} Ke  {cityTo}</p>
+                  {/* <p>Pengiriman dari kota  {citySeller} Ke  {cityTo}</p> */}
                 </div>
                 <div class="grid col-4 justify-end">
                   <div class="text-center mr-6 px-4 py-2 -my-10">
-                    Subtotal + Pajak (10%) : Rp.{numberWithCommas(subTotalPajak)}
+                    Subtotal + Pajak (10%) : Rp.
+                    {numberWithCommas(subTotalPajak)}
                   </div>
                   {/* <div class="text-center mr-6 px-4 py-2 -my-10">
                     Pajak 10% : Rp.{" "}
@@ -482,10 +500,10 @@ export default function CartOrders() {
                   </div>
                    */}
                   <div class="text-center mr-6 px-4 py-2 m-2">
-                    Total Ongkos Kirim : Rp.{numberWithCommas (ongkir)}
+                    Total Ongkos Kirim : Rp.{numberWithCommas(ongkir)}
                   </div>
                   <div class="text-center mr-6 px-4 py-2 m-2">
-                    Total Pembayaran : Rp.{numberWithCommas (totalOrder)}
+                    Total Pembayaran : Rp.{numberWithCommas(totalOrder)}
                   </div>
 
                   {/* <div>Saldo CodePay : Rp. {numberWithCommas(saldo)}</div> */}
@@ -494,7 +512,7 @@ export default function CartOrders() {
 
                   {/* { less ? saldo <=   */}
                   <button
-                    class=" bg-yellow-300 hover:bg-yellow-500 focus:outline-none cursor-pointer text-gray-500 hover:text-gray-900 transition duration-200 font-sans-serif py-2 px-4 rounded-lg"
+                    class=" border-2 border-pink-400 hover:bg-pink-600 focus:outline-none cursor-pointer text-black transition duration-200 font-sans-serif py-2 px-4 rounded-lg"
                     onClick={onCreateOrder}
                   >
                     <span class="fas fa-shopping-cart"> Buat Pesanan</span>
