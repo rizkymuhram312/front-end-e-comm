@@ -28,9 +28,9 @@ const WalletAndBank = () => {
 
     return (
         <>
-            <div class="mt-10 min-w-full h-full max-h-full max-w-screen flex bg-primary">
+            <div class="mt-10 min-w-full h-full max-h-full max-w-screen flex bg-white">
                 <aside
-                    class="flex flex-col items-center bg-secondary text-text_primary shadow max-h-full">
+                    class="flex flex-col items-center bg-white border rounded-md border-primary text-text_primary shadow max-h-full">
                     <button
                         value="MyWallet"
                         defaultValue="MyWallet"
@@ -43,7 +43,7 @@ const WalletAndBank = () => {
                         value="BankAccounts"
                         defaultValue="BankAccounts"
                         onClick={onHandleClick}
-                        class="hover:bg-gray-100 h-12 px-6 flex justify-items-start items-center w-full focus:text-orange-500 text-text_primary font-extralight">
+                        class="h-12 px-6 flex justify-items-start items-center w-full focus:text-orange-500 text-text_primary font-extralight">
                         <img className="w-8 h-8 mr-2" src="bank-icon.png" />
                                 Bank Account
                             </button>

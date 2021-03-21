@@ -28,7 +28,7 @@ const Payment = () => {
         <>
             {
                 loading ?
-                    <div className="grid w-80 mx-auto mt-10 my-2 text-center border shadow-md border-gray-300 rounded-md overflow-hidden text-black bg-gray-100">
+                    <div className=" focus:border-primary grid w-80 mx-auto mt-10 my-2 text-center border shadow-md border-gray-300 rounded-md overflow-hidden text-black">
                         <h1 className="font-bold">PROCESSING YOUR REQUEST {loadingText}</h1>
                     </div> :
                     showVerifyPin ?

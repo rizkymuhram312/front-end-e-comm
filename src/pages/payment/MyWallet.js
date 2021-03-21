@@ -95,14 +95,8 @@ const MyWallet = () => {
 
     return (
       <>
-      <div className="grid-flow-row">
-        <div>
-          
-        </div>
-
-      </div>
-      <div className="bg-secondary font-sans ml-2 mt-2 h-36 flex-wrap shadow-lg rounded-lg text-text_primary font-light pl-2">
-          <h4 className=" font-bold ml-2 pt-2">My Wallet</h4>
+      <div className="bg-secondary border border-primary font-sans ml-2 mt-2 h-36 flex-wrap shadow-lg rounded-lg text-text_primary font-light pl-2">
+          <h4 className=" font-medium ml-2 pt-2">My Wallet</h4>
           {
             walletActivated ? (
               <div>
@@ -114,14 +108,14 @@ const MyWallet = () => {
             :(
               <div className="ml-2">
                 <h1>Wallet Belum Aktif</h1>
-                <button onClick={onHandleClickActivateWallet} className="bg-button rounded-md w-2/12 shadow-xl border text-text_primary"><h1>Activate Wallet</h1></button>
+                <button onClick={onHandleClickActivateWallet} className="bg-white border-primary rounded-md w-2/12 shadow-xl border text-text_primary"><h1>Activate Wallet</h1></button>
               </div>
             )
           }
       </div>
-      <div>
-        <button className=" ml-2 text-gray-700 font-light border outline-none bg-button shadow-lg overflow-hidden rounded-lg mt-1 px-2" onClick={onHandleClikTopUp}>Topup</button>
-        <button className=" ml-2 text-gray-700 font-light border outline-none bg-button shadow-lg overflow-hidden rounded-lg mt-1 px-2" onClick={onHandleClickHistoryTrans}>History Transaksi</button>      
+      <div className="mb-4">
+        <button className=" border-primary ml-2 text-white font-light border focus:outline-none bg-primary shadow-lg overflow-hidden rounded-md mt-1 px-2" onClick={onHandleClikTopUp}>Topup</button>
+        <button className=" border-primary ml-2 text-white font-light border focus:outline-none bg-primary shadow-lg overflow-hidden rounded-md mt-1 px-2" onClick={onHandleClickHistoryTrans}>History Transaksi</button>      
       </div>
       {
         showHistoryTrans ? (
