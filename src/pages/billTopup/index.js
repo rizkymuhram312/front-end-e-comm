@@ -30,8 +30,12 @@ const Tabs = ({ color }) => {
   const [valCard,setValCard] = useState(0)
   //State for get value voucher game
   let [valCardGame,setValCardGame] = useState(0)
-    
-  
+  //State for get value token PLN  
+  let [valCardPln,setValCardPln] = useState(0)
+  //State for get value PDAM
+  const [pdamAccId,setPdamAccId] = useState("")
+  const [pdamAmount,setPdamAmount] = useState(0)
+
   const userId = localStorage.getItem('dataAccountId')
 
   useEffect(() => {
@@ -52,7 +56,16 @@ const Tabs = ({ color }) => {
     setInternetAmount(Bill.vendor.vendor_rules[0].veru_bill_price)
     }
     
-  },[Bill])  
+  },[Bill])
+
+  useEffect(()=>{
+    if (VPdam.account !== undefined){
+    setPdamAccId(VPdam.account.acco_id)
+    setPdamAmount(VPdam.vendor.vendor_rules[0].veru_bill_price)
+    }
+    
+  },[VPdam])
+
   const onChangePln = (e) => {
     const value = e.target.value;
     setTokenNum(value)
@@ -140,7 +153,13 @@ const Tabs = ({ color }) => {
   }
 
   const addPLN = ()=>{
-    console.log('Clicked');
+    addBillPln()
+    console.log('--Input data success--');
+  }
+
+  const addPDAM = ()=>{
+    addBillPdam()
+    console.log('--Input data success--');
   }
   const fetchPLN = async () => {
     return await axios({
@@ -156,6 +175,8 @@ const Tabs = ({ color }) => {
       }).
       catch((err) => console.log(err))
   }
+
+
 
 
   const fetchBill = async () => {
@@ -225,7 +246,7 @@ const Tabs = ({ color }) => {
   const addBillPulsa = () => {
     let date = new Date()
     let bito_created_on = date  
-    let bito_type = "Pulsa"
+    let bito_type = "Topup"
     let bito_amount = valCard
     let bito_desc = "Pembelian Pulsa"
     let bito_watr_numbers = null
@@ -256,7 +277,7 @@ const Tabs = ({ color }) => {
   const addBillInternet = () => {
     let date = new Date()
     let bito_created_on = date  
-    let bito_type = "Tagihan"
+    let bito_type = "Bill"
     let bito_amount = internetAmount
     let bito_desc = "Pembayaran Tagihan Indihome"
     let bito_watr_numbers = null
@@ -287,13 +308,75 @@ const Tabs = ({ color }) => {
   const addBillVGame = () => {
     let date = new Date()
     let bito_created_on = date  
-    let bito_type = "Voucher"
+    let bito_type = "Topup"
     let bito_amount = valCardGame
     let bito_desc = "Pembelian Pulsa"
     let bito_watr_numbers = null
     let bito_token = gameCard
     let bito_vendor_name = gameCard
     let bito_acco_id = userId
+    const data = {
+      bito_created_on: bito_created_on,
+      bito_type: bito_type,
+      bito_amount: bito_amount,
+      bito_desc: bito_desc,
+      bito_watr_numbers: bito_watr_numbers,
+      bito_token: bito_token,
+      bito_vendor_name: bito_vendor_name,
+      bito_acco_id: bito_acco_id,
+      
+    };
+
+    axios.post(`${apiTopup}/billTopup/insertbillTopup`, data).
+    then((result)=>{
+      console.log(result.data);
+    }).
+      catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const addBillPln = () => {
+    let date = new Date()
+    let bito_created_on = date  
+    let bito_type = "Topup"
+    let bito_amount = valCardPln
+    let bito_desc = "Pembelian Token Listrik"
+    let bito_watr_numbers = null
+    let bito_token = tokenNum
+    let bito_vendor_name = "PLN"
+    let bito_acco_id = userId
+    const data = {
+      bito_created_on: bito_created_on,
+      bito_type: bito_type,
+      bito_amount: bito_amount,
+      bito_desc: bito_desc,
+      bito_watr_numbers: bito_watr_numbers,
+      bito_token: bito_token,
+      bito_vendor_name: bito_vendor_name,
+      bito_acco_id: bito_acco_id,
+      
+    };
+
+    axios.post(`${apiTopup}/billTopup/insertbillTopup`, data).
+    then((result)=>{
+      console.log(result.data);
+    }).
+      catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const addBillPdam = () => {
+    let date = new Date()
+    let bito_created_on = date  
+    let bito_type = "Bill"
+    let bito_amount = pdamAmount
+    let bito_desc = "Pembayaran Tagihan Indihome"
+    let bito_watr_numbers = null
+    let bito_token = pdam
+    let bito_vendor_name = "TELKOM"
+    let bito_acco_id = pdamAccId
     const data = {
       bito_created_on: bito_created_on,
       bito_type: bito_type,
@@ -627,12 +710,19 @@ const Tabs = ({ color }) => {
                   <div class="flex flex-wrap">
 
                     {Pln.vendor_rules && Pln.vendor_rules.map((x) => {
+                      const onClickValPln = (e) =>{
+                        const value = e.target.value = x.veru_bill_price
+                        console.log(value);
+                        setValCardPln(value) 
+                    }
 
                       return (
                         <>
+                          <div value={valCardPln} onClick={onClickValPln} class="cursor-pointer h-30 w-40 m-4 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
                           <PricecardPLN
                             nominal={x.veru_bill_amount}
                             harga={x.veru_bill_price} />
+                          </div>
                         </>
                       )
                     })
@@ -675,7 +765,11 @@ const Tabs = ({ color }) => {
 
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" type="button" style={{ transition: "all .15s ease" }}>
+                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" 
+                    type="button" 
+                    style={{ transition: "all .15s ease" }}
+                    onClick={addPDAM}
+                    >
                       Beli Sekarang
                             </button>
                   </div>
