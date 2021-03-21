@@ -83,7 +83,7 @@ const DashboardUserAccount = () => {
                     "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                     (openTab === 1
                       ? "text-white bg-pink-600"
-                      : "text-pink-600 bg-white")
+                      : "text-pink-600 bg-white border-2 border-pink-600")
                   }
                   onClick={(e) => {
                     e.preventDefault();
@@ -103,7 +103,7 @@ const DashboardUserAccount = () => {
                     "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                     (openTab === 2
                       ? "text-white bg-pink-600"
-                      : "text-pink-600 bg-white")
+                      : "text-pink-600 bg-white border-2 border-pink-600")
                   }
                   onClick={(e) => {
                     e.preventDefault();
@@ -122,7 +122,7 @@ const DashboardUserAccount = () => {
                     "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                     (openTab === 3
                       ? "text-white bg-pink-600"
-                      : "text-pink-600 bg-white")
+                      : "text-pink-600 bg-white border-2 border-pink-600")
                   }
                   onClick={(e) => {
                     e.preventDefault();
@@ -141,7 +141,7 @@ const DashboardUserAccount = () => {
                     "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                     (openTab === 4
                       ? "text-white bg-pink-600"
-                      : "text-pink-600 bg-white")
+                      : "text-pink-600 bg-white border-2 border-pink-600")
                   }
                   onClick={(e) => {
                     e.preventDefault();
@@ -160,7 +160,7 @@ const DashboardUserAccount = () => {
                     "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                     (openTab === 5
                       ? "text-white bg-pink-600"
-                      : "text-pink-600 bg-white")
+                      : "text-pink-600 bg-white border-2 border-pink-600")
                   }
                   onClick={(e) => {
                     e.preventDefault();
