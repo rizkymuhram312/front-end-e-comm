@@ -29,7 +29,7 @@ export const TableUsers = props => {
                             <tr>
                                 <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Users Id</th>
                                 <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Users Name</th>
-                                <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Users Password</th>
+                                <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Users Email</th>
                                 <th className="text-center px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Action</th>
                             </tr>
                         </thead>
@@ -45,8 +45,8 @@ export const TableUsers = props => {
 
 
                                             <td className="text-center">{users.user_id}</td>
+                                            <td className="text-center">{users.user_name}</td>
                                             <td className="text-center">{users.user_email}</td>
-                                            <td className="text-center">{users.user_password}</td>
 
                                             
                                             {/* <td className="text-center">{props.users.user_id}</td>

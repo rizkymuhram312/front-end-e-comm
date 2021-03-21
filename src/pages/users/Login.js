@@ -83,7 +83,7 @@ const Login = () => {
                
                 localStorage.setItem('dataUserName', result.data.users.user_name)
                 localStorage.setItem('token', result.data.token)
-                localStorage.setItem('dataUserPass', data.user_password)
+                // localStorage.setItem('dataUserPass', data.user_password)
                 localStorage.setItem('dataUserEmail', data.user_email)
                 localStorage.setItem('dataUserId', result.data.users.user_id)
                 const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token

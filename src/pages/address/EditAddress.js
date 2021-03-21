@@ -4,15 +4,19 @@ import React, { useEffect, useState } from "react";
 import { apiUserMaster, apiUserAccount } from "../../config/apiUrl";
 import { useHistory } from "react-router";
 
-// asda
-
-const Address = () => {
-  const [alamat, setAddress] = useState([]);
-  const [showModal, setShowModal] = React.useState(false);
+export default function EditAddress() {
+    const [alamat, setAddress] = useState([]);
+    const [alamat2, setAddress2] = useState([]);
+    
+  const [showModal, setShowModal] = React.useState(true);
   const [provinsi, setProvinsi] = useState([]);
+  const [provinsiEdit, setProvinsiEdit] = useState("");
   const [kota, setKota] = useState([]);
+  const [kotaEdit, setKotaEdit] = useState("");
   const [kecamatan, setKecamatan] = useState([]);
+  const [kecamatanEdit, setKecamatanEdit] = useState("");
   const [kodepos, setKodepos] = useState([]);
+  const [kodeposEdit, setKodeposEdit] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [jalan, setJalan] = useState("");
   const [optional, setOptional] = useState("");
@@ -25,15 +29,18 @@ const Address = () => {
   const [kecId, setKecId] = useState(0);
   const [error, setError] = useState("");
   const apiAccoId = localStorage.getItem('dataAccountId');
+  const apiAddrId = localStorage.getItem('Addressid');
   const lengthAlamat = alamat.length;
   const [input, setInput] = useState(false);
   const [hapus, setHapus] = useState(false);
-  const [Isedit, setIsEdit] = useState(false)
   let history = useHistory();
 
-  
-
   const GetAlamat = async () => {
+    const response = await axios.get(`${apiUserAccount}/address/cari/${apiAddrId}`);
+    return response.data;
+  };
+
+  const GetAlamat2 = async () => {
     const response = await axios.get(`${apiUserAccount}/address/search/${apiAccoId}`);
     return response.data;
   };
@@ -65,6 +72,7 @@ const Address = () => {
   }, [provId]);
 
   let OnChangeProvince = (e) => {
+      console.log(e)
     let value = e.target.options[e.target.selectedIndex].value;
     // localStorage.setItem('AddProvId',value)
     setProvId(value)
@@ -73,20 +81,45 @@ const Address = () => {
 
    useEffect(() => {
      
+    const getListAlamat2 = async () => {
+       let listAlamat = await GetAlamat2();
+       console.log(listAlamat);
+       if (listAlamat) setAddress2(listAlamat);
+       // setProvinsi(listAlamat)
+       setInput(false);
+       setHapus(false);
+       if (listAlamat.length > 0) {
+        setPrimary(false)
+      } else {
+        setPrimary(true)
+      }
+     };
+     getListAlamat2();
+  }, [input,hapus]);
+
+   useEffect(() => {
+     
      const getListAlamat = async () => {
         let listAlamat = await GetAlamat();
         console.log(listAlamat);
         if (listAlamat) setAddress(listAlamat);
-        // setProvinsi(listAlamat)
+
         setInput(false);
         setHapus(false);
-        if (listAlamat.length > 0) {
-         setPrimary(false)
-       } else {
-         setPrimary(true)
-       }
+        setProvinsiEdit(listAlamat[0].prov_name)
+        setKotaEdit(listAlamat[0].city_name)
+        setKecamatanEdit(listAlamat[0].kec_name)
+        setKodeposEdit(listAlamat[0].kodepos)
+        setJalan(listAlamat[0].addr_address)
+        setOptional(listAlamat[0].addr_optional)
       };
       getListAlamat();
+    //   console.log(provinsiEdit)
+     if (alamat.length > 0) {
+      setPrimary(false)
+    } else {
+      setPrimary(true)
+    }
    }, [input,hapus]);
  
   //  console.log(alamat);
@@ -221,31 +254,15 @@ const Address = () => {
   };
 
   const editAddress = async (id) => {
-    setIsEdit(true)
     history.push("/editAddress");
     localStorage.setItem("Addressid", id);
   }
 
-  // useEffect(() => {
-  //   const getListKota = async () => {
-  //     const listKota = await GetKota();
-  //     if (listKota) setKota(listKota);
-  //   };
-  //   getListKota();
-  // }, []);
-
-    // useEffect(() => {
-    //   OnChangeProvince(value);
-    // }, [value]);
-
-
-  
-
   return (
     <>
-      {alamat[0] ? (
+      {alamat2[0] ? (
         <>
-         <div class="w-full mb-12 xl:mb-0 px-4">
+          <div class="w-full mb-12 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-purple-100">
               <div class="rounded-t mb-0 px-4 py-3 border-0 bg-gray-500">
                 <div class="flex flex-wrap items-center">
@@ -265,10 +282,10 @@ const Address = () => {
                   </div>
                 </div>
               </div>
-               { alamat.map ((x,index) =>{
+               { alamat2.map ((x,index) =>{
                  return (
                    <>
-             <div className="grid grid-cols-6 relative p-6 flex-auto mb-2">
+              <div className="grid grid-cols-6 relative p-6 flex-auto mb-2">
                   <div className="col-span-5">
                       <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center">
                           <h1 className="justify-self-end">Nama Kamu/Toko : </h1>
@@ -315,6 +332,7 @@ const Address = () => {
                })}
             </div>
           </div>
+                   
         </>
       ) : (
         <>
@@ -363,18 +381,19 @@ const Address = () => {
                   <div className=" grid grid-cols-6 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <h1 className="justify-self-end">Provinsi : </h1>
                     <select
-                      name="province"
-                      id="province"
+                      
                       className="col-span-4 flex-1 capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
-                      // value={provinsiEdit}
+                      value={provinsiEdit}
                       onChange={OnChangeProvince} 
                     >
+                        {
+                     
+                      provinsi.map((e,index) => {
+                        return <option value={e.prov_name
+                        } name={e.prov_name} key={index} >{e.prov_name}</option>;
+                      })
                       
-                      <option>Silahkan Pilih Provinsi</option>
-
-                      {provinsi.map((e,index) => {
-                        return <option value={e.prov_id} key={index} >{e.prov_name}</option>;
-                      })}
+                }
                     </select>
                   </div>
                   <div className=" grid grid-cols-6 gap-4 my-4 content-center items-center justify-center place-content-center">
@@ -500,6 +519,4 @@ const Address = () => {
       ) : null}
     </>
   );
-};
-
-export default Address;
+}

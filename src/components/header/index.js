@@ -5,33 +5,35 @@ export default function Navbar({ fixed }) {
 
   const [isLogin, setisLogin] = useState(true)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-
-  const [value, setValue] = useState();
+  const [masuk, setMasuk] = useState(false);
+  const [sideBar, setSideBar ] = useState(false);
+  const token = localStorage.token
+  const [tvalue, setTValue] = useState();
   const refresh = () => {
     // re-renders the component
-    setValue({});
+    setTValue({});
   }
 
   useEffect(() => {
     console.log(isLogin)
     if (localStorage.token == null || localStorage.token == undefined) {
       setisLogin(false);
-      setValue({});
+      setTValue({});
 
     }
     else {
 
       setisLogin(true);
-      setValue({});
+      setTValue({});
     }
-    setValue({});
-  }, [localStorage.token])
+    // setTValue({});
+  }, token,tvalue)
 
   const klikLogout = () => {
     localStorage.clear()
 
     alert("Anda Berhasil Logout!");
-    setValue({});
+    setTValue({});
     <Redirect to="/home" />
   }
   return (
@@ -39,9 +41,17 @@ export default function Navbar({ fixed }) {
     <nav className="fixed z-50 w-full bg-background top-0 flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg shadow-lg">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+        <button
+            className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent inline-block outline-none focus:outline-none"
+            type="button"
+            onClick={() => setSideBar(!sideBar)}
+          >
+            <i className="fas fa-bars" />
+          </button>
           <a className="leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-gray-800" href='/'> 
             <span className="text-xl font-bold">E-Commerce</span>
           </a>
+          
           <button
             className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
             type="button"
@@ -50,7 +60,7 @@ export default function Navbar({ fixed }) {
             <i className="fas fa-bars" />
           </button>
         </div>
-        <div className="relative flex w-full md:w-7/12 px-4 flex-wrap items-stretch lg:ml-auto">
+        {/* <div className="relative flex w-full md:w-7/12 px-4 flex-wrap items-stretch lg:ml-auto">
           <div className="flex">
             <span className="font-normal leading-snug flex text-center white-space-no-wrap border border-solid border-gray-600 rounded-full text-sm bg-gray-100 items-center rounded-r-none pl-2 py-1 text-gray-800 border-r-0 placeholder-background">
               <i className="fas fa-search"></i>
@@ -61,7 +71,20 @@ export default function Navbar({ fixed }) {
             className="px-2 py-1 h-8 border border-solid  border-black rounded-full text-sm leading-snug text-gray-700 bg-gray-100 shadow-none outline-none focus:outline-none w-full font-normal rounded-l-none flex-1 border-l-0 placeholder-gray-300"
             placeholder="Search Product"
           />
-        </div>
+        </div> */}
+        {
+          sideBar == true ? (
+            <ul className="flex flex-col items-end lg:flex-row list-none ml-auto align-center justify-center items-center">
+              <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser">Profil</a></li>
+                  <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard">Dashboard</a></li>
+                  <li className=""><a className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={klikLogout}>Sign Out</a></li>
+                
+                
+              </ul>
+          ):(
+            <label></label>
+          )
+        }
         <div
           className={
             "lg:flex flex-grow items-center" +
@@ -70,7 +93,7 @@ export default function Navbar({ fixed }) {
           id="example-navbar-danger">
             {isLogin ? (
             <>
-              <ul className="flex flex-col lg:flex-row list-none lg:ml-auto align-center justify-center items-center">
+              <ul className="flex flex-col items-end lg:flex-row list-none ml-auto align-center justify-center items-center">
                 
                 <img src="cewe.jpg" alt="..." className="shadow rounded-full max-w-full h-6 align-middle border-none mr-4" /> 
                 <li className="nav-item">

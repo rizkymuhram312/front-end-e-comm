@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { apiUserMaster } from '../../config/apiUrl'
+import { apiUserAccount, apiUserMaster } from '../../config/apiUrl'
 
 
 
@@ -38,7 +38,7 @@ const create = async (city) => {
   
   const updateCity = async (city) => {
     try {
-        let response = await axios.put(`${apiUserMaster}/city/${city.city_id}`,{
+        let response = await axios.put(`${apiUserAccount}/city/${city.city_id}`,{
           data : city
         })
         return await response.data

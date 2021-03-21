@@ -25,6 +25,7 @@ import MyAdv from './pages/advertising/myAdv'
 import AddAdv from './pages/advertising/addAdv'
 import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
+import EditAddress from './pages/address/EditAddress'
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path="/registerAccount" component={RegisterAccount} exact />
           <Route path="/dashboarduser" component={DashboardUserAccount} exact />
           <Route path="/address" component={Address} exact />
+          <Route path="/editAddress" component={EditAddress} exact />
           <Route path="/myorders" component={MyOrders}/>
           <Route path="/advertising/my-pkg" component={Advertising}/>
           <Route path="/product" component={Product} />
