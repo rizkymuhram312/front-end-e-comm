@@ -138,7 +138,7 @@ export default function MyAdv() {
                       {x.prod_weight}
                     </td>
                     <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                      <button onClick={onClickAddAdv(x.prod_id)}>
+                      <button className="bg-primary rounded p-1 text-white" onClick={()=>onClickAddAdv(x.prod_id)}>
                         Promosikan
                       </button>
                     </td>
