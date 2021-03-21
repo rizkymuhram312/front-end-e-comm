@@ -2,8 +2,8 @@ import Header from './components/header';
 import Footer from './components/footer/index'; 
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from './pages/home/index'
+import Shop from './pages/home/Dashboard'
 // import CategoryProd from './pages/home/productCate'
-import Brand from './pages/brand/brand'
 import Category from './pages/category/category'
 import Condition from './pages/condition/condition'
 import Cart from './pages/cart'
@@ -29,8 +29,6 @@ import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
 import EditProduct from './pages/product/editProduct'
-// import TambahVariant from './pages/product/tambahVariant'
-// import ProductVariant from './pages/product/productVariant'
 import billTopup from './pages/billTopup'
 import ExpeditionRoutesIndex from './pages/Expeditions/ExpeditionRoutesIndex'
 import ExpeditionIndex from './pages/Expeditions/ExpeditionIndex'
@@ -40,19 +38,33 @@ import MyAdv from './pages/advertising/myAdv'
 import AddAdv from './pages/advertising/addAdv'
 import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
+<<<<<<< HEAD
 // import Wallet from './pages/payment/MyWallet'
+=======
+import OrdersKw from './pages/payment/Orders'
+import productMaster from './components/sideBarMenu/productMaster';
+import Brand from './pages/brand/brand';
+import AddBrand from './pages/brand/addBrand';
+import {EditBrand} from './pages/brand/editBrand';
+>>>>>>> a00eeb0fb226c2a69c04a4bc5ec28ebb29079200
 
 function App() {
   return (
     <BrowserRouter>
       <>
       <Header />
-      <div className="container mx-auto sm:px-4 pt-40 lg:pt-20 pb-10">
+      <div className="container mx-auto ">
         <Switch>
           <Route path="/home" component={Home} exact />
+          <Route path="/shop" component={Dashboard} exact />
           {/* <Route path="/productCate/:cate_id" component={CategoryProd} /> */}
-          <Route path="/" component={Home} exact />
+          <Route path="/" component={Home} exact/>
+          <Route path="/productMaster" component={productMaster} exact/>
+          {/* brand */}
           <Route path="/brand" component={Brand} exact />
+          <Route path="/addBrand" component={AddBrand} exact />
+          <Route path="/editBrand" component={EditBrand} exact />
+          {/* end Brand */}
           <Route path="/category" component={Category} exact />
           <Route path="/condition" component={Condition} exact />
           <Route path="/cart" component={Cart} />
@@ -77,8 +89,6 @@ function App() {
           <Route path="/productsaya" component={ProductSaya}/>
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/editproduct" component={EditProduct}/>
-          {/* <Route path="/tambahvariant" component={TambahVariant}/> */}
-          {/* <Route path="/productvariant"component={ProductVariant}/> */}
           <Route path="/billTopup" component={billTopup}/>
           <Route path="/expeditionsroutes" component={ExpeditionRoutesIndex}/>
           <Route path="/expeditions" component={ExpeditionIndex}/>
