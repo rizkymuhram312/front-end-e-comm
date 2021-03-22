@@ -1,82 +1,278 @@
-import React, { Component } from 'react';
-import { listcate, deletecate } from './api-category';
-import { AllCate } from './formCategory';
-import AddEdit from './addEditCate';
+import { apiProductMaster } from "../../config/apiUrl"
+import axios from 'axios'
+import { Link } from 'react-router-dom'
+import React, { useState, useEffect, Alert } from 'react';
+import { useHistory } from "react-router";
+import swal from "sweetalert";
+import { toast } from "react-toastify";
+import _ from "lodash"
+import ReactPaginate from "react-paginate";
+import Pagination from "../../components/pagination/pagination";
+
+function Category(props) {
+
+    let history = useHistory()
+    const [category, setCategory] = useState([]);
+    const [cate_name, setCateName] = useState([]);
+    const [cate_cateId, setCateCateId] = useState([]);
+    const [search, setSearch] = useState("");
 
 
-export default class category extends Component {
-    // declare regions[] state
-    state = {
-        category: [],
-        dataEditRow: null,
-        isModalShow: false
+    // redirect to deskripsi
+    const DetailProduct = (cate_id, category_images) => {
+        localStorage.setItem('categoryDetail', cate_id);
+        localStorage.setItem('categoryImages', category_images);
+        console.log(cate_id)
+        console.log(category_images)
+
+        history.push(`/product/${cate_id}`)
     }
 
-    // 3. call showListRegion to fill category[] on first time render
-    componentDidMount() {
-        this.showListCategory();
-        // this.setRefreshTable();
+    // page
 
+    const onClickEditCate = (id) => {
+        history.push('/editCate')
+        localStorage.setItem('id', id)
     }
 
-    // 2. call listRegion from api-category, then fill category[] state
-    // with data from listCategory()
-    showListCategory = () => {
-        listcate().then(data => {
-            this.setState({
-                category: data
+
+    useEffect(() => {
+        fetchCate()
+    }, [])
+
+    async function fetchCate() {
+        return await axios({
+            url: `${apiProductMaster}/category`,
+            method: "get",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => {
+                setCategory(res.data)
+                // setPaginatedPosts(_(res.data).silce(0).take(pageSize).value())
             })
-        })
-    }
-    onShowModal = (value) => {
-        this.setState({
-            isModalShow: value
-        })
-    }
-    onEditRow = (value) => {
-        this.setState({
-            dataEditRow: value
-        })
-        this.onShowModal(true);
+            .catch((err) => console.error(err));
     }
 
-    onDeleteRow = (value) => {
-        deletecate(value).then(response => {
-            console.log(response);
-            this.onRefreshTable()
-        }).catch(function (error) {
-            console.log(error)
-            console.log(error);
+    const onRefreshTable = () => {
+        const getListCate = async () => {
+            const listCate = await fetchCate();
+            if (listCate) setCategory(listCate)
+        }
+        getListCate();
+    }
+    useEffect(() => {
+        const getListCate = async () => {
+            const listCate = await fetchCate();
+            if (listCate) setCategory(listCate)
+        }
+        getListCate();
+    }, [])
+
+    const deleteCate = async (id) => {
+        if (window.confirm('Are you sure?')) {
+
+            const data = {
+                cate_name: cate_name,
+                // cate_cateId: cate_cateId
+            }
+            axios.delete(`${apiProductMaster}/condition/${id}`)
+                .then((data) => {
+                    notify()
+                    console.log(data)
+                    onRefreshTable()
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+
+    }
+
+    toast.configure()
+    const notify = () => {
+        toast.configure(<CustomToast />, {
+            positition: toast.POSITION.TOP_CENTER
+            , autoClose: 8000
         })
-        this.onRefreshTable()
     }
-
-    onRefreshTable = () => {
-        this.showListCategory();
-    }
-
-    render() {
-        const { category, isModalShow, dataEditRow } = this.state;
+    const CustomToast = ({ closeToast }) => {
         return (
-            <>
-                <AllCate
-                    category={category}
-                    setShowModal={this.onShowModal}
-                    setDelete={this.onDeleteRow}
-                    setRefreshTable={this.onRefreshTable}
-                    setEdit={this.onEditRow}>
-                </AllCate>
-                {
-                    (isModalShow ? (
-                        <AddEdit
-                            setShowModal={this.onShowModal}
-                            setRefreshTable={this.onRefreshTable}
-                            category={dataEditRow}
-                        />) : null)
-                }
-            </>
+            <div>
+                this Category is delete?
+                <button onClick={closeToast}>Close</button>
+            </div>
         )
     }
 
+    useEffect(() => {
+		// console.log(Category)
+		// setLoading(true);
+		axios({
+			url: `${apiProductMaster}/categoryImg/`,
+			method: "get",
+			headers: {
+				"Content-type": "application/json"
+			}
+		}).then((res) => setCategory(res.data))
+			.catch((err) => console.error(err))
+	}, [])
+
+
+
+
+
+    return (
+        <>
+            <div class="container gap-8 justify-center  flex flex-row flex-wrap   text-2xl uppercase rounded ">
+                <Link to="/productSaya" class="w-50 bg-primary text-white font-bold  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-pink-600 shadow-md py-2 px-6 inline-flex items-center">Product</Link>
+                <Link to="/brand" class="w-50 bg-primary text-white font-bold tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-pink-600 shadow-md py-2 px-6 inline-flex items-center">Brand</Link>
+                <Link to="/category" class="w-50 bg-primary text-white font-bold   tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-pink-600 shadow-md py-2 px-6 inline-flex items-center">Category</Link>
+                <Link to="/condition" class="w-50 bg-primary text-white font-bold tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-pink-600 shadow-md py-2 px-6 inline-flex items-center">Condition</Link>
+            </div>
+
+            <body class="antialiased font-sans mt-4 ">
+                <div class="container mx-auto px-4 sm:px-8">
+                    <div class="py-3 ml-2">
+                        <div class="text-2xl md:text:lg  sm:text-md">
+                            <h2 class=" font-semibold leading-tight">Table Category</h2>
+                        </div>
+
+                        <div class="my-2 flex sm:flex-row flex-col justify-between">
+                            <div class="block relative mb-2 gap-4">
+                                <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2 gap-2">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current mr-3 ">
+                                        <path
+                                            d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <input class="sm:text-sm" placeholder="Search "
+                                    onChange={(event) => {
+                                        setSearch(event.target.value);
+                                    }}
+                                    class="appearance-none rounded-r rounded-l 
+                            sm:rounded-l-none border border-pink-300 
+                            border-b block pl-8 pr-6 py-2 w-full 
+                            bg-white text-lg placeholder-gray-400 
+                            text-gray-700 focus:bg-white 
+                            focus:placeholder-gray-600 focus:text-gray-700 
+                            focus:outline-none " />
+                            </div>
+                            <div class="relative flex flex-wrap ">
+                                <Link to="/addCate">
+                                    <button
+                                        class="w-50 gap-2 bg-white border border-pink-300 tracking-wide text-primary font-bold 
+                                        rounded 
+                            hover:border-lg hover:bg-primary 
+                            hover:text-white shadow-lg  py-2 px-6 inline-flex 
+                            items-center ml-2">
+
+
+                                        <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
+                                        <span class="mx-auto uppercase xl:text-lg md:text-md sm:text-sm">
+                                            Add Another Category
+                                        </span>
+
+                                    </button>
+                                </Link>
+
+
+                            </div>
+                        </div>
+                        <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                            <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                                <table class="min-w-full leading-normal border-collapse">
+                                    <thead class="bg-primary">
+                                        <tr>
+                                            <th
+                                                class="px-5 py-3 border-b-3 border-black-200  text-center text-white sm:text-md lg:text-lg font-semibold  uppercase tracking-wider">
+                                                Category Name
+                        </th>
+                                            <th
+                                                class="px-5 py-3 border-b-3 border-black-200  text-center text-white sm:text-md lg:text-lg font-semibold  uppercase tracking-wider">
+                                                Category by Id
+                        </th>
+                                            <th
+                                                class="px-5 py-3 border-b-3 border-black-200  text-center text-white sm:text-md lg:text-lg font-semibold  uppercase tracking-wider">
+                                                Category Images
+                        </th>
+                                            <th
+                                                class="px-5 py-3 border-b-3 border-black-200  text-center text-white sm:text-md lg:text-lg font-semibold  uppercase tracking-wider">
+                                                Action
+                        </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody className="gap-2  border-primary">
+                                        {
+                                            category ?
+                                                category
+                                                    // .slice(pagesVisited, pagesVisited + usersPerPage)
+                                                    .filter((val) => {
+                                                        if (search == "") {
+                                                            return val
+                                                        } else if (val.cate_name.toLowerCase().includes(search.toLowerCase())) {
+                                                            return val
+                                                        }
+                                                    })
+                                                    .map((cate, index) => {
+                                                        return (
+                                                            <tr key={cate.id} >
+                                                                <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 uppercase ">{cate.cate_name}</td>
+                                                                <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 uppercase ">{cate.cate_cate_id}</td>
+                                                                <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 uppercase">
+                                                                    <img src={cate.category_images[0]?.caim_path} />
+                                                                </td>
+                                                                <td className="border-2">
+                                                                    <div class="flex justify-center  ">
+                                                                        <button
+                                                                            onClick={() => onClickEditCate(cate.id)}
+                                                                            class="bg-green-200 hover:bg-green-500 text-green-dark uppercase hover:text-white my-2 py-2 px-4 border border-green 
+                                                                            hover:border-transparent rounded mr-2 "
+                                                                            type="button">
+
+                                                                            Edit
+
+                                                                        </button>
+
+                                                                        <button
+
+                                                                            onClick={() => {
+                                                                                deleteCate(cate.id)
+                                                                            }}
+                                                                            className="bg-red-200 hover:bg-red-500 
+                                                                            text-green-dark uppercase hover:text-white 
+                                                                            py-2 px-4 border border-green  my-2
+                                                                            hover:border-transparent rounded mr-2" type="button">
+
+                                                                            Delete
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>)
+                                                    }) :
+                                                <tr>
+                                                    <td colSpan={3}>No Records Found.</td>
+                                                </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </>
+
+
+
+    )
 
 }
+
+export default Category

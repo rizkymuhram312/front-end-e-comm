@@ -23,7 +23,7 @@ export default function Product() {
     const [CartId, setCartId] = useState()
     const [Error, setError] = useState('')
     const history = useHistory()
-    const prod_id = localStorage.getItem("prod_id")
+    const prod_id = localStorage.getItem("productDetail")
 
     useEffect(() => {
         async function fetchCart(){
@@ -149,8 +149,11 @@ export default function Product() {
         console.log(Account)
     }, [])
 
+    
+
     {
         return (
+            <>
             <div>
                 <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4" >
                     <div className="w-1/2 sm:w-1/3 product">
@@ -158,17 +161,18 @@ export default function Product() {
                             className="selected"
                         />
                         <div className=" imgContainer">
-                            {Images.map((img, index) => (
-                                <img className="product-image"
+                            {/* {
+                            Images.map((img, index) => ( */}
+                                {/* <img className="product-image"
                                     style={{ border: selectedImg === img ? " 4px solid grey " : "" }}
 
                                     key={index}
-                                    src={img}
+                                    src={img.prod}
                                     alt="kerudung"
                                     onClick={() => setSelectetImg(img)}
-                                />
+                                /> */}
 
-                            ))}
+                            {/* ))} */}
 
                         </div>
 
@@ -285,9 +289,9 @@ export default function Product() {
                     </div>
                 </div>
             </div>
-        // </div>
-        )
+            </>
 
+        )
 
     }
 }

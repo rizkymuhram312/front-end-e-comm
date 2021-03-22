@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import EditProduct from './editProduct'
 import { apiProductMaster, apiProductTransaction } from '../../config/apiUrl'
 
@@ -75,6 +75,14 @@ export default function ProductSaya() {
   {
     return (
       <div>
+
+        <div class="container gap-8 justify-center  flex flex-row flex-wrap   text-2xl uppercase rounded mb-4 ">
+          <Link to="/productSaya" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Product</Link>
+          <Link to="/brand" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Brand</Link>
+          <Link to="/category" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Category</Link>
+          <Link to="/condition" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Condition</Link>
+        </div>
+
         { !showEdit ? ( //jika showEdit false, maka tampilkan product, jika true maka tampilkan edit form
           <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4">
             <div className="w-full flex flex-wrap content-evenly">
