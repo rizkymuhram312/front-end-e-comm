@@ -5,19 +5,16 @@ import { apiPayment } from '../../config/apiUrl'
 const VerifyPayment = (props) => {
     let acco_id = props.acco_id
     let apiPin = apiPayment + "/walletTransaction"
-    const [pin, setPin] = useState('s')
+    const [pin, setPin] = useState('')
     const data = props.data
     
     const onSubmit = (e) => {
         e.preventDefault()
         data.pin_number = pin
         axios.post(apiPin, data).then((result) => {
-            console.log(result)
             if (result.data) {
-                
                 setTimeout(() => {
                     props.setShowVerifyPin(false)
-                   
                 }, 5000);
             } else {
                 props.setVerified(false)

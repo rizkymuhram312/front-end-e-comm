@@ -28,6 +28,21 @@ import ProductSaya from './pages/product/productSaya';
 import EditProduct from './pages/product/editProduct'
 import billTopup from './pages/billTopup'
 import vendor from './pages/vendor'
+import ExpeditionRoutesIndex from './pages/Expeditions/ExpeditionRoutesIndex'
+import ExpeditionIndex from './pages/Expeditions/ExpeditionIndex'
+import OrderShippingIndex from './pages/OrderShipping/OrderShippingIndex'
+import OrderShippingArrivalIndex from './pages/OrderShipping/OrderShippingArrivalIndex'
+import MyAdv from './pages/advertising/myAdv'
+import AddAdv from './pages/advertising/addAdv'
+import BankAccount from './pages/payment/BankAccount'
+import Transaction from './pages/payment/Transactions'
+import OrdersKw from './pages/payment/Orders'
+import productMaster from './components/sideBarMenu/productMaster';
+import Brand from './pages/brand/brand';
+import AddBrand from './pages/brand/addBrand';
+import {EditBrand} from './pages/brand/editBrand';
+import WalletAndBank from './pages/payment/WalletAndBank'
+
 function App() {
   return (
     <BrowserRouter>
@@ -68,6 +83,18 @@ function App() {
           <Route path="/editproduct" component={EditProduct}/>
           <Route path="/billTopup" component={billTopup}/>
           <Route path="/vendor" component={vendor}/>
+          <Route path="/expeditionsroutes" component={ExpeditionRoutesIndex}/>
+          <Route path="/expeditions" component={ExpeditionIndex}/>
+          <Route path="/ordershipping" component={OrderShippingIndex}/>
+          <Route path="/ordershippingarrival" component={OrderShippingArrivalIndex}/>
+          <Route path="/advertising/my-adv" component={MyAdv}/>
+          <Route path="/advertising/add-adv" component={AddAdv}/>
+          <Route path="/wallet" component={Wallet}/>
+          <Route path="/bank-account/" component={BankAccount}/>
+          <Route path="/transactions/:acco_id" component={Transaction}/>
+          <Route path="/order-kw" component={OrdersKw}/>
+          <Route path="/wallet-bank" component={WalletAndBank}/>
+          <Route component={ <div>Page Not Found</div>}/>
         </Switch>
       </div>
       <Footer></Footer>

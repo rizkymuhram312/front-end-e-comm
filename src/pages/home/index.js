@@ -107,13 +107,13 @@ export default function Navbar({ fixed }) {
 
 				<>
 					<div className="capitalize text-center text-3xl font-bold mb-3">
-						selamat datang {localStorage.getItem('dataUserName')}
+						{/* selamat datang {localStorage.getItem('dataUserName')} */}
 					</div>
 				</>
 
 			) : (
 				<div className="capitalize text-center text-3xl font-bold mb-3">
-					anda belum login
+					{/* anda belum login */}
 				</div>
 			)}
 
