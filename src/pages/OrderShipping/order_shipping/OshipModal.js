@@ -2,6 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import {apiShipping} from '../../../config/apiUrl'
 import {apiOrder} from '../../../config/apiUrl'
+import {toast} from 'react-toastify'
+import { useHistory } from 'react-router';
+
 
 function OshipModal({
     setModal,
@@ -21,6 +24,20 @@ function OshipModal({
     // const[orderStatName, setOrderStatName]= useState("");
 
     // console.log(OrderShipping.order_name)
+
+    let history =useHistory()
+
+    
+
+
+    const notify = () => {
+       
+        toast.success('Data berhasil diperbarui', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000
+        })
+    }
+
 
     const onChangeOshipDesc = e =>{
         const value = e.target.value
@@ -83,6 +100,9 @@ console.log(dataFormOrderShipping.account.addresses[0].addr_address)
             await handleUpdate();
             await klikShipping();
             setModal(false)
+            notify()
+            history.push('/ordershipping')
+
            } catch (err) {
                console.log(err.message) 
            }

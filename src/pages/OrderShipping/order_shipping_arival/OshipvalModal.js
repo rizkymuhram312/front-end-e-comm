@@ -1,5 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router';
+import { toast } from 'react-toastify';
 import {apiOrder, apiShipping} from '../../../config/apiUrl'
 
 
@@ -7,13 +9,25 @@ function OshipvalModal({
     setModal,
     dataFormOrderArrival
 }) {
+    let history =useHistory()
+
     let[orderName, setOrderName]= useState(dataFormOrderArrival.order_name);
     let[orderStatName, setOrderStatName]= useState("ARRIVED");
     let[oshipArrivalDate]= useState(Date.now())
 
+
     console.log(dataFormOrderArrival.order_name)
     const onCancelEdit = ()=>{
         setModal(false)
+    }
+
+    
+    const notify = () => {
+       
+        toast.success('Data berhasil diperbarui', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000
+        })
     }
 
     // useEffect(()=>{
@@ -31,7 +45,9 @@ function OshipvalModal({
         await axios.put(`${apiOrder}/orders`, data)
         .then(result=>{
             if(result){
-                console.log(result.data)  
+                console.log(result.data)
+                notify()
+                history.push('/ordershippingarrival')  
             }
             
             console.log(result.data)

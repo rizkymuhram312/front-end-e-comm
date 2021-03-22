@@ -42,7 +42,7 @@ const TabelExpeditionRoutes = (props)=>{
                                                 Paket
                                             </th>
                                             <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            <button className="py-2 px-4 mx-1 bg-green-500 text-white hover:bg-green-400 reounded-full" onClick={()=> props.setShowModal(true) }>TAMBAH</button>
+                                            <button className="py-2 px-4 mx-1 bg-green-500 text-white hover:bg-green-400 reounded-full" onClick={()=> props.setShowModal(true) }><li className="fas fa-plus text-lg"></li></button>
                                             </th>
                                         </tr>
                                     </thead>
@@ -70,8 +70,8 @@ const TabelExpeditionRoutes = (props)=>{
                                                 <p className="name_expedition">{expeditionRoute.exro_package}</p>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <button className="py-1 mx-1 px-2 bg-blue-500 text-white hover:bg-blue-400 reounded" onClick={()=> { props.setEdit(expeditionRoute) }}>EDIT</button>
-                                                <button className="py-1 px-2 mx-1 bg-red-500 hover:bg-red-400 text-white reounded" onClick={()=> { props.setDelete(expeditionRoute.exro_id) }}>HAPUS</button>                  
+                                                <button className="py-2 mx-2 px-2 bg-blue-500 text-white hover:bg-blue-400 reounded" onClick={()=> { props.setEdit(expeditionRoute) }}>&nbsp;<li className="fas fa-edit text-lg">&nbsp;</li></button>
+                                                <button className="py-2 px-2 mx-1 bg-red-500 hover:bg-red-400 text-white reounded" onClick={()=> { props.setDelete(expeditionRoute.exro_id) }}>&nbsp;<li className="fas fa-trash-alt text-lg">&nbsp;</li></button>                  
                                             </td>
                                         </tr>
                                                 )
