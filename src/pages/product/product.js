@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react'
 import convertToRupiah from './convertToRupiah'
 import {apiCart, apiProductTransaction, apiUserAccount, apiUserMaster} from "../../config/apiUrl"
 import { useHistory } from 'react-router'
+import {toast} from 'react-toastify'
 
 export default function Product() {
-    // const { prod_id } = useParams();
 
-    const [selectedImg, setSelectetImg] = useState(Images[0]);
+    const [selectedImg, setSelectetImg] = useState([]);
     const [count, setCount] = useState(0)
     const [Size, setSize] = useState([])
     const [Color, setColor] = useState([])
@@ -23,7 +23,18 @@ export default function Product() {
     const [CartId, setCartId] = useState()
     const [Error, setError] = useState('')
     const history = useHistory()
-    const prod_id = localStorage.getItem("prod_id")
+    const prod_id = localStorage.getItem("productDetail")
+    const primId = localStorage.getItem("productImages")
+    const shopName = localStorage.getItem("dataAccountShopName")
+
+    toast.configure()
+    const notify = () => {
+
+        toast.success('Data berhasil ditambahkan', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000
+        })
+    }
 
     useEffect(() => {
         async function fetchCart(){
@@ -34,6 +45,17 @@ export default function Product() {
             .catch((err) => console.log(err));
         }
         fetchCart()
+    }, [])
+
+    useEffect(() => {
+        async function fetchImg(){
+            return await axios({
+                url:`${apiProductTransaction}/productImages/${primId}`,
+                method:'GET'
+            }).then((result) => setSelectetImg(result.data.prim_path) )
+            .catch((err) => console.log(err));
+        }
+        fetchImg()
     }, [])
 
     const klikCart = (x) => {
@@ -98,6 +120,68 @@ export default function Product() {
         }
         }
 
+        const klikkeranjang = (x) => {
+            x.preventDefault()
+            const data = {
+                clit_subweight: count * Number(Product.prod_weight),
+                clit_subtotal: count * Number(Product.prod_price),
+                clit_prod_id: 1511,
+                clit_qty: count,
+                clit_stat_name:'PENDING'
+                
+    
+            }
+            if(CartId!==undefined){
+                console.log(data)
+                axios.post(`${apiCart}/cartLineItems/${acco_id}/${CartId}/${prod_id}`, data)
+                    .then(result => {
+                        if (result.data.error) {
+                            console.log(result.data)
+                            
+                        } else {
+                            if (result.data) {
+                                
+                                // setCartQuantity('')
+                                setCartTotal('')
+                                setCartWeight('')
+                                setCartProdId('')
+        
+        
+        
+                            } 
+                        }notify()
+                    })
+                    .catch((e) => {
+                        setError(e.response.message)
+                    })
+            }
+            else {
+    
+                console.log(data)
+                axios.post(`${apiCart}/cartLineItems/${acco_id}`, data)
+                    .then(result => {
+                        if (result.data.error) {
+                            console.log(result.data)
+                            
+                        } else {
+                            if (result.data) {
+                                
+                                // setCartQuantity('')
+                                setCartTotal('')
+                                setCartWeight('')
+                                setCartProdId('')
+        
+        
+        
+                            } 
+                        }notify()
+                    })
+                    .catch((e) => {
+                        setError(e.response.message)
+                    })
+            }
+            }
+
     useEffect(() => {
         let fetchProduct = async () => {
             await axios({
@@ -152,13 +236,13 @@ export default function Product() {
     {
         return (
             <div>
-                <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4" >
+                <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500" >
                     <div className="w-1/2 sm:w-1/3 product">
                         <img src={selectedImg} alt="Selected"
                             className="selected"
                         />
                         <div className=" imgContainer">
-                            {Images.map((img, index) => (
+                            {/* {Images.map((img, index) => (
                                 <img className="product-image"
                                     style={{ border: selectedImg === img ? " 4px solid grey " : "" }}
 
@@ -168,7 +252,7 @@ export default function Product() {
                                     onClick={() => setSelectetImg(img)}
                                 />
 
-                            ))}
+                            ))} */}
 
                         </div>
 
@@ -180,34 +264,34 @@ export default function Product() {
                             </h1>
                             <div class="w-full flex item-center text-sm font-medium text-gray-500 dark:text-gray-300 mt-2">
                                 5.0
-                            <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 fill-current text-pink-500" viewBox="0 0 24 24">
                                     <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z">
                                     </path>
                                 </svg>
-                                <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 fill-current text-pink-500" viewBox="0 0 24 24">
                                     <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z">
                                     </path>
                                 </svg>
-                                <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 fill-current text-pink-500" viewBox="0 0 24 24">
                                     <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z">
                                     </path>
                                 </svg>
-                                <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 fill-current text-pink-500" viewBox="0 0 24 24">
                                     <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z">
                                     </path>
                                 </svg>
-                                <svg class="w-5 h-5 fill-current text-gray-600" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 fill-current text-pink-500" viewBox="0 0 24 24">
                                     <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z">
                                     </path>
                                 </svg>
                             </div>
                         </div>
                         {/* <div className="w-4/12 mb-5">Harga</div> */}
-                        <div className="w-full mb-5 text-4xl text-primary-600"values= "Color">{convertToRupiah(Product.prod_price)}</div>
+                        <div className="w-full mb-5 text-4xl text-pink-500"values= "Color">{convertToRupiah(Product.prod_price)}</div>
                         <div className="w-4/12">Warna</div>
                         <div className="w-6/12">
                             {Color.map((x) =>
-                                <button class="bg-white hover:bg-grey-700 mb-5 mr-2 text-black px-3 border border-black-400 rounded "
+                                <button class="bg-white hover:bg-pink-700 mb-5 mr-2 text-black px-3 border border-pink-500 rounded active:bg-pink-500"
                                 >
                                     {x}
                                 </button>
@@ -221,7 +305,7 @@ export default function Product() {
                             {
                                 Size.map((x) =>
                                     <label class="text-center text-sm mb-5 mr-2">
-                                        <input type="radio" class=" w-4 h-4 flex items-center justify-center bg-gray-100 dark:bg-gray-600 rounded-lg" name="size" value="xs" />
+                                        <input type="radio" class=" w-4 h-4 flex items-center justify-center bg-pink-500 dark:bg-gray-600 rounded-lg" name="size" value="xs" />
                                         {x}
                                     </label>
 
@@ -229,17 +313,17 @@ export default function Product() {
                             }
                         </div>
 
-                    <div className="w-full flex">
-                        <div className="w-4/12 mb-10">Kuantitas</div>
+                        <div className="w-full flex">
+                            <div className="w-4/12 mb-10">Kuantitas</div>
 
                             <div class="flex flex-row h-10 w-2/12 rounded-lg relative bg-transparent mt-1">
-                                <button onClick={() => count > 1 ? setCount(count - 1) : setCount(0)} data-action="increment" class="bg-white-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
-                                    <span class="m-auto text-2xl font-thin">−</span>
+                                <button onClick={() => count > 1 ? setCount(count - 1) : setCount(0)} data-action="increment" class="bg-pink-500 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                                    <span class="m-auto text-2xl font-thin text-white">−</span>
                                 </button>
                                 <input class="outline-none focus:outline-none text-center w-full bg-white-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value={count}></input>
                                 <button onClick={() => setCount(count + 1)}
-                                    data-action="increment" class="bg-white-300 text-gray-600 hover:text-gray-700 hover:bg-black-400 h-full w-20 rounded-r cursor-pointer">
-                                    <span class="m-auto text-2xl font-thin">+</span>
+                                    data-action="increment" class="bg-pink-500 text-gray-600 hover:text-gray-700 hover:bg-black-400 h-full w-20 rounded-r cursor-pointer">
+                                    <span class="m-auto text-2xl font-thin text-white">+</span>
                                 </button>
 
                             </div>
@@ -250,34 +334,36 @@ export default function Product() {
                         </div>
                         <div className="w-full flex">
                             <div className="w-4/12">
-                                <a href="#" class="uppercase py-2 px-4 rounded-lg bg-transparant border-2 border-gray text-black-500 dark:text-white hover:bg-black-500 hover:text-black text-md">
+                                <a href="#" class="uppercase py-2 px-4 rounded-lg bg-transparant border-2 border-pink-500 text-black-500 dark:text-white hover:bg-black-500 hover:text-black text-md"
+                                values="klikKeranjang" onClick={klikkeranjang}
+                                >
                                     MASUKKAN KERANJANG
                         </a>
                             </div>
                             <div class="w-6/12">
-                                <a href="#" class="uppercase py-2 px-4 rounded-lg bg-primary border-2 border-gray text-white text-md mr-4 hover:bg-transparant 400" 
+                                <a href="#" class="uppercase py-2 px-4 rounded-lg bg-pink-500 border-2 border-pink-500 text-white text-md mr-4 hover:bg-transparant 400" 
                                 values="klikCart" onClick={klikCart}>
                                     BELI SEKARANG
                         </a>
                             </div>
                         </div>
                     </div>
-                    <div className="w-4/12">
-                        <a href="#" class="uppercase py-2 px-4 rounded-lg bg-transparant border-2 border-black text-black-500 dark:text-white hover:bg-black-500 hover:text-black text-md">
-                            MASUKKAN KERANJANG
-    </a>
-                    </div>
-                    <div className="w-2/3 flex flex-wrap content-evenly">
+                </div>
+                {/* <div className="w-full flex flex-wrap rounded-lg shadow py-5 mb-5 border-4" > */}
+                    {/* <div className="w-1/3 ">
+                        <img src="./samsung logo.png" class=" ml-5 rounded-lg inset-0 w-full h-full object-cover " />
+                    </div> */}
+                    {/* <div className="w-2/3 flex flex-wrap content-evenly">
                         <div className="w-3/4">
                             <h1 class="flex-auto text-xl font-semibold dark:text-gray-50">
-                                {Account.acco_shopname}Samsung Store
+                                {shopName}
                         </h1>
                         </div>
                         <div className="w-4/12 mb-5">Jakarta</div>
-                    </div>
+                    </div> */}
 
-                </div>
-                <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4" >
+                {/* </div> */}
+                <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500" >
                     <div className="w-full ml-10 mr-10 mb-5 shadow-none"> Deskripsi Product </div>
                     <div class="w-full ml-10 mr-10 text-gray-700 text-justify">
                         {Product.prod_desc}
@@ -285,10 +371,6 @@ export default function Product() {
                     </div>
                 </div>
             </div>
-        // </div>
         )
-
-
     }
 }
-

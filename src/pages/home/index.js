@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { apiProductTransaction } from "../../config/apiUrl";
+import convertToRupiah from '../product/convertToRupiah'
 // Swiper
 import Swiper from 'react-id-swiper';
 import SwiperCore, { Navigation, Pagination } from 'swiper/core';
@@ -90,13 +91,17 @@ export default function Navbar({ fixed }) {
 	const parallaxAmount = parallaxSwiper ? parallaxSwiper.width * 0.95 : 0;
 	const parallaxOpacity = 0.5;
 
+	const DetailProduct = (prod_id,product_images) => {
+        localStorage.setItem('productDetail', prod_id)
+		localStorage.setItem('productImages', product_images)
+		console.log(prod_id)
+		console.log(product_images)
+		
+		
 
-	// const a = axios.defaults.headers.common['Authorization'] = 'bearer ' + token
-	// console.log(a)
-	// if (!token) {
-	// 	// alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
-	// 	return <Redirect to="/login" />
-	// }
+		history.push(`/product/${prod_id}`)
+	}
+	
 
 	return (
 
@@ -140,25 +145,42 @@ export default function Navbar({ fixed }) {
 					</div>
 					<div class="mt-16">
 						{
-							Product.map((prod) => {
+							Product.map((x) => {
+								console.log(x)
 								return (
-									<>
-										<h3 class="text-gray-600 text-2xl font-medium">{prod.prod_name}</h3>
-										<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
-											<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-												<div class="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')` }}>
-													<button class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-														<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-													</button>
-												</div>
-												<div class="px-5 py-3">
-													<h3 class="text-gray-700 uppercase">Chanel</h3>
-													<span class="text-gray-500 mt-2">$12</span>
+									<div key={x.prod_id} class="bg-white w-48 shadow-lg cursor-pointer rounded transform hover:scale-105 hover:mt-2 duration-300 ease-in-out m-2"
+
+									onClick={() => DetailProduct(x.prod_id, x.product_images[0].prim_id)} 
+									>
+										{console.log(Product)}
+									
+
+										{/* <Link to={`/product/${x.prod_id}`, localStorage.setItem("productDetail", x.prod_id)}> */}
+											{/* icon seller  */}
+								{/* {localStorage.setItem("productDetail", x.prod_id)} */}
+										
+											<div class="static">
+												<div class="absolute top-0 left-0 mt-2 bg-gray-100 px-2">
+													<p>Seller</p>
 												</div>
 											</div>
-										</div>
-									</>
+										{
+										console.log(x.product_images[0])}
 
+											<div class="">
+												<img src={x.product_images[0]?.prim_path} alt="" class="selected" />
+											</div>
+
+											<div class="p-4">
+												<h2 class="text-md font-bold uppercase">
+													{x.prod_name}</h2>
+												<p class="font-light text-gray-500 text-md font-bold "><span></span>{convertToRupiah(x.prod_price)}</p>
+												<p class="font-light text-gray-500 text-md font-bold ">{x.city}</p>
+
+												<a href="#" class="block bg-gray-300 py-2 px-2 text-gray-600 text-center rounded shadow-lg uppercase font-light mt-6 hover:bg-gray-400 hover:text-white duration-300 ease-in-out">Add to cart</a>
+											</div>
+										{/* </Link> */}
+									</div>
 								)
 							})
 

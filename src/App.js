@@ -43,6 +43,7 @@ import AddBrand from './pages/brand/addBrand';
 import {EditBrand} from './pages/brand/editBrand';
 import WalletAndBank from './pages/payment/WalletAndBank'
 
+
 function App() {
   return (
     <BrowserRouter>
