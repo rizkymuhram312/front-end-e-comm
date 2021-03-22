@@ -52,6 +52,19 @@ export default function AddAdv() {
       .catch((err) => console.error(err));
   };
 
+  const numberWithCommas = (n) => {
+    let nString = ""
+    let nStringCheck = n.toString()
+    let nSLength = nStringCheck.length
+    while(nSLength>3){
+        nString = nStringCheck.slice(nSLength-3,nSLength) + "." + nString
+        nSLength -= 3
+    }
+    nString = nStringCheck.slice(0,nSLength) + "." + nString
+    nString = nString.slice(0,-1)
+    return nString
+}
+
   return (
     <div>
       <div className="flex flex-wrap">
@@ -82,25 +95,25 @@ export default function AddAdv() {
             {Product.product_images && <img src={`../${Product.product_images[0]?Product.product_images[0].prim_filename:"adv.jpg"}`} class=" ml-5 rounded-lg inset-0 w-64 h-64 object-cover " alt="product" style={{display:'block', margin:'auto'}}/>}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col content-evenly xl:px-32 md:px-24 p-5">
-              <label>Published Date</label>
+              <label className="mt-2">Published Date</label>
               <input
                 name="publishedDate"
                 type="date"
                 ref={register({ required: true })}
-                className="bg-gray-200 rounded"
+                className="bg-gray-200 p-1 rounded"
               />
               {errors.publishedDate && (
                 <span className="text-red-500">This field is required</span>
               )}
             
-              <label>Package Type</label>
+              <label className="mt-2">Package Type</label>
               <select name="packageType" onChange={(e)=>{
                 var index = e.target.selectedIndex
                 setPackage(e.target[index].text)
                 setAmount(e.target.value)
               }
             } ref={register} 
-                className="bg-gray-200 rounded"
+                className="bg-gray-200 rounded p-1"
                 >
                 {
                   Pack.map(x=> <option value={x.pack_amount}>{x.pack_name}</option>)
@@ -109,11 +122,11 @@ export default function AddAdv() {
 
             {
                 Package.includes("hari") && <> 
-                <label>Finished Date</label>
+                <label className="mt-2">Finished Date</label>
                     <input
                       name="finishedDate"
                       type="date"
-                      className="bg-gray-200 rounded"
+                      className="bg-gray-200 rounded p-1"
                     />
                     {errors.finishedDate && (
                       <span className="text-red-500">This field is required</span>
@@ -122,31 +135,31 @@ export default function AddAdv() {
             }
               
 
-              <label>Amount</label>
+              <label className="mt-2">Amount</label>
               <input
                 name="amount"
                 type="number"
                 ref={register({ required: true })}
-                className="bg-gray-200 rounded"
+                className="bg-gray-200 rounded p-1"
                 onChange={e=>setBillAmount(e.target.value)}
               />
               {errors.amount && (
                 <span className="text-red-500">This field is required</span>
               )}
 
-              <label>Total Bill Amount</label>
+              <label className="mt-2">Total Bill Amount</label>
               <input
                 name="totalBill"
-                type="number"
-                className="bg-gray-200 rounded"
+                type="text"
+                className="bg-gray-200 p-1 rounded "
                 ref={register}
-                value={BillAmount * Amount }
+                value={"Rp. "+numberWithCommas(BillAmount * Amount) }
               />
               {errors.totalBill && (
                 <span className="text-red-500">This field is required</span>
               )}
 
-              <input type="submit" className="mt-10 bg-primary rounded p-2 w-64 text-white font-bold block m-auto cursor-pointer" onClick={()=>setValue("totalBill",BillAmount * Amount)} />
+              <input type="submit" className="mt-5 bg-button hover:bg-green-300 rounded p-2 w-64 text-white font-bold block m-auto cursor-pointer" onClick={()=>setValue("totalBill",BillAmount * Amount)} />
             </div>
           </form>
         </div>

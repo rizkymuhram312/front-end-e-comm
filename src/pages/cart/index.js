@@ -209,13 +209,26 @@ export default function Cart() {
     }
   }
 
+  const numberWithCommas = (n) => {
+    let nString = ""
+    let nStringCheck = n.toString()
+    let nSLength = nStringCheck.length
+    while(nSLength>3){
+        nString = nStringCheck.slice(nSLength-3,nSLength) + "." + nString
+        nSLength -= 3
+    }
+    nString = nStringCheck.slice(0,nSLength) + "." + nString
+    nString = nString.slice(0,-1)
+    return nString
+}
+
   return (
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap mb-5">
         <div className="w-full md:w-3/12 md:mt-10 px-1 text-center font-bold text-xl mb-4">
           My Cart
         </div>
-        <div className="w-full md:w-9/12 px-1 ">
-          <div className="text-sm block my-4 p-3  rounded border border-solid border-gray-200 bg-primary">
+        <div className="w-full md:w-9/12 ">
+          <div className="text-sm block mb-4 p-3  rounded border border-solid bg-primary text-white">
             <div className="flex justify-around items-center font-bold">
               <div className="lg:w-1/12 md:w-3/12 sm:w-2/12 w-4/12">Produk</div>
               <div>Harga</div>
@@ -228,7 +241,7 @@ export default function Cart() {
           {Cart.map((x,y) => 
             {
               return (
-              <div className="text-sm block my-4 p-3  rounded border border-solid border-gray-200 bg-primary">
+              <div className="text-sm block my-4 p-3  rounded border border-solid border-gray-500">
                 {
                   deleted[y]===true?<ModalDelete 
                   image={x.product.product_images[0]?.prim_filename} 
@@ -241,7 +254,6 @@ export default function Cart() {
                   }}
                   />:null
                 }
-                <hr />
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
                     <div>
@@ -261,25 +273,24 @@ export default function Cart() {
                     </div>
                     <div>{x.product.prod_desc}</div>
                   </div>
-                  <div>{x.product.prod_price}</div>
+                  <div>Rp. {numberWithCommas(x.product.prod_price)}</div>
                     <div className="flex flex-row">
-                      <div className="border-2 border-white px-1" style={{cursor:'pointer'}} onClick={()=>minus(x.clit_id,y)}>-</div>
-                      <div className="border-2 border-white px-1">{x.clit_qty}</div>
-                      <div className="border-2 border-white px-1" style={{cursor:'pointer'}} onClick={()=>plus(x.clit_id,y)}>+</div>
+                      <div className="px-2 bg-gray-500 text-white rounded" style={{cursor:'pointer'}} onClick={()=>minus(x.clit_id,y)}>-</div>
+                      <div className="px-2 ">{x.clit_qty}</div>
+                      <div className="px-2 bg-gray-500 text-white rounded" style={{cursor:'pointer'}} onClick={()=>plus(x.clit_id,y)}>+</div>
                     </div>
-                  <div>{x.clit_subtotal}</div>
+                  <div>Rp. {numberWithCommas(x.clit_subtotal)}</div>
                   <div className="lg:mr-10"> 
                   <button className=" font-bold bg-button p-1 md:p-2 hover:bg-pink-300 rounded text-black" onClick={()=> toggleDelete(y)}>
                   Hapus
                   </button></div>
                 </div>
-                <hr />
               </div>
             )
             }
           )}
 
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mx-2">
             <div>
               <input
                 type="checkbox"
@@ -290,9 +301,9 @@ export default function Cart() {
               <span>Pilih Semua</span>
             </div>
             <div>Subtotal untuk Produk({Order?.cart_total_qty} produk) </div>
-            <div>{Order?.cart_total_amount}</div>
+            <div>Rp. {Order.cart_total_amount?numberWithCommas(Order.cart_total_amount):0}</div>
             <div>
-              <button className=" font-bold bg-button  lg:p-3 p-2 hover:bg-button rounded lg:mr-5"
+              <button className="text-black font-bold bg-button  lg:p-3 p-2 hover:bg-green-300 rounded lg:mr-5 mb-5"
               onClick={checkout}>
                 Checkout
               </button>
