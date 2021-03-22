@@ -233,8 +233,11 @@ export default function Product() {
         console.log(Account)
     }, [])
 
+    
+
     {
         return (
+            <>
             <div>
                 <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500" >
                     <div className="w-1/2 sm:w-1/3 product">
@@ -247,10 +250,10 @@ export default function Product() {
                                     style={{ border: selectedImg === img ? " 4px solid grey " : "" }}
 
                                     key={index}
-                                    src={img}
+                                    src={img.prod}
                                     alt="kerudung"
                                     onClick={() => setSelectetImg(img)}
-                                />
+                                /> 
 
                             ))} */}
 
@@ -371,6 +374,9 @@ export default function Product() {
                     </div>
                 </div>
             </div>
+            </>
+
         )
+
     }
 }
