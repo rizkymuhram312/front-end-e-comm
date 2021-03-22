@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom'
+
 import axios from 'axios'
 import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
 
@@ -69,6 +71,18 @@ const Daftar = () => {
         })
     }
 
+    const token = localStorage.getItem('token')
+    // console.log(token)
+
+
+    const a = axios.defaults.headers.common['Authorization'] = 'bearer ' + token
+    console.log(a)
+
+
+    if (token) {
+        // alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
+        return <Redirect to="/home" />
+    }
 
 
     return (
@@ -97,16 +111,16 @@ const Daftar = () => {
 
                     <span className="text-2xl font-light">Sign Up</span>
                     <div className="relative mt-4 bg-white shadow-md sm:rounded-lg text-left">
-                        <div className="h-2 bg-indigo-400 rounded-t-md"></div>
+                        <div className="h-2 bg-pink-600 rounded-t-md"></div>
                         <div className="py-6 px-8">
                         
-                            <input type="text" placeholder="Fullname" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md" value={user_name} onChange={onChangeUsername}/>
-                            <input type="text" placeholder="Email" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md" value={user_email} onChange={onChangeEmail}/>
-                            <input type="password" placeholder="Password" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md"  value={user_password} onChange={onChangePassword} />
+                            <input type="text" placeholder="Fullname" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_name} onChange={onChangeUsername}/>
+                            <input type="text" placeholder="Email" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_email} onChange={onChangeEmail}/>
+                            <input type="password" placeholder="Password" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md"  value={user_password} onChange={onChangePassword} />
                             {/* <input type="password" placeholder="Confirm Password" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md"  value={user_confpassword} onChange={onChangeConfPassword} /> */}
                             
                             <div className="flex justify-center items-baseline">
-                                <button className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg" values="klikDaftar" onClick={klikDaftar}>Create Account</button>
+                                <button className="mt-4 bg-pink-600 hover:bg-pink-500 text-white py-2 px-6 rounded-lg" values="klikDaftar" onClick={klikDaftar}>Create Account</button>
                             </div>
 
 
@@ -125,7 +139,7 @@ const Daftar = () => {
                     </div>
                     <div className="text-grey-dark mt-6">
                     Already have an account? &nbsp;
-                    <a className="underline font-semibold text-blue-600" href="../login/">
+                    <a className="underline font-semibold text-pink-600" href="../login/">
                         Sign In
                     </a>.
                 </div>

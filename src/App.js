@@ -19,6 +19,7 @@ import Kodepos from './pages/kodepos/kodepos'
 import RegisterAccount from './pages/users/RegisterAccount'
 import DashboardUserAccount from './pages/home/DashboardUserAccount'
 import Address from './pages/address/address'
+import EditAddress from './pages/address/EditAddress'
 import Wallet from './pages/payment/MyWallet'
 import MyOrders from './pages/orders/myOrders'
 import Advertising from './pages/advertising'
@@ -40,6 +41,9 @@ import productMaster from './components/sideBarMenu/productMaster';
 import Brand from './pages/brand/brand';
 import AddBrand from './pages/brand/addBrand';
 import {EditBrand} from './pages/brand/editBrand';
+
+import FilesUpload from "./components/FilesUpload";
+
 
 function App() {
   return (
@@ -73,7 +77,7 @@ function App() {
           <Route path="/registerAccount" component={RegisterAccount} exact />
           <Route path="/dashboarduser" component={DashboardUserAccount} exact />
           <Route path="/address" component={Address} exact />
-          {/* <Route path="/editAddress" component={EditAddress} exact />s */}
+          <Route path="/editAddress" component={EditAddress} exact />s
           <Route path="/myorders" component={MyOrders}/>
           <Route path="/advertising/my-pkg" component={Advertising}/>
           <Route path="/product/:prod_id" component={Product} />
@@ -90,7 +94,8 @@ function App() {
           <Route path="/wallet" component={Wallet}/>
           <Route path="/bank-account/:acco_id" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
-          <Route path="/order-kw" component={OrdersKw}/>
+          <Route path="/upload" component={FilesUpload}/>
+
         </Switch>
       </div>
       <Footer></Footer>

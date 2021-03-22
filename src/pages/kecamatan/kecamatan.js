@@ -31,19 +31,25 @@ export default class Kecamatan extends Component {
 
     }
 
+    onRefreshTable =()=>{
+        this.refresh()
+        this.showListKecamatan();
+        this.showListCity();
 
+        
+    }
 
     // 2.panggil listKecamatan dari api-Kecamatan, kemudian isi Kecamatan[] state dengan data dari listKecamatan
-    showListKecamatan = () => {
-        listKecamatan().then(data => {
+    showListKecamatan = async () => {
+        await listKecamatan().then(data => {
             this.setState({
                 kecamatan: data
             })
         })
     }
 
-    showListCity = () => {
-        listCity().then(data => {
+    showListCity = async () => {
+        await listCity().then(data => {
             this.setState({
                 city: data
             })
@@ -73,20 +79,16 @@ export default class Kecamatan extends Component {
 
     onDeleteRow = (value)=>{
         deleteKecamatan(value).then(response => {
-            // console.log(response);
+            console.log(response);
 
+            this.onRefreshTable();
         }).catch(function (error) {
             console.log(error);
         });;
 
-        this.onRefreshTable();
     }
 
-    onRefreshTable =()=>{
-        this.refresh()
-        this.showListKecamatan();
-        
-    }
+ 
 
 
 

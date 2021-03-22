@@ -6,11 +6,14 @@ export default function Navbar({ fixed }) {
 
   const [isLogin, setisLogin] = useState(false)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const [masuk, setMasuk] = useState(false);
-  const [sideBar, setSideBar ] = useState(false);
-  const token = localStorage.token
+  const [alertLogin, setAlertLogin] = useState('');
+  const [isOpen, setIsOpen] = React.useState(false);
   const [tvalue, setTValue] = useState();
-  const [isOpen, setIsOpen] = useState();
+
+
+  let token = localStorage.token
+
+  const [value, setValue] = useState();
   const refresh = () => {
     // re-renders the component
     setTValue({});
@@ -26,7 +29,14 @@ export default function Navbar({ fixed }) {
     else {
 
       setisLogin(true);
+      
+
+
       setTValue({});
+      refresh();
+      // <Redirect to="/home" />
+
+
     }
     // setTValue({});
   }, token,tvalue)
@@ -34,12 +44,16 @@ export default function Navbar({ fixed }) {
 
 
  
+
+
+
+
   const klikLogout = () => {
     localStorage.clear()
 
     alert("Anda Berhasil Logout!");
     setisLogin(false)
-    setTValue({});
+    setValue({});
 
 
     history.push("/login")
@@ -55,8 +69,12 @@ export default function Navbar({ fixed }) {
 
   const fotoprofil = localStorage.getItem('profilImage')
 
+
+
   return (
-    <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white">
+
+    
+    <div class=" mx-auto px-6 py-3 mb-5 bg-pink-600 text-white">
       <div class="container flex items-center justify-between">
         <div class="hidden w-full text-white md:flex md:items-center">
           {/* <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,20 +86,20 @@ export default function Navbar({ fixed }) {
           E-Commerce
             </a>
         <div class="flex items-center justify-end w-full lg:gap-2">
-
           <div
             className={
               "lg:flex flex-grow items-center" +
               (navbarOpen ? " flex" : " hidden")
             }
             id="example-navbar-danger">
-
           </div>
-          {isLogin ? (
+          {isLogin ?  (
+              
             <>
               <ul className="flex flex-col lg:flex-row list-none lg:ml-auto align-center justify-center items-center">
 
-                <img src={fotoprofil === "null" || fotoprofil === null ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle border-none mr-4" />
+
+                <img src={fotoprofil === "null" || fotoprofil === null || fotoprofil === undefined || fotoprofil === "" ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle mr-4 border-2 border-white" />
                 <li className="nav-item">
 
                   <div className="dropdown inline-block relative">
@@ -92,7 +110,7 @@ export default function Navbar({ fixed }) {
                       </span>
                     </button>
                     <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
-                      <li className=" bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboarduser')} style={{ cursor: 'pointer' }}>
+                      <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboarduser')} style={{ cursor: 'pointer' }}>
                         {/* <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser"> */}
                       Profil
                       {/* </a> */}
@@ -183,7 +201,7 @@ export default function Navbar({ fixed }) {
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/advertising/my-pkg">Advertising</a>
         </div>
       </nav>
-      {/* search */}
+      
       {/* <div class="relative mt-6 max-w-lg mx-auto">
         <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
           <svg class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none">

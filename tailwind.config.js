@@ -5,11 +5,11 @@ module.exports = {
     theme:  {
       extend: {
         colors: {
-          primary: '#E61872',
-          secondary: '#b08968',
-          buttonOn: '#e6ccb2',
-          buttonOff: '#e6ccb2',
-        },
+          table : '#d3e0dc',
+          primary: '#fcd1d1',
+          secondary: '#ece2e1',
+          button: '#aee1e1'
+        }
       }
     },
     variants: {

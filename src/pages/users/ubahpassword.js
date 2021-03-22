@@ -158,7 +158,7 @@ const UbahPassword = (props) => {
                     </div>
                     <div className="flex justify-center items-baseline">
                         <button
-                            className="mt-4 bg-gray-700 hover:bg-gray-800 text-white py-2 px-6 rounded-lg flex justify-center items-baseline"
+                            className="mt-4 bg-pink-600 hover:bg-pink-500 text-white py-2 px-6 rounded-lg flex justify-center items-baseline"
                             values="daftarAccount" onClick={simpan}>
                             Ubah Password
             </button>
