@@ -644,8 +644,8 @@ then((result)=>{
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 1
-                    ? "text-white bg-" + color + "-400"
-                    : "text-" + color + "-400 bg-white")
+                    ? "text-white bg-" + color + "-600"
+                    : "text-" + color + "-600 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -663,8 +663,8 @@ then((result)=>{
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 2
-                    ? "text-white bg-" + color + "-400"
-                    : "text-" + color + "-400 bg-white")
+                    ? "text-white bg-" + color + "-600"
+                    : "text-" + color + "-600 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -682,8 +682,8 @@ then((result)=>{
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 3
-                    ? "text-white bg-" + color + "-400"
-                    : "text-" + color + "-400 bg-white")
+                    ? "text-white bg-" + color + "-600"
+                    : "text-" + color + "-600 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -702,8 +702,8 @@ then((result)=>{
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 4
-                    ? "text-white bg-" + color + "-400"
-                    : "text-" + color + "-400 bg-white")
+                    ? "text-white bg-" + color + "-600"
+                    : "text-" + color + "-600 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -722,8 +722,8 @@ then((result)=>{
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 5
-                    ? "text-white bg-" + color + "-400"
-                    : "text-" + color + "-400 bg-white")
+                    ? "text-white bg-" + color + "-600"
+                    : "text-" + color + "-600 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -739,7 +739,7 @@ then((result)=>{
 
 
           </ul>
-          <div className="relative flex flex-col min-w-0 break-words bg-secondary w-full mb-6 shadow-lg rounded">
+          <div className="relative flex flex-col min-w-0 break-words bg-table w-full mb-6 shadow-lg rounded">
             <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
@@ -761,7 +761,7 @@ then((result)=>{
                         }
                           return (
                             <>
-                              <div value={valCard} onClick={onClickVal} class="cursor-pointer h-30 w-40 m-4 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
+                              <div value={valCard} onClick={onClickVal} class="cursor-pointer h-30 w-40 m-4 bg-white rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
                               <Pricecardpulsa
                                 nominal={y.veru_bill_amount}
                                 harga={y.veru_bill_price}
@@ -779,7 +779,7 @@ then((result)=>{
 
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-button text-indigo-500 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
+                    <button class="justify-self-end bg-button text-green-700 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
                     type="button" 
                     style={{ transition: "all .15s ease" }}
                     onClick={addPulsa}>
@@ -813,7 +813,7 @@ then((result)=>{
 
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-button text-indigo-500 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
+                    <button class="justify-self-end bg-button text-green-700 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
                     type="button" 
                     style={{ transition: "all .15s ease" }}
                     onClick={addInternet}
@@ -837,7 +837,7 @@ then((result)=>{
                       if (x.vendor_name === 'Steam') {
                         return (
                           <>
-                            <div value={gameCard} onClick={onClickGame} class="cursor-pointer h-32 w-32 m-6 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
+                            <div value={gameCard} onClick={onClickGame} class="cursor-pointer h-32 w-32 m-6 bg-white rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
                               <div class="flex justify-center">
                                 <img class="h-10 w-10" src="./steam.png" />
                               </div>
@@ -853,7 +853,7 @@ then((result)=>{
                       else if (x.vendor_name === 'MobileLegends') {
                         return (
                           <>
-                            <div value={gameCard} onClick={onClickGame} class="cursor-pointer h-32 w-32 m-6 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
+                            <div value={gameCard} onClick={onClickGame} class="cursor-pointer h-32 w-32 m-6 bg-white rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
                               <div class="flex justify-center">
                                 <img class="h-10 w-10" src="./mobile_legends.png" />
                               </div>
@@ -869,7 +869,7 @@ then((result)=>{
                       else if (x.vendor_name === 'Garena') {
                         return (
                           <>
-                            <div value={gameCard} onClick={onClickGame} class="cursor-pointer h-32 w-32 m-6 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
+                            <div value={gameCard} onClick={onClickGame} class="cursor-pointer h-32 w-32 m-6 bg-white rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
                               <div class="flex justify-center">
                                 <img class="h-10 w-10" src="./garena.png" />
                               </div>
@@ -885,7 +885,7 @@ then((result)=>{
                       else if (x.vendor_name === 'PUBG') {
                         return (
                           <>
-                            <div value={gameCard} onClick={onClickGame} class="cursor-pointer h-32 w-32 m-6 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
+                            <div value={gameCard} onClick={onClickGame} class="cursor-pointer h-32 w-32 m-6 bg-white rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
                               <div class="flex justify-center">
                                 <img class="h-10 w-10" src="./pubg.png" />
                               </div>
@@ -912,7 +912,7 @@ then((result)=>{
                       }
                         return (
                           <>
-                          <div value={valCardGame} onClick={onClickValGame} class="cursor-pointer h-30 w-40 m-4 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
+                          <div value={valCardGame} onClick={onClickValGame} class="cursor-pointer h-30 w-40 m-4 bg-white rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
                             <Pricevouchergame
                               nominal={x.veru_bill_amount}
                               harga={x.veru_bill_price} />
@@ -924,7 +924,7 @@ then((result)=>{
                   </div>
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-button text-indigo-500 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
+                    <button class="justify-self-end bg-button text-green-700 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
                     type="button" 
                     style={{ transition: "all .15s ease" }}
                     onClick={addVouchergame}>
@@ -950,7 +950,7 @@ then((result)=>{
 
                       return (
                         <>
-                          <div value={valCardPln} onClick={onClickValPln} class="cursor-pointer h-30 w-40 m-4 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
+                          <div value={valCardPln} onClick={onClickValPln} class="cursor-pointer h-30 w-40 m-4 bg-white rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="0">
                           <PricecardPLN
                             nominal={x.veru_bill_amount}
                             harga={x.veru_bill_price} />
@@ -963,7 +963,7 @@ then((result)=>{
 
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-button text-indigo-500 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
+                    <button class="justify-self-end bg-button text-indigo-600 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
                     type="button" 
                     style={{ transition: "all .15s ease" }}
                     onClick={addPLN}>
