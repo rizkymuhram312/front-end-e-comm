@@ -9,7 +9,7 @@ export const TableAdvertising = props => {
                         </div>
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                             <button 
-                            // onClick= {() => props.setShowModal(true) }
+                            onClick= {() => props.setShowModal(true) }
                                 className="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left hover:bg-item hover:text-white"
                                 type="button">Add</button>
                         </div>
@@ -29,30 +29,28 @@ export const TableAdvertising = props => {
                             {
                                 props.adv.length > 0 ?
                                     props.adv.map((adv, index) => {
-                                        return (<tr key={adv.id} >
+                                        return (<tr key={index} >
                                             
                                             
-                                            <td className="text-center">{adv.adv_id}</td>
-                                            <td className="text-center">{adv.adv_name}</td>
-                                            <td className="text-center">{adv.adv_prov_id}</td>
+                                            <td className="text-center">{adv.pack_name}</td>
+                                            <td className="text-center">{adv.pack_duration}</td>
+                                            <td className="text-center">{adv.pack_amount}</td>
                                             <td className="text-center">
                                                 <button onClick= {() => {
                                                     props.setEdit(adv)
                                                 }}
                                                     className="text-gray-600 bg-transparent border border-solid border-gray-300 hover:bg-gray-600 hover:text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                                     Edit
-                                    </button>
+                                                </button>
                                                 <button onClick = { () => {
                                                     if (window.confirm("apakah anda yakin ingin menghapus data ini?")) {
-                                                        props.setDelete(adv.adv_id);
+                                                        props.setDelete(adv.pack_name);
                                                       }
                                                     
                                                 }}
                                                     className="text-gray-600 bg-transparent border border-solid border-gray-300 hover:bg-gray-600 hover:text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                                     Delete
-                                    </button>
-
-
+                                            </button>
                                             </td>
                                         </tr>)
                                     }) :

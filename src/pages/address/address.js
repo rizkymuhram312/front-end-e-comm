@@ -2,6 +2,7 @@ import axios from "axios";
 import react from "react";
 import React, { useEffect, useState } from "react";
 import { apiUserMaster, apiUserAccount } from "../../config/apiUrl";
+import { useHistory } from "react-router";
 
 // asda
 
@@ -25,6 +26,11 @@ const Address = () => {
   const [kecId, setKecId] = useState(0);
   const [error, setError] = useState("");
   const apiAccoId = localStorage.getItem('dataAccountId');
+  const lengthAlamat = alamat.length;
+  const [input, setInput] = useState(false);
+  const [hapus, setHapus] = useState(false);
+  const [Isedit, setIsEdit] = useState(false)
+  let history = useHistory();
 
   const GetAlamat = async () => {
     const response = await axios.get(`${apiUserAccount}/address/search/${apiAccoId}`);
@@ -65,16 +71,25 @@ const Address = () => {
    };
 
    useEffect(() => {
-     let getListAlamat = async () => {
-       let listAlamat = await GetAlamat();
-       if (listAlamat) setPrimary(false) 
-       setAddress(listAlamat);
-     };
-     getListAlamat();
-   }, []);
+     
+     const getListAlamat = async () => {
+        let listAlamat = await GetAlamat();
+        console.log(listAlamat);
+        if (listAlamat) setAddress(listAlamat);
+        // setProvinsi(listAlamat)
+        setInput(false);
+        setHapus(false);
+        if (listAlamat.length > 0) {
+         setPrimary(false)
+       } else {
+         setPrimary(true)
+       }
+      };
+      getListAlamat();
+   }, [input,hapus]);
  
-   console.log(alamat);
-   console.log(provinsi);
+  //  console.log(alamat);
+  //  console.log(provinsi);
 
    let GetKecamatan = async (City_Id) => {
     const response = await axios.get(`${apiUserAccount}/kecamatan/search/${City_Id}`);
@@ -147,8 +162,10 @@ const Address = () => {
 
 
 
-   const inputAddress = () => {
+   const inputAddress = async () => {
     setShowModal(false);
+    setInput(true)
+    
     const data = {
     addr_address: jalan,
     addr_optional: optional,
@@ -159,29 +176,54 @@ const Address = () => {
     addr_accu_id: apiAccoId,
     }
 
-    axios
-      .post(`${apiUserAccount}/address`, data)
-      .then((result) => {
+    return await axios
+    .post(`${apiUserAccount}/address`, data)
+      .then(async (result) => {
         if (result) {
           console.log(result.data);
           if (result.data) {
+            setJalan("");
+            setOptional("");
             setShowModal(false)
-            GetAlamat();
-           
+            return await GetAlamat();
           }
         }
       })
       .catch((e) => {
         setError(e.response.data.message);
       });
+    // ({
+    //   data: data,
+    //   url: `${apiUserAccount}/address`,
+    //   method: "post"
+    // })
+    // .then((result)=>
+    //   if (result) {
+    //         console.log(result.data);
+    //         if (result.data) {
+    //           setShowModal(false)
+    //           await GetAlamat();
+             
+    //         }
+    //       }
+          
+    // )
+      
 
    }
 
    const deleteAddress = async (id) => {
+     setHapus(true);
     console.log(id);
     const response = await axios.delete(`${apiUserAccount}/address/${id}`);
     return response.data;
   };
+
+  const editAddress = async (id) => {
+    setIsEdit(true)
+    history.push("/editAddress");
+    localStorage.setItem("Addressid", id);
+  }
 
   // useEffect(() => {
   //   const getListKota = async () => {
@@ -203,18 +245,18 @@ const Address = () => {
       {alamat[0] ? (
         <>
           <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-blue-400">
-              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-blue-500">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-purple-100">
+              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-gray-500">
                 <div class="flex flex-wrap items-center">
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                    <h3 class="font-semibold text-xl text-blue-50">
+                    <h3 class="font-semibold text-xl text-gray-50">
                       Alamat Saya
                     </h3>
                   </div>
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button
                       onClick={() => setShowModal(true)}
-                      className="px-6 bg-blue-700 text-blue-50 align-middle border border-solid border-blue-800 hover:bg-blue-200 hover:text-blue-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                      className="px-6 bg-gray-200 text-black align-middle border border-solid border-gray-800 hover:bg-green-200 hover:text-green-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                       type="button"
                     >
                       Tambah Alamat
@@ -226,62 +268,70 @@ const Address = () => {
                  return (
                    <>
               <div className="grid grid-cols-6 relative p-6 flex-auto mb-2">
-                <div className="col-span-5">
-                   <label className="col-span-1">Nama : </label>
-                <span className="col-span-4">{x.acco_nama} </span>
-                <br />
-                <label>No. Telp : </label>
+                  <div className="col-span-5">
+                      <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center">
+                          <h1 className="justify-self-end">Nama Kamu/Toko : </h1>
+                          <h1 className="capitalize font-bold">{x.acco_nama}</h1>
+                      </div>
+                      <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center">
+                          <h1 className="justify-self-end">Telepon : </h1>
+                          <h1>{x.acco_phone}</h1>
+                      </div>
+                      <div className=" grid grid-cols-4 gap-4 my-2 justify-center place-content-center">
+                          <h1 className="justify-self-end">Alamat : </h1>
+                          <h1 className="capitalize">
+                            {x.addr_address}<br></br>
+                            {x.addr_optional}<br></br>
+                            {x.city_name} - {x.kec_name}
+                            <br />
+                            {x.prov_name}
+                            <br />
+                            {x.kodepos}
+                          </h1>
+                      </div>
+                  </div>
 
-                <span>{x.acco_phone}</span>
-                <br />
-                <label>Alamat :</label>
-                <div>
-                  <span>
-                    {x.addr_address}
-                    <br />
-                    {x.city_name} - {x.kec_name}
-                    <br />
-                    {x.prov_name}
-                    <br />
-                    {x.kodepos}
-                  </span>
-                </div>
-                </div>
-                <div className="col-span-1 my-4">
-                  <button className="mx-4 underline">Edit</button>
-                  <button className="mx-4 underline" onClick={() => {
-                              if (
-                                window.confirm(
-                                  "apakah anda yakin ingin menghapus alamat ini?"
-                                )
-                              ) {
-                                deleteAddress(x.addr_id);
-                              }
-                            }}>Hapus</button>
-                </div>
-                
+                  <div className="col-span-1 my-4">
+                    <button className="mx-4 underline">Edit</button>
+                    <button className="mx-4 underline" onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "apakah anda yakin ingin menghapus alamat ini?"
+                                  )
+                                ) {
+                                  deleteAddress(x.addr_id);
+                                }
+                              }}>
+                      Hapus
+                    </button>
+                    
+                    <button className="text-black bg-green-500 border border-solid border-gray-300 mt-1 hover:bg-green-800 hover:text-white active:bg-gray-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                      Atur Sebagai Utama
+                    </button>
+                  </div>
               </div>
+              <hr className="bg-gray-500 border-2"></hr>
                    </>
                  )
-               })}
+                })}
             </div>
           </div>
         </>
       ) : (
         <>
           <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-blue-400">
-              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-blue-500">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-gray-400">
+              <div class="rounded-t mb-0 px-4 py-3 border-0">
                 <div class="flex flex-wrap items-center">
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                    <h3 class="font-semibold text-xl text-blue-50">
+                    <h3 class="font-semibold text-xl">
                       Alamat Saya
                     </h3>
                   </div>
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button
                       onClick={() => setShowModal(true)}
-                      className="px-6 bg-blue-700 text-blue-50 align-middle border border-solid border-blue-800 hover:bg-blue-200 hover:text-blue-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                      className="px-6 bg-gray-700 text-gray-50 align-middle border border-solid border-gray-800 hover:bg-gray-200 hover:text-gray-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                       type="button"
                     >
                       Tambah Alamat
@@ -424,7 +474,7 @@ const Address = () => {
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                   <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    className="text-gray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
                     type="button"
                     style={{ transition: "all .15s ease" }}
                     onClick={onClose}
