@@ -11,9 +11,10 @@ const TopUpWallet = (props) => {
         {
             "acco_id":props.acco_id,
             "wale_id":props.wale_id,
-            "amount":0,
+            "total_amount":0,
             "transaction_type":"TFB",
-            "bank_acc_number":123456789
+            "bank_acc_number":123456789,
+            "order_name":"topup"
         }
     )
 
@@ -22,7 +23,7 @@ const TopUpWallet = (props) => {
     }
 
     useEffect(()=>{
-        dataTopUp.amount = amount
+        dataTopUp.total_amount = amount
     },[amount])
 
     const onHandleClickSubmitTopup = async () => {

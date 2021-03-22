@@ -263,9 +263,9 @@ export default function Cart() {
                   </div>
                   <div>{x.product.prod_price}</div>
                     <div className="flex flex-row">
-                      <div className="border-2 border-white px-1" style={{cursor:'pointer'}} onClick={()=>plus(x.clit_id,y)}>+</div>
-                      <div className="border-2 border-white px-1">{x.clit_qty}</div>
                       <div className="border-2 border-white px-1" style={{cursor:'pointer'}} onClick={()=>minus(x.clit_id,y)}>-</div>
+                      <div className="border-2 border-white px-1">{x.clit_qty}</div>
+                      <div className="border-2 border-white px-1" style={{cursor:'pointer'}} onClick={()=>plus(x.clit_id,y)}>+</div>
                     </div>
                   <div>{x.clit_subtotal}</div>
                   <div className="lg:mr-10"> 

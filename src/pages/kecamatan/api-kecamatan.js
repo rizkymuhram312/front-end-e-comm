@@ -40,9 +40,9 @@ const create = async (kecamatan) => {
         let response = await axios.put(`${apiUserMaster}/kecamatan/${kecamatan.kec_id}`,{
           data : kecamatan
         })
-        return  response.data
+        return await response.data
       } catch(err) {
-        return  err.message
+        return await err.message
       }
   };
   
