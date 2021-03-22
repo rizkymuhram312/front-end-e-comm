@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Upload from "./upload";
-import { apiUserMaster } from '../../config/apiUrl'
+import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
 
 
 
@@ -11,25 +11,81 @@ export default function RegisterAccount() {
 
 
 
-
+  const AccountId = localStorage.getItem('dataAccountId');
   const userName = localStorage.getItem('dataUserName');
-  console.log(userName)
+  const AccountNama = localStorage.getItem('dataUserName');
+  const AccountTelp = localStorage.getItem('dataAccountPhone');
+  const AccountShop = localStorage.getItem('dataAccountShopName');
+  const AccountGender = localStorage.getItem('dataAccountGender');
+  const AccountDate = localStorage.getItem('dataAccountBirthdate');
   const user_id = localStorage.getItem('dataUserId');
+  const [value, setValue] = useState();
+  const [isAccount, setisAccount] = useState(false)
   const [username, setUsername] = useState('');
   const [nama, setNama] = useState('');
   const [phone, setPhone] = useState('');
   const [shopName, setShopName] = useState('');
   const [gender, setGender] = useState('');
   const[birthdate, setBirthdate] = useState('');
+
   const[error, setError] = useState('');
   const[alert, setAlert] = useState('');
+  const [image, setImage] = useState('')
+  const [loading, setLoading] = useState(false)
 
 
+  const refresh = () => {
+    // re-renders the component
+    setValue({});
+}
+
+useEffect(() => {
+  // console.log(isAccount)
+  if (
+    localStorage.dataAccountId == null ||
+    localStorage.dataAccountId == undefined
+  ) {
+    setisAccount(false);
+    setValue({});
+  } else {
+    setisAccount(true);
+    setValue({});
+  }
+  setValue({});
+}, [localStorage.dataAccountId]);
+
+// const GetAccount = async () => {
+//   const response = await axios.get(`${apiUserAccount}/users/${user_id}`);
+//   return response.data;
+ 
+ 
+// };
+// console.log(GetAccount)
+
+// useEffect
+
+const uploadImage = async e => {
+  const files = e.target.files
+  const data = new FormData()
+  data.append('file', files[0])
+  data.append('upload_preset', 'andri2621')
+  setLoading(true)
+  const res = await fetch(
+    '	https://api.cloudinary.com/v1_1/codeid/image/upload',
+    {
+      method: 'POST',
+      body: data
+    }
+  )
+  const file = await res.json()
+
+  setImage(file.secure_url)
+  setLoading(false)
+}
+
+console.log(image)
 
 
-  useEffect(() => {
-    console.log('ubah')
-  },[username])
   const onChangeUsername = (e) => {
     const value = e.target.value
     setUsername(value)
@@ -72,6 +128,7 @@ const onChangeBirthdate = (e) => {
 }
 
 
+
 const daftarAccount = () => {
   const data = {
     acco_username: userName,
@@ -80,12 +137,15 @@ const daftarAccount = () => {
     acco_shopname: shopName,
     acco_gender: gender,
     acco_birthdate: birthdate,
-    acco_avatar: null,
+    acco_avatar: image,
     acco_user_id: user_id
   }
 
 
-  axios.post(`${apiUserMaster}/account`, data)
+
+  
+
+  axios.post(`${apiUserMaster}/account/`, data)
   .then(result => {
       if ( result ) {
           console.log(result.data)
@@ -99,6 +159,7 @@ const daftarAccount = () => {
               setAlert(result.data.message)
               setTimeout (() => {
               setAlert('')
+              localStorage.setItem('profilImage', image)
               localStorage.setItem('dataAccountId', result.data.acco_id)
               localStorage.setItem('dataAccountShopName', result.data.acco_shopname)
               localStorage.setItem('dataAccountPhone', result.data.acco_phone)
@@ -118,7 +179,9 @@ const daftarAccount = () => {
 
 
 
-  return (
+
+
+return (
     <>
                 <div className="relative py-1 sm:max-w-xl mx-auto text-center">
                     {
@@ -141,75 +204,113 @@ const daftarAccount = () => {
                 <h1 className="font-bold text-xl">Profil Saya</h1>
                 <p>Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun</p>
                 <hr className="my-4"></hr>
-                <div className=" flex-wrap">
-                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
-                    <h1 className="justify-self-end">Username : </h1>
-                    <h1>{localStorage.getItem('dataUserName')}</h1>
-                </div>
-                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
-                    <h1 className="justify-self-end">Nama : </h1>
- 
-                    <input type="text" id="nama" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={nama}
-                    onChange={onChangeNama}/>
- 
-                </div>
-                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
-                    <h1 className="justify-self-end">Email : </h1>
-                    <h1>{localStorage.getItem('dataUserEmail')}</h1>
-                </div>
-                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
-                    <h1 className="justify-self-end">Nomor Telepon : </h1>
-                    <input type="text" id="notlp" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={phone}
-                    onChange={onChangePhone}/>
-                    
-                </div>
-                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
-                    <h1 className="justify-self-end">Nama Toko : </h1>
-                    <input type="text" id="namaToko" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan"  value={shopName}
-                    onChange={onChangeShopName}/>
-                </div>
-               
-                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
-                    <label
-                        htmlFor="gender"
-                        className=" justify-self-end">
-                        Jenis Kelamin :
-                    </label>
-                    <span className="col-span-2">
-                        <input type="radio" id="laki" name="gender" value="L"  onClick={onChangeGender}/>
-                        <label className="mr-10" htmlFor="male"> Lelaki</label>
-                        <input type="radio" id="perempuan" name="gender" value="P" onClick={onChangeGender}/>
-                        <label htmlFor="female"> Perempuan </label>
-                    </span>
-                </div>
-
-
-              
-                <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
-                    
-                    <label htmlFor="birthdate" className=" justify-self-end">
-                    Tanggal Lahir
-                    </label>
-                     <input
-                    type="date"
-                    placeholder="Tanggal lahir"
-                    className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md"
-                    value={birthdate}
-                    onChange={onChangeBirthdate}/>
+                <div className="grid grid-cols-6 relative p-6 flex-auto mb-2 ">
+                  <div className="col-span-5">
+                    <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center">
+                        <h1 className="justify-self-end">Username : </h1>
+                        <h1>{localStorage.getItem('dataUserName')}</h1>
                     </div>
+                    <div className=" grid grid-cols-4 gap-4 my-4 c">
+                        <h1 className="justify-self-end">Nama : </h1>
+    
+                        <input type="text" id="nama" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan" value={nama}
+                        onChange={onChangeNama}/>
+    
+                    </div>
+                    <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                        <h1 className="justify-self-end">Email : </h1>
+                        <h1>{localStorage.getItem('dataUserEmail')}</h1>
+                    </div>
+                    <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                        <h1 className="justify-self-end">Nomor Telepon : </h1>
+                        <input type="text" id="notlp" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder={localStorage.getItem('dataAccountPhone')} value={phone}
+                        onChange={onChangePhone}/>
+                        
+                    </div>
+                    <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                        <h1 className="justify-self-end">Nama Toko : </h1>
+                        <input type="text" id="namaToko" className="col-span-2 flex-1 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" placeholder="Mohon masukkan"  value={shopName}
+                        onChange={onChangeShopName}/>
+                    </div>
+                  
+                    <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                        <label
+                            htmlFor="gender"
+                            className=" justify-self-end">
+                            Jenis Kelamin :
+                        </label>
+                        <span className="col-span-2">
+                            <input type="radio" id="laki" name="gender" value="L" {...(`${gender}=="L"`) ?(`checked`):(`checked`)} onClick={onChangeGender}/>
+                            <label className="mr-10" htmlFor="male"> Lelaki</label>
+                            <input type="radio" id="perempuan" name="gender" value="P" {...(`${gender}=="P"`)?`checked`:("")} onClick={onChangeGender}/>
+                            <label htmlFor="female"> Perempuan </label>
+                        </span>
+                    </div>
+                    <div className=" grid grid-cols-4 gap-4 my-4 content-center items-center justify-center place-content-center">
+                        
+                      <label htmlFor="birthdate" className=" justify-self-end">
+                        Tanggal Lahir
+                      </label>
+                      <input
+                      type="date"
+                      placeholder="Tanggal lahir"
+                      className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md"
+                      value={birthdate}
+                      onChange={onChangeBirthdate}/>
+                    </div>
+                    </div>
+                <div className="flex justify-center items-baseline col-span-1 my-4 -mx-40">
+                  {/* <Upload  /> */}
+
+
+
+
+
+                  <h1>Upload Image</h1>
+                  <input
+                    type="file"
+                    name="file"
+                    placeholder="Upload an image"
+                    onChange={uploadImage}
+                  />
+                  {loading ? (
+                    <h3>Loading...</h3>
+                  ) : (
+                    <div>
+                    <img src={image} style={{ width: '300px' }} />
+                    </div>
+                  )}
+
+
+
+
+
+                  
+
+
+
                 </div>
-            <div className="flex justify-center items-baseline">
-                <Upload  />
-                </div>
+              </div>
             </div>
             <div className="flex justify-center items-baseline">
+              { isAccount ? (
             <button
+              className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg flex justify-center items-baseline"
+              values="daftarAccount"
+              // onClick={updateAccount}
+            >
+              Update Account
+            </button>
+            ):(
+              <button
               className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg flex justify-center items-baseline"
               values="daftarAccount"
               onClick={daftarAccount}
             >
               Create Account
             </button>
+            )
+              }
           </div>
           </div>
     </>

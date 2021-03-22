@@ -1,5 +1,5 @@
 import React, { useState , Fragment } from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect , useHistory} from 'react-router-dom'
 import axios from 'axios'
 import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
 
@@ -11,6 +11,7 @@ const Login = () => {
     const[redirect, setRedirect] = useState(false);
     const[error, setError] = useState('');
 
+    const history = useHistory()
 
 
     const onChangeEmail = (e) => {
@@ -30,6 +31,7 @@ const Login = () => {
         const data = {
             user_email : user_email,
             user_password : user_password
+            
         }
         // console.log(data)
 
@@ -54,6 +56,36 @@ const Login = () => {
                 let acco_phone = result.data.users.accounts.acco_phone
                 localStorage.setItem('dataAccountPhone', acco_phone)
 
+                let acco_gender = result.data.users.accounts.acco_gender
+                localStorage.setItem('dataAccountGender',acco_gender)
+
+                let acco_avatar = result.data.users.accounts.acco_avatar
+                localStorage.setItem('profilImage',acco_avatar)
+
+                localStorage.setItem('dataUserName', result.data.users.user_name)
+                localStorage.setItem('token', result.data.token)
+                // localStorage.setItem('dataUserPass', data.user_password)
+                localStorage.setItem('dataUserEmail', data.user_email)
+                localStorage.setItem('dataId', result.data.users.user_id)
+
+               
+                const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
+
+                const tokenParts = result.data.token.split('.')
+                const encodedPayload = tokenParts[1]
+                const rawPayload = atob(encodedPayload)
+                const hasiltoken = JSON.parse(rawPayload)
+                console.log(hasiltoken) // outputs 'bob'
+                console.log(result.data.token) // outputs 'bob'
+
+
+                // console.log(a)
+                // setRedirect(true)
+                history.push('/home')
+            }
+            else{
+                console.log(result)
+               
                 localStorage.setItem('dataUserName', result.data.users.user_name)
                 localStorage.setItem('token', result.data.token)
                 localStorage.setItem('dataUserPass', data.user_password)
@@ -69,24 +101,10 @@ const Login = () => {
                 // console.log(a)
                 setRedirect(true)
             }
-            else{
-                console.log(result)
-                localStorage.setItem('dataUserName', result.data.users.user_name)
-                localStorage.setItem('token', result.data.token)
-                localStorage.setItem('dataUserPass', data.user_password)
-                localStorage.setItem('dataUserEmail', data.user_email)
-                localStorage.setItem('dataUserId', result.data.users.user_id)
-                const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
-                const tokenParts = result.data.token.split('.')
-                const encodedPayload = tokenParts[1]
-                const rawPayload = atob(encodedPayload)
-                const hasiltoken = JSON.parse(rawPayload)
-                console.log(hasiltoken) // outputs 'bob'
-                console.log(result.data.token) // outputs 'bob'
-                setRedirect(true)
-            }
+            
         })
         .catch(e => {
+            
             setError(e.response.data.message)
         })
 

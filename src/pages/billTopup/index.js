@@ -7,8 +7,8 @@ import PricecardPLN from './component/pricecardPLN'
 import PricecardPdam from './component/pricecardPdam'
 import axios from 'axios'
 import { apiTopup } from '../../config/apiUrl'
-
-
+import VerifyPayment from '../payment/VerifyPayment'
+import {apiPayment} from '../../config/apiUrl'
 
 const Tabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
@@ -37,6 +37,53 @@ const Tabs = ({ color }) => {
   const [pdamAmount,setPdamAmount] = useState(0)
 
   const userId = localStorage.getItem('dataAccountId')
+  const [showVerifyPin,setShowVerifyPin] = useState(false)
+
+  const [data,setData] = useState({})
+
+  // const [getWatrNumber,SetGetWatrNumber] = useState("")
+
+  // const [dataPulsa,setDataPulsa] = useState({
+    // "acco_id": userId,
+    // "total_amount": valCard ,
+    // "transaction_type": "billing",
+    // "vendor": "TELKOMSEL",
+    // "payment_by":"wallet"
+  // })
+
+  // const [dataInternet,setDataInternet] = useState({
+  //   "acco_id": userId,
+  //   "total_amount": internetAmount,
+  //   "transaction_type": "billing",
+  //   "vendor": "TELKOM",
+  //   "payment_by":"wallet"
+  // })
+
+  // const [dataVoucherGame,setDataVoucherGame] = useState({
+  //   "acco_id": userId,
+  //   "total_amount": valCardGame,
+  //   "transaction_type": "billing",
+  //   "vendor": gameCard,
+  //   "payment_by":"wallet"
+  // })
+
+  // const [dataPLN,setDataPLN] = useState({
+  //   "acco_id": userId,
+  //   "total_amount": valCardPln,
+  //   "transaction_type": "billing",
+  //   "vendor": "PLN",
+  //   "payment_by":"wallet"
+  // })
+
+  // const [dataPDAM,setDataPDAM] = useState({
+  //   "acco_id": userId,
+  //   "total_amount": pdamAmount,
+  //   "transaction_type": "billing",
+  //   "vendor": "PDAM",
+  //   "payment_by":"wallet"
+  // })
+
+
 
   useEffect(() => {
     fetchPulsa()
@@ -49,6 +96,7 @@ const Tabs = ({ color }) => {
     console.log('usereffect : ' + gameCard);
     fetchVGame()
   }, [gameCard])
+
 
   useEffect(()=>{
     if (Bill.account !== undefined){
@@ -131,11 +179,16 @@ const Tabs = ({ color }) => {
   }
 
   //---BUTTON ADD---
-  const addPulsa = () =>{
-  
-    addBillPulsa();
+  const addPulsa = async () =>{
+
+    addWatrNumberPulsa()
+    
+    // setTimeout(()=>{})
+    // addBillPulsa();
+
     console.log('Succes Input Data');
   }
+
 
   const addInternet =()=>{
     console.log('Clicked');
@@ -144,21 +197,23 @@ const Tabs = ({ color }) => {
     // setInternetAmount(Bill.vendor.vendor_rules[0].veru_bill_price)
     console.log('this is account Id: '+internetAccId);
     console.log('this is Amount : '+internetAmount);
-    addBillInternet()
+    // addBillInternet()
+    addWatrNumberInternet()
   }
 
   const addVouchergame = () => {
-    addBillVGame()
+    addWatrNumberGame()
+    console.log(gameCard);
     console.log('--Input data success--');
   }
 
   const addPLN = ()=>{
-    addBillPln()
+    addWatrNumberPLN()
     console.log('--Input data success--');
   }
 
   const addPDAM = ()=>{
-    addBillPdam()
+    addWatrNumberPDAM()
     console.log('--Input data success--');
   }
   const fetchPLN = async () => {
@@ -241,18 +296,169 @@ const Tabs = ({ color }) => {
       catch((err) => console.log(err))
   }
 
+  //--POST WALLETTRANSACTION--
+  const addWatrNumberPulsa = () => {
+
+      let acco_id = userId
+      let total_amount = valCard
+      let transaction_type = "billing"
+      let vendor= "TELKOMSEL"
+      let payment_by = "wallet"
+      let pin_number = 111111
+
+    const data = {
+      acco_id: acco_id,
+      total_amount: total_amount ,
+      transaction_type: transaction_type,
+      vendor: vendor,
+      payment_by: payment_by,
+      pin_number : pin_number
+    };
+
+    axios.post(`${apiPayment}/walletTransaction`, data).
+    then((result)=>{
+      console.log(result.data);
+      addBillPulsa(result.data.watr_numbers)
+      
+    }).
+      catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const addWatrNumberInternet = () => {
+
+    let acco_id = internetAccId
+    let total_amount = internetAmount
+    let transaction_type = "billing"
+    let vendor= "TELKOM"
+    let payment_by = "wallet"
+    let pin_number = 111111
+
+  const data = {
+    acco_id: acco_id,
+    total_amount: total_amount ,
+    transaction_type: transaction_type,
+    vendor: vendor,
+    payment_by: payment_by,
+    pin_number : pin_number
+  };
+
+  axios.post(`${apiPayment}/walletTransaction`, data).
+  then((result)=>{
+    console.log(result.data);
+    addBillInternet(result.data.watr_numbers)
+    
+  }).
+    catch((err) => {
+      console.log(err);
+    })
+}
+
+const addWatrNumberGame = () => {
+
+  let acco_id = userId
+  let total_amount = valCardGame
+  let transaction_type = "billing"
+  let vendor = gameCard 
+  let payment_by = "wallet"
+  let pin_number = 111111
+
+const data = {
+  acco_id: acco_id,
+  total_amount: total_amount ,
+  transaction_type: transaction_type,
+  vendor: vendor,
+  payment_by: payment_by,
+  pin_number : pin_number
+};
+
+axios.post(`${apiPayment}/walletTransaction`, data).
+then((result)=>{
+  console.log(result.data);
+  addBillVGame(result.data.watr_numbers)
   
+}).
+  catch((err) => {
+    console.log(err);
+  })
+}
+
+const addWatrNumberPLN = () => {
+
+  let acco_id = userId
+  let total_amount = valCardPln
+  let transaction_type = "billing"
+  let vendor = "PLN" 
+  let payment_by = "wallet"
+  let pin_number = 111111
+
+const data = {
+  acco_id: acco_id,
+  total_amount: total_amount ,
+  transaction_type: transaction_type,
+  vendor: vendor,
+  payment_by: payment_by,
+  pin_number : pin_number
+};
+
+axios.post(`${apiPayment}/walletTransaction`, data).
+then((result)=>{
+  console.log(result.data);
+  addBillPln(result.data.watr_numbers)
+  
+}).
+  catch((err) => {
+    console.log(err);
+  })
+}
+
+const addWatrNumberPDAM = () => {
+
+  let acco_id = pdamAccId
+  let total_amount = pdamAmount
+  let transaction_type = "billing"
+  let vendor = "PDAM" 
+  let payment_by = "wallet"
+  let pin_number = 111111
+
+const data = {
+  acco_id: acco_id,
+  total_amount: total_amount ,
+  transaction_type: transaction_type,
+  vendor: vendor,
+  payment_by: payment_by,
+  pin_number : pin_number
+};
+
+axios.post(`${apiPayment}/walletTransaction`, data).
+then((result)=>{
+  console.log(result.data);
+  addBillPdam(result.data.watr_numbers)
+  
+}).
+  catch((err) => {
+    console.log(err);
+  })
+}
+
+//--END OF POST WALLET TRANSACTION--
+
+
   //--- INPUT BILL TOPUP---
-  const addBillPulsa = () => {
+  const addBillPulsa = (watrnumber) => {
     let date = new Date()
     let bito_created_on = date  
     let bito_type = "Topup"
     let bito_amount = valCard
     let bito_desc = "Pembelian Pulsa"
-    let bito_watr_numbers = null
+    let bito_watr_numbers = watrnumber
     let bito_token = phoneNumber
-    let bito_vendor_name = "TELKOM"
+    let bito_vendor_name = "TELKOMSEL"
     let bito_acco_id = userId
+    
+   
+
     const data = {
       bito_created_on: bito_created_on,
       bito_type: bito_type,
@@ -274,16 +480,17 @@ const Tabs = ({ color }) => {
       })
   }
 
-  const addBillInternet = () => {
+  const addBillInternet = (watrnumber) => {
     let date = new Date()
     let bito_created_on = date  
     let bito_type = "Bill"
     let bito_amount = internetAmount
     let bito_desc = "Pembayaran Tagihan Indihome"
-    let bito_watr_numbers = null
+    let bito_watr_numbers = watrnumber
     let bito_token = internet
     let bito_vendor_name = "TELKOM"
     let bito_acco_id = internetAccId
+
     const data = {
       bito_created_on: bito_created_on,
       bito_type: bito_type,
@@ -305,16 +512,18 @@ const Tabs = ({ color }) => {
       })
   }
 
-  const addBillVGame = () => {
+  const addBillVGame = (watrnumber) => {
     let date = new Date()
     let bito_created_on = date  
     let bito_type = "Topup"
     let bito_amount = valCardGame
     let bito_desc = "Pembelian Pulsa"
-    let bito_watr_numbers = null
+    let bito_watr_numbers = watrnumber
     let bito_token = gameCard
     let bito_vendor_name = gameCard
     let bito_acco_id = userId
+
+
     const data = {
       bito_created_on: bito_created_on,
       bito_type: bito_type,
@@ -336,16 +545,24 @@ const Tabs = ({ color }) => {
       })
   }
 
-  const addBillPln = () => {
+  const addBillPln = (watrnumber) => {
     let date = new Date()
     let bito_created_on = date  
     let bito_type = "Topup"
     let bito_amount = valCardPln
     let bito_desc = "Pembelian Token Listrik"
-    let bito_watr_numbers = null
+    let bito_watr_numbers = watrnumber
     let bito_token = tokenNum
     let bito_vendor_name = "PLN"
     let bito_acco_id = userId
+
+    setData({
+      "acco_id": bito_acco_id,
+      "total_amount": bito_amount ,
+      "transaction_type": "billing",
+      "vendor": bito_vendor_name,
+      "payment_by":"wallet"
+    })
     const data = {
       bito_created_on: bito_created_on,
       bito_type: bito_type,
@@ -367,16 +584,24 @@ const Tabs = ({ color }) => {
       })
   }
 
-  const addBillPdam = () => {
+  const addBillPdam = (watrnumber) => {
     let date = new Date()
     let bito_created_on = date  
     let bito_type = "Bill"
     let bito_amount = pdamAmount
-    let bito_desc = "Pembayaran Tagihan Indihome"
-    let bito_watr_numbers = null
+    let bito_desc = "Pembayaran Tagihan Air Pam"
+    let bito_watr_numbers = watrnumber
     let bito_token = pdam
     let bito_vendor_name = "TELKOM"
     let bito_acco_id = pdamAccId
+
+    setData({
+      "acco_id": bito_acco_id,
+      "total_amount": bito_amount ,
+      "transaction_type": "billing",
+      "vendor": bito_vendor_name,
+      "payment_by":"wallet"
+    })
     const data = {
       bito_created_on: bito_created_on,
       bito_type: bito_type,
@@ -401,6 +626,13 @@ const Tabs = ({ color }) => {
   return (
 
     <>
+
+      {
+        showVerifyPin ? <VerifyPayment
+        data = {data}
+        setShowVerifyPin = {setShowVerifyPin}
+        /> :
+      
       <div className="flex flex-wrap">
         <div className="w-full">
           <ul
@@ -412,8 +644,8 @@ const Tabs = ({ color }) => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 1
-                    ? "text-white bg-" + color + "-600"
-                    : "text-" + color + "-600 bg-white")
+                    ? "text-white bg-" + color + "-400"
+                    : "text-" + color + "-400 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -431,8 +663,8 @@ const Tabs = ({ color }) => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 2
-                    ? "text-white bg-" + color + "-600"
-                    : "text-" + color + "-600 bg-white")
+                    ? "text-white bg-" + color + "-400"
+                    : "text-" + color + "-400 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -450,8 +682,8 @@ const Tabs = ({ color }) => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 3
-                    ? "text-white bg-" + color + "-600"
-                    : "text-" + color + "-600 bg-white")
+                    ? "text-white bg-" + color + "-400"
+                    : "text-" + color + "-400 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -470,8 +702,8 @@ const Tabs = ({ color }) => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 4
-                    ? "text-white bg-" + color + "-600"
-                    : "text-" + color + "-600 bg-white")
+                    ? "text-white bg-" + color + "-400"
+                    : "text-" + color + "-400 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -490,8 +722,8 @@ const Tabs = ({ color }) => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 5
-                    ? "text-white bg-" + color + "-600"
-                    : "text-" + color + "-600 bg-white")
+                    ? "text-white bg-" + color + "-400"
+                    : "text-" + color + "-400 bg-white")
                 }
                 onClick={e => {
                   e.preventDefault();
@@ -507,12 +739,12 @@ const Tabs = ({ color }) => {
 
 
           </ul>
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+          <div className="relative flex flex-col min-w-0 break-words bg-secondary w-full mb-6 shadow-lg rounded">
             <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                  <h1 className="font-semibold text-base text-gray-800">Pulsa</h1>
-                  <div class="mb-3 pt-0">
+                  <h1 className="font-semibold text-base text-pink-500">Pulsa</h1>
+                  <div class="mb-3 pt-2">
                     <input type="text" placeholder="Nomer Telepon" name="phoneNumber" value={phoneNumber} onChange={onChangePhoneNumber} class="px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full" />
                   </div>
                   
@@ -547,18 +779,18 @@ const Tabs = ({ color }) => {
 
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" 
+                    <button class="justify-self-end bg-button text-indigo-500 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
                     type="button" 
                     style={{ transition: "all .15s ease" }}
                     onClick={addPulsa}>
                       Beli Sekarang
-                        </button>
+                    </button>
                   </div>
 
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <h1 className="font-semibold text-base text-gray-800">Tagihan Internet</h1>
-                  <div class="mb-3 pt-0">
+                  <h1 className="font-semibold text-base text-pink-500">Tagihan Internet</h1>
+                  <div class="mb-3 pt-2">
                     <input type="text" name="token" value={internet} onChange={onChangeToken} onKeyDown={handleKeypress} placeholder="No Tagihan" class="px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full" />
                   </div>
 
@@ -581,7 +813,7 @@ const Tabs = ({ color }) => {
 
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" 
+                    <button class="justify-self-end bg-button text-indigo-500 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
                     type="button" 
                     style={{ transition: "all .15s ease" }}
                     onClick={addInternet}
@@ -591,7 +823,7 @@ const Tabs = ({ color }) => {
                   </div>
                 </div>
                 <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                  <h1 className="font-semibold text-base text-gray-800">Voucher Game</h1>
+                  <h1 className="font-semibold text-base text-pink-500">Voucher Game</h1>
                   <div class="flex justify-center flex-wrap">
                     {Pulsa.map((x) => {
                       let onClickGame = (e) => {
@@ -692,7 +924,7 @@ const Tabs = ({ color }) => {
                   </div>
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" 
+                    <button class="justify-self-end bg-button text-indigo-500 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
                     type="button" 
                     style={{ transition: "all .15s ease" }}
                     onClick={addVouchergame}>
@@ -702,8 +934,8 @@ const Tabs = ({ color }) => {
 
                 </div>
                 <div className={openTab === 4 ? "block" : "hidden"} id="link4">
-                  <h1 className="font-semibold text-base text-gray-800">Token PLN</h1>
-                  <div class="mb-3 pt-0">
+                  <h1 className="font-semibold text-base text-pink-500">No Pelanggan PLN</h1>
+                  <div class="mb-3 pt-2">
                     <input type="text" placeholder="Token Number" name="tokenNum" value={tokenNum} onChange={onChangePln} onKeyDown={handleKeypressPLN} class="px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full" />
                   </div>
 
@@ -731,7 +963,7 @@ const Tabs = ({ color }) => {
 
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" 
+                    <button class="justify-self-end bg-button text-indigo-500 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
                     type="button" 
                     style={{ transition: "all .15s ease" }}
                     onClick={addPLN}>
@@ -742,9 +974,9 @@ const Tabs = ({ color }) => {
                 </div>
 
                 <div className={openTab === 5 ? "block" : "hidden"} id="link5">
-                  <h1 className="font-semibold text-base text-gray-800">Tagihan PDAM</h1>
-                  <div class="mb-3 pt-0">
-                    <input type="text" name="token" value={pdam} onChange={onChangePdam} onKeyDown={handleKeypressPdam} placeholder="No Tagihan" class="px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full" />
+                  <h1 className="font-semibold text-base text-pink-500">Tagihan PDAM</h1>
+                  <div class="mb-3 pt-2">
+                    <input type="text" name="token" value={pdam} onChange={onChangePdam} onKeyDown={handleKeypressPdam} placeholder="No Tagihan" class="px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full" />
                   </div>
 
 
@@ -765,7 +997,7 @@ const Tabs = ({ color }) => {
 
 
                   <div class="grid justify-items-stretch">
-                    <button class="justify-self-end bg-secondary text-white font-bold text-sm px-4 py-3 rounded shadow hover:bg-item outline-none focus:outline-none mr-1 mb-1" 
+                    <button class="justify-self-end bg-button text-indigo-500 font-bold text-sm px-4 py-3 rounded shadow hover:bg-green-300 outline-none focus:outline-none mr-1 mb-1" 
                     type="button" 
                     style={{ transition: "all .15s ease" }}
                     onClick={addPDAM}
@@ -781,7 +1013,9 @@ const Tabs = ({ color }) => {
           </div>
         </div>
       </div>
+}
     </>
+    
   );
 };
 

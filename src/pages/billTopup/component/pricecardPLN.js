@@ -17,8 +17,8 @@ const PricecardPLN = (props) => {
         //         <span class="flex justify-center text-xs">{'Bayar : '+props.harga}</span>
         // </div>
         <>
-        <span class="flex justify-center text-md font-semibold">{props.nominal}</span>
-        <span class="flex justify-center text-xs">{'Bayar : '+props.harga}</span>
+        <span class="flex justify-center text-md font-semibold text-pink-600">{props.nominal}</span>
+        <span class="flex justify-center text-xs text-pink-700">{'Bayar : '+props.harga}</span>
         </>
     );
 };

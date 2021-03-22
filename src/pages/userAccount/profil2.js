@@ -30,6 +30,7 @@ export default function Profil2({ fixed }) {
     }, [localStorage.dataAccountId])
 
 
+    const fotoprofil = localStorage.getItem('profilImage')
 
 
     return (
@@ -37,13 +38,13 @@ export default function Profil2({ fixed }) {
 
         <div>
 
-            {isAccount ? (
+            
 
                 <center>
                     <div className="flex flex-wrap justify-center">
                         <div className="w-6/12 sm:w-4/12 px-4">
 
-                            <img src="cewe.jpg" alt="..." className="shadow rounded-full max-w-full h-40 align-middle border-none" />
+                            <img src={fotoprofil === "null" || fotoprofil === null  ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full max-w-full h-40 align-middle border-none" />
 
                             <div className=" grid grid-cols-1 gap-4 my-2 mt-12 content-center items-center justify-center place-content-center">
                                 <p className="justify-center font-semibold">Username : {localStorage.getItem('dataUserName')} </p>
@@ -51,10 +52,19 @@ export default function Profil2({ fixed }) {
                             <div className=" grid grid-cols-1 gap-4 my-2 content-center items-center justify-center place-content-center">
                                 <p className="justify-center font-semibold">Email : {localStorage.getItem('dataUserEmail')} </p>
                             </div>
-                            <hr className="border-solid"></hr>
-                            <hr className="border-solid"></hr>
-                            <hr className="border-solid"></hr>
-                            <hr className="border-solid"></hr>
+                            <br></br>
+                <hr className="border-solid"></hr>
+                <hr className="border-solid"></hr>
+                <hr className="border-solid"></hr>
+                <hr className="border-solid"></hr>
+                        </div>
+                    </div>
+                </center>
+
+                {isAccount ? (
+                <center>
+                    <div>
+                        <div className="mt-6">
                             <div className=" grid grid-cols-1 gap-4 my-2 content-center items-center justify-center place-content-center">
                                 <p className="justify-center font-semibold">Account Id : {localStorage.getItem('dataAccountId')} </p>
                             </div>
@@ -65,18 +75,19 @@ export default function Profil2({ fixed }) {
                             </div><div className=" grid grid-cols-1 gap-4 my-2 content-center items-center justify-center place-content-center">
                                 <p className="justify-center font-semibold">Phone Number : {localStorage.getItem('dataAccountPhone')} </p>
                             </div>
+                            <div>
+                                
+                            </div>
 
                         </div>
                     </div>
                 </center>
 
             ) : (
-                    <div className="capitalize text-center text-3xl font-bold">
-                        anda belum memiliki account <br></br><br></br>
-                        <div>
-                            <p>silakan membuat account terlebih dahulu pada tab 'Akun Saya'
-                            </p>
-                        </div>
+                    <div className="capitalize text-center text-3xl font-bold mt-6">
+                        anda belum memiliki account <br></br>
+                        silakan membuat account terlebih dahulu pada tab 'Akun Saya'
+
                     </div>
                 )}
         </div>

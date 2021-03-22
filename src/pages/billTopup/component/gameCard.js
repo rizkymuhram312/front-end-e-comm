@@ -11,7 +11,7 @@ const GameCard = (props) => {
     return (
         <>
                         
-                        <p class="text-center">{props.vendor === 'Steam' ? 'Steam Wallet IDR': 
+                        <p class="text-center text-md text-pink-600 font-semibold">{props.vendor === 'Steam' ? 'Steam Wallet IDR': 
                         (props.vendor === 'MobileLegends' ? 'Mobile Legend':
                         (props.vendor ==='Garena' ? 'Garena':'PUBG Mobile'))}</p>
                         {/* <div value="MobileLegends" class="cursor-pointer h-32 w-32 m-6 bg-background rounded-lg shadow-lg p-6 hover:bg-gray-200" tabIndex="1">
