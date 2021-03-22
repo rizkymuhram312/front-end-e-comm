@@ -63,7 +63,7 @@ const BankAccount = () => {
 
   return (
     <>
-      <div className="grid max-w-full mx-auto mt-10 text-center border border-primary rounded-md overflow-hidden text-text_primary">
+      <div className="grid max-w-full mx-auto text-center border border-primary rounded-md overflow-hidden text-white">
         <table>
           <thead>
             <tr className="bg-table">
@@ -80,7 +80,7 @@ const BankAccount = () => {
                 :
                 bankAccount.map((x) => {
                   return (
-                    <tr className="text-text_primary" key={x.bacc_id}>
+                    <tr className="text-black" key={x.bacc_id}>
                       <td>{x.bank.bank_name}</td>
                       <td>{x.bacc_owner}</td>
                       <td>{x.bacc_acc_number}</td>
@@ -100,7 +100,7 @@ const BankAccount = () => {
         </table>
       </div>
 
-      <button onClick={() => { setModal(true) }} className=" font-medium max-w-lg px-3 p-1 bg-button rounded-lg mt-2 text-text_primary">Add Bank Account</button>
+      <button onClick={() => { setModal(true) }} className=" focus:border-primary focus:outline-white font-medium max-w-lg px-3 p-1 bg-primary rounded-lg mt-2 text-white">Add Bank Account</button>
       {
         modal ?
           <AddBankAccountModal
