@@ -43,7 +43,7 @@ export default class AddEditForm extends Component {
     }
 
 
-    handleOnSubmit = e => {
+    handleOnSubmit = async e => {
         e.preventDefault();
         const province = {
             prov_id : this.state.provinceId,
@@ -51,13 +51,13 @@ export default class AddEditForm extends Component {
         };
  
         if (!this.state.isEdit){
-            create(province).then(response => {
+            await create(province).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);
             });;
         }else{
-            updateProvince(province).then(response => {
+            await updateProvince(province).then(response => {
                 console.log(response);
             }).catch(function (error) {
                 console.log(error);

@@ -1,7 +1,7 @@
 import React, { useState , Fragment } from 'react';
 import { Redirect , useHistory} from 'react-router-dom'
 import axios from 'axios'
-import { apiUserMaster,apiUserAccount } from '../../config/apiUrl'
+import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
 
 
 

@@ -46,6 +46,7 @@ import {EditCond} from './pages/condition/editCond';
 import Category from './pages/category/category';
 import addCate from './pages/category/addCate';
 import CateUpload from './pages/category/cateUpload';
+import { vendor } from 'postcss';
 
 function App() {
   return (
@@ -58,7 +59,7 @@ function App() {
           <Route path="/shop" component={Dashboard} exact />
           {/* <Route path="/productCate/:cate_id" component={CategoryProd} /> */}
           <Route path="/" component={Home} exact/>
-          <Route path="/productMaster" component={productMaster} exact/>
+          {/* <Route path="/productMaster" component={productMaster} exact/> */}
           {/* brand */}
           <Route path="/brand" component={Brand} exact />
           <Route path="/addBrand" component={AddBrand} exact />
@@ -94,16 +95,7 @@ function App() {
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/editproduct" component={EditProduct}/>
           <Route path="/billTopup" component={billTopup}/>
-          <Route path="/expeditionsroutes" component={ExpeditionRoutesIndex}/>
-          <Route path="/expeditions" component={ExpeditionIndex}/>
-          <Route path="/ordershipping" component={OrderShippingIndex}/>
-          <Route path="/ordershippingarrival" component={OrderShippingArrivalIndex}/>
-          <Route path="/advertising/my-adv" component={MyAdv}/>
-          <Route path="/advertising/add-adv" component={AddAdv}/>
-          <Route path="/wallet" component={Wallet}/>
-          <Route path="/bank-account/:acco_id" component={BankAccount}/>
-          <Route path="/transactions/:acco_id" component={Transaction}/>
-          <Route path="/order-kw" component={OrdersKw}/>
+          <Route path="/vendor" component={vendor}/>
         </Switch>
       </div>
       <Footer></Footer>

@@ -13,17 +13,18 @@ function Category(props) {
 
     let history = useHistory()
     const [category, setCategory] = useState([]);
+    const [categoryImg, setCategoryImg] = useState([]);
     const [cate_name, setCateName] = useState([]);
     const [cate_cateId, setCateCateId] = useState([]);
     const [search, setSearch] = useState("");
 
 
     // redirect to deskripsi
-    const DetailProduct = (cate_id, category_images) => {
+    const DetailProduct = (cate_id, categoryImg) => {
         localStorage.setItem('categoryDetail', cate_id);
-        localStorage.setItem('categoryImages', category_images);
+        localStorage.setItem('categoryImages', categoryImg);
         console.log(cate_id)
-        console.log(category_images)
+        console.log(categoryImg)
 
         history.push(`/product/${cate_id}`)
     }
@@ -77,7 +78,7 @@ function Category(props) {
                 cate_name: cate_name,
                 // cate_cateId: cate_cateId
             }
-            axios.delete(`${apiProductMaster}/condition/${id}`)
+            axios.delete(`${apiProductMaster}/category/${id}`)
                 .then((data) => {
                     notify()
                     console.log(data)
@@ -115,7 +116,7 @@ function Category(props) {
 			headers: {
 				"Content-type": "application/json"
 			}
-		}).then((res) => setCategory(res.data))
+		}).then((res) => setCategoryImg(res.data))
 			.catch((err) => console.error(err))
 	}, [])
 
@@ -225,7 +226,7 @@ function Category(props) {
                                                                 <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 uppercase ">{cate.cate_name}</td>
                                                                 <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 uppercase ">{cate.cate_cate_id}</td>
                                                                 <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 uppercase">
-                                                                    <img src={cate.category_images[0]?.caim_path} />
+                                                                    <img class="h-30 w-30" src={categoryImg} />
                                                                 </td>
                                                                 <td className="border-2">
                                                                     <div class="flex justify-center  ">
