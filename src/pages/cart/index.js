@@ -301,7 +301,7 @@ export default function Cart() {
               <span>Pilih Semua</span>
             </div>
             <div>Subtotal untuk Produk({Order?.cart_total_qty} produk) </div>
-            <div>Rp. {Order.cart_total_amount?numberWithCommas(Order.cart_total_amount):0}</div>
+            <div>Rp. {Order?.cart_total_amount}</div>
             <div>
               <button className="text-black font-bold bg-button  lg:p-3 p-2 hover:bg-green-300 rounded lg:mr-5 mb-5"
               onClick={checkout}>
