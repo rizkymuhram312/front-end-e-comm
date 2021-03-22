@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from './pages/home/index'
 import Shop from './pages/home/Dashboard'
 // import CategoryProd from './pages/home/productCate'
+import PageNotFound from './pages/PageNotFound'
 import Category from './pages/category/category'
 import Condition from './pages/condition/condition'
 import Cart from './pages/cart'
@@ -92,7 +93,7 @@ function App() {
           <Route path="/transactions/:acco_id" component={Transaction}/>
           <Route path="/order-kw" component={OrdersKw}/>
           <Route path="/wallet-bank" component={WalletAndBank}/>
-          <Route component={ <div>Page Not Found</div>}/>
+          <Route component={PageNotFound}/>
         </Switch>
       </div>
       <Footer></Footer>

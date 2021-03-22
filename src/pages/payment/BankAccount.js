@@ -33,8 +33,14 @@ const BankAccount = () => {
   }
 
   const onDelete = async (x) => {
-    await DeleteBankAccount(x.target.value)
-    setRefresh(!refresh)
+    console.log(x.target.value)
+    try {
+      await DeleteBankAccount(x.target.value)
+      setRefresh(!refresh)      
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
   const onCreateBankAccount = async () => {
@@ -85,11 +91,11 @@ const BankAccount = () => {
                       <td>{x.bacc_owner}</td>
                       <td>{x.bacc_acc_number}</td>
                       <td>
-                        <button defaultValue={x.bacc_id} value={x.bacc_id}>
-                          <img className="w-8 h-8" src="delete-icon.png" onClick={onDelete}/>
+                        <button value={x.bacc_id} className="mx-2 outline-none w-3/12 h-2/6 bg-primary text-white rounded-md" onClick={onDelete}>
+                          Delete
                         </button>
-                        <button defaultValue={x.bacc_id} onClick={onEdit} className=" outline-none">
-                          <img className="w-7 h-7 mx-2" src="modify-icon.png" />
+                        <button value={x.bacc_id} onClick={onEdit} className="outline-none w-3/12 h-2/6 bg-primary rounded-md text-white">
+                          Edit
                         </button>
                       </td>
                     </tr>
