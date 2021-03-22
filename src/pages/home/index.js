@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { apiProductTransaction } from "../../config/apiUrl";
+import convertToRupiah from '../product/convertToRupiah'
 // Swiper
 import Swiper from 'react-id-swiper';
 import SwiperCore, { Navigation, Pagination } from 'swiper/core';
@@ -89,6 +90,18 @@ export default function Navbar({ fixed }) {
 	const [parallaxSwiper, setParrallaxSwiper] = useState(null);
 	const parallaxAmount = parallaxSwiper ? parallaxSwiper.width * 0.95 : 0;
 	const parallaxOpacity = 0.5;
+
+	const DetailProduct = (prod_id,product_images) => {
+        localStorage.setItem('productDetail', prod_id)
+		localStorage.setItem('productImages', product_images)
+		console.log(prod_id)
+		console.log(product_images)
+		
+		
+
+		history.push(`/product/${prod_id}`)
+	}
+	
 
 	return (
 
@@ -192,31 +205,40 @@ export default function Navbar({ fixed }) {
 					<div class=" bg-gray-100 flex  flex-wrap ">
 						{
 							Product.map((x) => {
+								console.log(x)
 								return (
 									<div key={x.prod_id} class="bg-white w-48 shadow-lg cursor-pointer rounded transform hover:scale-105 hover:mt-2 duration-300 ease-in-out m-2"
 
-									// onClick={() => DetailProduct(x.prod_id)} 
+									onClick={() => DetailProduct(x.prod_id, x.product_images[0].prim_id)} 
 									>
-										<Link to={`/product/${x.prod_id} `}>
+										{console.log(Product)}
+									
+
+										{/* <Link to={`/product/${x.prod_id}`, localStorage.setItem("productDetail", x.prod_id)}> */}
 											{/* icon seller  */}
+								{/* {localStorage.setItem("productDetail", x.prod_id)} */}
+										
 											<div class="static">
 												<div class="absolute top-0 left-0 mt-2 bg-gray-100 px-2">
 													<p>Seller</p>
 												</div>
 											</div>
+										{
+										console.log(x.product_images[0])}
+
 											<div class="">
-												<img src="https://picsum.photos/400/300" alt="" class="rounded-t" />
+												<img src={x.product_images[0]?.prim_path} alt="" class="selected" />
 											</div>
 
 											<div class="p-4">
 												<h2 class="text-md font-bold uppercase">
 													{x.prod_name}</h2>
-												<p class="font-light text-gray-500 text-md font-bold "><span>Rp.</span>{x.prod_price}</p>
+												<p class="font-light text-gray-500 text-md font-bold "><span></span>{convertToRupiah(x.prod_price)}</p>
 												<p class="font-light text-gray-500 text-md font-bold ">{x.city}</p>
 
 												<a href="#" class="block bg-gray-300 py-2 px-2 text-gray-600 text-center rounded shadow-lg uppercase font-light mt-6 hover:bg-gray-400 hover:text-white duration-300 ease-in-out">Add to cart</a>
 											</div>
-										</Link>
+										{/* </Link> */}
 									</div>
 								)
 							})}

@@ -231,7 +231,7 @@ export default function Cart() {
               <div className="text-sm block my-4 p-3 text-white rounded border border-solid border-gray-200 bg-primary">
                 {
                   deleted[y]===true?<ModalDelete 
-                  image={x.product.product_images[0].prim_filename} 
+                  image={x.product.product_images[0].prim_path} 
                   name={x.product.prod_name}
                   url={`${apiCart}/cartLineItems/${x.clit_id}`}
                   close={()=>toggleDelete(y)}
@@ -257,7 +257,7 @@ export default function Cart() {
                       />
                     </div>
                     <div className="h-20 w-20 m-2 rounded border border-solid border-white">
-                      <img src={x.product.product_images[0].prim_filename} alt="product" />
+                      <img src={x.product.product_images[0]?.prim_path} alt="product" />
                     </div>
                     <div>{x.product.prod_desc}</div>
                   </div>

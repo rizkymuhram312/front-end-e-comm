@@ -39,6 +39,7 @@ import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
 import OrdersKw from './pages/payment/Orders'
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -71,8 +72,6 @@ function App() {
           <Route path="/productsaya" component={ProductSaya}/>
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/editproduct" component={EditProduct}/>
-          {/* <Route path="/tambahvariant" component={TambahVariant}/> */}
-          {/* <Route path="/productvariant"component={ProductVariant}/> */}
           <Route path="/billTopup" component={billTopup}/>
           <Route path="/expeditionsroutes" component={ExpeditionRoutesIndex}/>
           <Route path="/expeditions" component={ExpeditionIndex}/>
