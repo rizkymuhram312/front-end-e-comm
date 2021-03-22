@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 const Transactions = (props) => {
     const [selectedFilter, setSelectedFilter] = useState()
-    const [filteredData, setFilteredData] = useState()
+    const [filteredData, setFilteredData] = useState([])
     const [transactionsAccount, setTransactionsAccount] = useState([])
     const fixNotation = (n) => {
         try {
@@ -24,14 +24,15 @@ const Transactions = (props) => {
 
     useEffect(() => {
         if (props.transactions == undefined) {
-            console.log("1")
             setTransactionsAccount([])
+            setFilteredData(transactionsAccount)
         } else {
             setTransactionsAccount(props.transactions)
         }
     }, [props.refresh])
 
     useEffect(()=>{
+        console.log(transactionsAccount)
         try {
             transactionsAccount.map((x, y) => {
                 let dateTrans = x.watr_date.toString()
@@ -43,23 +44,41 @@ const Transactions = (props) => {
         }
     },[transactionsAccount])
 
-    // useEffect(() => {
-    //     console.log(transactionsAccount)
-    // }, selectedFilter)
+    const onChangeSelectFilter = (e) => {
+        setSelectedFilter(e.target.value)
+    }
 
-    // const onChangeSelectFilter = (e) => {
-    //     setSelectedFilter(e.target.value)
-    // }
+    useEffect(()=>{
+        switch (Number(selectedFilter)) {
+            case 1:
+                let filtered1h = transactionsAccount.filter((x)=>Date.now() - new Date(x.watr_date).getTime() <  3600000)
+                setFilteredData(filtered1h)
+                break;
+            case 24:
+                let filtered24h = transactionsAccount.filter((x)=>Date.now() - new Date(x.watr_date).getTime() < 86400000)
+                setFilteredData(filtered24h)
+                break;
+            case 168:
+                let filtered7d = transactionsAccount.filter((x)=>Date.now() - new Date(x.watr_date).getTime() < 604800000 )
+                setFilteredData(filtered7d)
+                break;
+            
+            default:
+                setFilteredData(transactionsAccount)
+                break;
+        }
+    },[selectedFilter])
 
     return (
         <div>
             <div className="flex flex-row content-end ml-2">
-                {/* <h1> Filter By Time :   </h1>
+                <h1> Filter By Time :   </h1>
                 <select value={selectedFilter} className="focus:outline-none ml-2 w-1/12 rounded-md border border-primary" onChange={onChangeSelectFilter}>
+                    <option value="0">No Filter</option>
                     <option value="1">1 Hour</option>
                     <option value="24">24 Hours</option>
                     <option value="168">7 Days</option>
-                </select> */}
+                </select>
             </div>
             <div className="grid max-h-full max-w-full mt-2 ml-2 text-center border rounded-lg overflow-hidden text-white border-primary">
                 <table>
@@ -76,8 +95,8 @@ const Transactions = (props) => {
                     </thead>
                     <tbody>
                         {
-                            transactionsAccount.length < 1 || transactionsAccount == undefined ? (<tr className="text-white"><td>Belum ada transactions</td></tr>) : (
-                                transactionsAccount.map((x) => {
+                            filteredData.length < 1 || filteredData == undefined ? (<tr className="text-primary"><td>Belum ada transactions</td></tr>) : (
+                                filteredData.map((x) => {
                                     return (
                                         <tr className=" text-gray-800 bg-white rounde-xl font-thin overflow-hidden">
                                             <td className="py-3">{x.watr_date}</td>

@@ -63,7 +63,7 @@ function App() {
           <Route path="/category" component={Category} exact />
           <Route path="/condition" component={Condition} exact />
           <Route path="/cart" component={Cart} />
-          <Route path="/orders" component={Orders} />
+          <Route path="/orders"  component={Orders} />
           <Route path="/login" component={Login} />
           <Route path="/daftar" component={Daftar} />
           <Route path="/dashboard" component={Dashboard} />
