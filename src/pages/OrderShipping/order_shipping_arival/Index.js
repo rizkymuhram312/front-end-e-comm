@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import ModalOshipval from './OshipvalModal'
+import numberWithCommas from '../../Expeditions/expedition_routes/numberWithCommas'
 
 
 
@@ -22,9 +23,20 @@ function Index() {
             headers: {
                 "Content-Type": "application/json"
             },
-        }).then((res)=>{
-            setShippingArrival(res.data)
-        }).catch((err)=> console.log(err))
+        })
+            .then((res) => {
+                res.data.map((x, y) => {
+                  let dateOrders = x.order_created_on.toString();
+                  let ordersDate = new Date(dateOrders).toLocaleString();
+                  res.data[y].order_created_on = ordersDate;
+                });
+                setShippingArrival(res.data)
+                                console.log(res.data);
+                console.log(res);
+                console.log();
+              })
+              .catch((err) => console.error(err));
+        
     }
 
 
@@ -78,7 +90,7 @@ function Index() {
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         {
-                                            ShippingArrival.filter((x)=> x.status.stat_name=== "SHIPPING" || x.status.stat_name=== "CLOSED").map(x=>
+                                            ShippingArrival.filter((x)=> (x.status.stat_name=== "SHIPPING" && x.order_acco_id_seller == localStorage.getItem('dataAccountId')) || (x.status.stat_name=== "ARRIVED" && x.order_acco_id_seller == localStorage.getItem('dataAccountId')) || (x.status.stat_name=== "CLOSED" && x.order_acco_id_seller == localStorage.getItem('dataAccountId'))).map(x=>
                                             
                                             <tr key={x.order_name}>     
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -88,7 +100,7 @@ function Index() {
                                             {x.order_created_on}
                                             </td>
                                             <td class="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">
-                                            {x.order_subtotal}
+                                            Rp. {numberWithCommas(x.order_subtotal)}
                                             </td>
                                             <td class="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">
                                             {x.order_weight} Kg
@@ -108,8 +120,8 @@ function Index() {
                                             <button value={x.order_name} className="py-2 px-4 bg-blue-500 hover:bg-blue-400 text-white reounded" onClick={onEditRow}>ARRIVED</button>
                                             </td>
                                             :
-                                            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
-                                            <button className="py-2 px-4 bg-gray-500 text-white reounded" onClick={()=>{setModal(true)}} disabled="true">ARRIVED</button>
+                                            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-400">
+                                            <button className="py-2 px-4 bg-gray-400 text-white reounded" onClick={()=>{setModal(true)}} disabled="true">FINISH</button>
                                             </td>
                                             }
                                             

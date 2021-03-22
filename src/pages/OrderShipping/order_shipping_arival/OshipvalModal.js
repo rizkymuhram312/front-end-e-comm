@@ -1,13 +1,15 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import {apiOrder} from '../../../config/apiUrl'
+import {apiOrder, apiShipping} from '../../../config/apiUrl'
+
 
 function OshipvalModal({
     setModal,
     dataFormOrderArrival
 }) {
-    let[orderName, setOrderName]= useState(dataFormOrderArrival.order_name)
-    let[orderStatName, setOrderStatName]= useState("CLOSED")
+    let[orderName, setOrderName]= useState(dataFormOrderArrival.order_name);
+    let[orderStatName, setOrderStatName]= useState("ARRIVED");
+    let[oshipArrivalDate]= useState(Date.now())
 
     console.log(dataFormOrderArrival.order_name)
     const onCancelEdit = ()=>{
@@ -20,7 +22,8 @@ function OshipvalModal({
     // },[])
 
 
-    const handleUpdate = async ()=>{
+    const handleUpdate = async (e)=>{
+        e.preventDefault()
         const data={
             order_name: orderName,
             order_stat_name: orderStatName
@@ -32,10 +35,24 @@ function OshipvalModal({
             }
             
             console.log(result.data)
+            setModal(false)
             return 0;
+
 
         }).catch((err)=> err.message)
     }
+
+
+
+    // const handleUpdateShipping = async (e)=>{
+    //     e.preventDefault()
+
+    //     const data={
+    //         oship_arrival_date: oshipArrivalDate
+    //     }
+
+    //     await axios.put(`${apiShipping}/ordershipping/`)
+    // }
 
 
 

@@ -11,7 +11,7 @@ function OshipModal({
 
 
     let[oshipCreatedOn]= useState(Date.now());
-    let[oshipShipDate] = useState(Date.now());
+    let[oshipShipDate, setOshipShipDate] = useState("");
     let[oshipArrivalDate] = useState(Date.now());
     let[oshipDesc, setOshipDesc] = useState('');
     let[oshipOrderName] = useState(dataFormOrderShipping.order_name);
@@ -26,9 +26,14 @@ function OshipModal({
         const value = e.target.value
         setOshipDesc(value)
     }
+
+    const onChangeOshipShipDate = e =>{
+        const value = e.target.value
+        setOshipShipDate(value)
+    }
     
 
-console.log(dataFormOrderShipping.order_name)
+console.log(dataFormOrderShipping.account.addresses[0].addr_address)
    
 
     const handleUpdate = async ()=>{
@@ -71,11 +76,13 @@ console.log(dataFormOrderShipping.order_name)
     }
 
 
-    const hasil = async ()=>{
+    const hasil = async (e)=>{
+        e.preventDefault()
         try {
             
             await handleUpdate();
-            // await klikShipping();
+            await klikShipping();
+            setModal(false)
            } catch (err) {
                console.log(err.message) 
            }
@@ -89,7 +96,6 @@ console.log(dataFormOrderShipping.order_name)
     const onCancelEdit = ()=>{
         setModal(false)
     }
-
 
 
 
@@ -122,11 +128,21 @@ console.log(dataFormOrderShipping.order_name)
                                         
                                         <div className="w-full lg:w-full px-4">
                                                
-                                            <input required
-                                                    type="text"
+                                            <textarea required
+                                                    // type="textarea"
                                                     name="oshipDesc"
-                                                    value={oshipDesc}
+                                                    // {dataFormOrderShipping.account.addresses[0].addr_address}
+                                                    value={dataFormOrderShipping.account.addresses[0].addr_address}
                                                     onChange={onChangeOshipDesc}
+                                                    placeholder="Masukan Keterangan"
+                                                    className="px-3 py-3 my-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+
+                                                />
+                                            <input required
+                                                    type="date"
+                                                    name="oshipShipDate"
+                                                    value={oshipShipDate}
+                                                    onChange={onChangeOshipShipDate}
                                                     placeholder="Masukan Keterangan"
                                                     className="px-3 py-3 my-3 placeholder-gray-400 text-gray-700 bg-white rounded text-xs shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 

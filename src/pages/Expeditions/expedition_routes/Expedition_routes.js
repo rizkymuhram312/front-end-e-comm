@@ -1,4 +1,5 @@
 import React from 'react';
+import numberWithCommas from './numberWithCommas'
 
 const TabelExpeditionRoutes = (props)=>{
     return (
@@ -32,7 +33,7 @@ const TabelExpeditionRoutes = (props)=>{
                                                 To
                                             </th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Cost(Rp)
+                                                Cost
                                             </th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Durasi
@@ -60,7 +61,7 @@ const TabelExpeditionRoutes = (props)=>{
                                                 <p className="name_expedition">{expeditionRoute.exro_to}</p>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <p className="name_expedition">{expeditionRoute.exro_cost}</p>
+                                                <p className="name_expedition">Rp. {numberWithCommas(expeditionRoute.exro_cost)}</p>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                 <p className="name_expedition">{expeditionRoute.exro_duration}</p>

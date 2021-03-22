@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import {apiOrder} from '../../../config/apiUrl'
 import ModalOship from './OshipModal'
+import numberWithCommas from '../../Expeditions/expedition_routes/numberWithCommas'
 
 function Index() {
 
@@ -19,18 +20,33 @@ function Index() {
         // fetchUpdateOrderShipping()
     }, [modal, dataFormOrderShipping])
 
-        
+
+    console.log(localStorage.getItem('dataAccountId'))
+
+    // console.log("Naha")
+    //     console.log(OrderShipping.map(x => x.order_acco_id_seller))    
 
     const fetchOrderShipping = async ()=>{
         return await axios({
-            url:`${apiOrder}/orders`,
+            url:`${apiOrder}/orders/`,
             method: "get",
             headers: {
                 "Content-Type": "application/json"
             },
-        }).then((res)=>{
-            setOrderShipping(res.data)
-        }).catch((err)=> console.log(err))
+        })
+            .then((res) => {
+                res.data.map((x, y) => {
+                  let dateOrders = x.order_created_on.toString();
+                  let ordersDate = new Date(dateOrders).toLocaleString();
+                  res.data[y].order_created_on = ordersDate;
+                });
+                setOrderShipping(res.data)
+                console.log(res.data);
+                console.log(res);
+                console.log();
+              })
+              .catch((err) => console.error(err));
+        
     }
 
 
@@ -45,13 +61,21 @@ function Index() {
         //     return setDataFormOrderShipping(data)
         // }
         // )
+        
+
 
         OrderShipping.filter((data)=>
             data.order_name === e.target.value
         ).map(data => setDataFormOrderShipping(data))
 
+
+        
+
         setModal(true)
     }
+    // console.log(localStorage.getItem('dataAccountId'))
+
+    console.log(OrderShipping)
 
 
     return (
@@ -88,7 +112,7 @@ function Index() {
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         {
-                                            OrderShipping.filter((x)=> x.status.stat_name=== "PAID").map(x=>
+                                            OrderShipping.filter((x)=> x.status.stat_name=== "PAID" && x.order_acco_id_seller == localStorage.getItem('dataAccountId')).map(x=>
                                     
                                         <tr key={x.order_name}>     
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -98,13 +122,15 @@ function Index() {
                                                 {x.order_created_on}
                                             </td>
                                             <td class="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">
-                                                {x.order_subtotal}
+                                                Rp. {numberWithCommas(x.order_subtotal)}
                                             </td>
                                             <td class="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">
                                                 {x.order_weight} Kg
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                 {x.order_discount} %
+                                                {/* {x.order_acco_id_seller} */}
+                                                {/* {x.orders_line_items[2].product.prod_acco_id} */}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -116,6 +142,7 @@ function Index() {
                                             </td>
                                         </tr>
                                             )} 
+                                            
                                         
                                     </tbody>
                                 </table>
