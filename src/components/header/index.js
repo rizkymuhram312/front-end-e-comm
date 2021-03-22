@@ -18,19 +18,19 @@ export default function Navbar({ fixed }) {
     // console.log(isLogin)
     if (token == null || token == undefined) {
       setisLogin(false);
-      setTValue({});
+      // setTValue({});
     }
     else {
       setisLogin(true);
-      setTValue({});
+      // setTValue({});
     }
     // setTValue({});
-  }, token,tvalue)
+  }, [])
   const klikLogout = () => {
     localStorage.clear()
     alert("Anda Berhasil Logout!");
     setisLogin(false)
-    setTValue({});
+    // setTValue({});
     history.push("/login")
   }
   const onClickLogin = () => {

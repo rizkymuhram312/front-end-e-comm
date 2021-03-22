@@ -9,6 +9,7 @@ import axios from 'axios'
 import { apiTopup } from '../../config/apiUrl'
 import VerifyPayment from '../payment/VerifyPayment'
 import {apiPayment} from '../../config/apiUrl'
+import {toast} from 'react-toastify'
 
 const Tabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
@@ -82,8 +83,14 @@ const Tabs = ({ color }) => {
   //   "vendor": "PDAM",
   //   "payment_by":"wallet"
   // })
-
-
+  toast.configure()
+  const notify = () => {
+       
+    toast.info('Order Successful', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000
+    })
+  }
 
   useEffect(() => {
     fetchPulsa()
@@ -185,7 +192,8 @@ const Tabs = ({ color }) => {
     
     // setTimeout(()=>{})
     // addBillPulsa();
-
+    notify()
+    setPhoneNumber("")
     console.log('Succes Input Data');
   }
 
@@ -199,21 +207,29 @@ const Tabs = ({ color }) => {
     console.log('this is Amount : '+internetAmount);
     // addBillInternet()
     addWatrNumberInternet()
+    notify()
+    setInternet("")
+
   }
 
   const addVouchergame = () => {
     addWatrNumberGame()
     console.log(gameCard);
+    notify()
     console.log('--Input data success--');
   }
 
   const addPLN = ()=>{
     addWatrNumberPLN()
+    notify()
+    setTokenNum("")
     console.log('--Input data success--');
   }
 
   const addPDAM = ()=>{
     addWatrNumberPDAM()
+    notify()
+    setPdam("")
     console.log('--Input data success--');
   }
   const fetchPLN = async () => {

@@ -8,7 +8,6 @@ const VendorTable = (props) => {
     const [vendorName,setVendorName] = useState(props.name);
     const [vendorDesc,setVendorDesc] = useState("")
 
-
     
     const updateVendor = async (vendor) => {
         console.log('Params : '+vendorName);
@@ -55,6 +54,7 @@ const VendorTable = (props) => {
         }).catch((err)=>{
             console.log(err);
         })
+        
         
         setShowModal(false)
     }

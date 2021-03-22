@@ -149,8 +149,8 @@ export default function Sidebar() {
                                 className={
                                     "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                                     (openTab === 1
-                                        ? "text-white bg-gray-500"
-                                        : "text-gray-700 bg-white")
+                                        ? "text-white bg-primary"
+                                        : "text-primary bg-white")
                                 }
                                 onClick={e => {
                                     e.preventDefault();
@@ -167,8 +167,8 @@ export default function Sidebar() {
                                 className={
                                     "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                                     (openTab === 2
-                                        ? "text-white bg-gray-500"
-                                        : "text-gray-700 bg-white")
+                                        ? "text-white bg-primary"
+                                        : "text-primary bg-white")
                                 }
                                 onClick={e => {
                                     e.preventDefault();
