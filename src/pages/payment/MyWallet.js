@@ -18,19 +18,16 @@ const MyWallet = () => {
       const fetchDataTrans = async () => {
         try {
           let result = await GetTransactions(acco_id)
-          setTransactions(result) 
-          console.log(result)
+          setTransactions(result)
         } catch (error) {
           console.log(error)          
         }      
       }
 
       const fetchData = async () => {
-        console.log(acco_id)
         if(acco_id !== undefined) {
           try {
             let walletData = await GetWallet(acco_id)
-            console.log(walletData.length)
             if(walletData.length > 0){
               await saldoToString(walletData[0])
               setWalletActivated(true)
@@ -98,8 +95,8 @@ const MyWallet = () => {
 
     return (
       <>
-      <div className=" font-sans ml-2 mt-2 h-36 bg-green-600 flex-wrap shadow-lg rounded-lg text-white font-light pl-2">
-          <h4 className=" font-bold ml-2 pt-2">My Wallet</h4>
+      <div className="bg-secondary border border-primary font-sans ml-2 mt-2 h-36 flex-wrap shadow-lg rounded-lg text-text_primary font-light pl-2">
+          <h4 className=" font-medium ml-2 pt-2">My Wallet</h4>
           {
             walletActivated ? (
               <div>
@@ -111,14 +108,14 @@ const MyWallet = () => {
             :(
               <div className="ml-2">
                 <h1>Wallet Belum Aktif</h1>
-                <button onClick={onHandleClickActivateWallet} className="bg-blue-500 rounded-md w-2/12 shadow-xl border"><h1>Activate Wallet</h1></button>
+                <button onClick={onHandleClickActivateWallet} className="bg-white border-primary rounded-md w-2/12 shadow-xl border text-text_primary"><h1>Activate Wallet</h1></button>
               </div>
             )
           }
       </div>
-      <div>
-        <button className=" ml-2 text-white font-light border outline-none bg-blue-500 shadow-lg overflow-hidden rounded-lg mt-1 px-2" onClick={onHandleClikTopUp}>Topup</button>
-        <button className=" ml-2 text-white font-light border outline-none bg-blue-500 shadow-lg overflow-hidden rounded-lg mt-1 px-2" onClick={onHandleClickHistoryTrans}>History Transaksi</button>      
+      <div className="mb-4">
+        <button className=" border-primary ml-2 text-white font-light border focus:outline-none bg-primary shadow-lg overflow-hidden rounded-md mt-1 px-2" onClick={onHandleClikTopUp}>Topup</button>
+        <button className=" border-primary ml-2 text-white font-light border focus:outline-none bg-primary shadow-lg overflow-hidden rounded-md mt-1 px-2" onClick={onHandleClickHistoryTrans}>History Transaksi</button>      
       </div>
       {
         showHistoryTrans ? (

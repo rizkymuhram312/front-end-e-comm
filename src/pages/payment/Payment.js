@@ -1,16 +1,52 @@
 const Payment = () => {
-    const orders = {
-        "order_name":"",
-    }
+    let [counter, setCounter] = useState(0);
+    let text = " . . . . . . . .".split("")
+    let [loadingText, setLoadingText] = useState(text[0])
+    let [refresh, setRefresh] = useState(false)
+    let [showVerifyPin, setShowVerifyPin] = useState(false)
+    let [loading, setLoading] = useState(false)
+    let [verified, setVerified] = useState(false)
+    let [paid, setPaid] = useState(false)
+
+    useEffect(() => {
+        if (loading) {
+            if (counter > text.length - 1) {
+                setCounter(0)
+                setLoadingText("")
+                setRefresh(!refresh)
+            } else {
+                setCounter(counter + 1)
+                setTimeout(() => {
+                    setLoadingText(loadingText + text[counter])
+                    setRefresh(!refresh)
+                }, 500)
+            }
+        }
+    }, [loading, refresh])
+
     return (
-        <div className="grid place-content-center border-red-500">
-            <form className="max-w-md">
-                <input type="text" className="max-w-full p-3 mt-10 shadow-lg bg-white rounded-xl mr-2 focus:outline-none focus:ring-2 font-light"/>
-                <input type="text" className="max-w-full p-3 mt-10 shadow-lg bg-white rounded-xl mr-2 focus:outline-none focus:ring-2 font-light"/>
-                <input type="text" className="max-w-full p-3 mt-10 shadow-lg bg-white rounded-xl mr-2 focus:outline-none focus:ring-2 font-light"/>                
-                <button type="submit" className="py-2 px-4 font-extralight text-white rounded-xl bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">Search</button>
-            </form>
-        </div>
+        <>
+            {
+                loading ?
+                    <div className=" focus:border-primary grid w-80 mx-auto mt-10 my-2 text-center border shadow-md border-gray-300 rounded-md overflow-hidden text-black">
+                        <h1 className="font-bold">PROCESSING YOUR REQUEST {loadingText}</h1>
+                    </div> :
+                    showVerifyPin ?
+                        <VerifyPayment
+                            wale_id={data.wale_id}
+                            acco_id={data.acco_id}
+                            setShowVerifyPin={setShowVerifyPin}
+                            setVerified={setVerified}
+                            verified={verified}
+                            setLoading={setLoading}
+                            setPaid={setPaid}
+                            data={data}
+                        />
+                        : paid ? <div>
+                            <h1>Pembayaran Berhasil</h1>
+                        </div> :null
+        }
+        </>
     )
 }
 

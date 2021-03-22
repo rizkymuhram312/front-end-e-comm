@@ -21,8 +21,7 @@ const Transactions = (props) => {
     }
 
     useEffect(()=>{
-        console.log(props)
-        if(props.length < 1 || props == undefined){
+        if(props.transactions == undefined){
             setTransactionsAccount([])
         }else{
             setTransactionsAccount(props.transactions)
@@ -30,16 +29,17 @@ const Transactions = (props) => {
     },[props.refresh])
 
     return(
-        <div className="grid max-w-full mx-auto mt-10 text-center border border-gray-500 rounded-lg overflow-hidden text-white">
+        <div className="grid max-h-full max-w-full mx-auto mt-10 text-center border border-secondary rounded-lg overflow-hidden text-gray-700">
         <table>
         <thead>
-          <tr className=" h-8 shadow-2xl bg-gray-700 ">
-              <th className="w-2/12 font-extralight">Date</th>
+          <tr className="h-10 shadow-2xl bg-table">
+              <th className="w-3/12 font-extralight">Date</th>
+              <th className="w-2/12 font-extralight">From</th>
               <th className="w-1/12 font-extralight">To</th>
               <th className="w-2/12 font-extralight">Credit</th>
               <th className="w-2/12 font-extralight">Debit</th>
               <th className="w-2/12 font-extralight">Transaction Number</th>
-              <th className="w-1/12 font-extralight">Transaction Type</th>
+              <th className="w-1/12 font-extralight px-4">Type</th>
           </tr>
         </thead>
           <tbody>
@@ -47,9 +47,10 @@ const Transactions = (props) => {
                 transactionsAccount.length < 1 || transactionsAccount == undefined? (<tr className="text-black"><td>Belum ada transactions</td></tr>):(
                     transactionsAccount.map((x) => {
                         return (
-                    <tr className=" text-black bg-white rounde-xl">
-                        <td>{x.watr_date}</td>
-                        <td>{x.watr_acc_target}</td>
+                    <tr className=" text-text_primary bg-white rounde-xl font-thin">
+                        <td className="py-3">{x.watr_date}</td>
+                        <td>{x.watr_numbers.toString().split("-")[0] == x.watr_wale_id ? "MyWallet":x.watr_numbers.toString().split("-")[0]}</td>
+                        <td>{x.watr_acc_target == 9999 ? 9999 : "MyWallet" }</td>
                         <td>Rp. {fixNotation(x.watr_credit)}</td>
                         <td>Rp. {fixNotation(x.watr_debet)}</td>
                         <td>{x.watr_numbers}</td>

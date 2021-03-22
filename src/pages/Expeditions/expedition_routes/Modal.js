@@ -52,12 +52,6 @@ export default class Modal extends Component {
         // console.log(listExpedition())
 
     }
-
-
-    
-
-
-
     handleOnSubmit =  e =>{
         e.preventDefault();
         const expeditionRoute = {
