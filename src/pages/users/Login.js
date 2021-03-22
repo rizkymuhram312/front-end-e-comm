@@ -1,5 +1,5 @@
 import React, { useState , Fragment } from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect , useHistory} from 'react-router-dom'
 import axios from 'axios'
 import { apiUserMaster,apiUserAccount } from '../../config/apiUrl'
 
@@ -11,6 +11,7 @@ const Login = () => {
     const[redirect, setRedirect] = useState(false);
     const[error, setError] = useState('');
 
+    const history = useHistory()
 
 
     const onChangeEmail = (e) => {
@@ -58,6 +59,9 @@ const Login = () => {
                 let acco_gender = result.data.users.accounts.acco_gender
                 localStorage.setItem('dataAccountGender',acco_gender)
 
+                let acco_avatar = result.data.users.accounts.acco_avatar
+                localStorage.setItem('profilImage',acco_avatar)
+
                 localStorage.setItem('dataUserName', result.data.users.user_name)
                 localStorage.setItem('token', result.data.token)
                 // localStorage.setItem('dataUserPass', data.user_password)
@@ -76,7 +80,8 @@ const Login = () => {
 
 
                 // console.log(a)
-                setRedirect(true)
+                // setRedirect(true)
+                history.push('/home')
             }
             else{
                 console.log(result)

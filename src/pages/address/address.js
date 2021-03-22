@@ -31,8 +31,6 @@ const Address = () => {
   const [Isedit, setIsEdit] = useState(false)
   let history = useHistory();
 
-  
-
   const GetAlamat = async () => {
     const response = await axios.get(`${apiUserAccount}/address/search/${apiAccoId}`);
     return response.data;
@@ -245,7 +243,7 @@ const Address = () => {
     <>
       {alamat[0] ? (
         <>
-         <div class="w-full mb-12 xl:mb-0 px-4">
+          <div class="w-full mb-12 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-purple-100">
               <div class="rounded-t mb-0 px-4 py-3 border-0 bg-gray-500">
                 <div class="flex flex-wrap items-center">
@@ -268,7 +266,7 @@ const Address = () => {
                { alamat.map ((x,index) =>{
                  return (
                    <>
-             <div className="grid grid-cols-6 relative p-6 flex-auto mb-2">
+              <div className="grid grid-cols-6 relative p-6 flex-auto mb-2">
                   <div className="col-span-5">
                       <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center">
                           <h1 className="justify-self-end">Nama Kamu/Toko : </h1>
@@ -312,7 +310,7 @@ const Address = () => {
               <hr className="bg-gray-500 border-2"></hr>
                    </>
                  )
-               })}
+                })}
             </div>
           </div>
         </>
@@ -476,7 +474,7 @@ const Address = () => {
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                   <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    className="text-gray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
                     type="button"
                     style={{ transition: "all .15s ease" }}
                     onClick={onClose}
