@@ -98,6 +98,12 @@ const MyWallet = () => {
 
     return (
       <>
+      <div className="grid-flow-row">
+        <div>
+          
+        </div>
+
+      </div>
       <div className=" font-sans ml-2 mt-2 h-36 bg-green-600 flex-wrap shadow-lg rounded-lg text-white font-light pl-2">
           <h4 className=" font-bold ml-2 pt-2">My Wallet</h4>
           {

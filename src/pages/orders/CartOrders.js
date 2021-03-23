@@ -255,7 +255,7 @@ export default function CartOrders() {
       notify();
     } else {
       setLess(false);
-      notifyErr();
+      notify();
     }
   }
 
@@ -387,7 +387,7 @@ export default function CartOrders() {
                     <div class="flex flex-wrap md:w-6/12 md:mt-1 px-5 font-normal md:font-light text-left font-sans-serif">
                       <img
                         class="h-20 w-20 "
-                        src={x.product.product_images[0].prim_filename}
+                        src={x.product.product_images[0].prim_path}
                       />
                       <label class="p-5">{x.product.prod_name} </label>
                     </div>
@@ -413,7 +413,7 @@ export default function CartOrders() {
               <div className="text-sm block my-1 p-2 text-black">
                 <div className="flex flex-wrap justify-between text-gray-500">
                   <button
-                    class="bg-blue-500 hover:bg-blue-800 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg"
+                    class="bg-button hover:bg-green-300 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg"
                     onClick={onHandleClickCodePay}
                   >
                     CodePay

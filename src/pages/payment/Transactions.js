@@ -35,6 +35,7 @@ const Transactions = (props) => {
         <thead>
           <tr className=" h-8 shadow-2xl bg-gray-700 ">
               <th className="w-2/12 font-extralight">Date</th>
+              <th className="w-2/12 font-extralight">From</th>
               <th className="w-1/12 font-extralight">To</th>
               <th className="w-2/12 font-extralight">Credit</th>
               <th className="w-2/12 font-extralight">Debit</th>
@@ -49,7 +50,8 @@ const Transactions = (props) => {
                         return (
                     <tr className=" text-black bg-white rounde-xl">
                         <td>{x.watr_date}</td>
-                        <td>{x.watr_acc_target}</td>
+                        <td>{x.watr_numbers.toString().split("-")[0] == x.watr_wale_id ? "MyWallet":x.watr_numbers.toString().split("-")[0]}</td>
+                        <td>{x.watr_acc_target == 9999 ? 9999 : "MyWallet" }</td>
                         <td>Rp. {fixNotation(x.watr_credit)}</td>
                         <td>Rp. {fixNotation(x.watr_debet)}</td>
                         <td>{x.watr_numbers}</td>

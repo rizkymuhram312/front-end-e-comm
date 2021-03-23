@@ -1,27 +1,22 @@
-import {
-  GetBankAccount,
-  CreateBankAccount,
-  UpdateBankAccount,
-  DeleteBankAccount,
-} from "./api/index";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import AddBankAccountModal from "./BankAccountModal";
-import { useBanks } from "./api/index";
+import {GetBankAccount,CreateBankAccount,UpdateBankAccount,DeleteBankAccount} from './api/index'
+import {useState, useEffect} from 'react'
+import AddBankAccountModal from './BankAccountModal'
+import {useBanks} from './api/index'
 
 const BankAccount = () => {
-  let banks = useBanks({});
-  let [editForm, setEditForm] = useState(false);
-  let [bankAccount, setBankAccount] = useState([]);
-  let [dataFormBankAccount, setDataFormBankAccount] = useState({});
-  let [refresh, setRefresh] = useState(false);
-  let { acco_id } = useParams();
-  let [errorApi, setErrorApi] = useState("");
-  let [modal, setModal] = useState(false);
+  let banks = useBanks({})
+  let [editForm,setEditForm] = useState(false)
+  let [bankAccount,setBankAccount] = useState([])
+  let [dataFormBankAccount,setDataFormBankAccount] = useState({})
+  let [refresh,setRefresh] = useState(false)
+  let acco_id = localStorage.getItem("dataAccountId")
+  let [errorApi,setErrorApi] = useState("")
+  let [modal,setModal] = useState(false)
 
   useEffect(() => {
-    fetchData();
-  }, [refresh]);
+    fetchData()
+    console.log(acco_id)
+  },[refresh])
 
   let fetchData = async () => {
     try {
@@ -78,41 +73,25 @@ const BankAccount = () => {
               <th className="w-1/4"></th>
             </tr>
           </thead>
-          <tbody>
-            {bankAccount.length < 1 ? (
-              <tr key="error" className="text-gray-900">
-                <td>{errorApi}</td>
-              </tr>
-            ) : (
-              bankAccount.map((x) => {
-                return (
-                  <tr
-                    key={x.bacc_id}
-                    className=" text-black bg-white rounde-xl"
-                  >
-                    <td>{x.bank.bank_name}</td>
-                    <td>{x.bacc_owner}</td>
-                    <td>{x.bacc_acc_number}</td>
-                    <td>
-                      <button
-                        value={x.bacc_id}
-                        className=" w-4/12 bg-red-500 hover:bg-red-800 font-light rounded-lg text-white mr-5"
-                        onClick={onDelete}
-                      >
-                        DELETE
-                      </button>
-                      <button
-                        value={x.bacc_id}
-                        className=" w-4/12 bg-blue-500 hover:bg-blue-800 font-light rounded-lg text-white mr-5"
-                        onClick={onEdit}
-                      >
-                        EDIT
-                      </button>
-                    </td>
+            <tbody>
+              {
+                bankAccount.length < 1 ?
+                <tr key="error" className="text-gray-900"><td>{errorApi}</td></tr> 
+                : 
+                bankAccount.map((x) => {
+                  return (
+                  <tr key={x.bacc_id} className=" text-black bg-white rounde-xl">
+                      <td>{x.bank.bank_name}</td>
+                      <td>{x.bacc_owner}</td>
+                      <td>{x.bacc_acc_number}</td>
+                      <td>
+                          <button value={x.bacc_id} className=" w-4/12 bg-red-500 hover:bg-red-800 font-light rounded-lg text-white mr-5" onClick={onDelete}>DELETE</button>
+                          <button value={x.bacc_id} className=" w-4/12 bg-blue-500 hover:bg-blue-800 font-light rounded-lg text-white mr-5" onClick={onEdit}>EDIT</button>
+                      </td>
                   </tr>
                 );
               })
-            )}
+            }
           </tbody>
         </table>
       </div>

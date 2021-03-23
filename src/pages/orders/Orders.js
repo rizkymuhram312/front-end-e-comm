@@ -358,7 +358,7 @@ export default function CartOrders() {
                     <div class="flex flex-wrap md:w-6/12 md:mt-1 px-5 font-normal md:font-light text-left font-sans-serif">
                       <img
                         class="h-20 w-20 "
-                        src={x.product.product_images[0].prim_filename}
+                        src={x.product.product_images[0].prim_path}
                       />
                       <label class="p-5">{x.product.prod_name} </label>
                     </div>
