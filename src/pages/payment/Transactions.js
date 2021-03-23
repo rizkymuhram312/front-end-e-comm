@@ -25,15 +25,15 @@ const Transactions = (props) => {
     useEffect(() => {
         if (props.transactions == undefined) {
             setTransactionsAccount([])
-            setFilteredData(transactionsAccount)
         } else {
             setTransactionsAccount(props.transactions)
+            setFilteredData(props.transactions)
         }
     }, [props.refresh])
 
     useEffect(()=>{
-        console.log(transactionsAccount)
         try {
+            setFilteredData(transactionsAccount)
             transactionsAccount.map((x, y) => {
                 let dateTrans = x.watr_date.toString()
                 let watrDate = new Date(dateTrans).toLocaleString()

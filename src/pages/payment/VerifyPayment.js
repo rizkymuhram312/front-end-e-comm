@@ -28,16 +28,19 @@ const VerifyPayment = (props) => {
         }).catch((err) => {
             console.log(err)
         });
-    }
+  };
+  
 
-    const onHandlePinInputChange = (event) => {
-        let checkInput = ''
-        event.target.value == undefined || null ? checkInput = '' : checkInput = event.target.value
-        if (checkInput.toString().length > 6) {
-        } else {
-            setPin(event.target.value)
-        }
+  const onHandlePinInputChange = (event) => {
+    let checkInput = "";
+    event.target.value == undefined || null
+      ? (checkInput = "")
+      : (checkInput = event.target.value);
+    if (checkInput.toString().length > 6) {
+    } else {
+      setPin(event.target.value);
     }
+  };
 
     return (
         <>
@@ -58,6 +61,6 @@ const VerifyPayment = (props) => {
             }
         </>
     )
-}
+        }
 
-export default VerifyPayment
+export default VerifyPayment;

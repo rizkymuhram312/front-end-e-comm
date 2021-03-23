@@ -30,7 +30,7 @@ const BankAccount = () => {
         setErrorApi("Belum ada akun bank")
       }
     }
-  }
+  };
 
   const onDelete = async (x) => {
     console.log(x.target.value)
@@ -126,4 +126,4 @@ const BankAccount = () => {
   )
 }
 
-export default BankAccount
+export default BankAccount;
