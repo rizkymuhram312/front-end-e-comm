@@ -28,7 +28,6 @@ const AddBankAccountModal = ({
     useEffect(() => {
         // Kalo Edit true, ini proses inisiasi form
         if (editForm) {
-            console.log(dataFormBankAccount)
             setSelectedBank(dataFormBankAccount.bacc_bank_id)
             setOwner(dataFormBankAccount.bacc_owner)
             setAccountNum(dataFormBankAccount.bacc_acc_number)
@@ -89,7 +88,7 @@ const AddBankAccountModal = ({
                             <label className="leading-loose">Nomor Rekening</label>
                             <input required value={accountNum} onChange={(x)=>setAccountNum(x.target.value)} type="number" className="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Event title"/>
                         </div>
-                        <input type="submit" className=" mt-4 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"/>
+                        <input type="submit" className=" mt-4 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-button text-base font-medium text-text_primary hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"/>
                         <button onClick={onCancelEdit} className="mt-4 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                             Cancel
                         </button>

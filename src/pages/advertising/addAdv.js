@@ -92,7 +92,7 @@ export default function AddAdv() {
           </div>
         </div>
         <div className="w-full md:w-9/12">
-            {Product.product_images && <img src={`../${Product.product_images[0]?Product.product_images[0].prim_filename:"adv.jpg"}`} class=" ml-5 rounded-lg inset-0 w-64 h-64 object-cover " alt="product" style={{display:'block', margin:'auto'}}/>}
+            {Product.product_images && <img src={`../${Product.product_images[0]?Product.product_images[0].prim_path:"adv.jpg"}`} class=" ml-5 rounded-lg inset-0 w-64 h-64 object-cover " alt="product" style={{display:'block', margin:'auto'}}/>}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col content-evenly xl:px-32 md:px-24 p-5">
               <label className="mt-2">Published Date</label>
