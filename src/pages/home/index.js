@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { apiProductMaster, apiProductTransaction } from "../../config/apiUrl";
+import convertToRupiah from '../product/convertToRupiah'
 // Swiper
 import Swiper from 'react-id-swiper';
 import SwiperCore, { Navigation, Pagination } from 'swiper/core';
@@ -156,7 +157,7 @@ export default function Navbar({ fixed }) {
 												</div>
 												<div class="px-5 py-3">
 													<h3 class="text-gray-700 text-xl uppercase">{prod.prod_name}</h3>
-													<span class="text-gray-500 text-xl mt-2">Rp. {prod.prod_price}</span>
+													<span class="text-gray-500 text-xl mt-2"> {convertToRupiah(prod.prod_price)}</span>
 												</div>
 											</Link>
 											</div>

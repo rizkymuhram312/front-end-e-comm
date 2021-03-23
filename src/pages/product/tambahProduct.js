@@ -30,6 +30,7 @@ export default function TambahProduct() {
     const [prova_optionSize, setProvaOptionSize] = useState('')
     const [image, setImage] = useState('')
     const [loading, setLoading] = useState(false)
+    const [primpath, setPrimpath] = useState()
 
     toast.configure()
     const notify = () => {
@@ -250,8 +251,9 @@ export default function TambahProduct() {
                                         notifyErr()
                                     } else {
                                         if (result.dataImages) {
+                                            image('')
                                 
-                                            // setProvaNameSize('')
+                                            setPrimpath('')
                                             // setProvaOptionSize('')
                                             // setProvaProdId('')
                     

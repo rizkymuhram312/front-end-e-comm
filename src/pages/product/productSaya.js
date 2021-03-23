@@ -127,13 +127,13 @@ export default function ProductSaya() {
               <table class="border-collapse w-full mr-10 ml-10 mt-5 ">
                 <thead>
                   <tr>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Produk Id</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Nama Produk</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Deskripsi</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Harga</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Stok</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Berat</th>
-                    <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Status</th>
+                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Produk Id</th>
+                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Nama Produk</th>
+                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Deskripsi Produk</th>
+                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Harga</th>
+                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Stok</th>
+                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Berat</th>
+                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Status</th>
                     {/* <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Actions</th> */}
                   </tr>
                 </thead>
