@@ -4,29 +4,35 @@ import { apiProductMaster } from '../../config/apiUrl';
 import axios from "axios";
 import swal from 'sweetalert';
 
-export const EditBrand = () => {
-    const [brand, setbrand] = useState([]);
-    const [brand_name, setBrandName] = useState('');
+export const EditCond = () => {
+    const [condition, setCondition] = useState([]);
+    const [cond_name, setCondName] = useState('');
+    const [cond_desc, setCondDesc] = useState('');
     const [error, setError] = useState('');
     const [alert, setAlert] = useState('');
     const id = localStorage.getItem('id')
     let history = useHistory()
 
     // console.log(id)
-    const OnChangeBrandName = e => {
+    const OnChangeCondName = e => {
         const value = e.target.value
-        setBrandName(value)
+        setCondName(value)
         setError('')
     }
-    const GetBrand = async () => {
-        // console.log(GetBrand)
-        const response = await axios.get(`${apiProductMaster}/brand/${id}`)
+    const OnChangeCondDesc = e => {
+        const value = e.target.value
+        setCondDesc(value)
+        setError('')
+    }
+    const GetCond = async () => {
+        // console.log(GetCond)
+        const response = await axios.get(`${apiProductMaster}/condition/${id}`)
         return response.data;
 
         // console.log(response.data)
     }
     // const notifyErr = () => {
-    //     // history.push('/brand')
+    //     // history.push('/condition')
     //     swal("Cancel", "You brand list Not Changed!", "error");
     // }
     const notify = () => {
@@ -34,34 +40,37 @@ export const EditBrand = () => {
     }
 
     useEffect(() => {
-        const getListBrand = async () => {
-            const listbrand = await GetBrand();
-            console.log(listbrand)
+        const getListCond = async () => {
+            const listCond = await GetCond();
+            console.log(listCond)
 
-            if (listbrand) {
-                setBrandName(listbrand.brand_name);
-                setbrand(listbrand)
+            if (listCond) {
+                setCondName(listCond.cond_name);
+                setCondDesc(listCond.cond_desc);
+                setCondition(listCond)
             }
         }
-        getListBrand();
+        getListCond();
     }, [])
 
-    const editBrand = () => {
+    const editCond = () => {
         // console.log(id)
         // e.preventDefault()
         const data = {
-            brand_name: brand_name,
+            cond_name: cond_name,
+            cond_desc: cond_desc
         }
         // console.log(data)
-        axios.put(`${apiProductMaster}/brand/${id}`, data)
+        axios.put(`${apiProductMaster}/condition/${id}`, data)
             .then(result => {
                 if (result) {
                     console.log(result.data)
                     if (result.data) {
-                        setBrandName('')
+                        setCondName('')
+                        setCondDesc('')
                         setAlert(result.data.message)
                         notify()
-                        history.push('/brand')
+                        history.push('/condition')
                         setTimeout(() => {
                             setAlert('')
                         }, 2500)
@@ -69,7 +78,7 @@ export const EditBrand = () => {
                 }
             })
             .catch(e => {
-                // history.push("/brand")
+                // history.push("/condition")
                 setError(e.response.data.message)
             })
         // history.push("/brand")
@@ -79,11 +88,20 @@ export const EditBrand = () => {
         <div class="max-w-lg max-w-xs bg-primary shadow-2xl rounded-lg mb-5 mx-auto text-center py-12 mt-4 rounded-xl">
             <h1 class="text-white text-center font-extrabold -mt-3  text-3xl">Edit Brand</h1>
             <div class="container py-5 max-w-md mx-auto">
-                <form onSubmit={editBrand}>
+                <form onSubmit={editCond}>
                     <div class="mb-4">
                         <input placeholder="name"
-                            value={brand_name}
-                            onChange={OnChangeBrandName}
+                            value={cond_name}
+                            onChange={OnChangeCondName}
+                            class="shadow appearance-none h-16 text-lg rounded w-full 
+                            py-2 px-3 text-gray-700 leading-tight 
+                            focus:outline-none focus:shadow-outline"
+                            id="brandName" type="text" ref={({ minLength: { value: 2, message: "Too Short" } })} />
+                    </div>
+                    <div class="mb-4">
+                        <input placeholder="name"
+                            value={cond_desc}
+                            onChange={OnChangeCondDesc}
                             class="shadow appearance-none h-16 text-lg rounded w-full 
                             py-2 px-3 text-gray-700 leading-tight 
                             focus:outline-none focus:shadow-outline"
@@ -93,15 +111,15 @@ export const EditBrand = () => {
 
                     <div class="flex items-center justify-end gap-2">
                         <Link
-                            onClick={editBrand}
-                            value="editBrand"
+                            onClick={editCond}
+                            value="editcond"
 
                             class="flex items-center justify-center focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 w-full transition duration-150 ease-in"
                         >
                             Submit
                   </Link>
                         <Link class="flex items-center justify-center focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 w-full transition duration-150 ease-in"
-                            type="button" to="/brand">
+                            type="button" to="/condition">
 
                             Cancel
                         </Link>

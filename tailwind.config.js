@@ -1,19 +1,23 @@
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
-  theme:  {
-    extend: {
-      colors: {
-        primary: '#E61872',
-        secondary: '#ffffff',
-        buttonOn: '#e6ccb2',
-        buttonOff: '#e6ccb2',
-        table:"#E61872"
-      },
-    }
-  },
-  variants: {
-    // display: ["group-hover"]
-  },
-  plugins: []
-};
+    purge: [],
+    darkMode: false, // or 'media' or 'class'
+    theme:  {
+      extend: {
+        colors: {
+          primary: '#E61872',
+          secondary: '#b08968',
+          buttonOn: '#e6ccb2',
+          buttonOff: '#e6ccb2',
+          button: '#aee1e1',
+          table : '#d3e0dc',
+          
+        },
+      }
+    },
+    variants: {
+      // display: ["group-hover"]
+    },
+    plugins: []
+  };
+
+  

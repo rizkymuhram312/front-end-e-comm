@@ -31,6 +31,7 @@ import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
 import EditProduct from './pages/product/editProduct'
 import billTopup from './pages/billTopup'
+import vendor from './pages/vendor'
 import ExpeditionRoutesIndex from './pages/Expeditions/ExpeditionRoutesIndex'
 import ExpeditionIndex from './pages/Expeditions/ExpeditionIndex'
 import OrderShippingIndex from './pages/OrderShipping/OrderShippingIndex'
@@ -41,10 +42,14 @@ import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
 import OrdersKw from './pages/payment/Orders'
 import productMaster from './components/sideBarMenu/productMaster';
+import WalletAndBank from './pages/payment/WalletAndBank'
 import Brand from './pages/brand/brand';
 import AddBrand from './pages/brand/addBrand';
 import {EditBrand} from './pages/brand/editBrand';
-import WalletAndBank from './pages/payment/WalletAndBank'
+import addCond from './pages/condition/addCond';
+import {EditCond} from './pages/condition/editCond';
+import addCate from './pages/category/addCate';
+import CateUpload from './pages/category/cateUpload';
 
 function App() {
   return (
@@ -55,16 +60,22 @@ function App() {
         <Switch>
           <Route path="/home" component={Home} exact />
           <Route path="/shop" component={Dashboard} exact />
-          {/* <Route path="/productCate/:cate_id" component={CategoryProd} /> */}
           <Route path="/" component={Home} exact/>
-          <Route path="/productMaster" component={productMaster} exact/>
           {/* brand */}
           <Route path="/brand" component={Brand} exact />
           <Route path="/addBrand" component={AddBrand} exact />
           <Route path="/editBrand" component={EditBrand} exact />
           {/* end Brand */}
-          <Route path="/category" component={Category} exact />
+          {/* start Condition */}
           <Route path="/condition" component={Condition} exact />
+          <Route path="/addCond" component={addCond} exact />
+          <Route path="/editCond" component={EditCond} exact />
+          {/* end Condition */}
+          {/* start category */}
+          <Route path="/category" component={Category} exact />
+          <Route path="/addCate" component={addCate} exact />
+          <Route path="/upload" component={CateUpload} exact />
+          {/* end Category */}
           <Route path="/cart" component={Cart} />
           <Route path="/cart-orders" component={CartOrders} />
           <Route path="/orders" component={Orders}/>
@@ -88,6 +99,7 @@ function App() {
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/editproduct" component={EditProduct}/>
           <Route path="/billTopup" component={billTopup}/>
+          <Route path="/vendor" component={vendor}/>
           <Route path="/expeditionsroutes" component={ExpeditionRoutesIndex}/>
           <Route path="/expeditions" component={ExpeditionIndex}/>
           <Route path="/ordershipping" component={OrderShippingIndex}/>

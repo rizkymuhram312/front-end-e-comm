@@ -32,6 +32,19 @@ export default function MyAdv() {
     console.log(Category);
   }, [Product]);
 
+  const numberWithCommas = (n) => {
+    let nString = ""
+    let nStringCheck = n.toString()
+    let nSLength = nStringCheck.length
+    while(nSLength>3){
+        nString = nStringCheck.slice(nSLength-3,nSLength) + "." + nString
+        nSLength -= 3
+    }
+    nString = nStringCheck.slice(0,nSLength) + "." + nString
+    nString = nString.slice(0,-1)
+    return nString
+}
+
   return (
     <div>
       <div className="flex flex-wrap">
@@ -65,12 +78,12 @@ export default function MyAdv() {
             </select>
           </div>
           <div className="w-2/12 md:mt-10 ml-10">
-            <button class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto">
+            <button class="bg-button hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto hover:bg-green-300">
               Cari
             </button>
           </div>
 
-          <table class="border-collapse w-full mr-10 ml-10 mt-5">
+          <table class="border-collapse w-full mx-10 my-5">
             <thead>
               <tr>
                 <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
@@ -122,7 +135,7 @@ export default function MyAdv() {
                       <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
                         Harga
                       </span>
-                      {x.prod_price}
+                      Rp. {numberWithCommas(x.prod_price)}
                     </td>
                     <td class="w-full lg:w-auto p-3 text-gray-800 border border-b text-center block lg:table-cell relative lg:static">
                       <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
