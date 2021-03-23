@@ -12,7 +12,7 @@ function OshipModal({
     OrderShipping
 }) {
 
-
+    let history =useHistory()
     let[oshipCreatedOn]= useState(Date.now());
     let[oshipShipDate, setOshipShipDate] = useState("");
     let[oshipArrivalDate] = useState(Date.now());
@@ -25,11 +25,9 @@ function OshipModal({
 
     // console.log(OrderShipping.order_name)
 
-    let history =useHistory()
-
-    
 
 
+    toast.configure()
     const notify = () => {
        
         toast.success('Data berhasil diperbarui', {
@@ -61,7 +59,9 @@ console.log(dataFormOrderShipping.account.addresses[0].addr_address)
         await axios.put(`${apiOrder}/orders`, data)
         .then(result=>{
             if(result){
-                console.log(result.data)  
+                console.log(result.data) 
+                notify()
+            history.push('/ordershipping') 
             }
             
             console.log(result.data)
@@ -85,7 +85,7 @@ console.log(dataFormOrderShipping.account.addresses[0].addr_address)
         await axios.post(`${apiShipping}/ordershipping`, data)
         .then(result=>{
             if(result){
-                console.log(result.data)  
+                console.log(result.data)
             }
             return 0
 
@@ -100,8 +100,6 @@ console.log(dataFormOrderShipping.account.addresses[0].addr_address)
             await handleUpdate();
             await klikShipping();
             setModal(false)
-            notify()
-            history.push('/ordershipping')
 
            } catch (err) {
                console.log(err.message) 

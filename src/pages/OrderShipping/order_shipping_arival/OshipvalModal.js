@@ -22,6 +22,7 @@ function OshipvalModal({
     }
 
     
+    toast.configure()
     const notify = () => {
        
         toast.success('Data berhasil diperbarui', {
