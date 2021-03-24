@@ -1,17 +1,14 @@
-import axios from 'axios'
-import { apiUserMaster } from '../../config/apiUrl'
-
-
-
+import axios from "axios";
+import { apiUserAccount, apiUserMaster } from "../../config/apiUrl";
 
 const listKodepos = async () => {
-    try {
-        let response = await axios.get(`${apiUserMaster}/kodepos/`)
-        return await response.data
-    }   catch(err){
-        return await err.message
-    }
-}
+  try {
+    let response = await axios.get(`${apiUserMaster}/kodepos/`);
+    return await response.data;
+  } catch (err) {
+    return await err.message;
+  }
+};
 
 //2.createRegion, gunakan variable data untuk di send ke backend
 // di backend, jangan lupa pake req.body.data, agar bisa di extract ke tiap attribute
@@ -45,6 +42,5 @@ const create = async (kodepos) => {
         return await err.message
       }
   };
-  
 
-export {listKodepos, create, deleteKodepos, updateKodepos}
+export { listKodepos, create, deleteKodepos, updateKodepos };
