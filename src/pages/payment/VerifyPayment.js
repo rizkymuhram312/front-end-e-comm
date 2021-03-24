@@ -24,22 +24,6 @@ const VerifyPayment = (props) => {
         });
     }
 
-        if (result.data) {
-          props.setLoading(true);
-          setTimeout(() => {
-            props.setShowVerifyPin(false);
-            props.setVerified(true);
-            props.setPaid(true);
-            props.setLoading(false);
-          }, 5000);
-        } else {
-          props.setVerified(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   const onHandlePinInputChange = (event) => {
     let checkInput = "";
