@@ -30,12 +30,12 @@ const BankAccount = () => {
         setErrorApi("Belum ada akun bank")
       }
     }
-  }
+  };
 
   const onDelete = async (x) => {
-    await DeleteBankAccount(x.target.value)
-    setRefresh(!refresh)
-  }
+    await DeleteBankAccount(x.target.value);
+    setRefresh(!refresh);
+  };
 
   const onCreateBankAccount = async () => {
     if (editForm) {
@@ -120,4 +120,4 @@ const BankAccount = () => {
   )
 }
 
-export default BankAccount
+export default BankAccount;
