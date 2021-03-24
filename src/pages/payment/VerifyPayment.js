@@ -13,23 +13,6 @@ const VerifyPayment = (props) => {
         data.pin_number = pin
         console.log(data.total_amount)
         axios.post(apiPin, data).then((result) => {
-<<<<<<< HEAD
-            console.log(result)
-            if (result.data) {
-                props.setLoading(true)
-                setTimeout(() => {
-                    props.setShowVerifyPin(false)
-                    props.setVerified(true)
-                    props.setPaid(true)
-                    props.setLoading(false)
-                }, 5000);
-            } else {
-                props.setVerified(false)
-            }
-        }).catch((err) => {
-            console.log(err)
-        });
-=======
             
 
         if (result.data) {
@@ -47,7 +30,6 @@ const VerifyPayment = (props) => {
       .catch((err) => {
         console.log(err);
       });
->>>>>>> a35d2fa12075dc293591529c20b5feca51f0c3f5
   };
   
 
