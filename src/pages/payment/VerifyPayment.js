@@ -11,6 +11,7 @@ const VerifyPayment = (props) => {
     const onSubmit = (e) => {
         e.preventDefault()
         data.pin_number = pin
+        console.log(data.total_amount)
         axios.post(apiPin, data).then((result) => {
         if (result.data) {
           props.setLoading(true);
@@ -28,6 +29,7 @@ const VerifyPayment = (props) => {
         console.log(err);
       });
   };
+  
 
   const onHandlePinInputChange = (event) => {
     let checkInput = "";
@@ -59,6 +61,6 @@ const VerifyPayment = (props) => {
             }
         </>
     )
-}
+        }
 
 export default VerifyPayment;
