@@ -103,7 +103,6 @@ const AddBankAccountModal = ({
           </div>
         </div>
       </div>
-
     )
 }
 

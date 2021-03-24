@@ -30,7 +30,7 @@ import Address2 from "../address/address2";
 import MyWallet from "../payment/MyWallet";
 const axios = require("axios");
 
-const progress = 50;
+// const progress = 50;
 
 const DashboardUserAccount = () => {
   const token = localStorage.getItem("token");

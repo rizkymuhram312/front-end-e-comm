@@ -2,6 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { Redirect, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
+import { toast } from 'react-toastify'
 
 
 
@@ -13,6 +14,22 @@ const Login = () => {
 
     const history = useHistory()
 
+    toast.configure()
+    const notify = (acco_nama) => {
+
+        toast.success(`Selamat Datang ${acco_nama}`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000
+        })
+    }
+
+    const notifyErr = () => {
+
+        toast.error('Gagal Login', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000
+        })
+    }
 
     const onChangeEmail = (e) => {
         const value = e.target.value
@@ -69,7 +86,7 @@ const Login = () => {
                     localStorage.setItem('token', result.data.token)
                     // localStorage.setItem('dataUserPass', data.user_password)
                     localStorage.setItem('dataUserEmail', data.user_email)
-                    localStorage.setItem('dataId', result.data.users.user_id)
+                    localStorage.setItem('dataUserId', result.data.users.user_id)
 
 
                     const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
@@ -85,6 +102,7 @@ const Login = () => {
                     // console.log(a)
                     // setRedirect(true)
                     history.push('/home')
+                    notify(acco_nama)
                 }
                 else {
                     console.log(result)
@@ -102,6 +120,7 @@ const Login = () => {
                     console.log(hasiltoken) // outputs 'bob'
                     console.log(result.data.token) // outputs 'bob'
                     // console.log(a)
+                    notifyErr()
                     setRedirect(true)
                 }
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 
 import { useState } from 'react'
 // import { Transition } from '@headlessui/react'
@@ -10,6 +10,7 @@ import Users from '../users/users'
 import City from '../city/city'
 import Kecamatan from '../kecamatan/kecamatan'
 import Kodepos from '../kodepos/kodepos'
+import { apiProductTransaction } from '../../config/apiUrl'
 const axios = require('axios');
 
 
@@ -18,9 +19,53 @@ const progress = 50;
 
 const DashboardUsers = () => {
   const token = localStorage.getItem('token')
+
+  const [isLogin, setisLogin] = useState(false)
+  const [navbarOpen, setNavbarOpen] = React.useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [Category, setCategory] = useState([]);
+  const [Product, setProduct] = useState([]);
+  // const token = localStorage.getItem('token')
   // console.log(token)
 
   const [openTab, setOpenTab] = React.useState(1);
+
+  // const a = axios.defaults.headers.common['Authorization'] = 'bearer ' + token
+  // console.log(a)
+
+
+  // if (!token) {
+  //   // alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
+  //   return <Redirect to="/login" />
+  // }
+  // database product
+  useEffect(() => {
+    console.log(Product)
+    setLoading(true);
+    axios({
+      url: `${apiProductTransaction}/product/`,
+      method: "get",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then((res) => setProduct(res.data))
+      .catch((err) => console.error(err))
+  }, [])
+
+
+  useEffect(() => {
+    console.log(Category)
+    setLoading(true);
+    axios({
+      url: `${apiProductTransaction}/category/`,
+      method: "get",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then((res) => setCategory(res.data))
+      .catch((err) => console.error(err))
+  }, [])
 
   const a = axios.defaults.headers.common['Authorization'] = 'bearer ' + token
   console.log(a)
@@ -30,8 +75,6 @@ const DashboardUsers = () => {
     // alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
     return <Redirect to="/login" />
   }
-
-
 
 
   const renderProgress = progress => <strong>{progress}%</strong>;
@@ -188,7 +231,6 @@ const DashboardUsers = () => {
           </div>
         </div>
       </div>
-
 
 
 

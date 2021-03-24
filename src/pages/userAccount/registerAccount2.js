@@ -178,15 +178,14 @@ export default function RegisterAccount() {
 
   const editAccount = () => {
     
-    
-    
+
     const data = {
       
       acco_username: userName,
       acco_nama: nama,
       acco_phone: phone,
       acco_shopname: shopName,
-      acco_gender: gender,
+      acco_gender: gender? (gender):("L"),
       acco_birthdate: birthdate,
       acco_avatar: image,
       acco_user_id: user_id,

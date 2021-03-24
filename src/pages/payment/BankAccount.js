@@ -1,6 +1,5 @@
 import {GetBankAccount,CreateBankAccount,UpdateBankAccount,DeleteBankAccount} from './api/index'
 import {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
 import AddBankAccountModal from './BankAccountModal'
 import {useBanks} from './api/index'
 
@@ -10,12 +9,13 @@ const BankAccount = () => {
   let [bankAccount,setBankAccount] = useState([])
   let [dataFormBankAccount,setDataFormBankAccount] = useState({})
   let [refresh,setRefresh] = useState(false)
-  let {acco_id} = useParams()
+  let acco_id = localStorage.getItem("dataAccountId")
   let [errorApi,setErrorApi] = useState("")
   let [modal,setModal] = useState(false)
 
   useEffect(() => {
     fetchData()
+    console.log(acco_id)
   },[refresh])
 
   let fetchData = async () =>{
@@ -75,7 +75,7 @@ const BankAccount = () => {
           </thead>
             <tbody>
               {
-                bankAccount.length < 1 ? 
+                bankAccount.length < 1 ?
                 <tr key="error" className="text-gray-900"><td>{errorApi}</td></tr> 
                 : 
                 bankAccount.map((x) => {

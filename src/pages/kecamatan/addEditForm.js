@@ -55,14 +55,22 @@ export default class AddEditForm extends Component {
         if (!this.state.isEdit) {
             await create(kecamatan).then(response => {
                 console.log(response);
+                alert('berhasil tambah data')
+
             }).catch(function (error) {
                 console.log(error);
+                alert('gagal tambah data')
+
             });;
         } else {
             await updateKecamatan(kecamatan).then(response => {
                 console.log(response);
+                alert('berhasil ubah data')
+
             }).catch(function (error) {
                 console.log(error);
+                alert('gagal ubah data')
+
             });;
         }
 
@@ -93,11 +101,16 @@ export default class AddEditForm extends Component {
                                 <h6 className="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
                                     Add Edit kecamatan
                                 </h6>
+                                <button onClick={() => this.props.setRefreshTable()}
+                                className="p-1 mt-10 -ml-20 bg-transparent border-0 text-black float-right leading-none font-semibold outline-none focus:outline-none"
+                                >
+                                    <img className=" w-6 h-6" src="refresh.svg"></img>
+                                </button>
                                 <button onClick={() => this.props.setShowModal(false)}
-                                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                    className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
 
                                 >
-                                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                    <span className="bg-transparent text-black  h-6 w-6 text-2xl block outline-none focus:outline-none">
                                         ×
                     </span>
                                 </button>

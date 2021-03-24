@@ -16,4 +16,12 @@ const CreateWalletApi= async (data)=>{
   return createWallet
 }
 
-export {GetWallet,CreateWalletApi}
+const AddSaldo = async (data)=>{
+  console.log(data)
+  const addSaldoWalletApi = apiPayment+"/wallet/saldo/add"
+  let addSaldoWallet = await axios.post(addSaldoWalletApi,data)
+  console.log(addSaldoWallet)
+  return addSaldoWallet
+}
+
+export {GetWallet,CreateWalletApi,AddSaldo}
