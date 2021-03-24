@@ -66,6 +66,7 @@ export default class index extends Component {
     onDelete = value =>{
         DeleteExpeditionRoute(value).then(Response=>{
             console.log(Response)
+            this.onRefreshTable();
         }).catch((err)=>{
             console.log(err.message)
         })
