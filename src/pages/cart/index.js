@@ -201,7 +201,7 @@ export default function Cart() {
           "Content-Type": "application/json",
         },
       })
-        .then(() => history.push("/orders"))
+        .then(() => history.push("/cart-orders"))
           // return fetchCart())
         .catch((err) => console.error(err));
     }else{
@@ -244,7 +244,7 @@ export default function Cart() {
               <div className="text-sm block my-4 p-3  rounded border border-solid border-gray-500">
                 {
                   deleted[y]===true?<ModalDelete 
-                  image={x.product.product_images[0]?.prim_filename} 
+                  image={x.product.product_images[0].prim_path} 
                   name={x.product.prod_name}
                   url={`${apiCart}/cartLineItems/${x.clit_id}`}
                   close={()=>toggleDelete(y)}
@@ -269,7 +269,7 @@ export default function Cart() {
                       />
                     </div>
                     <div className="h-20 w-20 m-2 rounded border border-solid border-white">
-                      <img src={x.product.product_images[0]?.prim_filename} alt="product" />
+                      <img src={x.product.product_images[0]?.prim_path} alt="product" />
                     </div>
                     <div>{x.product.prod_desc}</div>
                   </div>
@@ -301,7 +301,7 @@ export default function Cart() {
               <span>Pilih Semua</span>
             </div>
             <div>Subtotal untuk Produk({Order?.cart_total_qty} produk) </div>
-            <div>Rp. {Order.cart_total_amount?numberWithCommas(Order.cart_total_amount):0}</div>
+            <div>Rp. {Order?.cart_total_amount}</div>
             <div>
               <button className="text-black font-bold bg-button  lg:p-3 p-2 hover:bg-green-300 rounded lg:mr-5 mb-5"
               onClick={checkout}>

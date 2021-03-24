@@ -14,7 +14,6 @@ const NewTransaction = () => {
     let saldo = useGetSaldo({total:order.total_amount,acco_id})
     
     useEffect(() => {
-        console.log(saldo)
        if (saldo< order.total_amount) {
            setLess(true)
        }else{

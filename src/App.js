@@ -3,9 +3,6 @@ import Footer from './components/footer/index';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from './pages/home/index'
 import Shop from './pages/home/Dashboard'
-// import CategoryProd from './pages/home/productCate'
-import Category from './pages/category/category'
-import Condition from './pages/condition/condition'
 import Cart from './pages/cart'
 import Orders from './pages/orders/Orders'
 import Daftar from './pages/users/Daftar'
@@ -30,6 +27,7 @@ import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
 import EditProduct from './pages/product/editProduct'
 import billTopup from './pages/billTopup'
+import vendor from './pages/vendor'
 import ExpeditionRoutesIndex from './pages/Expeditions/ExpeditionRoutesIndex'
 import ExpeditionIndex from './pages/Expeditions/ExpeditionIndex'
 import OrderShippingIndex from './pages/OrderShipping/OrderShippingIndex'
@@ -40,9 +38,16 @@ import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
 import OrdersKw from './pages/payment/Orders'
 import productMaster from './components/sideBarMenu/productMaster';
+import WalletAndBank from './pages/payment/WalletAndBank'
 import Brand from './pages/brand/brand';
 import AddBrand from './pages/brand/addBrand';
 import {EditBrand} from './pages/brand/editBrand';
+import Condition from './pages/condition/condition';
+import addCond from './pages/condition/addCond';
+import {EditCond} from './pages/condition/editCond';
+import Category from './pages/category/category';
+import addCate from './pages/category/addCate';
+import CateUpload from './pages/category/cateUpload';
 
 function App() {
   return (
@@ -53,16 +58,22 @@ function App() {
         <Switch>
           <Route path="/home" component={Home} exact />
           <Route path="/shop" component={Dashboard} exact />
-          {/* <Route path="/productCate/:cate_id" component={CategoryProd} /> */}
           <Route path="/" component={Home} exact/>
-          <Route path="/productMaster" component={productMaster} exact/>
           {/* brand */}
           <Route path="/brand" component={Brand} exact />
           <Route path="/addBrand" component={AddBrand} exact />
           <Route path="/editBrand" component={EditBrand} exact />
           {/* end Brand */}
-          <Route path="/category" component={Category} exact />
+          {/* start Condition */}
           <Route path="/condition" component={Condition} exact />
+          <Route path="/addCond" component={addCond} exact />
+          <Route path="/editCond" component={EditCond} exact />
+          {/* end Condition */}
+          {/* start category */}
+          <Route path="/category" component={Category} exact />
+          <Route path="/addCate" component={addCate} exact />
+          <Route path="/upload" component={CateUpload} exact />
+          {/* end Category */}
           <Route path="/cart" component={Cart} />
           <Route path="/cart-orders" component={CartOrders} />
           <Route path="/orders" component={Orders}/>
@@ -86,6 +97,7 @@ function App() {
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/editproduct" component={EditProduct}/>
           <Route path="/billTopup" component={billTopup}/>
+          <Route path="/vendor" component={vendor}/>
           <Route path="/expeditionsroutes" component={ExpeditionRoutesIndex}/>
           <Route path="/expeditions" component={ExpeditionIndex}/>
           <Route path="/ordershipping" component={OrderShippingIndex}/>
@@ -95,6 +107,9 @@ function App() {
           <Route path="/wallet" component={Wallet}/>
           <Route path="/bank-account/" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
+          <Route path="/order-kw" component={OrdersKw}/>
+          <Route path="/wallet-bank" component={WalletAndBank}/>
+          <Route component={ <div>Page Not Found</div>}/>
           {/* <Route path="/order-kw" component={OrdersKw}/> */}
         </Switch>
       </div>
