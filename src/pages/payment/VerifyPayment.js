@@ -11,10 +11,16 @@ const VerifyPayment = (props) => {
     const onSubmit = (e) => {
         e.preventDefault()
         data.pin_number = pin
+        console.log(data.total_amount)
         axios.post(apiPin, data).then((result) => {
+            console.log(result)
             if (result.data) {
+                props.setLoading(true)
                 setTimeout(() => {
                     props.setShowVerifyPin(false)
+                    props.setVerified(true)
+                    props.setPaid(true)
+                    props.setLoading(false)
                 }, 5000);
             } else {
                 props.setVerified(false)
@@ -22,8 +28,8 @@ const VerifyPayment = (props) => {
         }).catch((err) => {
             console.log(err)
         });
-    }
-
+  };
+  
 
   const onHandlePinInputChange = (event) => {
     let checkInput = "";
@@ -55,6 +61,6 @@ const VerifyPayment = (props) => {
             }
         </>
     )
-}
+        }
 
 export default VerifyPayment;
