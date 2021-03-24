@@ -83,7 +83,7 @@ const Transactions = (props) => {
             <div className="grid max-h-full max-w-full mt-2 ml-2 text-center border rounded-lg overflow-hidden text-white border-primary">
                 <table>
                     <thead>
-                        <tr className="h-10 shadow-md bg-table">
+                        <tr className="h-10 shadow-md bg-primary">
                             <th className="w-3/12 font-extralight">Date</th>
                             <th className="w-2/12 font-extralight">From</th>
                             <th className="w-1/12 font-extralight">To</th>

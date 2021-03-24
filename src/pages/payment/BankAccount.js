@@ -72,7 +72,7 @@ const BankAccount = () => {
       <div className="grid max-w-full mx-auto text-center border border-primary rounded-md overflow-hidden text-white">
         <table>
           <thead>
-            <tr className="bg-table">
+            <tr className="bg-primary ">
               <th className="w-1/4 font-extralight">Bank</th>
               <th className="w-1/4 font-extralight" >Pemilik</th>
               <th className="w-1/4 font-extralight">No Rek</th>
