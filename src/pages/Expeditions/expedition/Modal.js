@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import {createExpedition, updateExpedition} from './api/api-expedition'
+import {toast} from 'react-toastify'
+
 
 export default class Modal extends Component {
+   
     state={
         expeditionId: null,
         expeditionName: '',
         isEdit: false
     }
+    
 
     componentDidMount(){
         if(this.props.expedition !== null){
@@ -17,6 +21,7 @@ export default class Modal extends Component {
             })
         }
     }
+    
 
 
     handleOnChange = e => {

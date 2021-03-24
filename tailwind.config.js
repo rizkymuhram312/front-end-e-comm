@@ -1,4 +1,3 @@
-  
 module.exports = {
     purge: [],
     darkMode: false, // or 'media' or 'class'
@@ -9,6 +8,9 @@ module.exports = {
           secondary: '#b08968',
           buttonOn: '#e6ccb2',
           buttonOff: '#e6ccb2',
+          button: '#aee1e1',
+          table : '#d3e0dc',
+          
         },
       }
     },
@@ -17,3 +19,5 @@ module.exports = {
     },
     plugins: []
   };
+
+  

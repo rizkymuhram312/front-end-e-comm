@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import EditProduct from './editProduct'
-import { apiProductMaster, apiProductTransaction } from '../../config/apiUrl'
+import convertToRupiah from './convertToRupiah'
+import { apiProductMaster, apiProductTransaction, apiUserMaster } from '../../config/apiUrl'
 
 export default function ProductSaya() {
   const history = useHistory()
@@ -75,8 +76,16 @@ export default function ProductSaya() {
   {
     return (
       <div>
+
+        <div class="container gap-8 justify-center  flex flex-row flex-wrap   text-2xl uppercase rounded mb-4 ">
+          <Link to="/productSaya" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Product</Link>
+          <Link to="/brand" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Brand</Link>
+          <Link to="/category" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Category</Link>
+          <Link to="/condition" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Condition</Link>
+        </div>
+
         { !showEdit ? ( //jika showEdit false, maka tampilkan product, jika true maka tampilkan edit form
-          <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4">
+          <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500">
             <div className="w-full flex flex-wrap content-evenly">
               <div className="w-2/12 md:mt-10 px-1 ml-10">
                 Nama Product
@@ -93,7 +102,7 @@ export default function ProductSaya() {
                   </input>
                 </div>
               </div>
-              <div className="w-2/12 md:mt-10 px-1 text-center">
+              {/* <div className="w-2/12 md:mt-10 px-1 text-center">
                 Kategori
                 </div>
               <div className="w-3/12 md:mt-10 px-1">
@@ -108,14 +117,14 @@ export default function ProductSaya() {
 
                 </select>
 
-              </div>
-              <div className="w-full mt-10 flex justify-end">
+              </div> */}
+              <div className="w-3/12 ml-5 mt-10 flex justify-end">
                 <button onClick={onClickAddProduct} class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto">
                   Tambah Produk Baru
           </button>
               </div>
 
-              <table class="border-collapse w-full mr-10 ml-10 mt-5">
+              <table class="border-collapse w-full mr-10 ml-10 mt-5 ">
                 <thead>
                   <tr>
                     <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Produk Id</th>
@@ -159,7 +168,7 @@ export default function ProductSaya() {
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Harga</span>
-                            {x.prod_price}
+                            {convertToRupiah(x.prod_price)}
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Stok</span>

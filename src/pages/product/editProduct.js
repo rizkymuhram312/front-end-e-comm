@@ -33,6 +33,9 @@ export default function EditProduct(props) {
     const [prova_id2, setProva_id2] = useState('')
     const [prova_nameSize, setProvaNameSize] = useState('')
     const [prova_optionSize, setProvaOptionSize] = useState('')
+    const [image, setImage] = useState('')
+    const [prim_id, setPrim_id] = useState('')
+    const [loading, setLoading] = useState(false)
     
 
     toast.configure()
@@ -140,6 +143,28 @@ export default function EditProduct(props) {
         return response.data
     };
 
+    const uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append("upload_preset", "product" )
+        setLoading(true)
+    
+        const res = await fetch(
+                'https://api.cloudinary.com/v1_1/daffadrm/image/upload',
+        
+                {
+                    method: 'POST',
+                    body: data
+                  }
+                )
+                const file = await res.json()
+            
+                setImage(file.secure_url)
+                setLoading(false)
+                }
+                console.log(image)
+
     useEffect(() => {
         const getListProduct = async () => {
             const listProduct = await GetProduct();
@@ -162,6 +187,7 @@ export default function EditProduct(props) {
                 setProva_id2(listProduct.product_variants[1].prova_id)
                 setProvaNameSize(listProduct.product_variants[1].prova_name)
                 setProvaOptionSize(listProduct.product_variants[1].prova_option)
+                setPrim_id(listProduct.product_images[0]?.prim_id)
 
             }
         };
@@ -193,7 +219,7 @@ export default function EditProduct(props) {
             .put(`${apiProductTransaction}/product/${id}`, data)
             .then(result => {
                 console.log(result)
-                if (result.data.error) {
+                if (result.data.error) {  
                     // console.log(result.data);
                     console.log(result.data)
                         notifyErr()
@@ -225,7 +251,7 @@ export default function EditProduct(props) {
                                 } else {
                                     if (result.dataVariant) {
                                         setProvaName('')
-                                        setProvaOption('')
+                                          ('')
                                         // setProvaProdId('')
                 
                                     } notify()
@@ -249,6 +275,29 @@ export default function EditProduct(props) {
                                         if (result.dataVariant2) {
                                             setProvaNameSize('')
                                             setProvaOptionSize('')
+                                            // setProvaProdId('')
+                    
+                                        } notify()
+                                    }
+                                })
+                                .catch((e) => {
+                                    setError(e)
+                                })
+                                console.log(image)
+                                const dataImages = {
+                                    prim_path:image,
+                                    prim_prod_id: result.data.prod_id
+                                }
+                                axios.put(`${apiProductTransaction}/productImages/${prim_id}`,dataImages)
+                                .then(result => {
+                                    if (result.dataImages.error) {
+                                        console.log(result.dataImages)
+                                        notifyErr()
+                                    } else {
+                                        if (result.dataImages) {
+                                
+                                            // setProvaNameSize('')
+                                            // setProvaOptionSize('')
                                             // setProvaProdId('')
                     
                                         } notify()
@@ -309,7 +358,7 @@ export default function EditProduct(props) {
 
     return (
         <div>
-            <div className="flex flex-wrap rounded-lg shadow border-4">
+            <div className="flex flex-wrap rounded-lg shadow border-4 border-pink-500">
 
                 <form className="w-full flex flex-wrap content-evenly" onSubmit={updateProduct}>
                     <div className="w-full">
@@ -514,8 +563,16 @@ export default function EditProduct(props) {
                     <div className="w-4/12 ml-5 text base">
                         Foto Produk
                 </div>
-                    <div className="w-6/12 grid grid-rows-2 grid-flow-col gap-4">
-                        <label class=" mb-5 flex flex-col items-center px-1 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-black">
+                    <div className="w-6/12 ">
+                    <input type ="file"
+                            onChange={uploadImage}
+                        />
+                            {loading ? (
+                                <h3>Loading...</h3>
+                              ) : (
+                                  <img src={image} style={{ width: '200px' }} />
+                                )}
+                        {/* <label class=" mb-5 flex flex-col items-center px-1 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-black">
                             <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                             </svg>
@@ -549,7 +606,7 @@ export default function EditProduct(props) {
                             </svg>
                             <span class="mt-2 text-xs leading-normal">Select a images</span>
                             <input type='file' class="hidden" />
-                        </label>
+                        </label> */}
                     </div>
                     <div className="w-2/4 grid justify-items-end">
                         <button class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto"

@@ -26,11 +26,12 @@ const OrdersKw = () => {
 
     const [data,setData] = useState({
         "acco_id": localStorage.getItem("dataAccountId"),
-        "total_amount": 100000,
+        "total_amount": 10,
         "transaction_type": "order",
         "order_name": "order12345",
         "payment_by":"wallet"
     })
+    
 
     useEffect(async () => {
         data.bacc_id = selectedBank
@@ -46,13 +47,10 @@ const OrdersKw = () => {
                     setRefresh(!refresh)
                 }, 500)
             }  
-        } else {
-            console.log("do nothing")
         }
     }, [loading, refresh, paymentBy,selectedBank])
 
     const onHandleClickPay = async (e) => {
-        console.log(paymentBy)
         switch (paymentBy) {
             case "wallet":
                 try {
@@ -71,8 +69,6 @@ const OrdersKw = () => {
                     data.payment_by = "transfer_bank"
                     setLoading(true)
                     let gotToken = await axios.post(apiToken, data)
-                    console.log(gotToken.data)
-                    console.log(token)
                     setTimeout(() => {
                         setToken(apiPayment + "/walletTransaction/transfer-bank/" + gotToken.data)
                         setTransferBank(true)
@@ -89,7 +85,6 @@ const OrdersKw = () => {
     useEffect(async ()=>{
         try {
             let gotBankAccount = await GetBankAccount(data.acco_id)
-            console.log(gotBankAccount)
             setListBank(gotBankAccount)
         } catch (error) {
             console.log(error)
@@ -106,12 +101,19 @@ const OrdersKw = () => {
 
     return (
         <>
+
+
+        <div>
+
+        </div>
+
             <div>
                 <p>{data.acco_id}</p>
                 <p>{data.wale_id}</p>
                 <p>{data.total_amount}</p>
                 <p>{data.transaction_type}</p>
                 <p>{data.order_name}</p>
+                
                 <select value={paymentBy} onChange={onChangePayment}>
                     <option>Select Payment Option</option>
                     <option value="wallet">Wallet</option>

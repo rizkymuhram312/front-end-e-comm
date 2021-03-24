@@ -4,10 +4,8 @@ import React, { useEffect, useState } from "react";
 import { apiUserMaster, apiUserAccount } from "../../config/apiUrl";
 import { useHistory } from "react-router";
 
-// asda
 
 const Address = () => {
-
   const [alamat, setAddress] = useState([]);
   const [showModal, setShowModal] = React.useState(false);
   const [provinsi, setProvinsi] = useState([]);
@@ -330,7 +328,7 @@ const Address = () => {
                       </div>
 
                       <div className="col-span-1 my-4">
-                        <button className="mx-4 underline font-semibold text-blue-500">Edit</button>
+                        <button className="mx-4 underline font-semibold text-blue-500" onClick={() => editAddress(x.addr_id)}>Edit</button>
                         <button className="mx-4 underline font-semibold text-red-500" onClick={() => {
                           if (
                             window.confirm(
@@ -383,6 +381,7 @@ const Address = () => {
                       Alamat Saya
                     </h3>
                   </div>
+                  
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button
                       onClick={() => setShowModal(true)}
@@ -407,13 +406,13 @@ const Address = () => {
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
+              {/content/}
               <div className="border-0 rounded-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
+                {/header/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-white rounded-t">
                   <h3 className="text-xl font-semibold">Tambah Alamat</h3>
                 </div>
-                {/*body*/}
+                {/body/}
                 <div className="relative p-6 flex-auto">
                   <div className=" grid grid-cols-6 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <h1 className="justify-self-end">Provinsi : </h1>
@@ -421,11 +420,13 @@ const Address = () => {
                       name="province"
                       id="province"
                       className="col-span-4 flex-1 capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
-
-                      onChange={OnChangeProvince}
+                      // value={provinsiEdit}
+                      onChange={OnChangeProvince} 
                     >
+                      
                       <option>Silahkan Pilih Provinsi</option>
-                      {provinsi.map((e, index) => {
+
+                      {provinsi.map((e,index) => {
                         return <option value={e.prov_id} key={index} >{e.prov_name}</option>;
                       })}
                     </select>
@@ -526,7 +527,7 @@ const Address = () => {
                   </div>
 
                 </div>
-                {/*footer*/}
+                {/footer/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                   <button
                     className="text-gray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"

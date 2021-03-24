@@ -23,11 +23,11 @@ import Account from "../userAccount/account";
 import Upload from "../userAccount/upload";
 import RegisterAccount from "../userAccount/registerAccount2";
 import UbahPassword from "../users/ubahpassword";
-import Address from "../address/address";
+// import Address from "../address/Address";
 
 import Profil2 from "../userAccount/profil2";
 import Address2 from "../address/address2";
-import MyWallet from "../payment/MyWallet";
+import MyWallet from "../payment/WalletAndBank";
 const axios = require("axios");
 
 // const progress = 50;
@@ -199,7 +199,7 @@ const DashboardUserAccount = () => {
                     id="link3"
                   >
                     <div>
-                      <Address />
+                      <ddress2 />
                     </div>
                   </div>
                   <div
@@ -331,7 +331,7 @@ const DashboardUserAccount = () => {
                     id="link3"
                   >
                     <div>
-                      <Address />
+                      <Address2 />
                     </div>
                   </div>
                   <div

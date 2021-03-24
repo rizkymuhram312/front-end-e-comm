@@ -5,38 +5,44 @@ import { apiPayment } from '../../config/apiUrl'
 const VerifyPayment = (props) => {
     let acco_id = props.acco_id
     let apiPin = apiPayment + "/walletTransaction"
-    const [pin, setPin] = useState('s')
+    const [pin, setPin] = useState('')
     const data = props.data
     
     const onSubmit = (e) => {
         e.preventDefault()
         data.pin_number = pin
+        console.log(data.total_amount)
         axios.post(apiPin, data).then((result) => {
-            console.log(result)
-            if (result.data) {
-                props.setLoading(true)
-                setTimeout(() => {
-                    props.setShowVerifyPin(false)
-                    props.setVerified(true)
-                    props.setPaid(true)
-                    props.setLoading(false)
-                }, 5000);
-            } else {
-                props.setVerified(false)
-            }
-        }).catch((err) => {
-            console.log(err)
-        });
-    }
+            
 
-    const onHandlePinInputChange = (event) => {
-        let checkInput = ''
-        event.target.value == undefined || null ? checkInput = '' : checkInput = event.target.value
-        if (checkInput.toString().length > 6) {
+        if (result.data) {
+          props.setLoading(true);
+          setTimeout(() => {
+            props.setShowVerifyPin(false);
+            props.setVerified(true);
+            props.setPaid(true);
+            props.setLoading(false);
+          }, 5000);
         } else {
-            setPin(event.target.value)
+          props.setVerified(false);
         }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  
+
+  const onHandlePinInputChange = (event) => {
+    let checkInput = "";
+    event.target.value == undefined || null
+      ? (checkInput = "")
+      : (checkInput = event.target.value);
+    if (checkInput.toString().length > 6) {
+    } else {
+      setPin(event.target.value);
     }
+  };
 
     return (
         <>
@@ -57,6 +63,6 @@ const VerifyPayment = (props) => {
             }
         </>
     )
-}
+        }
 
-export default VerifyPayment
+export default VerifyPayment;

@@ -28,6 +28,8 @@ export default function TambahProduct() {
     const [prova_option, setProvaOption] = useState('')
     const [prova_nameSize, setProvaNameSize] = useState('')
     const [prova_optionSize, setProvaOptionSize] = useState('')
+    const [image, setImage] = useState('')
+    const [loading, setLoading] = useState(false)
 
     toast.configure()
     const notify = () => {
@@ -121,9 +123,32 @@ export default function TambahProduct() {
         setProvaOptionSize(value)
         setError('')
     }
-    const uploadImage = (files) => {
-        console.log(files[0])
-    }
+    // const uploadImage = (files) => {
+    //     console.log(files[0])
+    // }
+
+    const uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append("upload_preset", "product" )
+        setLoading(true)
+    
+        const res = await fetch(
+                'https://api.cloudinary.com/v1_1/daffadrm/image/upload',
+        
+                {
+                    method: 'POST',
+                    body: data
+                  }
+                )
+                const file = await res.json()
+            
+                setImage(file.secure_url)
+                setLoading(false)
+                }
+                console.log(image)
+    
 
     const klikDaftar = (x) => {
         x.preventDefault()
@@ -213,6 +238,30 @@ export default function TambahProduct() {
                             .catch((e) => {
                                 setError(e)
                             })//ADD GAMBAR
+                            
+                                const dataImages = {
+                                    prim_path:image,
+                                    prim_prod_id: result.data.prod_id
+                                }
+                                await axios.post(`${apiProductTransaction}/productImages`,dataImages)
+                                .then(result => {
+                                    if (result.dataImages.error) {
+                                        console.log(result.dataImages)
+                                        notifyErr()
+                                    } else {
+                                        if (result.dataImages) {
+                                
+                                            // setProvaNameSize('')
+                                            // setProvaOptionSize('')
+                                            // setProvaProdId('')
+                    
+                                        } notify()
+                                    }
+                                })
+                                .catch((e) => {
+                                    setError(e)
+                                })
+                            
                     } notify()
                 }
             })
@@ -261,7 +310,7 @@ export default function TambahProduct() {
 
     return (
         <div>
-            <div className="flex flex-wrap rounded-lg shadow border-4">
+            <div className="flex flex-wrap rounded-lg shadow border-4 border-pink-500">
 
                 <form className="w-full flex flex-wrap content-evenly" onSubmit={klikDaftar}>
                     <div className="w-full">
@@ -464,12 +513,16 @@ export default function TambahProduct() {
                     <div className="w-4/12 ml-5 text base">
                         Foto Produk
                 </div>
-                    <div className="w-6/12 grid grid-rows-2 grid-flow-col gap-4">
+                    <div className="w-6/12 ">
                         <input type ="file"
-                            onChange={(event)=> {
-                                uploadImage(event.target.files)
-                            }} >
+                            onChange={uploadImage}
+                            >
                         </input>
+                        {loading ? (
+                                <h3>Loading...</h3>
+                              ) : (
+                                  <img src={image} style={{ width: '200px' }} />
+                                )}
                         {/* <label class=" mb-5 flex flex-col items-center px-1 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-black">
                             <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />

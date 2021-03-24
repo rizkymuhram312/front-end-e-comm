@@ -4,13 +4,17 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from './pages/home/index'
 import Shop from './pages/home/Dashboard'
 // import CategoryProd from './pages/home/productCate'
+import PageNotFound from './pages/PageNotFound'
 import Category from './pages/category/category'
 import Condition from './pages/condition/condition'
 import Cart from './pages/cart'
-import Orders from './pages/orders'
+import Orders from './pages/orders/Orders'
 import Daftar from './pages/users/Daftar'
 import Login from './pages/users/Login'
 import Dashboard from './pages/home/Dashboard'
+import CheckoutOrders from './pages/orders/CheckoutOrders'
+import CartOrders from './pages/orders/CartOrders'
+import AfterOrders from './pages/orders/AfterOrders'
 import Province from './pages/province/province'
 import City from './pages/city/city'
 import Users from './pages/users/users'
@@ -18,15 +22,16 @@ import Kecamatan from './pages/kecamatan/kecamatan'
 import Kodepos from './pages/kodepos/kodepos'
 import RegisterAccount from './pages/users/RegisterAccount'
 import DashboardUserAccount from './pages/home/DashboardUserAccount'
-import Address from './pages/address/address'
+import Address from './pages/address/address2'
 import Wallet from './pages/payment/MyWallet'
-import MyOrders from './pages/orders/myOrders'
+// import MyOrders from './pages/orders/myOrders'
 import Advertising from './pages/advertising'
 import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
 import EditProduct from './pages/product/editProduct'
 import billTopup from './pages/billTopup'
+import vendor from './pages/vendor'
 import ExpeditionRoutesIndex from './pages/Expeditions/ExpeditionRoutesIndex'
 import ExpeditionIndex from './pages/Expeditions/ExpeditionIndex'
 import OrderShippingIndex from './pages/OrderShipping/OrderShippingIndex'
@@ -37,9 +42,14 @@ import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
 import OrdersKw from './pages/payment/Orders'
 import productMaster from './components/sideBarMenu/productMaster';
+import WalletAndBank from './pages/payment/WalletAndBank'
 import Brand from './pages/brand/brand';
 import AddBrand from './pages/brand/addBrand';
 import {EditBrand} from './pages/brand/editBrand';
+import addCond from './pages/condition/addCond';
+import {EditCond} from './pages/condition/editCond';
+import addCate from './pages/category/addCate';
+import CateUpload from './pages/category/cateUpload';
 
 import FilesUpload from "./components/FilesUpload";
 
@@ -53,21 +63,30 @@ function App() {
         <Switch>
           <Route path="/home" component={Home} exact />
           <Route path="/shop" component={Dashboard} exact />
-          {/* <Route path="/productCate/:cate_id" component={CategoryProd} /> */}
           <Route path="/" component={Home} exact/>
-          <Route path="/productMaster" component={productMaster} exact/>
           {/* brand */}
           <Route path="/brand" component={Brand} exact />
           <Route path="/addBrand" component={AddBrand} exact />
           <Route path="/editBrand" component={EditBrand} exact />
           {/* end Brand */}
-          <Route path="/category" component={Category} exact />
+          {/* start Condition */}
           <Route path="/condition" component={Condition} exact />
+          <Route path="/addCond" component={addCond} exact />
+          <Route path="/editCond" component={EditCond} exact />
+          {/* end Condition */}
+          {/* start category */}
+          <Route path="/category" component={Category} exact />
+          <Route path="/addCate" component={addCate} exact />
+          <Route path="/upload" component={CateUpload} exact />
+          {/* end Category */}
           <Route path="/cart" component={Cart} />
-          <Route path="/orders" component={Orders} />
+          <Route path="/cart-orders" component={CartOrders} />
+          <Route path="/orders" component={Orders}/>
           <Route path="/login" component={Login} />
           <Route path="/daftar" component={Daftar} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/checkout-orders" component={CheckoutOrders} />
+          <Route path="/after-orders" component={AfterOrders}/> 
           <Route path="/province" component={Province} exact />
           <Route path="/city" component={City} exact />
           <Route path="/users" component={Users} exact />
@@ -76,13 +95,14 @@ function App() {
           <Route path="/registerAccount" component={RegisterAccount} exact />
           <Route path="/dashboarduser" component={DashboardUserAccount} exact />
           <Route path="/address" component={Address} exact />
-          <Route path="/myorders" component={MyOrders}/>
+          {/* <Route path="/myorders" component={MyOrders}/> */}
           <Route path="/advertising/my-pkg" component={Advertising}/>
           <Route path="/product/:prod_id" component={Product} />
           <Route path="/productsaya" component={ProductSaya}/>
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/editproduct" component={EditProduct}/>
           <Route path="/billTopup" component={billTopup}/>
+          <Route path="/vendor" component={vendor}/>
           <Route path="/expeditionsroutes" component={ExpeditionRoutesIndex}/>
           <Route path="/expeditions" component={ExpeditionIndex}/>
           <Route path="/ordershipping" component={OrderShippingIndex}/>
@@ -95,6 +115,8 @@ function App() {
           <Route path="/upload" component={FilesUpload}/>
 
           <Route path="/order-kw" component={OrdersKw}/>
+          <Route path="/wallet-bank" component={WalletAndBank}/>
+          <Route component={PageNotFound}/>
         </Switch>
       </div>
       <Footer></Footer>
