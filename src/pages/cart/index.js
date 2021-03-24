@@ -201,7 +201,7 @@ export default function Cart() {
           "Content-Type": "application/json",
         },
       })
-        .then(() => history.push("/orders"))
+        .then(() => history.push("/cart-orders"))
           // return fetchCart())
         .catch((err) => console.error(err));
     }else{

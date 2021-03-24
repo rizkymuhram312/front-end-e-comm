@@ -352,20 +352,20 @@ export default function Product() {
                         </div>
                     </div>
                 </div>
-                {/* <div className="w-full flex flex-wrap rounded-lg shadow py-5 mb-5 border-4" > */}
-                    {/* <div className="w-1/3 ">
+                {/* <div className="w-full flex flex-wrap rounded-lg shadow py-5 mb-5 border-4" > 
+                    <div className="w-1/3 ">
                         <img src="./samsung logo.png" class=" ml-5 rounded-lg inset-0 w-full h-full object-cover " />
-                    </div> */}
-                    {/* <div className="w-2/3 flex flex-wrap content-evenly">
+                    </div>
+                    <div className="w-2/3 flex flex-wrap content-evenly">
                         <div className="w-3/4">
                             <h1 class="flex-auto text-xl font-semibold dark:text-gray-50">
                                 {shopName}
                         </h1>
                         </div>
                         <div className="w-4/12 mb-5">Jakarta</div>
-                    </div> */}
+                    </div>
 
-                {/* </div> */}
+                </div>  */}
                 <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500" >
                     <div className="w-full ml-10 mr-10 mb-5 shadow-none"> Deskripsi Product </div>
                     <div class="w-full ml-10 mr-10 text-gray-700 text-justify">

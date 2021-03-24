@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import EditProduct from './editProduct'
 import convertToRupiah from './convertToRupiah'
 import { apiProductMaster, apiProductTransaction, apiUserMaster } from '../../config/apiUrl'
+import { toast } from 'react-toastify'
 
 export default function ProductSaya() {
   const history = useHistory()
@@ -16,6 +17,8 @@ export default function ProductSaya() {
   const [filterProduct, setFilterProduct] = useState([])
   const [prodToEdit, setProdToEdit] = useState()
   const acco_id = localStorage.getItem("dataAccountId")
+  const token = localStorage.getItem("token");
+  
   const onClickAddProduct = () => {
     history.push('/tambahProduct')
   }
@@ -31,6 +34,13 @@ export default function ProductSaya() {
 
     const response = await axios.delete(`${apiProductTransaction}/product/${y}`)
     return response.data
+  }
+  toast.configure()
+  const notifyLogin = () => {
+    toast.error("Jangan Bandel Harap Login Dulu ", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
   }
 
   useEffect(() => {
@@ -72,6 +82,16 @@ export default function ProductSaya() {
   //     )
   //   );
   // }, [search, Product]);
+  
+  // console.log(token)
+
+  const a = (axios.defaults.headers.common["Authorization"] =
+    "bearer " + token);
+  console.log(a);
+  if (!token) {
+    notifyLogin();
+    history.push("/login");
+  }
 
   {
     return (
