@@ -226,11 +226,11 @@ export default function AddAdv() {
           <div className="w-full md:w-9/12">
             {Product.product_images && (
               <img
-                src={`../${
+                src={
                   Product.product_images[0]
                     ? Product.product_images[0].prim_path
-                    : "adv.jpg"
-                }`}
+                    : "../adv.jpg"
+                }
                 class=" ml-5 rounded-lg inset-0 w-64 h-64 object-cover "
                 alt="product"
                 style={{ display: "block", margin: "auto" }}
