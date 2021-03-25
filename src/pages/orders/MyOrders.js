@@ -100,6 +100,7 @@ export default function MyOrders() {
             <option value="PAID">PAID</option>
             <option value="SHIPPING">SHIPPING</option>
             <option value="CLOSED"> CLOSED</option>
+            <option value="ARRIVED"> ARRIVED</option>
           </select>
         </div>
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
