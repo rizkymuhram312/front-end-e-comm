@@ -23,7 +23,7 @@ import { toast } from "react-toastify";
 
 export default function CartOrders() {
   let history = useHistory();
-  const [CartOrders, setCartOrders] = useState([]);
+  const [CartOrders, setCartOrders] = useState({});
   const [accId, setaccId] = useState(localStorage.getItem("dataAccountId"));
   const [accIdProd, setaccIdProd] = useState([]);
   const [accIdSeller, setaccIdSeller] = useState([]);
@@ -260,6 +260,7 @@ export default function CartOrders() {
   }
 
   const onCreateOrder = () => {
+    
     if (saldo < totalOrder) {
       notifyErr();
     } else if (ongkir === 0) {
@@ -267,6 +268,14 @@ export default function CartOrders() {
     } else {
       setShowVerifyPin(true);
       console.log("oncreateorder");
+      let cart = {
+        cart_total_weight: CartOrders.cart_total_weight,
+        cart_total_amount: CartOrders.cart_total_amount,
+        cart_total_qty: CartOrders.cart_total_qty,
+        cart_acco_id: CartOrders.cart_acco_id,
+        cart_stat_name: 'CLOSED',
+        cart_line_items: []
+      }
       let orders = {
         order_subtotal: SubTotal,
         order_weight: weight,
@@ -279,10 +288,13 @@ export default function CartOrders() {
         order_line_items: [],
         // ongkir : ongkir,
       };
-      CartOrders.cart_line_items.map((x) =>
+      CartOrders.cart_line_items.map((x) =>{
+        x.cart_stat_name='CLOSED'
         orders.order_line_items.push(JSON.stringify(x))
-      );
-      console.log(orders);
+        cart.order_line_items.push(JSON.stringify(x))
+      });
+      // console.log(orders);
+      updateCart(cart);
       createOrders(orders);
     }
     // history.push('/orders')
@@ -294,6 +306,17 @@ export default function CartOrders() {
         data: orders,
       });
       data.order_name = response.data.order_name;
+      return await response.data;
+    } catch (err) {
+      return await err.message;
+    }
+  };
+
+  const updateCart = async (cart) => {
+    try {
+      let response = await axios.put(`${apiCart}/cart/${accId}`, {
+        data: cart,
+      });
       return await response.data;
     } catch (err) {
       return await err.message;
