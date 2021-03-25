@@ -268,14 +268,6 @@ export default function CartOrders() {
     } else {
       setShowVerifyPin(true);
       console.log("oncreateorder");
-      let cart = {
-        cart_total_weight: CartOrders.cart_total_weight,
-        cart_total_amount: CartOrders.cart_total_amount,
-        cart_total_qty: CartOrders.cart_total_qty,
-        cart_acco_id: CartOrders.cart_acco_id,
-        cart_stat_name: 'CLOSED',
-        cart_line_items: []
-      }
       let orders = {
         order_subtotal: SubTotal,
         order_weight: weight,
@@ -291,10 +283,9 @@ export default function CartOrders() {
       CartOrders.cart_line_items.map((x) =>{
         x.cart_stat_name='CLOSED'
         orders.order_line_items.push(JSON.stringify(x))
-        cart.cart_line_items.push(JSON.stringify(x))
       });
       // console.log(orders);
-      updateCart(cart);
+      deleteCart(CartOrders.cart_id);
       createOrders(orders);
     }
     // history.push('/orders')
@@ -312,12 +303,11 @@ export default function CartOrders() {
     }
   };
 
-  const updateCart = async (cart) => {
+  const deleteCart = async (cart_id) => {
     try {
-      let response = await axios.put(`${apiCart}/cart/${CartOrders.cart_id}`, {
-        data: cart,
-      });
-      return await response.data;
+      let response = await axios.delete(`${apiCart}/cartLineItems/${cart_id}`)
+      .then(async()=> await axios.delete(`${apiCart}/cart/${cart_id}`));
+      return response
     } catch (err) {
       return await err.message;
     }
