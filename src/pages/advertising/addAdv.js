@@ -156,12 +156,15 @@ export default function AddAdv() {
     //       break;
     //   }
     // }
-    // const order_advertising = {
-    //   orad_publish_on : data.publishedDate,
-    //   orad_finished_on : data.finishedDate||null,
-    //   orad_bill_amount : data.
-
-    // }
+    const order_advertising = {
+      orad_publish_on : data.publishedDate,
+      orad_finished_on : data.finishedDate||null,
+      orad_bill_amount : data.totalBill,
+      orad_watr_numbers: 0,
+      orad_acco_id: acco_id,
+      orad_stat_name: 'new',
+      orad_pack_name: Pack,
+    }
     reset()
   }
 
@@ -253,6 +256,7 @@ export default function AddAdv() {
                     var index = e.target.selectedIndex;
                     setPackage(e.target[index].text);
                     setAmount(e.target.value);
+                    
                   }}
                   ref={register}
                   className="bg-gray-200 rounded p-1"
