@@ -10,11 +10,13 @@ export default function MyOrders() {
   let [modal, setModal] = useState(false);
   let [dataFormOrderArrival, setDataFormArrival] = useState({});
   const [MyOrders, setMyOrders] = useState();
+  const [stat, setStat] = useState();
   const [accId, setaccId] = useState(localStorage.getItem("dataAccountId"));
 
   useEffect(() => {
-    fetchMyOrders();
-  }, [modal, dataFormOrderArrival]);
+    // fetchMyOrders();
+    fetchFilterOrders();
+  }, [modal, dataFormOrderArrival,stat]);
 
   const fetchMyOrders = async () => {
     let res = await axios({
@@ -38,6 +40,29 @@ export default function MyOrders() {
       .catch((err) => console.error(err));
   };
 
+  const fetchFilterOrders = async () => {
+    let res = await axios({
+      url: `http://localhost:3004/api/v1/orders/${accId}/${stat}`,
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        res.data.map((x, y) => {
+          let dateOrders = x.order_created_on.toString();
+          let ordersDate = new Date(dateOrders).toLocaleString();
+          res.data[y].order_created_on = ordersDate;
+        });
+        setMyOrders(res.data);
+        console.log(res.data);
+        console.log(res);
+        console.log();
+      })
+      .catch((err) => console.error(err));
+  };
+
+
   const onEditRow = (e) => {
     // ShippingArrival.map((data)=>{
     //     if(data.order_name === e.target.value){
@@ -53,9 +78,30 @@ export default function MyOrders() {
     setModal(true);
   };
 
+  const onFilter = (e) =>{
+    const value = e.target.options[e.target.selectedIndex].value;
+    setStat(value);
+    console.log(value)
+  }
+
   return (
     <>
       <div class="flex flex-col">
+        <div class="col-span-3 sm:col-span-1">
+          <label for="country" class="block text-sm font-medium text-gray-700">
+            Status
+          </label>
+          <select
+            id="status"
+            name="status"
+            autocomplete="status" onChange={onFilter}
+            class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="PAID">PAID</option>
+            <option value="SHIPPING">SHIPPING</option>
+            <option value="CLOSED"> CLOSED</option>
+          </select>
+        </div>
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -108,12 +154,7 @@ export default function MyOrders() {
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                   {MyOrders
-                    ? MyOrders.filter(
-                        (x) =>
-                          x.order_stat_name === "SHIPPING"||
-                          x.order_stat_name === "ARRIVED"||
-                          x.order_stat_name === "CLOSED"
-                      ).map((x) => (
+                    ? MyOrders.map((x) => (
                         <>
                           <tr>
                             <td>
@@ -133,7 +174,7 @@ export default function MyOrders() {
                             <td>
                               <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
-                                  Rp.{numberWithCommas (x.order_total_due)}
+                                  Rp.{numberWithCommas(x.order_total_due)}
                                 </div>
                               </div>
                             </td>

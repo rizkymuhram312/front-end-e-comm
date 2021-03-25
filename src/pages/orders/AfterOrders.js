@@ -9,10 +9,12 @@ export default function AfterOrders() {
   let [modal, setModal] = useState(false);
   let [dataFormOrderArrival, setDataFormArrival] = useState({});
   const [AfterOrders, setAfterOrders] = useState([]);
+  const [FilterOrders, setFilterOrders] = useState([]);
   const [accId, setaccId] = useState(localStorage.getItem("dataAccountId"));
 
   useEffect(() => {
     fetchAfterOrders();
+    fetchFilterOrders();
   }, [modal, dataFormOrderArrival]);
 
   const fetchAfterOrders = async () => {
@@ -30,6 +32,26 @@ export default function AfterOrders() {
           res.data[y].cart_created_on = watrDate;
         });
         setAfterOrders(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const fetchFilterOrders = async () => {
+    return await axios({
+      url: `${apiCart}/v1/orders/${accId}/PAID`,
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        res.data.map((x, y) => {
+          let dateTrans = x.cart_created_on.toString();
+          let watrDate = new Date(dateTrans).toLocaleString();
+          res.data[y].cart_created_on = watrDate;
+        });
+        setFilterOrders(res.data);
         console.log(res.data);
       })
       .catch((err) => console.error(err));
