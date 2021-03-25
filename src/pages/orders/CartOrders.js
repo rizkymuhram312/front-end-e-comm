@@ -311,7 +311,7 @@ export default function CartOrders() {
     } catch (err) {
       return await err.message;
     }
-  };s
+  };
 
   useEffect(() => {
     console.log(watrNumber);
