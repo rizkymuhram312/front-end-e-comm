@@ -12,17 +12,7 @@ const VerifyPayment = (props) => {
         e.preventDefault()
         data.pin_number = pin
         axios.post(apiPin, data).then((result) => {
-            if (result.data) {
-                setTimeout(() => {
-                    props.setShowVerifyPin(false)
-                }, 5000);
-            } else {
-                props.setVerified(false)
-            }
-        }).catch((err) => {
-            console.log(err)
-        });
-    }
+            
 
         if (result.data) {
           props.setLoading(true);

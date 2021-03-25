@@ -2,12 +2,9 @@ import React, { useState, Fragment } from 'react';
 import { Redirect, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 32658b6ede716db2e43e131d1e83f3d1f1f334d7
 const Login = () => {
     const [user_email, setEmail] = useState('');
     const [user_password, setPassword] = useState('');
