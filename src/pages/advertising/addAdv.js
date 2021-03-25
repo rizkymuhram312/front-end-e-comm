@@ -157,7 +157,10 @@ export default function AddAdv() {
     //   }
     // }
     // const order_advertising = {
-    //   orad_publish_on =
+    //   orad_publish_on : data.publishedDate,
+    //   orad_finished_on : data.finishedDate||null,
+    //   orad_bill_amount : data.
+
     // }
     reset()
   }
@@ -302,9 +305,9 @@ export default function AddAdv() {
                 >
                   <option>Select Payment Option</option>
                   <option value="wallet">Wallet</option>
-                  <option value="transfer_bank">Trasfer Bank</option>
+                  <option value="transfer_bank">Transfer Bank</option>
                 </select>
-                {paymentBy == "transfer_bank" && listBank.length > 1 ? (
+                {paymentBy === "transfer_bank" && listBank.length > 1 ? (
                   <select
                     className="bg-gray-200 rounded p-1"
                     value={selectedBank}
