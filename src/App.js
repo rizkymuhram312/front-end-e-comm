@@ -50,6 +50,7 @@ import addCond from './pages/condition/addCond';
 import {EditCond} from './pages/condition/editCond';
 import addCate from './pages/category/addCate';
 import CateUpload from './pages/category/cateUpload';
+import OrdersPayment from './pages/payment/OrdersPayment'
 
 function App() {
   return (
@@ -111,6 +112,7 @@ function App() {
           <Route path="/transactions/:acco_id" component={Transaction}/>
           <Route path="/order-kw" component={OrdersKw}/>
           <Route path="/wallet-bank" component={WalletAndBank}/>
+          <Route path="/order/checkout" component={OrdersPayment}/>
           <Route component={PageNotFound}/>
         </Switch>
       </div>
