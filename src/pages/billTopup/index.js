@@ -10,6 +10,8 @@ import { apiTopup } from '../../config/apiUrl'
 import VerifyPayment from '../payment/VerifyPayment'
 import {apiPayment} from '../../config/apiUrl'
 import {toast} from 'react-toastify'
+import {useHistory} from "react-router-dom"
+import convertToRupiah from './convertToRupiah'
 
 const Tabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
@@ -42,6 +44,32 @@ const Tabs = ({ color }) => {
 
   const [data,setData] = useState({})
 
+  const history = useHistory();
+
+  const routeSummaryPulsa = () => {
+    let path = `/summaryPulsa`
+    history.push(path)
+  }
+
+  const routeSummaryInternet = () => {
+    let path = `/summaryInternet`
+    history.push(path)
+  }
+
+  const routeSummaryGame = () => {
+    let path = `/summaryGame`
+    history.push(path)
+  }
+
+  const routeSummaryPLN = () => {
+    let path = `/summaryPLN`
+    history.push(path)
+  }
+
+  const routeSummaryPDAM = () => {
+    let path = `/summaryPDAM`
+    history.push(path)
+  }
   // const [getWatrNumber,SetGetWatrNumber] = useState("")
 
   // const [dataPulsa,setDataPulsa] = useState({
@@ -189,12 +217,12 @@ const Tabs = ({ color }) => {
   const addPulsa = async () =>{
 
     addWatrNumberPulsa()
-    
     // setTimeout(()=>{})
     // addBillPulsa();
     notify()
     setPhoneNumber("")
     console.log('Succes Input Data');
+    routeSummaryPulsa()
   }
 
 
@@ -206,28 +234,32 @@ const Tabs = ({ color }) => {
     console.log('this is account Id: '+internetAccId);
     console.log('this is Amount : '+internetAmount);
     // addBillInternet()
-    addWatrNumberInternet()
+    // addWatrNumberInternet()
+    routeSummaryInternet()
     notify()
     setInternet("")
 
   }
 
   const addVouchergame = () => {
-    addWatrNumberGame()
+    // addWatrNumberGame()
+    routeSummaryGame()
     console.log(gameCard);
     notify()
     console.log('--Input data success--');
   }
 
   const addPLN = ()=>{
-    addWatrNumberPLN()
+    // addWatrNumberPLN()
+    routeSummaryPLN()
     notify()
     setTokenNum("")
     console.log('--Input data success--');
   }
 
   const addPDAM = ()=>{
-    addWatrNumberPDAM()
+    // addWatrNumberPDAM()
+    routeSummaryPDAM()
     notify()
     setPdam("")
     console.log('--Input data success--');

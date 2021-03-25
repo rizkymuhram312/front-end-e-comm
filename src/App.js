@@ -26,8 +26,13 @@ import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
 import ProductSaya from './pages/product/productSaya';
 import EditProduct from './pages/product/editProduct'
-import billTopup from './pages/billTopup'
-import vendor from './pages/vendor'
+import billTopup from './pages/billTopup';
+import vendor from './pages/vendor';
+import SummaryPulsa from './pages/billTopup/summaryPulsa';
+import SummaryInternet from './pages/billTopup/summaryInternet'
+import SummaryGame from './pages/billTopup/summaryGame';
+import SummaryPLN from './pages/billTopup/summaryPLN';
+import SummaryPDAM from './pages/billTopup/summaryPDAM';
 function App() {
   return (
     <BrowserRouter>
@@ -68,6 +73,11 @@ function App() {
           <Route path="/editproduct" component={EditProduct}/>
           <Route path="/billTopup" component={billTopup}/>
           <Route path="/vendor" component={vendor}/>
+          <Route path="/summaryPulsa" component={SummaryPulsa}/>
+          <Route path="/summaryInternet" component={SummaryInternet}/>
+          <Route path="/summaryGame" component={SummaryGame}/>
+          <Route path="/summaryPLN" component={SummaryPLN}/>
+          <Route path="/summaryPDAM" component={SummaryPDAM}/>
         </Switch>
       </div>
       <Footer></Footer>
