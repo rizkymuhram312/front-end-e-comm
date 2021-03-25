@@ -84,11 +84,6 @@ export default function TambahProduct() {
         setProductBrand(value)
         setError('')
     }
-    // const onChangeProductAco = (e) => {
-    //     const value = e.target.value
-    //     setProductAco(value)
-    //     setError('')
-    // }
     const onChangeProductWeight = (e) => {
         const value = e.target.value
         setProductWeight(value)
@@ -124,9 +119,6 @@ export default function TambahProduct() {
         setProvaOptionSize(value)
         setError('')
     }
-    // const uploadImage = (files) => {
-    //     console.log(files[0])
-    // }
 
     const uploadImage = async e => {
         const files = e.target.files
@@ -265,7 +257,7 @@ export default function TambahProduct() {
                                 })
                             
                     } notify()
-                }
+                } history.push('/productsaya')
             })
             .catch((e) => {
                 setError(e.response.message)
