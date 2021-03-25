@@ -12,6 +12,7 @@ function ModalMyOrders({ setModal, dataFormOrderArrival }) {
   };
 
   const handleUpdate = async () => {
+   
     const data = {
       order_name: orderName,
       order_stat_name: orderStatName,
@@ -21,6 +22,7 @@ function ModalMyOrders({ setModal, dataFormOrderArrival }) {
       .then((result) => {
         if (result) {
           console.log(result.data);
+          setModal(false);
         }
 
         console.log(result.data);

@@ -13,8 +13,6 @@ const VerifyPayment = (props) => {
         data.pin_number = pin
         console.log(data.total_amount)
         axios.post(apiPin, data).then((result) => {
-            
-
         if (result.data) {
           props.setLoading(true);
           setTimeout(() => {

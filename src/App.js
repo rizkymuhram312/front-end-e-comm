@@ -50,6 +50,7 @@ import addCond from './pages/condition/addCond';
 import {EditCond} from './pages/condition/editCond';
 import addCate from './pages/category/addCate';
 import CateUpload from './pages/category/cateUpload';
+import { EditCate } from './pages/category/editCate';
 import OrderAdvertising from './pages/advertising/orderAdvertising';
 import orderAdvertisingProduct from './pages/advertising/orderAdvertisingProduct';
 import OrderAdvertisingProduct from './pages/advertising/orderAdvertisingProduct';
@@ -79,6 +80,7 @@ function App() {
           <Route path="/category" component={Category} exact />
           <Route path="/addCate" component={addCate} exact />
           <Route path="/upload" component={CateUpload} exact />
+          <Route path="/editcate" component={EditCate} exact />
           {/* end Category */}
           <Route path="/cart" component={Cart} />
           <Route path="/cart-orders" component={CartOrders} />
