@@ -1,14 +1,40 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import {useHistory} from "react-router-dom"
-
+import axios from 'axios'
+import {apiTopup} from '../../config/apiUrl'
 
 export default function SummaryInternet() {
     const history = useHistory();
-
+    const [SumInternet,setSumInternet] = useState([])
     const routeChange = () => {
       let path = `/billTopup`
       history.push(path)
     }
+    const bitoId = localStorage.getItem('bitoId')
+
+    const billSummaryInternet = async () => {
+        return await axios({
+            url:`${apiTopup}/billTopup/${bitoId}`,
+            method :"get",
+            headrs : {
+                "Content-Type" : "application/json"
+            }
+        }).
+        then((res)=>{
+            setSumInternet(res.data)
+            console.log(res.data);
+            
+        }).catch((err)=>{console.log(err)})
+    }
+
+
+
+    useEffect(()=>{
+        billSummaryInternet()
+        
+        
+    },[])
+
         return (
         <div className="flex justify-center">
             <div className="w-4/12">
@@ -19,16 +45,16 @@ export default function SummaryInternet() {
                     <hr className="mt-2 mb-4 border-b-4 border-gray-300 rounded"/>
                     <div class="mb-10">
                         <span class="float-left text-base font-semibold text-gray-400">Customer Name</span>
-                        <span class="float-right text-base font-semibold text-gray-700">Farhan Ali</span>
+                        <span class="float-right text-base font-semibold text-gray-700">{SumInternet.account?.acco_nama}</span>
                         <br/>
                         <span class="float-left text-base font-semibold text-gray-400">Bill Number</span>
-                        <span class="float-right text-base font-semibold text-gray-700">TEL-32143</span>
+                        <span class="float-right text-base font-semibold text-gray-700">{SumInternet.bito_token}</span>
                         <br/>
                         <span class="float-left text-base font-semibold text-gray-400">Bill Price</span>
-                        <span class="float-right text-base font-semibold text-gray-700">352.000</span>
+                        <span class="float-right text-base font-semibold text-gray-700">{SumInternet.bito_amount}</span>
                         <br/>
                         <span class="float-left text-base font-semibold text-gray-400">Description</span>
-                        <p class="float-right text-base font-semibold text-gray-700">Pembayaran Indihome</p>
+                        <p class="float-right text-base font-semibold text-gray-700">{SumInternet.bito_desc}</p>
                     </div>
                     
                         <div class="flex justify-end">

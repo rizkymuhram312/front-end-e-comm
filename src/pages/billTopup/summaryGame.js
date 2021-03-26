@@ -1,14 +1,38 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import {useHistory} from "react-router-dom"
-
+import axios from 'axios'
+import {apiTopup} from '../../config/apiUrl'
 
 export default function SummaryGame() {
     const history = useHistory();
-
+    const [SumGame,setSumGame] = useState([])
     const routeChange = () => {
       let path = `/billTopup`
       history.push(path)
     }
+    const bitoId = localStorage.getItem('bitoId')
+
+    const billSummaryGame = async () => {
+        return await axios({
+            url:`${apiTopup}/billTopup/${bitoId}`,
+            method :"get",
+            headrs : {
+                "Content-Type" : "application/json"
+            }
+        }).
+        then((res)=>{
+            setSumGame(res.data)
+            console.log(res.data);
+            
+        }).catch((err)=>{console.log(err)})
+    }
+
+    useEffect(()=>{
+        billSummaryGame()
+            
+    },[])
+
+    
         return (
         <div className="flex justify-center">
             <div className="w-4/12">
@@ -19,19 +43,19 @@ export default function SummaryGame() {
                     <hr className="mt-2 mb-4 border-b-4 border-gray-300 rounded"/>
                     <div class="mb-10">
                         <span class="float-left text-base font-semibold text-gray-400">Customer Name</span>
-                        <span class="float-right text-base font-semibold text-gray-700">Farhan Ali</span>
+                        <span class="float-right text-base font-semibold text-gray-700">{SumGame.account?.acco_nama}</span>
                         <br/>
                         <span class="float-left text-base font-semibold text-gray-400">Voucher</span>
-                        <span class="float-right text-base font-semibold text-gray-700">Steam</span>
+                        <span class="float-right text-base font-semibold text-gray-700">{SumGame.bito_vendor_name}</span>
                         <br/>
                         <span class="float-left text-base font-semibold text-gray-400">Nominal</span>
-                        <span class="float-right text-base font-semibold text-gray-700">6.000</span>
+                        <span class="float-right text-base font-semibold text-gray-700">{SumGame.bito_token}</span>
                         <br/>
                         <span class="float-left text-base font-semibold text-gray-400">Price</span>
-                        <span class="float-right text-base font-semibold text-gray-700">7.500</span>
+                        <span class="float-right text-base font-semibold text-gray-700">{SumGame.bito_amount}</span>
                         <br/>
                         <span class="float-left text-base font-semibold text-gray-400">Description</span>
-                        <p class="float-right text-base font-semibold text-gray-700">Voucher Game</p>
+                        <p class="float-right text-base font-semibold text-gray-700">{SumGame.bito_desc}</p>
                     </div>
                     
                         <div class="flex justify-end">
