@@ -110,7 +110,8 @@ export default function MyOrders() {
                   {MyOrders
                     ? MyOrders.filter(
                         (x) =>
-                          x.order_stat_name === "ARRIVED" ||
+                          x.order_stat_name === "SHIPPING"||
+                          x.order_stat_name === "ARRIVED"||
                           x.order_stat_name === "CLOSED"
                       ).map((x) => (
                         <>
@@ -132,14 +133,14 @@ export default function MyOrders() {
                             <td>
                               <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
-                                  {x.order_total_due}
+                                  Rp.{numberWithCommas (x.order_total_due)}
                                 </div>
                               </div>
                             </td>
                             <td>
                               <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
-                                  {x.order_weight}
+                                  {x.order_weight} kg
                                 </div>
                               </div>
                             </td>
@@ -152,9 +153,9 @@ export default function MyOrders() {
                             </td> */}
                             <td>
                               <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">
+                                <span class="text-sm font-medium bg-green-100 text-green-800 rounded-lg">
                                   {x.order_stat_name}
-                                </div>
+                                </span>
                               </div>
                             </td>
                             {x.order_stat_name === "ARRIVED" ? (
@@ -162,7 +163,7 @@ export default function MyOrders() {
                                 <div class="ml-4">
                                   <button
                                     value={x.order_name}
-                                    class="bg-blue-500 hover:bg-blue-800 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg"
+                                    class="bg-button hover:bg-green-300 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg"
                                     onClick={onEditRow}
                                   >
                                     Diterima

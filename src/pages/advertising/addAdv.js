@@ -24,6 +24,7 @@ export default function AddAdv() {
   let [expired, setExpired] = useState()
   let [token, setToken] = useState('')
   let apiToken = apiPayment + "/walletTransaction/generate-token"
+  let [watrNumbers,setWatrNumbers] = useState('')
 
   let [listBank, setListBank] = useState([])
   let [selectedBank, setSelectedBank] = useState()
@@ -161,6 +162,10 @@ export default function AddAdv() {
     reset()
   }
 
+  useEffect(()=>{
+    console.log(watrNumbers)
+  },[watrNumbers])
+
   const onChangeSelectedBank = (e) => {
     setSelectedBank(e.target.value)
   }
@@ -193,6 +198,7 @@ export default function AddAdv() {
               setLoading={setLoading}
               setPaid={setPaid}
               data={data}
+              setWatrNumbers={setWatrNumbers}
             />
             : transferBank ?
               <div className=" w-screen content-center mt-4 ml-4">

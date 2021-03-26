@@ -124,14 +124,14 @@ export default function AfterOrders() {
                             <td>
                               <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
-                                  {x.cart_total_weight}
+                                  {x.cart_total_weight} kg
                                 </div>
                               </div>
                             </td>
                             <td>
                               <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
-                                  {x.cart_total_amount}
+                                  Rp.{numberWithCommas(x.cart_total_amount)}
                                 </div>
                               </div>
                             </td>
@@ -147,7 +147,7 @@ export default function AfterOrders() {
                                 <div class="ml-4">
                                   <button
                                     onClick={onShow}
-                                    class="bg-blue-500 hover:bg-blue-800 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg"
+                                    class="bg-button hover:bg-green-300 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg"
                                   >
                                     Show
                                   </button>
