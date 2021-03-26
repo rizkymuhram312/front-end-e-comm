@@ -165,6 +165,9 @@ export default function AddAdv() {
       orad_stat_name: 'new',
       orad_pack_name: Pack,
     }
+    const order_advertising_product = {
+      
+    }
     reset()
   }
 
@@ -254,19 +257,23 @@ export default function AddAdv() {
                   name="packageType"
                   onChange={(e) => {
                     var index = e.target.selectedIndex;
-                    setPackage(e.target[index].text);
                     setAmount(e.target.value);
-                    
+                    Pack.map(x=>{
+                      if(e.target[index].text===x.pack_name)
+                      return setPackage(x)
+                    })
                   }}
                   ref={register}
                   className="bg-gray-200 rounded p-1"
+                  required
                 >
+                  <option value="" disabled selected >Select Your Package</option>
                   {Pack.map((x) => (
                     <option value={x.pack_amount}>{x.pack_name}</option>
                   ))}
                 </select>
 
-                {Package.includes("hari") && (
+                {Package.pack_name?.includes("hari") && (
                   <>
                     <label className="mt-5">Finished Date</label>
                     <input
@@ -288,6 +295,7 @@ export default function AddAdv() {
                   ref={register({ required: true })}
                   className="bg-gray-200 rounded p-1"
                   onChange={(e) => setBillAmount(e.target.value)}
+                  min="1"
                 />
                 {errors.amount && (
                   <span className="text-red-500">This field is required</span>
