@@ -1,12 +1,18 @@
 
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
+import { apiProductMaster } from "../../config/apiUrl";
+import ProductSidebar from "../sideBarMenu/product";
 export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
+  const [product, setproduct] = useState([])
+
+  // const [product, setproduct] = useState([]);
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const [masuk, setMasuk] = useState(false);
-  const [sideBar, setSideBar ] = useState(false);
+  const [sideBar, setSideBar] = useState(false);
   const token = localStorage.token
   const [tvalue, setTValue] = useState();
   const [isOpen, setIsOpen] = useState();
@@ -40,6 +46,24 @@ export default function Navbar({ fixed }) {
     history.push("/daftar")
   }
   const fotoprofil = localStorage.getItem('profilImage')
+
+  useEffect(() => {
+    // console.log(product)
+    // setLoading(true);
+    axios({
+      url: `${apiProductMaster}/product/prod/`,
+      method: "get",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then((res) => setproduct(res.data))
+      .catch((err) => console.error(err))
+  }, [])
+
+  const searchProd = async (prod_name) => {
+    history.push("/");
+    localStorage.setItem("prod_name", prod_name);
+  }
   return (
     <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white">
       <div class="container flex items-center justify-between">
@@ -62,8 +86,8 @@ export default function Navbar({ fixed }) {
           </div>
           {isLogin ? (
             <>
-            {/* cart start */}
-               < button class=" focus:outline-none mx-2 sm:mx-0">
+              {/* cart start */}
+              < button class=" focus:outline-none mx-2 sm:mx-0">
                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
@@ -88,7 +112,7 @@ export default function Navbar({ fixed }) {
                       Profil
                       {/* </a> */}
 
-</li>
+                      </li>
                       <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboard')} style={{ cursor: 'pointer' }}>
                         {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
                       Dashboard
@@ -161,7 +185,7 @@ export default function Navbar({ fixed }) {
         <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
@@ -170,14 +194,15 @@ export default function Navbar({ fixed }) {
         </div>
       </nav>
       {/* search */}
-      {/* <div class="relative mt-6 max-w-lg mx-auto">
-        <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
-          <svg class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none">
-            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </span>
-        <input class="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline" type="text" placeholder="Search" />
-      </div> */}
+          <div class="relative mt-6 max-w-lg mx-auto">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+              <svg class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none">
+                <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+
+            <input class="w-full border rounded-md pl-10 pr-4 text-black py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline" type="text" placeholder="Search" onChange={searchProd} />
+          </div>
     </div >
   );
 }

@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import EditProduct from './editProduct'
-import convertToRupiah from './convertToRupiah'
+import convertToRupiah from '../product/convertToRupiah'
 import { apiProductMaster, apiProductTransaction, apiUserMaster } from '../../config/apiUrl'
 import { toast } from 'react-toastify'
 
-export default function ProductSaya() {
+export default function Archieve() {
   const history = useHistory()
   const [Product, setProduct] = useState([]);
   const [Category, setCategory] = useState([]);
@@ -98,7 +97,7 @@ export default function ProductSaya() {
       <div>
 
 
-        { !showEdit ? ( //jika showEdit false, maka tampilkan product, jika true maka tampilkan edit form
+        {/* //jika showEdit false, maka tampilkan product, jika true maka tampilkan edit form */}
           <div className="container w-full flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500">
             <div className="flex flex-col w-full ">
               <div class="grid  grid-cols-4 gap-4 ml-5 items-center justify-between">
@@ -177,12 +176,7 @@ export default function ProductSaya() {
               </div>
 
             </div>
-            <div class="grid grid-cols-2 gap-4 ml-5 items-center flex sm:justify-items-end">
-              <button onClick={onClickAddProduct} class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto">
-                Tambah Produk Baru
-          </button>
-
-            </div>
+           
 
 
 
@@ -250,7 +244,7 @@ export default function ProductSaya() {
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
-                            <button class="text-blue-400 hover:text-blue-600 underline" value={x.prod_id} onClick={onClickEditProduct}>Edit</button>
+                            {/* <button class="text-blue-400 hover:text-blue-600 underline" value={x.prod_id} onClick={onClickEditProduct}>Edit</button> */}
                             <a href="" class="text-blue-400 hover:text-blue-600 underline pl-6" onClick={() => {
                               if (
                                 window.confirm(
@@ -267,13 +261,7 @@ export default function ProductSaya() {
               </table>
             </div>
           </div>
-        ) : //showEdit true, menampilkan form edit, tampilan product tidak dtiampilkan
-          <EditProduct
-            setShowEdit={setShowEdit}
-
-
-          />
-        }
+      
       </div >
     )
   }
