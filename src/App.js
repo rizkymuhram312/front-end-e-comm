@@ -53,9 +53,12 @@ import CateUpload from './pages/category/cateUpload';
 import { EditCate } from './pages/category/editCate';
 import OrderAdvertising from './pages/advertising/orderAdvertising';
 import OrderAdvertisingProduct from './pages/advertising/orderAdvertisingProduct';
-
 import OrdersPayment from './pages/payment/OrdersPayment'
-
+import SummaryPulsa from './pages/billTopup/summaryPulsa';
+import SummaryInternet from './pages/billTopup/summaryInternet'
+import SummaryGame from './pages/billTopup/summaryGame';
+import SummaryPLN from './pages/billTopup/summaryPLN';
+import SummaryPDAM from './pages/billTopup/summaryPDAM';
 function App() {
   return (
     <BrowserRouter>
@@ -121,6 +124,11 @@ function App() {
           <Route path="/wallet-bank" component={WalletAndBank}/>
           <Route path="/order/checkout" component={OrdersPayment}/>
           <Route component={PageNotFound}/>
+          <Route path="/summaryPulsa" component={SummaryPulsa}/>
+          <Route path="/summaryInternet" component={SummaryInternet}/>
+          <Route path="/summaryGame" component={SummaryGame}/>
+          <Route path="/summaryPLN" component={SummaryPLN}/>
+          <Route path="/summaryPDAM" component={SummaryPDAM}/>
         </Switch>
       </div>
       <Footer></Footer>
