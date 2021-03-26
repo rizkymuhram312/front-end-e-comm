@@ -166,6 +166,8 @@ export default function AddAdv() {
       orad_pack_name: Pack,
     }
     const order_advertising_product = {
+      orap_total_duration: Package.pack_duration,
+      orap_total_amount: 
       
     }
     reset()
