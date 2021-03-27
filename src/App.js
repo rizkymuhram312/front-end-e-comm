@@ -106,14 +106,9 @@ function App() {
           <Route path="/wallet" component={Wallet}/>
           <Route path="/bank-account/" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
-<<<<<<< HEAD
-          <Route path="/upload" component={FilesUpload}/>
-
-=======
           <Route path="/order-kw" component={OrdersKw}/>
           <Route path="/wallet-bank" component={WalletAndBank}/>
           <Route component={ <div>Page Not Found</div>}/>
->>>>>>> 3837ab3d1e87cee76f53b05d718c2e94fbc711c8
         </Switch>
       </div>
       <Footer></Footer>

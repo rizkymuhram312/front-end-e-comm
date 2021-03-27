@@ -59,7 +59,7 @@ export default function EditAddress() {
   }, []);
 
   let GetKota = async (Prov_Id) => {
-    const response = await axios.get(`${apiUserAccount}/city/search/${Prov_Id}`);
+    const response = await axios.get(`${apiUserAccount}/city/ambil/${Prov_Id}`);
     return response.data;
   };
 
@@ -75,6 +75,7 @@ export default function EditAddress() {
       console.log(e)
     let value = e.target.options[e.target.selectedIndex].value;
     // localStorage.setItem('AddProvId',value)
+    setProvinsiEdit(value)
     setProvId(value)
      console.log(value);
    };
@@ -106,6 +107,7 @@ export default function EditAddress() {
 
         setInput(false);
         setHapus(false);
+        setPrimary(listAlamat[0].addr_is_primary)
         setProvinsiEdit(listAlamat[0].prov_name)
         setKotaEdit(listAlamat[0].city_name)
         setKecamatanEdit(listAlamat[0].kec_name)
@@ -126,7 +128,7 @@ export default function EditAddress() {
   //  console.log(provinsi);
 
    let GetKecamatan = async (City_Id) => {
-    const response = await axios.get(`${apiUserAccount}/kecamatan/search/${City_Id}`);
+    const response = await axios.get(`${apiUserAccount}/kecamatan/ambil/${City_Id}`);
     return response.data;
   };
 
@@ -141,6 +143,7 @@ export default function EditAddress() {
   let onChangeCity = (e) => {
     let value = e.target.options[e.target.selectedIndex].value;
     // localStorage.setItem('AddProvId',value)
+    setKotaEdit(value)
     setCityId(value)
      console.log(value);
    };
@@ -188,6 +191,7 @@ export default function EditAddress() {
 
    const onClose = () => {
     setShowModal(false);
+    history.push("/dashboardUser")
     
     setKota([]);
     setKecamatan([]);
@@ -211,7 +215,7 @@ export default function EditAddress() {
     }
 
     return await axios
-    .post(`${apiUserAccount}/address`, data)
+    .put(`${apiUserAccount}/address/${apiAddrId}`, data)
       .then(async (result) => {
         if (result) {
           console.log(result.data);
@@ -219,6 +223,7 @@ export default function EditAddress() {
             setJalan("");
             setOptional("");
             setShowModal(false)
+            history.push("/dashboardUser")
             return await GetAlamat();
           }
         }
@@ -263,8 +268,8 @@ export default function EditAddress() {
       {alamat2[0] ? (
         <>
           <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-purple-100">
-              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-gray-500">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
+              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-pink-600">
                 <div class="flex flex-wrap items-center">
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
                     <h3 class="font-semibold text-xl text-gray-50">
@@ -274,7 +279,7 @@ export default function EditAddress() {
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button
                       onClick={() => setShowModal(true)}
-                      className="px-6 bg-gray-200 text-black align-middle border border-solid border-gray-800 hover:bg-green-200 hover:text-green-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                      className="px-6 bg-gray-50 text-black align-middle hover:bg-pink-200 hover:text-pink-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                       type="button"
                     >
                       Tambah Alamat
@@ -337,8 +342,8 @@ export default function EditAddress() {
       ) : (
         <>
           <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-purple-100">
-              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-gray-500">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded ">
+              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-pink-600">
                 <div class="flex flex-wrap items-center">
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
                     <h3 class="font-semibold text-xl text-gray-50">
@@ -349,7 +354,7 @@ export default function EditAddress() {
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button
                       onClick={() => setShowModal(true)}
-                      className="px-6 bg-gray-200 text-black align-middle border border-solid border-gray-800 hover:bg-green-200 hover:text-green-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                      className="px-6 bg-gray-50 text-black align-middle hover:bg-pink-200 hover:text-pink-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                       type="button"
                     >
                       Tambah Alamat
@@ -357,12 +362,12 @@ export default function EditAddress() {
                   </div>
                 </div>
               </div>
-              <div className="relative p-6 flex-auto">
-                <label>Tidak ada Alamat </label>
-                
+                <div className="relative p-6 flex-auto">
+                  <label>Tidak ada Alamat </label>
+
+                </div>
               </div>
             </div>
-          </div>
         </>
       )}
 
@@ -383,14 +388,16 @@ export default function EditAddress() {
                     <select
                       
                       className="col-span-4 flex-1 capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
+                      name="provinsi"
                       value={provinsiEdit}
                       onChange={OnChangeProvince} 
                     >
+                        <option value="oke">Pilih Provinsi</option>
                         {
                      
-                      provinsi.map((e,index) => {
-                        return <option value={e.prov_name
-                        } name={e.prov_name} key={index} >{e.prov_name}</option>;
+                      provinsi.map((e) => {
+                        return ( <option value={e.prov_name
+                        }>{e.prov_name}</option>)
                       })
                       
                 }
@@ -402,13 +409,13 @@ export default function EditAddress() {
                       name="kota"
                       id="kota"
                       className="col-span-4 flex-1 capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
-                      
+                      value={kotaEdit}
                       onChange={onChangeCity} 
                     >
                       <option>Silahkan Pilih Kota</option>
                       { kota ? (
-                        kota.map((e,index) => {
-                        return <option value={e.city_id} key={index} >{e.city_name}</option>;
+                        kota.map((e) => {
+                        return <option value={e.city_name}>{e.city_name}</option>;
                       })
                       ):
                       (

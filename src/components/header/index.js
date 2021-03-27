@@ -5,7 +5,6 @@ export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-<<<<<<< HEAD
   const [alertLogin, setAlertLogin] = useState('');
   const [isOpen, setIsOpen] = React.useState(false);
   const [tvalue, setTValue] = useState();
@@ -14,13 +13,6 @@ export default function Navbar({ fixed }) {
   let token = localStorage.token
 
   const [value, setValue] = useState();
-=======
-  const [masuk, setMasuk] = useState(false);
-  const [sideBar, setSideBar ] = useState(false);
-  const token = localStorage.token
-  const [tvalue, setTValue] = useState();
-  const [isOpen, setIsOpen] = useState();
->>>>>>> 3837ab3d1e87cee76f53b05d718c2e94fbc711c8
   const refresh = () => {
     // re-renders the component
     setTValue({});
@@ -29,16 +21,11 @@ export default function Navbar({ fixed }) {
     // console.log(isLogin)
     if (token == null || token == undefined) {
       setisLogin(false);
-<<<<<<< HEAD
       setTValue({});
 
-=======
-      // setTValue({});
->>>>>>> 3837ab3d1e87cee76f53b05d718c2e94fbc711c8
     }
     else {
       setisLogin(true);
-<<<<<<< HEAD
       
 
 
@@ -58,12 +45,6 @@ export default function Navbar({ fixed }) {
 
 
 
-=======
-      // setTValue({});
-    }
-    // setTValue({});
-  }, [])
->>>>>>> 3837ab3d1e87cee76f53b05d718c2e94fbc711c8
   const klikLogout = () => {
     localStorage.clear()
     alert("Anda Berhasil Logout!");
@@ -78,12 +59,9 @@ export default function Navbar({ fixed }) {
     history.push("/daftar")
   }
   const fotoprofil = localStorage.getItem('profilImage')
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 3837ab3d1e87cee76f53b05d718c2e94fbc711c8
   return (
 
     
@@ -116,18 +94,8 @@ export default function Navbar({ fixed }) {
                 </svg>
               </button>
 
-<<<<<<< HEAD
 
-                <img src={fotoprofil === "null" || fotoprofil === null || fotoprofil === undefined || fotoprofil === "" ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle mr-4 border-2 border-white" />
-                <li className="nav-item">
-=======
-              <svg xmlns="htts://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-              </svg>
-              {/* cart end */}
-              <ul className="flex flex-wrap lg:flex-row list-none lg:ml-auto align-center justify-center items-center flex-between">
->>>>>>> 3837ab3d1e87cee76f53b05d718c2e94fbc711c8
-
+              
                 <img src={fotoprofil === "null" || fotoprofil === null ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle border-none border-white mr-4" />
                 <li className="nav-item">
                   <div className="dropdown inline-block relative">
@@ -136,20 +104,11 @@ export default function Navbar({ fixed }) {
                       </span>
                     </button>
                     <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
-<<<<<<< HEAD
                       <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboarduser')} style={{ cursor: 'pointer' }}>
                         {/* <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser"> */}
                       Profil
                       {/* </a> */}
                       </li>
-=======
-                      <li className=" bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboarduser')} style={{ cursor: 'pointer' }}>
-                        {/* <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser"> */}
-                      Profil
-                      {/* </a> */}
-
-</li>
->>>>>>> 3837ab3d1e87cee76f53b05d718c2e94fbc711c8
                       <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboard')} style={{ cursor: 'pointer' }}>
                         {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
                       Dashboard
@@ -163,7 +122,7 @@ export default function Navbar({ fixed }) {
                     </ul>
                   </div>
                 </li>
-              </ul>
+              
               {/* <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
                 <li className="nav-item">
                   <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
@@ -219,7 +178,6 @@ export default function Navbar({ fixed }) {
       </div>
       {/* navbar */}
       <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
-<<<<<<< HEAD
         <div class="flex flex-col sm:flex-row text-white ">
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
@@ -231,20 +189,6 @@ export default function Navbar({ fixed }) {
         </div>
       </nav>
       
-=======
-        <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/shop">Shop</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">Contact</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">About</a>
-        </div>
-      </nav>
-      {/* search */}
->>>>>>> 3837ab3d1e87cee76f53b05d718c2e94fbc711c8
       {/* <div class="relative mt-6 max-w-lg mx-auto">
         <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
           <svg class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none">

@@ -114,7 +114,7 @@ const Daftar = () => {
                         <div className="h-2 bg-pink-600 rounded-t-md"></div>
                         <div className="py-6 px-8">
                         
-                            <input type="text" placeholder="Fullname" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_name} onChange={onChangeUsername}/>
+                             <input type="text" placeholder="Fullname" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" required value={user_name} onChange={onChangeUsername} />
                             <input type="text" placeholder="Email" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_email} onChange={onChangeEmail}/>
                             <input type="password" placeholder="Password" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md"  value={user_password} onChange={onChangePassword} />
                             {/* <input type="password" placeholder="Confirm Password" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md"  value={user_confpassword} onChange={onChangeConfPassword} /> */}

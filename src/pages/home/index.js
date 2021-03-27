@@ -104,13 +104,13 @@ export default function Navbar({ fixed }) {
 
 				<>
 					<div className="capitalize text-center text-3xl font-bold mb-3">
-						{/* selamat datang {localStorage.getItem('dataUserName')} */}
+						selamat datang {localStorage.getItem('dataUserName')}
 					</div>
 				</>
 
 			) : (
 				<div className="capitalize text-center text-3xl font-bold mb-3">
-					{/* anda belum login */}
+					anda belum login
 				</div>
 			)} */}
 
@@ -131,6 +131,7 @@ export default function Navbar({ fixed }) {
 						</div>
 						<div class="w-full h-64 mt-8 md:mx-4 rounded-md overflow-hidden bg-cover bg-center md:mt-0 md:w-1/2" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')` }}>
 							<div class="bg-gray-900 bg-opacity-50 flex items-center h-full">
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/3TA7WyW94Bk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 							</div>
 						</div>
