@@ -11,6 +11,7 @@ export default function AfterOrders() {
   const [AfterOrders, setAfterOrders] = useState([]);
   const [FilterOrders, setFilterOrders] = useState([]);
   const [accId, setaccId] = useState(localStorage.getItem("dataAccountId"));
+  const [status, setStatus] = useState();
 
   useEffect(() => {
     fetchAfterOrders();
@@ -68,133 +69,106 @@ export default function AfterOrders() {
     AfterOrders.filter(
       (data) => data.order_name === e.target.value
     ).map((data) => setDataFormArrival(data));
-    history.push("/orders");
+    history.push("/cart-orders");
 
     // setModal(true);
   };
 
   return (
     <>
-      <div class="flex flex-col">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Cart Id
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Created On
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Total Weight(kg)
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Total Amount(Rp)
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Total Quantity
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                  {AfterOrders
-                    ? AfterOrders.filter(
-                        (x) =>
-                          x.cart_stat_name === "PENDING" ||
-                          x.cart_line_items[0].clit_stat_name === "CHECKOUT"
-                      ).map((x) => (
-                        <>
-                          <tr>
-                            <td>
-                              <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">
-                                  {x.cart_id}
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">
-                                  {x.cart_created_on}
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">
-                                  {x.cart_total_weight} kg
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">
-                                  Rp.{numberWithCommas(x.cart_total_amount)}
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">
-                                  {x.cart_total_qty}
-                                </div>
-                              </div>
-                            </td>
-                            {x.cart_line_items[0].clit_stat_name === "CHECKOUT" ? (
-                              <td>
-                                <div class="ml-4">
-                                  <button
-                                    onClick={onShow}
-                                    class="bg-button hover:bg-green-300 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg"
-                                  >
-                                    Show
-                                  </button>
-                                </div>
-                              </td>
-                            ) : (
-                              <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
-                                <button
-                                  className="py-2 px-4 bg-gray-500 text-white reounded"
-                                  onClick={onShow}
-                                  disabled="true"
-                                >
-                                  Diterima
-                                </button>
-                              </td>
-                            )}
-                          </tr>
-                        </>
-                      ))
-                    : null}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+      <div class="container gap-8 justify-center  flex flex-row flex-wrap uppercase rounded mb-4 ">
+        <table class="border-collapse w-full mr-10 ml-10 mt-5">
+          <thead>
+            <tr>
+              <th class="py-3 font-xs uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                Cart Id
+              </th>
+              <th class="py-3 mx-2 font-xs uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                Created On
+              </th>
+              <th class="py-3 font-xs uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                Total Weight(kg)
+              </th>
+              <th class="py-3 font-xs uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                Total Amount(Rp)
+              </th>
+              <th class="py-3 font-xs uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                Total Quantity
+              </th>
+
+              <th
+                class="py-3 font-xs uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell"
+                colspan="2"
+              >
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200 mx-2">
+            {AfterOrders
+              ? AfterOrders.filter(
+                  (x) =>
+                  x.cart_line_items[0].clit_stat_name === "PENDING" ||
+                    x.cart_line_items[0].clit_stat_name === "CHECKOUT"
+                ).map((x) => (
+                  <>
+                    <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+                      <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                        <div class="ml-4">
+                          <div class="text-sm font-medium text-gray-900">
+                            {x.cart_id}
+                          </div>
+                        </div>
+                      </td>
+                      <td class="gap-2 ">
+                        <div class="text-sm font-medium text-gray-900 ">
+                          {x.cart_created_on}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="ml-4 flex flex-row">
+                          <div class="text-sm font-medium text-center text-gray-900">
+                            {x.cart_total_weight} kg
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="ml-4">
+                          <div class="text-sm font-medium text-gray-900">
+                            Rp.{numberWithCommas(x.cart_total_amount)}
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="ml-4">
+                          <div class="text-sm font-medium text-gray-900">
+                            {x.cart_total_qty}
+                          </div>
+                        </div>
+                      </td>
+                      {/* <td>
+                        <div class="ml-4">
+                          <button class=" text-blue-400 hover:text-blue-600 underline pl-6">
+                            Batal
+                          </button>
+                        </div>
+                      </td> */}
+                      <td>
+                        <div class="ml-4">
+                          <button
+                            onClick={onShow}
+                            class="text-blue-400 hover:text-blue-600 underline pl-6"
+                          >
+                            Show
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </>
+                ))
+              : null}
+          </tbody>
+        </table>
       </div>
     </>
   );

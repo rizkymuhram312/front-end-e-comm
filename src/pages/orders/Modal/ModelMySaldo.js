@@ -2,34 +2,26 @@ import axios from 'axios'
 import React, { useEffect, useState } from "react";
 import { apiOrder } from "../../../config/apiUrl";
 
-function ModalMyOrders({ setModal, dataFormOrderArrival }) {
+function ModalMySaldo({ setModal, dataFormOrderArrival }) {
   let [orderName, setOrderName] = useState(dataFormOrderArrival.order_name);
   let [orderStatName, setOrderStatName] = useState("CLOSED");
 
-  console.log(dataFormOrderArrival.order_name);
   const onCancelEdit = () => {
     setModal(false);
   };
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    const data = {
-      order_name: orderName,
-      order_stat_name: orderStatName,
-    };
-    await axios
-      .put(`${apiOrder}/orders`, data)
-      .then((result) => {
-        if (result) {
-          console.log(result.data);
-          setModal(false);
-        }
+  useEffect(()=>{
+      fetchWallet()
+  });
 
-        console.log(result.data);
-        return 0;
-      })
-      .catch((err) => err.message);
-  };
+  const fetchWallet = async () =>{
+    try {
+      let walletData = await GetWallet(userId)
+      setWallet(walletData)
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -80,4 +72,4 @@ function ModalMyOrders({ setModal, dataFormOrderArrival }) {
   );
 }
 
-export default ModalMyOrders;
+export default ModalMySaldo;

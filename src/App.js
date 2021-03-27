@@ -9,8 +9,11 @@ import Daftar from './pages/users/Daftar'
 import Login from './pages/users/Login'
 import Dashboard from './pages/home/Dashboard'
 import CheckoutOrders from './pages/orders/CheckoutOrders'
+import CheckoutMyCart from './pages/orders/CheckoutMyCart'
+import CheckoutMyOrder from './pages/orders/CheckoutMyOrder'
 import CartOrders from './pages/orders/CartOrders'
 import AfterOrders from './pages/orders/AfterOrders'
+import MyOrders from './pages/orders/MyOrders'
 import Province from './pages/province/province'
 import City from './pages/city/city'
 import Users from './pages/users/users'
@@ -81,7 +84,10 @@ function App() {
           <Route path="/daftar" component={Daftar} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/checkout-orders" component={CheckoutOrders} />
+          <Route path="/checkout-mycart" component={CheckoutMyCart} />
+          <Route path="/checkout-myorders" component={CheckoutMyOrder} />
           <Route path="/after-orders" component={AfterOrders}/> 
+          <Route path="/my-orders" component={MyOrders}/>
           <Route path="/province" component={Province} exact />
           <Route path="/city" component={City} exact />
           <Route path="/users" component={Users} exact />
