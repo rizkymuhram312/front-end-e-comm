@@ -52,7 +52,7 @@ export default function Cart() {
     setCart((prevState)=>{
       const newState = [...prevState]
       if(check === false){
-        newState[index].clit_stat_name = 'PENDING'
+        newState[index].clit_stat_name = 'OPEN'
       } else {
         newState[index].clit_stat_name = 'CHECKOUT'
       }
@@ -108,7 +108,7 @@ export default function Cart() {
       const newState = [...prevState]
       for (const index in checked ){
         if(value === false){
-          newState[index].clit_stat_name = 'PENDING'
+          newState[index].clit_stat_name = 'OPEN'
         } else {
           newState[index].clit_stat_name = 'CHECKOUT'
         }
@@ -174,7 +174,7 @@ export default function Cart() {
 
   async function fetchCart() {
     return await axios({
-      url: `${apiCart}/cart/${acco_id}/PENDING`,
+      url: `${apiCart}/cart/${acco_id}/OPEN`,
       method: "get",
       headers: {
         "Content-Type": "application/json",
