@@ -20,10 +20,7 @@ export const TableUsers = props => {
                                 <th className="text-center px-6 px-6 bg-pink-600 text-white font-bold align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Users Id</th>
                                 <th className="text-center px-6 px-6 bg-pink-600 text-white font-bold align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Users Name</th>
                                 <th className="text-center px-6 px-6 bg-pink-600 text-white font-bold align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Users Email</th>
-<<<<<<< HEAD
-=======
                                 <th className="text-center px-6 px-6 bg-pink-600 text-white font-bold align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Action</th>
->>>>>>> 09190ddab3e3d01c3bc1f58918315b36295b2488
                             </tr>
                         </thead>
                         <tbody >
@@ -37,21 +34,11 @@ export const TableUsers = props => {
                                             <td className="text-center">{users.user_id}</td>
                                             <td className="text-center">{users.user_name}</td>
                                             <td className="text-center">{users.user_email}</td>
-<<<<<<< HEAD
-
-                                            
-=======
->>>>>>> 09190ddab3e3d01c3bc1f58918315b36295b2488
                                             {/* <td className="text-center">{props.users.user_id}</td>
                                             <td className="text-center">{props.users.user_email}</td> */}
                                             {/* <td className="text-center">{localStorage.getItem('dataUserId')}</td>
                                             <td className="text-center">{localStorage.getItem('dataUserEmail')}</td>
                                             <td className="text-center">{localStorage.getItem('dataUserPass')}</td> */}
-<<<<<<< HEAD
-
-
-                                           
-=======
                                             <td className="text-center">
                                                 <button onClick= {() => {
 props.setEdit(users)
@@ -68,7 +55,6 @@ props.setEdit(users)
                                                     Delete
                                     </button>
                                             </td>
->>>>>>> 09190ddab3e3d01c3bc1f58918315b36295b2488
                                         </tr>)
                                     }
                                     )

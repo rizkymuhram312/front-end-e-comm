@@ -51,12 +51,6 @@ import addCond from './pages/condition/addCond';
 import {EditCond} from './pages/condition/editCond';
 import addCate from './pages/category/addCate';
 import CateUpload from './pages/category/cateUpload';
-<<<<<<< HEAD
-
-import FilesUpload from "./components/FilesUpload";
-
-
-=======
 import { EditCate } from './pages/category/editCate';
 import OrderAdvertising from './pages/advertising/orderAdvertising';
 import OrderAdvertisingProduct from './pages/advertising/orderAdvertisingProduct';
@@ -66,7 +60,7 @@ import SummaryInternet from './pages/billTopup/summaryInternet'
 import SummaryGame from './pages/billTopup/summaryGame';
 import SummaryPLN from './pages/billTopup/summaryPLN';
 import SummaryPDAM from './pages/billTopup/summaryPDAM';
->>>>>>> 09190ddab3e3d01c3bc1f58918315b36295b2488
+import OrderBK from './pages/admin/orderBK';
 function App() {
   return (
     <BrowserRouter>
@@ -109,12 +103,7 @@ function App() {
           <Route path="/registerAccount" component={RegisterAccount} exact />
           <Route path="/dashboarduser" component={DashboardUserAccount} exact />
           <Route path="/address" component={Address} exact />
-<<<<<<< HEAD
-          <Route path="/editAddress" component={EditAddress} exact />s
-          <Route path="/myorders" component={MyOrders}/>
-=======
           {/* <Route path="/myorders" component={MyOrders}/> */}
->>>>>>> 09190ddab3e3d01c3bc1f58918315b36295b2488
           <Route path="/advertising/my-pkg" component={Advertising}/>
           <Route path="/product/:prod_id" component={Product} />
           <Route path="/productsaya" component={ProductSaya}/>
@@ -136,6 +125,7 @@ function App() {
           <Route path="/order-kw" component={OrdersKw}/>
           <Route path="/wallet-bank" component={WalletAndBank}/>
           <Route path="/order/checkout" component={OrdersPayment}/>
+          <Route path="/admin" component={OrderBK} exact/>
           <Route component={PageNotFound}/>
           <Route path="/summaryPulsa" component={SummaryPulsa}/>
           <Route path="/summaryInternet" component={SummaryInternet}/>
