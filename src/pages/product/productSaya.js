@@ -22,6 +22,7 @@ export default function ProductSaya() {
   const onClickAddProduct = () => {
     history.push('/tambahProduct')
   }
+ 
   const onClickEditProduct = (e) => {
     console.log(e)
     setProdToEdit(e.target.value)
@@ -67,6 +68,18 @@ export default function ProductSaya() {
       .catch((err) => console.error(err));
     console.log(Category)
   }, [])
+
+  useEffect(() => {
+    axios({
+      url: `${apiProductMaster}/product/prod/${search}`,
+      method: "get",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then((res) => setProduct(res.data))
+      .catch((err) => console.error(err));
+    console.log(Category)
+  }, [search])
   //  useEffect(() => {
   //       Product.map((x)=> {
   //         if(x.category.cate_name.includes(Category))
@@ -120,12 +133,14 @@ export default function ProductSaya() {
                             text-gray-700 focus:bg-white 
                             focus:placeholder-gray-600 focus:text-gray-700 
                             focus:outline-none " placeholder="Search "
-                    onChange={(event) => {
-                      setSearch(event.target.value)
-                    }} />
+                            onChange={(event) => {
+                              setSearch(event.target.value)
+                            }} 
+                   />
                 </div>
+                {console.log(search)}
 
-                <div className="  items-center ">
+                {/* <div className="  items-center ">
                   Kategory
                 </div>
                 <div class=" relative mb-2 gap-4 mr-4 ">
@@ -146,10 +161,10 @@ export default function ProductSaya() {
                     onChange={(event) => {
                       setSearch(event.target.value)
                     }} />
-                </div>
+                </div> */}
 
               </div>
-              <div class="grid grid-cols-4 gap-4 ml-5 items-center justify-between">
+              {/* <div class="grid grid-cols-4 gap-4 ml-5 items-center justify-between">
                 <div className="  items-center ">
                   Stock
                 </div>
@@ -174,7 +189,7 @@ export default function ProductSaya() {
                 </div>
 
 
-              </div>
+              </div> */}
 
             </div>
             <div class="grid grid-cols-2 gap-4 ml-5 items-center flex sm:justify-items-end">
@@ -209,19 +224,19 @@ export default function ProductSaya() {
                 </thead>
                 <tbody>
                   {Product
-                    .filter((val) => {
-                      if (search == "") {
-                        return val
-                      } else if (val.prod_name.toLowerCase().includes(search.toLocaleLowerCase())) {
-                        return val
-                      }
-                      else if (val.prod_desc.toLowerCase().includes(search.toLowerCase())) {
-                        return val
-                      }
-                    })
+                    // .filter((val) => {
+                    //   if (search == "") {
+                    //     return val
+                    //   } else if (val.prod_name.toLowerCase().includes(search.toLocaleLowerCase())) {
+                    //     return val
+                    //   }
+                      
+                    // })
                     .map((x) => {
+                      
                       console.log(x)
                       return (
+                        x.prod_status === 'blokir' | x.prod_stock < 1 ? null :
                         <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Produk Id</span>

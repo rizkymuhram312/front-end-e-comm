@@ -43,13 +43,14 @@ export default function Blokir() {
   }
 
   useEffect(() => {
+    console.log(setProduct)
     axios({
-      url: `${apiProductTransaction}/account/${acco_id}`,
+      url: `${apiProductTransaction}/product/getblokir/${acco_id}`,
       method: "get",
       headers: {
         "Content-type": "application/json"
       }
-    }).then((res) => setProduct(res.data.products))
+    }).then((res) => setProduct(res.data))
       .catch((err) => console.error(err));
   }, [showEdit])
 
@@ -92,166 +93,175 @@ export default function Blokir() {
     history.push("/login");
   }
 
+  useEffect(() => {
+    axios({
+      url: `${apiProductMaster}/product/stat/${search}`,
+      method: "get",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then((res) => setProduct(res.data))
+      .catch((err) => console.error(err));
+    console.log(Category)
+  }, [search])
+
   {
     return (
       <div>
 
 
         {/* { !showEdit ? ( //jika showEdit false, maka tampilkan product, jika true maka tampilkan edit form */}
-          <div className="container w-full flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500">
-            <div className="flex flex-col w-full ">
-              <div class="grid  grid-cols-4 gap-4 ml-5 items-center justify-between">
-                <div className="  items-center ">
-                  Nama Product
+        <div className="container w-full flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500">
+          <div className="flex flex-col w-full ">
+            <div class="grid  grid-cols-4 gap-4 ml-5 items-center justify-between">
+              <div className="  items-center ">
+                Nama Product
                 </div>
-                <div class=" relative mb-2 gap-4 mr-4 ">
-                  <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2 gap-2">
-                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current mr-3 ">
-                      <path
-                        d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
-                      </path>
-                    </svg>
-                  </span>
-                  <input class="sm:text-sm appearance-none rounded-r rounded-l 
+              <div class=" relative mb-2 gap-4 mr-4 ">
+                <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2 gap-2">
+                  <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current mr-3 ">
+                    <path
+                      d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
+                    </path>
+                  </svg>
+                </span>
+                <input class="sm:text-sm appearance-none rounded-r rounded-l 
                             sm:rounded-l-none border border-gray-400 
                             border-b block pl-8 pr-6 py-2 w-full 
                             bg-white text-lg placeholder-gray-400 
                             text-gray-700 focus:bg-white 
                             focus:placeholder-gray-600 focus:text-gray-700 
                             focus:outline-none " placeholder="Search "
-                    onChange={(event) => {
-                      setSearch(event.target.value)
-                    }} />
-                </div>
-
-                <div className="  items-center ">
-                  Kategory
-                </div>
-                <div class=" relative mb-2 gap-4 mr-4 ">
-                  <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2 gap-2">
-                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current mr-3 ">
-                      <path
-                        d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
-                      </path>
-                    </svg>
-                  </span>
-                  <input class="sm:text-sm appearance-none rounded-r rounded-l 
-                            sm:rounded-l-none border border-gray-400 
-                            border-b block pl-8 pr-6 py-2 w-full 
-                            bg-white text-lg placeholder-gray-400 
-                            text-gray-700 focus:bg-white 
-                            focus:placeholder-gray-600 focus:text-gray-700 
-                            focus:outline-none " placeholder="Search "
-                    onChange={(event) => {
-                      setSearch(event.target.value)
-                    }} />
-                </div>
-
-              </div>
-              <div class="grid grid-cols-4 gap-4 ml-5 items-center justify-between">
-                <div className="  items-center ">
-                  Stock
-                </div>
-                <div class=" relative mb-2 gap-4 mr-4 ">
-                  <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2 gap-2">
-                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current mr-3 ">
-                      <path
-                        d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
-                      </path>
-                    </svg>
-                  </span>
-                  <input class="sm:text-sm appearance-none rounded-r rounded-l 
-                            sm:rounded-l-none border border-gray-400 
-                            border-b block pl-8 pr-6 py-2 w-full 
-                            bg-white text-lg placeholder-gray-400 
-                            text-gray-700 focus:bg-white 
-                            focus:placeholder-gray-600 focus:text-gray-700 
-                            focus:outline-none " placeholder="Search "
-                    onChange={(event) => {
-                      setSearch(event.target.value)
-                    }} />
-                </div>
-
-
+                  onChange={(event) => {
+                    setSearch(event.target.value)
+                  }} />
               </div>
 
+              {/* <div className="  items-center ">
+                Kategory
+                </div>
+              <div class=" relative mb-2 gap-4 mr-4 ">
+                <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2 gap-2">
+                  <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current mr-3 ">
+                    <path
+                      d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
+                    </path>
+                  </svg>
+                </span>
+                <input class="sm:text-sm appearance-none rounded-r rounded-l 
+                            sm:rounded-l-none border border-gray-400 
+                            border-b block pl-8 pr-6 py-2 w-full 
+                            bg-white text-lg placeholder-gray-400 
+                            text-gray-700 focus:bg-white 
+                            focus:placeholder-gray-600 focus:text-gray-700 
+                            focus:outline-none " placeholder="Search "
+                  onChange={(event) => {
+                    setSearch(event.target.value)
+                  }} />
+              </div> */}
+
             </div>
-           
+            {/* <div class="grid grid-cols-4 gap-4 ml-5 items-center justify-between">
+              <div className="  items-center ">
+                Stock
+                </div>
+              <div class=" relative mb-2 gap-4 mr-4 ">
+                <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2 gap-2">
+                  <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current mr-3 ">
+                    <path
+                      d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
+                    </path>
+                  </svg>
+                </span>
+                <input class="sm:text-sm appearance-none rounded-r rounded-l 
+                            sm:rounded-l-none border border-gray-400 
+                            border-b block pl-8 pr-6 py-2 w-full 
+                            bg-white text-lg placeholder-gray-400 
+                            text-gray-700 focus:bg-white 
+                            focus:placeholder-gray-600 focus:text-gray-700 
+                            focus:outline-none " placeholder="Search "
+                  onChange={(event) => {
+                    setSearch(event.target.value)
+                  }} />
+              </div>
 
 
+            </div> */}
 
-
-
-
-
-            <div className="w-full flex flex-wrap content-evenly">
-
-
-
-              <table class="border-collapse w-full mr-10 ml-10 mt-5 ">
-                <thead>
-                  <tr>
-                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Produk Id</th>
-                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Nama Produk</th>
-                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Deskripsi Produk</th>
-                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Harga</th>
-                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Stok</th>
-                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Berat</th>
-                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Status</th>
-                    {/* <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Actions</th> */}
-                  </tr>
-                </thead>
-                <tbody>
-                  {Product
-                   
-                    .map((x) => {
-                      if (x.prod_status === blokir)
-                      return (
-                        <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Produk Id</span>
-
-                            {x.prod_id}
-                          </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama Produk</span>
-                            {x.prod_name}
-                          </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Deskripsi</span>
-                            {x.prod_desc}
-                          </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Harga</span>
-                            {convertToRupiah(x.prod_price)}
-                          </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Stok</span>
-                            {x.prod_stock}
-                          </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Berat</span>
-                            {x.prod_weight}
-                          </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
-                            {/* <button class="text-blue-400 hover:text-blue-600 underline" value={x.prod_id} onClick={onClickEditProduct}>Edit</button> */}
-                            <a href="" class="text-blue-400 hover:text-blue-600 underline pl-6" onClick={() => {
-                              if (
-                                window.confirm(
-                                  "apakah anda yakin ingin menghapus data ini?"
-                                )
-                              ) {
-                                deleteProduct(x.prod_id)
-                              }
-                            }}>Hapus</a>
-                          </td>
-                        </tr>)
-                    })}
-                </tbody>
-              </table>
-            </div>
           </div>
+
+
+
+
+
+
+
+
+          <div className="w-full flex flex-wrap content-evenly">
+
+
+
+            <table class="border-collapse w-full mr-10 ml-10 mt-5 ">
+              <thead>
+                <tr>
+                  <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Produk Id</th>
+                  <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Nama Produk</th>
+                  <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Deskripsi Produk</th>
+                  <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Harga</th>
+                  <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Stok</th>
+                  <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Berat</th>
+                  {/* <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Status</th> */}
+                  {/* <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Actions</th> */}
+                </tr>
+              </thead>
+              <tbody>
+                {Product.filter((val) => {
+                  if (search == "") {
+                    return val
+                  } else if (val.prod_name.toLowerCase().includes(search.toLocaleLowerCase())) {
+                    return val
+                  }
+                  else if (val.prod_desc.toLowerCase().includes(search.toLowerCase())) {
+                    return val
+                  }
+                })
+                  .map((x) => {
+
+                    console.log(x)
+                    return (
+                      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+                        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                          <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Produk Id</span>
+
+                          {x.prod_id}
+                        </td>
+                        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                          <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama Produk</span>
+                          {x.prod_name}
+                        </td>
+                        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                          <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Deskripsi</span>
+                          {x.prod_desc}
+                        </td>
+                        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                          <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Harga</span>
+                          {convertToRupiah(x.prod_price)}
+                        </td>
+                        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                          <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Stok</span>
+                          {x.prod_stock}
+                        </td>
+                        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                          <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Berat</span>
+                          {x.prod_weight}
+                        </td>
+                        
+                      </tr>)
+                  })}
+              </tbody>
+            </table>
+          </div>
+        </div>
         {/* ) : //showEdit true, menampilkan form edit, tampilan product tidak dtiampilkan
           <EditProduct
             setShowEdit={setShowEdit}

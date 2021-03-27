@@ -190,11 +190,12 @@ export default function Navbar({ fixed }) {
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/advertising/my-adv">Advertising</a>
+          {/* <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/advertising/my-adv">Orders</a> */}
           {/* <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">About</a> */}
         </div>
       </nav>
       {/* search */}
-          <div class="relative mt-6 max-w-lg mx-auto">
+          {/* <div class="relative mt-6 max-w-lg mx-auto">
             <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
               <svg class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none">
                 <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -202,7 +203,7 @@ export default function Navbar({ fixed }) {
             </span>
 
             <input class="w-full border rounded-md pl-10 pr-4 text-black py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline" type="text" placeholder="Search" onChange={searchProd} />
-          </div>
+          </div> */}
     </div >
   );
 }

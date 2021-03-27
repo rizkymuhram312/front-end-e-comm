@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import convertToRupiah from '../product/convertToRupiah'
 import { apiProductMaster, apiProductTransaction, apiUserMaster } from '../../config/apiUrl'
 import { toast } from 'react-toastify'
+import EditProduct from '../product/editProduct'
 
 export default function Completed() {
   const history = useHistory()
@@ -38,12 +39,12 @@ export default function Completed() {
 
   useEffect(() => {
     axios({
-      url: `${apiProductTransaction}/account/${acco_id}`,
+      url: `${apiProductTransaction}/product/getabis/${acco_id}`,
       method: "get",
       headers: {
         "Content-type": "application/json"
       }
-    }).then((res) => setProduct(res.data.products))
+    }).then((res) => setProduct(res.data))
       .catch((err) => console.error(err));
   }, [showEdit])
 
@@ -86,12 +87,20 @@ export default function Completed() {
     history.push("/login");
   }
 
+  const onClickEditProduct = (e) => {
+    console.log(e)
+    setProdToEdit(e.target.value)
+    setShowEdit(true)
+    // history.push('/editProduct')
+    localStorage.setItem("id", e.target.value)
+  }
+
   {
     return (
       <div>
 
 
-        {/* { !showEdit ? ( //jika showEdit false, maka tampilkan product, jika true maka tampilkan edit form */}
+        { !showEdit ? ( //jika showEdit false, maka tampilkan product, jika true maka tampilkan edit form
           <div className="container w-full flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500">
             <div className="flex flex-col w-full ">
               <div class="grid  grid-cols-4 gap-4 ml-5 items-center justify-between">
@@ -118,7 +127,7 @@ export default function Completed() {
                     }} />
                 </div>
 
-                <div className="  items-center ">
+                {/* <div className="  items-center ">
                   Kategory
                 </div>
                 <div class=" relative mb-2 gap-4 mr-4 ">
@@ -165,7 +174,7 @@ export default function Completed() {
                       setSearch(event.target.value)
                     }} />
                 </div>
-
+                  */}
 
               </div>
 
@@ -238,6 +247,7 @@ export default function Completed() {
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
+                            <button class="text-blue-400 hover:text-blue-600 underline" value={x.prod_id} onClick={onClickEditProduct}>Edit</button>
                             <a href="" class="text-blue-400 hover:text-blue-600 underline pl-6" onClick={() => {
                               if (
                                 window.confirm(
@@ -254,13 +264,14 @@ export default function Completed() {
               </table>
             </div>
           </div>
-        {/* ) : //showEdit true, menampilkan form edit, tampilan product tidak dtiampilkan
+        ) : //showEdit true, menampilkan form edit, tampilan product tidak dtiampilkan
+          
           <EditProduct
             setShowEdit={setShowEdit}
 
 
           />
-        } */}
+        } 
       </div >
     )
   }
