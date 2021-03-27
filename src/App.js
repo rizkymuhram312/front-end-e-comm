@@ -54,6 +54,7 @@ import { EditCate } from './pages/category/editCate';
 import OrderAdvertising from './pages/advertising/orderAdvertising';
 import orderAdvertisingProduct from './pages/advertising/orderAdvertisingProduct';
 import OrderAdvertisingProduct from './pages/advertising/orderAdvertisingProduct';
+import UpdateStatus from './pages/product/updateStatus';
 
 
 function App() {
@@ -119,6 +120,7 @@ function App() {
           <Route path="/transactions/:acco_id" component={Transaction}/>
           <Route path="/order-kw" component={OrdersKw}/>
           <Route path="/wallet-bank" component={WalletAndBank}/>
+          <Route path="/updatestatus" component={UpdateStatus}/>
           <Route component={PageNotFound}/>
         </Switch>
       </div>
