@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import ModalOshipval from './OshipvalModal'
+import { apiOrder } from '../../../config/apiUrl'
 import numberWithCommas from '../../Expeditions/expedition_routes/numberWithCommas'
 
 
@@ -18,7 +19,7 @@ function Index() {
 
     const fetchShippingArrival = async ()=>{
         return await axios({
-            url:`http://192.168.100.21:3004/api/orders`,
+            url:`${apiOrder}/orders/`,
             method: "get",
             headers: {
                 "Content-Type": "application/json"

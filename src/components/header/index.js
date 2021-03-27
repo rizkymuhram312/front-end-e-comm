@@ -178,6 +178,7 @@ export default function Navbar({ fixed }) {
       </div>
       {/* navbar */}
       <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
+<<<<<<< HEAD
         <div class="flex flex-col sm:flex-row text-white ">
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
@@ -186,6 +187,17 @@ export default function Navbar({ fixed }) {
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Transaction</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">Top Up</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/advertising/my-pkg">Advertising</a>
+=======
+        <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/advertising/my-adv">Advertising</a>
+          {/* <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">About</a> */}
+>>>>>>> 09190ddab3e3d01c3bc1f58918315b36295b2488
         </div>
       </nav>
       
