@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "craco": "0.0.3",
+    "js-image-zoom": "^0.7.0",
     "lodash": "^4.17.21",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.1",
