@@ -65,6 +65,7 @@ import UpdateStatus from './pages/product/updateStatus';
 import AllProduct from './pages/admin/allProduct';
 import sidebar from './components/sideBarMenu/productMaster';
 import Sidebar from './pages/admin/sidebarAdmin'
+import OrderSK from './pages/admin/orderSK';
 function App() {
   return (
     <BrowserRouter>
@@ -132,6 +133,7 @@ function App() {
           <Route path="/order/checkout" component={OrdersPayment}/>
           <Route path="/admin" component={Sidebar} exact/>
           <Route path="/admin/order-bk" component={OrderBK} exact/>
+          <Route path="/admin/order-sk" component={OrderSK} exact/>
           <Route path="/admin/allproduct" component={AllProduct} exact/>
 
           <Route component={PageNotFound}/>

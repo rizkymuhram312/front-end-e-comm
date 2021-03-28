@@ -6,21 +6,21 @@ import { useHistory } from "react-router";
 import SidebarAdmin from './sidebarAdmin'
 
 
-export default function OrderBK() {
+export default function OrderSK() {
 
-    const [OrderBK, SetOrderBk ] = useState([]);
+    const [OrderSK, SetOrderSK ] = useState([]);
     
-    const GetOrderBK = async () => {
-        const response = await axios.get(`${apiUserAccount}/dashboard/OrderCityBuy`);
+    const GetOrderSK = async () => {
+        const response = await axios.get(`${apiUserAccount}/dashboard/OrderCitySeller`);
         return response.data;
       };
     
       useEffect(() => {
-        const getListOrderBK = async () => {
-          const listOrderBK = await GetOrderBK();
-          if (listOrderBK) SetOrderBk(listOrderBK);
+        const getListOrderSK = async () => {
+          const listOrderSK = await GetOrderSK();
+          if (listOrderSK) SetOrderSK(listOrderSK);
         };
-        getListOrderBK();
+        getListOrderSK();
       }, []);
 
     return (
@@ -32,7 +32,7 @@ export default function OrderBK() {
                 <div className="rounded-t mb-0 px-4 py-3 border-0">
                     <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                            <h3 className="font-semibold text-base text-gray-800">List City by Buyer Order</h3>
+                            <h3 className="font-semibold text-base text-gray-800">List City by Seller Order</h3>
                         </div>
                         
                     </div>
@@ -50,8 +50,8 @@ export default function OrderBK() {
                     
                         <tbody >
                             {
-                                 OrderBK ? 
-                                 OrderBK.map((x,index) => {
+                                 OrderSK ? 
+                                 OrderSK.map((x,index) => {
                                      return (
                                         <tr class="bg-white lg:hover:bg-pink-200 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
