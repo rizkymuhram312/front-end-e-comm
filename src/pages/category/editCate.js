@@ -5,34 +5,35 @@ import axios from "axios";
 import swal from 'sweetalert';
 
 export const EditCate = () => {
-    const [condition, setCondition] = useState([]);
-    const [cond_name, setCondName] = useState('');
-    const [cond_desc, setCondDesc] = useState('');
+    const [category, setCategory] = useState([]);
+    const [cate_name, setCateName] = useState('');
+    const [cate_cateId, setCateId] = useState('');
+    const [image, setImage] = useState('');
     const [error, setError] = useState('');
     const [alert, setAlert] = useState('');
-    const id = localStorage.getItem('id')
+    const id = localStorage.getItem('cate_id')
     let history = useHistory()
 
     // console.log(id)
-    const OnChangeCondName = e => {
+    const OnChangeCateName = e => {
         const value = e.target.value
-        setCondName(value)
+        setCateName(value)
         setError('')
     }
-    const OnChangeCondDesc = e => {
+    const OnChangeCateId = e => {
         const value = e.target.value
-        setCondDesc(value)
+        setCateId(value)
         setError('')
     }
-    const GetCond = async () => {
-        // console.log(GetCond)
-        const response = await axios.get(`${apiProductMaster}/condition/${id}`)
+    const GetCate = async () => {
+        // console.log(GetCate)
+        const response = await axios.get(`${apiProductMaster}/category/${id}`)
         return response.data;
 
         // console.log(response.data)
     }
-    // const notifyErr = () => {
-    //     // history.push('/condition')
+    // const notify = () => {
+    //     // history.push('/category')
     //     swal("Cancel", "You brand list Not Changed!", "error");
     // }
     const notify = () => {
@@ -40,49 +41,83 @@ export const EditCate = () => {
     }
 
     useEffect(() => {
-        const getListCond = async () => {
-            const listCond = await GetCond();
-            console.log(listCond)
+        const getListCate = async () => {
+            const listCate = await GetCate();
+            console.log(listCate)
 
-            if (listCond) {
-                setCondName(listCond.cond_name);
-                setCondDesc(listCond.cond_desc);
-                setCondition(listCond)
+            if (listCate) {
+                setCateName(listCate.cate_name);
+                setCateId(listCate.cate_cateId);
+                setCategory(listCate)
             }
         }
-        getListCond();
+        getListCate();
     }, [])
 
-    const editCond = () => {
-        // console.log(id)
-        // e.preventDefault()
+    const changeCate = (x) => {
+        x.preventDefault()
         const data = {
-            cond_name: cond_name,
-            cond_desc: cond_desc
+            cate_name: cate_name,
+            cate_cate_id: cate_cateId,
+
+
         }
-        // console.log(data)
-        axios.put(`${apiProductMaster}/condition/${id}`, data)
-            .then(result => {
-                if (result) {
+
+        console.log(data)
+        axios.post(`${apiProductMaster}/category/${id}`, data)
+            .then(async result => {
+                if (result.data.error) {
                     console.log(result.data)
+                    // notify()
+                } else {
                     if (result.data) {
-                        setCondName('')
-                        setCondDesc('')
+                        setCateId('')
+                        setCateName('')
                         setAlert(result.data.message)
+                        history.push('/category')
                         notify()
-                        history.push('/condition')
                         setTimeout(() => {
                             setAlert('')
                         }, 2500)
+                        const cateImg = {
+                            caim_path: image,
+                            caim_cate_id: result.data.cate_id
+                        }
+
+                        console.log(cateImg)
+                        await axios.post(`${apiProductMaster}/categoryImg`, cateImg)
+                            .then(result => {
+                                if (result.cateImg.error) {
+                                    console.log(result.cateImg)
+                                    notify()
+                                } else {
+                                    if (result.cateImg) {
+                                        // setCateId('')
+                                        // setCateName('')
+                                        setAlert(result.data.message)
+                                        history.push('/category')
+                                        notify()
+                                        setTimeout(() => {
+                                            setAlert('')
+                                        }, 2500)
+
+                                    }  notify()
+                                }
+                            })
+                            .catch((e) => {
+                                setError(e)
+                            })
+                            //ADD GAMBAR
                     }
+                    //  notify()
                 }
             })
-            .catch(e => {
-                // history.push("/condition")
-                setError(e.response.data.message)
+            .catch((e) => {
+                setError(e.response.message)
             })
-        // history.push("/brand")
+
     }
+
     return (
         // <!-- component -->
         <div class=" flex flex-col items-center justify-center my-10 ">
@@ -95,15 +130,15 @@ export const EditCate = () => {
             </div>
             <div class="mt-6 mx-4">
                 <form action="#"
-                //  onSubmit={insertCate}
+                 onSubmit={changeCate}
                  >
                     <div class="flex flex-col mb-6">
                         <label for="name" class=" text-xl sm:text-lg tracking-wide text-white text-semibold mb-2">Category Name</label>
                         <div class="relative">
 
                             <input id="name" type="name" name="name"
-                                // value={cate_name}
-                                // onChange={onChangeCateName} 
+                                value={cate_name}
+                                onChange={OnChangeCateName} 
                                 class="text-md sm:text-base placeholder-gray-400 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Category Name" />
                         </div>
                     </div>

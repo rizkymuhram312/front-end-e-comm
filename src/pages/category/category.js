@@ -31,9 +31,9 @@ function Category(props) {
 
     // page
 
-    const onClickEditCate = (id) => {
+    const onClickEditCate = (cate_id) => {
         history.push('/editCate')
-        localStorage.setItem('id', id)
+        localStorage.setItem('cate_id', cate_id)
     }
 
 
@@ -71,14 +71,14 @@ function Category(props) {
         getListCate();
     }, [])
 
-    const deleteCate = async (id) => {
+    const deleteCate = async (cate_id) => {
         if (window.confirm('Are you sure?')) {
 
             const data = {
                 cate_name: cate_name,
                 // cate_cateId: cate_cateId
             }
-            axios.delete(`${apiProductMaster}/category/${id}`)
+            axios.delete(`${apiProductMaster}/category/${cate_id}`)
                 .then((data) => {
                     notify()
                     console.log(data)
@@ -218,7 +218,7 @@ function Category(props) {
                                                     .map((cate, index) => {
                                                         console.log(cate)
                                                         return (
-                                                            <tr key={cate.id} >
+                                                            <tr key={cate.cate_id} >
                                                                 <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 uppercase ">{cate.cate_name}</td>
                                                                 <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 uppercase ">{cate.cate_cate_id}</td>
                                                                 <td className=" flex flex-wrap justify-center text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2">
@@ -227,7 +227,7 @@ function Category(props) {
                                                                 <td className="border-2">
                                                                     <div class="flex justify-center  ">
                                                                         <button
-                                                                            onClick={() => onClickEditCate(cate.id)}
+                                                                            onClick={() => onClickEditCate(cate.cate_id)}
                                                                             class="bg-green-200 hover:bg-green-500 text-green-dark uppercase hover:text-white my-2 py-2 px-4 border border-green 
                                                                             hover:border-transparent rounded mr-2 "
                                                                             type="button">
