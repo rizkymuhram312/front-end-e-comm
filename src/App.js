@@ -25,7 +25,6 @@ import DashboardUserAccount from './pages/home/DashboardUserAccount'
 import Address from './pages/address/address'
 import EditAddress from './pages/address/EditAddress'
 import Wallet from './pages/payment/MyWallet'
-// import MyOrders from './pages/orders/myOrders'
 import Advertising from './pages/advertising'
 import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
@@ -73,6 +72,17 @@ import ArchieveSidebar from './components/sideBarMenu/productArchieve';
 import CompletedSidebar from './components/sideBarMenu/productCompleted';
 import BlokirSidebar from './components/sideBarMenu/productBlokir';
 
+import OrderSK from './pages/admin/orderSK';
+
+import FilesUpload from "./components/FilesUpload";
+// import EditAddress from './pages/address/EditAddress';
+import ReCaptchaSignup from './pages/users/reCaptcha';
+import MyOrders from './pages/orders/MyOrders';
+import CheckoutMyOrder from './pages/users/DashboardOrder';
+import DashboardOrder from './pages/users/DashboardOrder';
+import Penjualanku from './pages/users/Pembelianku';
+import Pembelianku from './pages/users/Pembelianku';
+import IndexAdmin from './pages/admin/indexAdmin'
 
 
 function App() {
@@ -121,7 +131,7 @@ function App() {
           <Route path="/registerAccount" component={RegisterAccount} exact />
           <Route path="/dashboarduser" component={DashboardUserAccount} exact />
           <Route path="/address" component={Address} exact />
-          {/* <Route path="/myorders" component={MyOrders}/> */}
+          <Route path="/myorders" component={MyOrders}/>
           <Route path="/advertising/my-pkg" component={Advertising}/>
           <Route path="/product/:prod_id" component={Product} />
 
@@ -149,8 +159,9 @@ function App() {
           <Route path="/wallet-bank" component={WalletAndBank}/>
           <Route path="/updatestatus" component={UpdateStatus}/>
           <Route path="/order/checkout" component={OrdersPayment}/>
-          <Route path="/admin" component={Sidebar} exact/>
+          <Route path="/admin" component={IndexAdmin} exact/>
           <Route path="/admin/order-bk" component={OrderBK} exact/>
+          <Route path="/admin/order-sk" component={OrderSK} exact/>
           <Route path="/admin/allproduct" component={AllProduct} exact/>
 
           <Route component={PageNotFound}/>
@@ -159,6 +170,22 @@ function App() {
           <Route path="/summaryGame" component={SummaryGame}/>
           <Route path="/summaryPLN" component={SummaryPLN}/>
           <Route path="/summaryPDAM" component={SummaryPDAM}/>
+          <Route path="/upload" component={FilesUpload}/>
+          <Route path="/editAddress" component={EditAddress}/>
+
+
+          <Route path="/order-kw" component={OrdersKw}/>
+          <Route path="/wallet-bank" component={WalletAndBank}/>
+
+          <Route path="/daftar-captcha" component={ReCaptchaSignup}/>
+          <Route path="/penjualanku" component={Penjualanku}/>
+
+          <Route path="/pembelianku" component={Pembelianku}/>
+          <Route path="/dashboard-order" component={DashboardOrder}/>
+
+
+
+          <Route component={PageNotFound}/>
         </Switch>
       </div>
       <Footer></Footer>

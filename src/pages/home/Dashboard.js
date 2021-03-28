@@ -67,7 +67,14 @@ const DashboardUsers = () => {
       .catch((err) => console.error(err))
   }, [])
 
+  const a = axios.defaults.headers.common['Authorization'] = 'bearer ' + token
+  console.log(a)
 
+
+  if (!token) {
+    // alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
+    return <Redirect to="/login" />
+  }
 
 
   const renderProgress = progress => <strong>{progress}%</strong>;
@@ -76,9 +83,9 @@ const DashboardUsers = () => {
 
   return (
     <>
-      <div className="flex flex-wrap">
-        <div className="w-full md:full-mt-16">
-          <ul className="flex mb-0 list-none  flex-wrap pt-3 pb-4 flex-row" role="tablist">
+      <div className="flex flex-wrap ">
+        <div className="w-full md:full-mt-16 ">
+          <ul className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row" role="tablist">
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
               <a className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
@@ -177,7 +184,7 @@ const DashboardUsers = () => {
               </a>
             </li>
           </ul>
-          <div className="relative flex flex-col box-border min-w-0 border-2 border-pink-600 break-words bg-white w-full mb-6 shadow-lg rounde">
+          <div className="relative flex flex-col box-border min-w-0 border-2 border-pink-600 break-words bg-pastel w-full mb-6 shadow-lg rounde">
             <div className="px-4 py-5 flex-auto">
 
 
