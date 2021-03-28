@@ -460,22 +460,6 @@ export default function CartOrders() {
               <div class="mt-10 py-3 border-t border-gray-300">
                 <div class="flex flex-col-2">
                   <h1 class="m-2">Ekspedisi</h1>
-                  {/* <button className="border-current hover:border-yellow-500 hover:text-yellow-500 focus:outline-none  text-black font-sans-serif py-2 px-4 ml-4 border rounded-lg w-40">
-                JNE
-              </button>
-              <button class="border-current hover:border-yellow-500 hover:text-yellow-500 focus:outline-none  text-black font-sans-serif py-2 px-4 ml-4 border rounded-lg w-40">
-                JNT
-              </button>
-              <button class="border-current hover:border-yellow-500 hover:text-yellow-500 focus:outline-none  text-black font-sans-serif py-2 px-4 ml-4 border rounded-lg w-40">
-                SICEPAT
-              </button> */}
-
-                  {/* <select class="text-black font-sans-serif py-2 px-4 ml-4 border border-gray-600 outline-none w-100">
-                <option>===Pilih Jasa Kirim===</option>
-                <option>JNE</option>
-                <option>JNT</option>
-                <option>SICEPAT</option>
-              </select> */}
                   <Ekspedisi
                     dataEkspedisi={dataEkspedisi}
                     selectedEkspedisi={selectedEkspedisi}
@@ -494,23 +478,12 @@ export default function CartOrders() {
                     Subtotal + Pajak (10%) : Rp.
                     {numberWithCommas(subTotalPajak)}
                   </div>
-                  {/* <div class="text-center mr-6 px-4 py-2 -my-10">
-                    Pajak 10% : Rp.{" "}
-                    {numberWithCommas()}
-                  </div>
-                   */}
                   <div class="text-center mr-6 px-4 py-2 m-2">
                     Total Ongkos Kirim : Rp.{numberWithCommas(ongkir)}
                   </div>
                   <div class="text-center mr-6 px-4 py-2 m-2">
                     Total Pembayaran : Rp.{numberWithCommas(totalOrder)}
                   </div>
-
-                  {/* <div>Saldo CodePay : Rp. {numberWithCommas(saldo)}</div> */}
-
-                  {/* {less ? <div>Saldo Kurang </div> : null} */}
-
-                  {/* { less ? saldo <=   */}
                   <button
                     class=" border-2 border-pink-400 hover:bg-pink-600 focus:outline-none cursor-pointer text-black transition duration-200 font-sans-serif py-2 px-4 rounded-lg"
                     onClick={onCreateOrder}

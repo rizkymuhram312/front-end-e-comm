@@ -58,20 +58,8 @@ export default function AfterOrders() {
       .catch((err) => console.error(err));
   };
 
-  const onShow = (e) => {
-    // ShippingArrival.map((data)=>{
-    //     if(data.order_name === e.target.value){
-    //         setDataFormArrival(data)
-    //     }
-    //     return setDataFormArrival(data)
-    // })
-
-    AfterOrders.filter(
-      (data) => data.order_name === e.target.value
-    ).map((data) => setDataFormArrival(data));
+  const onShow = async() => {
     history.push("/cart-orders");
-
-    // setModal(true);
   };
 
   return (
@@ -157,7 +145,7 @@ export default function AfterOrders() {
                         <div class="ml-4">
                           <button
                             onClick={onShow}
-                            class="text-blue-400 hover:text-blue-600 underline pl-6"
+                            class="text-blue-400 hover:text-blue-600 focus:outline-none pl-6"
                           >
                             Show
                           </button>

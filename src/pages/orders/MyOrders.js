@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { apiOrder } from "../../config/apiUrl";
 import { numberWithCommas } from "../../utils/utils";
 import ModalMyOrders from "./Modal/ModalMyOrders";
+// import ModalMySaldo from "./Modal/ModalMySaldo"
 
 export default function MyOrders() {
   let history = useHistory();
@@ -65,12 +66,6 @@ export default function MyOrders() {
 
 
   const onEditRow = (e) => {
-    // ShippingArrival.map((data)=>{
-    //     if(data.order_name === e.target.value){
-    //         setDataFormArrival(data)
-    //     }
-    //     return setDataFormArrival(data)
-    // })
 
     MyOrders.filter((data) => data.order_name === e.target.value).map((data) =>
       setDataFormArrival(data)
@@ -105,6 +100,7 @@ export default function MyOrders() {
             <option value="ARRIVED"> ARRIVED</option>
             <option value="CLOSED"> CLOSED</option>
           </select>
+          {/* <button><ModalMySaldo/></button> */}
         </div>
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="py-2 align-middle inline-block min-w-full mb-6 sm:px-6 lg:px-8">

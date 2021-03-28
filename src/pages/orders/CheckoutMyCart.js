@@ -8,7 +8,6 @@ export default function CheckoutMyCart() {
 
   const token = localStorage.getItem("token");
   // console.log(token)
-  const [openTab, setOpenTab] = React.useState(1);
   const a = (axios.defaults.headers.common["Authorization"] =
     "bearer " + token);
   console.log(a);
