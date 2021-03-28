@@ -13,6 +13,7 @@ export const TableProvince = props => {
                     <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                             <h3 className="uppercase font-semibold text-base text-gray-800">List Province</h3>
+                            <button onClick={() => props.setRefreshTable()}>refresh</button>
                         </div>
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                         

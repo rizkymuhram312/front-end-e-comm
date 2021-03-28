@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { apiUserAccount, apiUserMaster } from '../../config/apiUrl'
+import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
 
 
 

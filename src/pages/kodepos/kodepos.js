@@ -35,6 +35,8 @@ export default class Kodepos extends Component {
         this.refresh()
         this.showListKodepos();
         this.showListKecamatan();
+        console.log('table kodepos-kecamatan direfresh')
+
     }
 
 
@@ -108,7 +110,7 @@ export default class Kodepos extends Component {
                         setShowModal = {this.onShowModal}
                         setDelete = {this.onDeleteRow}
                         setEdit = {this.onEditRow}
-                            
+                        setRefreshTable = {this.onRefreshTable}
                     ></TableKodepos>
                     {
                         (isModalShow ? (

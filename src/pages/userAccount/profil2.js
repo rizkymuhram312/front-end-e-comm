@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
+import swal from 'sweetalert';
 
 export default function Profil2({ fixed }) {
 
@@ -38,6 +39,15 @@ export default function Profil2({ fixed }) {
         let jk = "Perempuan"
     }
 
+    const fotoprofilklik = () => {
+        swal({
+          title: 'Sweet!',
+          icon: fotoprofil,
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'Profil Picture',
+        })
+      }
 
 
     return (
@@ -110,7 +120,7 @@ export default function Profil2({ fixed }) {
                 // </div>
                 <div className="grid grid-cols-8 gap-4">
                     <div className="col-start-1 col-span-8 align-center text-center font-bold ...">FOTO PROFIL</div>
-                    <div className="col-span-8 align-center flex justify-center  items-center content-center align-items-center place-items-center align-self-center ml- text-center font-bold ..."><img src={fotoprofil === "null" || fotoprofil === null || fotoprofil === undefined || fotoprofil === ""  ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full max-w-full h-40 align-middle border-2 border-pink-600 object-center" /></div>
+                    <div className="col-span-8 align-center flex justify-center  items-center content-center align-items-center place-items-center align-self-center ml- text-center font-bold ..."><img src={fotoprofil === "null" || fotoprofil === null || fotoprofil === undefined || fotoprofil === ""  ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full max-w-full h-40 align-middle border-2 border-pink-600 object-center" onClick={fotoprofilklik} style={{ cursor: 'pointer' }}/></div>
                     
                     <div class="col-start-2 col-end-4 col-span-2 flex justify-center font-semibold ...">
                         <div className="underline">DATA USER</div>

@@ -23,11 +23,12 @@ import Account from "../userAccount/account";
 import Upload from "../userAccount/upload";
 import RegisterAccount from "../userAccount/registerAccount2";
 import UbahPassword from "../users/ubahpassword";
-import Address from "../address/address";
+// import Address fro../address/Addressess";
 
 import Profil2 from "../userAccount/profil2";
-import Address2 from "../address/address2";
+import Address from "../address/Address";
 import MyWallet from "../payment/WalletAndBank";
+import DashboardOrder from "../users/DashboardOrder";
 const axios = require("axios");
 
 // const progress = 50;
@@ -96,7 +97,6 @@ const DashboardUserAccount = () => {
                   Profil
                 </a>
               </li>
-
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                 <a
                   className={
@@ -113,9 +113,10 @@ const DashboardUserAccount = () => {
                   href="#/akun"
                   role="tablist"
                 >
-                  Akun Saya
+                  Dashboard
                 </a>
               </li>
+
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                 <a
                   className={
@@ -129,10 +130,10 @@ const DashboardUserAccount = () => {
                     setOpenTab(3);
                   }}
                   data-toggle="tab"
-                  href="#/alamat"
+                  href="#/akun"
                   role="tablist"
                 >
-                  Alamat
+                  Akun Saya
                 </a>
               </li>
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -148,10 +149,10 @@ const DashboardUserAccount = () => {
                     setOpenTab(4);
                   }}
                   data-toggle="tab"
-                  href="#ubahpassword"
+                  href="#/alamat"
                   role="tablist"
                 >
-                  Ubah Password
+                  Alamat
                 </a>
               </li>
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -165,6 +166,25 @@ const DashboardUserAccount = () => {
                   onClick={(e) => {
                     e.preventDefault();
                     setOpenTab(5);
+                  }}
+                  data-toggle="tab"
+                  href="#ubahpassword"
+                  role="tablist"
+                >
+                  Ubah Password
+                </a>
+              </li>
+              <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                <a
+                  className={
+                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
+                    (openTab === 6
+                      ? "text-white bg-pink-600"
+                      : "text-pink-600 bg-white border-2 border-pink-600")
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenTab(6);
                   }}
                   data-toggle="tab"
                   href="#mywallet"
@@ -185,9 +205,17 @@ const DashboardUserAccount = () => {
                       <Profil2 />
                     </div>
                   </div>
-
                   <div
                     className={openTab === 2 ? "block" : "hidden"}
+                    id="link1"
+                  >
+                    <div className="">
+                      <DashboardOrder />
+                    </div>
+                  </div>
+
+                  <div
+                    className={openTab === 3 ? "block" : "hidden"}
                     id="link2"
                   >
                     <div>
@@ -195,7 +223,7 @@ const DashboardUserAccount = () => {
                     </div>
                   </div>
                   <div
-                    className={openTab === 3 ? "block" : "hidden"}
+                    className={openTab === 4 ? "block" : "hidden"}
                     id="link3"
                   >
                     <div>
@@ -203,7 +231,7 @@ const DashboardUserAccount = () => {
                     </div>
                   </div>
                   <div
-                    className={openTab === 4 ? "block" : "hidden"}
+                    className={openTab === 5 ? "block" : "hidden"}
                     id="link4"
                   >
                     <div>
@@ -211,7 +239,7 @@ const DashboardUserAccount = () => {
                     </div>
                   </div>
                   <div
-                    className={openTab === 5 ? "block" : "hidden"}
+                    className={openTab === 6 ? "block" : "hidden"}
                     id="link5"
                   >
                     <div>

@@ -9,6 +9,7 @@ export const TableKecamatan = props => {
                     <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                             <h3 className="uppercase font-semibold text-base text-gray-800">List kecamatan</h3>
+                            <button onClick={() => props.setRefreshTable()}>refresh</button>
                         </div>
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                             <button onClick= {() => props.setShowModal(true) }

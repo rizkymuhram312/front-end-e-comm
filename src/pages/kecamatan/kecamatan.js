@@ -35,7 +35,7 @@ export default class Kecamatan extends Component {
         this.refresh()
         this.showListKecamatan();
         this.showListCity();
-
+        console.log('table kecamatan-city direfresh')
         
     }
 
@@ -105,6 +105,7 @@ export default class Kecamatan extends Component {
                         setShowModal = {this.onShowModal}
                         setDelete = {this.onDeleteRow}
                         setEdit = {this.onEditRow}
+                        setRefreshTable = {this.onRefreshTable}
                             
                     ></TableKecamatan>
                     {

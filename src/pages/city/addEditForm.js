@@ -53,16 +53,23 @@ export default class AddEditForm extends Component {
         if (!this.state.isEdit) {
              create(city).then(response => {
                 console.log(response);
+                alert('berhasil tambah data')
+
                 this.props.setRefreshTable();
             }).catch(function (error) {
                 console.log(error);
+                alert('gagal tambah data')
+
             });;
         } else {
              updateCity(city).then(response => {
                 console.log(response);
+                alert('berhasil ubah data')
                 this.props.setRefreshTable();
             }).catch(function (error) {
                 console.log(error);
+                alert('gagal ubah data')
+
             });;
         }
 
@@ -71,6 +78,7 @@ export default class AddEditForm extends Component {
         // jika ada udah sukses or error then, close modal
         // lalu refresh table 
         this.props.setShowModal(false);
+        
         this.props.setRefreshTable();
 
     }
@@ -92,11 +100,16 @@ export default class AddEditForm extends Component {
                                 <h6 className="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
                                     Add Edit city
                                 </h6>
+                                <button onClick={() => this.props.setRefreshTable()}
+                                className="p-1 mt-10 -ml-20 bg-transparent border-0 text-black float-right leading-none font-semibold outline-none focus:outline-none"
+                                >
+                                    <img className=" w-6 h-6" src="refresh.svg"></img>
+                                </button>
                                 <button onClick={() => this.props.setShowModal(false)}
-                                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                    className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
 
                                 >
-                                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                    <span className="bg-transparent text-black  h-6 w-6 text-2xl block outline-none z-100 focus:outline-none" >
                                         ×
                     </span>
                                 </button>
