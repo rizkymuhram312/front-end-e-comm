@@ -2,6 +2,8 @@ import React, { useState, Fragment } from 'react';
 import { Redirect, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
+import { useDispatch } from 'react-redux';
+import { fetchAdv } from '../../features/adv/advSlices';
 
 
 
@@ -11,6 +13,7 @@ const Login = () => {
     const [redirect, setRedirect] = useState(false);
     const [error, setError] = useState('');
     const history = useHistory()
+	const dispatch = useDispatch();
     const onChangeEmail = (e) => {
         const value = e.target.value
         setEmail(value)
@@ -58,6 +61,7 @@ const Login = () => {
                     const hasiltoken = JSON.parse(rawPayload)
                     console.log(hasiltoken) // outputs 'bob'
                     console.log(result.data.token) // outputs 'bob'
+                    // dispatch(fetchAdv()) // redux adv
                     // console.log(a)
                     // setRedirect(true)
                     history.push('/home')

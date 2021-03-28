@@ -171,7 +171,13 @@ export default function AddAdv() {
     console.log(watrNumbers)
     if(watrNumbers){
       try {
-        
+          let priority = ''
+          if(Number(Package.pack_satuan)>250){
+            priority = { prod_priority: 'higest'}
+          }
+          else{
+            priority = { prod_priority: 'high'}
+          }
           const order_advertising = {
             orad_publish_on : Submit.publishedDate,
             orad_finished_on : Submit.finishedDate||null,
@@ -189,6 +195,7 @@ export default function AddAdv() {
             orap_stat_name: 'OPEN',
             orap_prod_id: adv_id      
           }
+          axios.put(`https://product-transaction-module.herokuapp.com/api/product/priorty/${adv_id}`,priority)
           return axios.post(`${apiAdvertising}/orderAdvertising/`,order_advertising).then(result=> axios.post(`${apiAdvertising}/orderAdvertisingProduct/${result.data.orad_id}`,order_advertising_product))
       } catch (error) {
         console.log(error)

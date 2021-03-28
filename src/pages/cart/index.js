@@ -201,7 +201,9 @@ export default function Cart() {
           "Content-Type": "application/json",
         },
       })
-        .then(() => history.push("/cart-orders"))
+        .then(() => {
+          setOrder({})
+          return history.push("/cart-orders")})
           // return fetchCart())
         .catch((err) => console.error(err));
     }else{
@@ -246,7 +248,7 @@ export default function Cart() {
                   deleted[y]===true?<ModalDelete 
                   image={x.product.product_images[0].prim_path} 
                   name={x.product.prod_name}
-                  url={`${apiCart}/cartLineItems/${x.clit_id}`}
+                  url={`${apiCart}/cartLineItems/item/${x.clit_id}`}
                   close={()=>toggleDelete(y)}
                   update={()=>{
                     toggleDelete(y)

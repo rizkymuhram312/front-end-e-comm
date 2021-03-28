@@ -257,7 +257,7 @@ export default function TambahProduct() {
                                 })
                             
                     } notify()
-                } history.push('/productsaya')
+                } history.push('/product')
             })
             .catch((e) => {
                 setError(e.response.message)
