@@ -6,28 +6,27 @@ import EditProduct from './editProduct'
 import convertToRupiah from './convertToRupiah'
 import { apiProductMaster, apiProductTransaction, apiUserMaster } from '../../config/apiUrl'
 import { toast } from 'react-toastify'
+import ModalUpdateStatus from './modalUpdate'
 
-export default function ProductSaya() {
+export default function UpdateStatus() {
   const history = useHistory()
   const [Product, setProduct] = useState([]);
   const [Category, setCategory] = useState([]);
   const [search, setSearch] = useState('')
-  const [showEdit, setShowEdit] = useState(false)
-  const [showTambah, setShowTambah] = useState(false)
-  const [filterProduct, setFilterProduct] = useState([])
-  const [prodToEdit, setProdToEdit] = useState()
+  const [showEditStatus, setShowEditStatus] = useState(false)
+  const [prodToEdit, setProdToEditStatus] = useState()
   const acco_id = localStorage.getItem("dataAccountId")
   const token = localStorage.getItem("token");
-
+  
   const onClickAddProduct = () => {
     history.push('/tambahProduct')
   }
-  const onClickEditProduct = (e) => {
+  const onClickEditStatus = (e) => {
     console.log(e)
-    setProdToEdit(e.target.value)
-    setShowEdit(true)
+    setProdToEditStatus(e.target.value)
+    setShowEditStatus(true)
     // history.push('/editProduct')
-    localStorage.setItem("id", e.target.value)
+    localStorage.setItem("updateStatusProduct", e.target.value)
   }
 
   const deleteProduct = async (y) => {
@@ -45,14 +44,14 @@ export default function ProductSaya() {
 
   useEffect(() => {
     axios({
-      url: `${apiProductTransaction}/product/getaccount/${acco_id}`,
+      url: `${apiProductTransaction}/product`,
       method: "get",
       headers: {
         "Content-type": "application/json"
       }
     }).then((res) => setProduct(res.data))
       .catch((err) => console.error(err));
-  }, [showEdit])
+  }, [showEditStatus])
 
 
 
@@ -104,7 +103,7 @@ export default function ProductSaya() {
           <Link to="/condition" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Condition</Link>
         </div>
 
-        { !showEdit ? ( //jika showEdit false, maka tampilkan product, jika true maka tampilkan edit form
+        { !showEditStatus ? ( //jika showEdit false, maka tampilkan product, jika true maka tampilkan edit form
           <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500">
             <div className="w-full flex flex-wrap content-evenly">
               <div className="w-2/12 md:mt-10 px-1 ml-10">
@@ -149,7 +148,6 @@ export default function ProductSaya() {
                   <tr>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Produk Id</th>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Nama Produk</th>
-                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Gambar</th>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Deskripsi Produk</th>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Harga</th>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Stok</th>
@@ -173,7 +171,7 @@ export default function ProductSaya() {
                     .map((x) => {
                       console.log(x)
                       return (
-                        <tr class="bg-white lg:hover:bg-pink-200 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+                        <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Produk Id</span>
 
@@ -182,10 +180,6 @@ export default function ProductSaya() {
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama Produk</span>
                             {x.prod_name}
-                          </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Gambar</span>
-                            <img class= "bg-center h-20 w-20 my-2" src={x.prim_path}/>
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Deskripsi</span>
@@ -205,7 +199,7 @@ export default function ProductSaya() {
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
-                            <button class="text-blue-400 hover:text-blue-600 underline" value={x.prod_id} onClick={onClickEditProduct}>Edit</button>
+                            <button class="text-blue-400 hover:text-blue-600 underline" value={x.prod_id} onClick={onClickEditStatus}>Blokir</button>
                             <a href="" class="text-blue-400 hover:text-blue-600 underline pl-6" onClick={() => {
                               if (
                                 window.confirm(
@@ -223,8 +217,8 @@ export default function ProductSaya() {
             </div>
           </div>
         ) : //showEdit true, menampilkan form edit, tampilan product tidak dtiampilkan
-          <EditProduct
-            setShowEdit={setShowEdit}
+          <ModalUpdateStatus
+            setShowEditStatus={setShowEditStatus}
 
 
           />

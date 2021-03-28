@@ -61,6 +61,10 @@ import SummaryGame from './pages/billTopup/summaryGame';
 import SummaryPLN from './pages/billTopup/summaryPLN';
 import SummaryPDAM from './pages/billTopup/summaryPDAM';
 import OrderBK from './pages/admin/orderBK';
+import UpdateStatus from './pages/product/updateStatus';
+import AllProduct from './pages/admin/allProduct';
+import sidebar from './components/sideBarMenu/productMaster';
+import Sidebar from './pages/admin/sidebarAdmin'
 function App() {
   return (
     <BrowserRouter>
@@ -124,8 +128,12 @@ function App() {
           <Route path="/transactions/:acco_id" component={Transaction}/>
           <Route path="/order-kw" component={OrdersKw}/>
           <Route path="/wallet-bank" component={WalletAndBank}/>
+          <Route path="/updatestatus" component={UpdateStatus}/>
           <Route path="/order/checkout" component={OrdersPayment}/>
-          <Route path="/admin" component={OrderBK} exact/>
+          <Route path="/admin" component={Sidebar} exact/>
+          <Route path="/admin/order-bk" component={OrderBK} exact/>
+          <Route path="/admin/allproduct" component={AllProduct} exact/>
+
           <Route component={PageNotFound}/>
           <Route path="/summaryPulsa" component={SummaryPulsa}/>
           <Route path="/summaryInternet" component={SummaryInternet}/>
