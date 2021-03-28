@@ -172,12 +172,23 @@ export default function Navbar({ fixed }) {
 						<h3 class="text-gray-600 text-2xl font-medium">All Product</h3>
 						<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-6">
 							{
-								Product.map((prod) => {
+								Product
+								.sort((highest,high, normal)=>{
+									if (highest.Product < high.Product){
+										return -1
+									} if (high < normal){
+										return 1
+									} if (highest < normal){
+										return 0
+									}
+								})
+								.map((prod) => {
+									
 									return (
 										prod.prod_stock < 1  | prod.prod_status === "blokir" ?  null :
 
 								
-											
+										(	
 											<>
 												<div key={prod.prod_id} class="w-full max-w-sm mx-auto rounded-md shadow-xl overflow-hidden">
 													<Link onClick={() => DetailProduct(prod.prod_id, prod.product_images[0].prim_id)}>
@@ -198,7 +209,7 @@ export default function Navbar({ fixed }) {
 												</div>
 											
 											</>
-
+)
 									)
 								})
 
