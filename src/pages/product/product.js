@@ -223,7 +223,7 @@ export default function Product() {
 
     useEffect(() => {
         axios({
-            url: `${apiUserAccount}/api/account/1001`,
+            url: `${apiUserAccount}/account/1001`,
             method: "get",
             headers: {
                 "Content-type": "application/json"

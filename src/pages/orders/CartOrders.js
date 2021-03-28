@@ -63,7 +63,7 @@ export default function CartOrders() {
     order_name: "#",
     payment_by: "wallet",
   });
-  let [watrNumber, setWatrNumber] = useState();
+  let [watrNumbers, setWatrNumbers] = useState();
 
   toast.configure();
   const notify = () => {
@@ -95,12 +95,14 @@ export default function CartOrders() {
   }
 
   useEffect(() => {
-    fetchCartOrders();
-    fetchAddress();
-    fetchExpedition();
-    fetchCitySeller();
-    console.log(accId);
-    console.log(SubTotal);
+    try {
+      fetchCartOrders();
+      fetchAddress();
+      fetchExpedition();
+      fetchCitySeller();
+    } catch (error) {
+      console.log(error)
+    }
   }, []);
 
   useEffect(() => {
@@ -314,12 +316,12 @@ export default function CartOrders() {
   };
 
   useEffect(() => {
-    console.log(watrNumber);
-    axios.put("http://localhost:3004/api/orders", {
+    console.log(watrNumbers);
+    axios.put("http://localhost:3005/api", {
       order_name: data.order_name,
-      order_watr_numbers: watrNumber,
+      order_watr_number: watrNumbers,
     });
-  }, [watrNumber]);
+  }, [watrNumbers]);
 
   useEffect(() => {}, [selectedEkspedisi]);
 
@@ -350,7 +352,7 @@ export default function CartOrders() {
           setLoading={setLoading}
           setPaid={setPaid}
           data={data}
-          setWatrNumber={setWatrNumber}
+          setWatrNumbers={setWatrNumbers}
         />
       ) : paid ? (
         <div>
