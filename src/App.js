@@ -23,6 +23,7 @@ import Kodepos from './pages/kodepos/kodepos'
 import RegisterAccount from './pages/users/RegisterAccount'
 import DashboardUserAccount from './pages/home/DashboardUserAccount'
 import Address from './pages/address/address'
+import EditAddress from './pages/address/EditAddress'
 import Wallet from './pages/payment/MyWallet'
 // import MyOrders from './pages/orders/myOrders'
 import Advertising from './pages/advertising'
@@ -52,11 +53,18 @@ import addCate from './pages/category/addCate';
 import CateUpload from './pages/category/cateUpload';
 import { EditCate } from './pages/category/editCate';
 import OrderAdvertising from './pages/advertising/orderAdvertising';
-import orderAdvertisingProduct from './pages/advertising/orderAdvertisingProduct';
 import OrderAdvertisingProduct from './pages/advertising/orderAdvertisingProduct';
+import OrdersPayment from './pages/payment/OrdersPayment'
+import SummaryPulsa from './pages/billTopup/summaryPulsa';
+import SummaryInternet from './pages/billTopup/summaryInternet'
+import SummaryGame from './pages/billTopup/summaryGame';
+import SummaryPLN from './pages/billTopup/summaryPLN';
+import SummaryPDAM from './pages/billTopup/summaryPDAM';
+import OrderBK from './pages/admin/orderBK';
 import UpdateStatus from './pages/product/updateStatus';
-
-
+import AllProduct from './pages/admin/allProduct';
+import sidebar from './components/sideBarMenu/productMaster';
+import Sidebar from './pages/admin/sidebarAdmin'
 function App() {
   return (
     <BrowserRouter>
@@ -121,7 +129,17 @@ function App() {
           <Route path="/order-kw" component={OrdersKw}/>
           <Route path="/wallet-bank" component={WalletAndBank}/>
           <Route path="/updatestatus" component={UpdateStatus}/>
+          <Route path="/order/checkout" component={OrdersPayment}/>
+          <Route path="/admin" component={Sidebar} exact/>
+          <Route path="/admin/order-bk" component={OrderBK} exact/>
+          <Route path="/admin/allproduct" component={AllProduct} exact/>
+
           <Route component={PageNotFound}/>
+          <Route path="/summaryPulsa" component={SummaryPulsa}/>
+          <Route path="/summaryInternet" component={SummaryInternet}/>
+          <Route path="/summaryGame" component={SummaryGame}/>
+          <Route path="/summaryPLN" component={SummaryPLN}/>
+          <Route path="/summaryPDAM" component={SummaryPDAM}/>
         </Switch>
       </div>
       <Footer></Footer>

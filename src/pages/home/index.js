@@ -132,6 +132,7 @@ export default function Navbar({ fixed }) {
 						</div>
 						<div class="w-full h-64 mt-8 md:mx-4 rounded-md overflow-hidden bg-cover bg-center md:mt-0 md:w-1/2" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=751&q=80')` }}>
 							<div class="bg-gray-900 bg-opacity-50 flex items-center h-full">
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/3TA7WyW94Bk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 							</div>
 						</div>

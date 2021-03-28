@@ -31,6 +31,13 @@ export default class Kodepos extends Component {
 
     }
 
+    onRefreshTable =()=>{
+        this.refresh()
+        this.showListKodepos();
+        this.showListKecamatan();
+    }
+
+
 
 
     // 2.panggil listKodepos dari api-Kodepos, kemudian isi Kodepos[] state dengan data dari listKodepos
@@ -78,21 +85,15 @@ export default class Kodepos extends Component {
 
     onDeleteRow = (value)=>{
         deleteKodepos(value).then(response => {
-            // console.log(response);
-
+            console.log(response);
+            this.onRefreshTable();
         }).catch(function (error) {
             console.log(error);
         });;
 
-        this.onRefreshTable();
     }
 
-    onRefreshTable =()=>{
-        this.refresh()
-        this.showListKodepos();
-        
-    }
-
+    
 
 
 

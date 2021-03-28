@@ -6,6 +6,7 @@ import convertToRupiah from './convertToRupiah'
 import { apiCart, apiProductTransaction, apiUserAccount, apiUserMaster } from "../../config/apiUrl"
 import { useHistory } from 'react-router'
 import { toast } from 'react-toastify'
+import swal from 'sweetalert'
 
 export default function Product() {
 
@@ -37,6 +38,15 @@ export default function Product() {
             autoClose: 2000
         })
     }
+    const fotoproduct = () => {
+        swal({
+        //   title: 'Sweet!',
+          icon: selectedImg,
+          imageWidth: 200,
+          imageHeight: 200,
+          imageAlt: 'Foto Product',
+        })
+      }
 
     useEffect(() => {
         async function fetchCart() {
@@ -298,9 +308,11 @@ export default function Product() {
                 <div>
                     <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500" >
                         <div className="w-1/2 sm:w-1/3 product">
-                            <img src={selectedImg} alt="Selected"
+                            
+                            <img src={selectedImg} alt="Selected"style={{ cursor: 'pointer' }}
                                 className="selected"
-                            />
+                            onClick={fotoproduct}/>
+                            
                             {/* <div className=" imgContainer">
                             {Images.map((img, index) => (
                                 <img className="product-image"

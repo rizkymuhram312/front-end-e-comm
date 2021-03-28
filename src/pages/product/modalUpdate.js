@@ -95,7 +95,7 @@ axios.put(`${apiProductTransaction}/product/blokir/${prod_id}`, dataVariant)
                 </span>
               </button> */}
             </div>
-            <div className="w-full ml-5">
+            <div className="w-full py-2">
                         <div class=" relative ">
                             <input type="text" id="simple-email" class=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent mb-2" 
                             placeholder="Mohon masukkan"

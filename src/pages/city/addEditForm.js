@@ -39,7 +39,9 @@ export default class AddEditForm extends Component {
     }
 
 
-    handleOnSubmit = async e => {
+
+
+    handleOnSubmit =  e => {
         e.preventDefault();
         const city = {
             city_id: this.state.cityId,
@@ -49,14 +51,16 @@ export default class AddEditForm extends Component {
         };
 
         if (!this.state.isEdit) {
-            await create(city).then(response => {
+             create(city).then(response => {
                 console.log(response);
+                this.props.setRefreshTable();
             }).catch(function (error) {
                 console.log(error);
             });;
         } else {
-            await updateCity(city).then(response => {
+             updateCity(city).then(response => {
                 console.log(response);
+                this.props.setRefreshTable();
             }).catch(function (error) {
                 console.log(error);
             });;
@@ -134,7 +138,7 @@ export default class AddEditForm extends Component {
                                                     name="cityName"
                                                     value={cityName}
                                                     onChange={this.handleOnChange}
-                                                    className="px-3 py-3 placeholder-gray-400 bg-white rounded  focus:ring-2 focus:ring-blue-600 shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                                                    className="px-3 py-3 placeholder-gray-400 ring-pink-600 bg-white rounded  focus:ring-2 focus:ring-blue-600 shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
 
                                                 />
                                             </div>
@@ -178,8 +182,8 @@ export default class AddEditForm extends Component {
 
                                             Close
                                 </button>
-                                        <button onClick={() => this.props.setRefreshTable(true)}
-                                            className="bg-gray-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                        <button onClick={() => this.props.setRefreshTable()}
+                                            className="bg-pink-600 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-pink-500 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit"
                                         >
                                             Save Changes

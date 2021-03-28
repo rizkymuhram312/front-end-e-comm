@@ -5,11 +5,14 @@ export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const [masuk, setMasuk] = useState(false);
-  const [sideBar, setSideBar ] = useState(false);
-  const token = localStorage.token
+  const [alertLogin, setAlertLogin] = useState('');
+  const [isOpen, setIsOpen] = React.useState(false);
   const [tvalue, setTValue] = useState();
-  const [isOpen, setIsOpen] = useState();
+
+
+  let token = localStorage.token
+
+  const [value, setValue] = useState();
   const refresh = () => {
     // re-renders the component
     setTValue({});
@@ -18,14 +21,30 @@ export default function Navbar({ fixed }) {
     // console.log(isLogin)
     if (token == null || token == undefined) {
       setisLogin(false);
-      // setTValue({});
+      setTValue({});
+
     }
     else {
       setisLogin(true);
-      // setTValue({});
+      
+
+
+      setTValue({});
+      refresh();
+      // <Redirect to="/home" />
+
+
     }
     // setTValue({});
-  }, [])
+  }, token,tvalue)
+
+
+
+ 
+
+
+
+
   const klikLogout = () => {
     localStorage.clear()
     alert("Anda Berhasil Logout!");
@@ -40,8 +59,13 @@ export default function Navbar({ fixed }) {
     history.push("/daftar")
   }
   const fotoprofil = localStorage.getItem('profilImage')
+
+
+
   return (
-    <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white">
+
+    
+    <div class=" mx-auto px-6 py-3 mb-5 bg-pink-600 text-white">
       <div class="container flex items-center justify-between">
         <div class="hidden w-full text-white md:flex md:items-center">
           {/* <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +84,8 @@ export default function Navbar({ fixed }) {
             }
             id="example-navbar-danger">
           </div>
-          {isLogin ? (
+          {isLogin ?  (
+              
             <>
             {/* cart start */}
                < button class=" focus:outline-none mx-2 sm:mx-0">
@@ -69,12 +94,8 @@ export default function Navbar({ fixed }) {
                 </svg>
               </button>
 
-              <svg xmlns="htts://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-              </svg>
-              {/* cart end */}
-              <ul className="flex flex-wrap lg:flex-row list-none lg:ml-auto align-center justify-center items-center flex-between">
 
+              
                 <img src={fotoprofil === "null" || fotoprofil === null ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle border-none border-white mr-4" />
                 <li className="nav-item">
                   <div className="dropdown inline-block relative">
@@ -83,12 +104,11 @@ export default function Navbar({ fixed }) {
                       </span>
                     </button>
                     <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
-                      <li className=" bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboarduser')} style={{ cursor: 'pointer' }}>
+                      <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboarduser')} style={{ cursor: 'pointer' }}>
                         {/* <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser"> */}
                       Profil
                       {/* </a> */}
-
-</li>
+                      </li>
                       <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboard')} style={{ cursor: 'pointer' }}>
                         {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
                       Dashboard
@@ -102,7 +122,7 @@ export default function Navbar({ fixed }) {
                     </ul>
                   </div>
                 </li>
-              </ul>
+              
               {/* <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
                 <li className="nav-item">
                   <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
@@ -169,7 +189,7 @@ export default function Navbar({ fixed }) {
           {/* <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">About</a> */}
         </div>
       </nav>
-      {/* search */}
+      
       {/* <div class="relative mt-6 max-w-lg mx-auto">
         <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
           <svg class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none">
