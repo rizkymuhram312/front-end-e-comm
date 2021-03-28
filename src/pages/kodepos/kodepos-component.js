@@ -24,6 +24,7 @@ export const TableKodepos = props => {
                             <tr>
                                 <th className="text-center px-6 bg-pink-600 text-white font-bold align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">kodepos Id</th>
                                 <th className="text-center px-6 bg-pink-600 text-white font-bold align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">kodepos Kecamatan Id</th>
+                                <th className="text-center px-6 bg-pink-600 text-white font-bold align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Kecamatan Name</th>
                                 <th className="text-center px-6 bg-pink-600 text-white font-bold align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left">Action</th>
                             </tr>
                         </thead>
@@ -53,6 +54,7 @@ export const TableKodepos = props => {
                                            
                                            <td className="text-center" key="{kodepos}">{kodepos.kodepos}</td>
                                            <td className="text-center" key="{kodepos_kec_id}">{kodepos.kodepos_kec_id}</td>
+                                           <td className="text-center uppercase" key="{kodepos_kec_id}">{kecamatan.kec_name}</td>
 
 
                                            <td className="text-center">

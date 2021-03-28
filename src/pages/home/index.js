@@ -10,6 +10,7 @@ import './HeroSlider.css';
 import image1 from '../../components/img/carousel/sepatu1.jpg'
 import image2 from '../../components/img/carousel/camera.jpg'
 import image3 from '../../components/img/carousel/bag.jpg'
+import swal from 'sweetalert';
 
 
 
@@ -30,6 +31,9 @@ export default function Navbar({ fixed }) {
 		// re-renders the component
 		setValue({});
 	}
+
+	// ============ ALERT LOGIN BERHASIL ==============
+	
 	// redirect to deskripsi
 	const DetailProduct = (prod_id, product_images)=>{
 		localStorage.setItem('productDetail', prod_id);
@@ -94,6 +98,8 @@ export default function Navbar({ fixed }) {
 		spaceBetween: 0,
 		effect: 'slide'
 	}
+
+	
 	
 	return (
 

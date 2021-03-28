@@ -3,6 +3,7 @@ import { Redirect, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
 import { toast } from 'react-toastify'
+import swal from 'sweetalert';
 
 
 
@@ -15,12 +16,10 @@ const Login = () => {
     const history = useHistory()
 
     toast.configure()
-    const notify = (acco_nama) => {
-
-        toast.success(`Selamat Datang ${acco_nama}`, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 3000
-        })
+    localStorage.getItem('dataUserName')
+   
+    const notify = () => {
+        swal(`Halo ${localStorage.getItem('dataUserName')}`, "Selamat Berbelanja!", "success");
     }
 
     const notifyErr = () => {
@@ -84,6 +83,7 @@ const Login = () => {
                     // console.log(a)
                     // setRedirect(true)
                     history.push('/home')
+                    notify()
                 }
                 else {
                     console.log(result)
@@ -126,6 +126,15 @@ const Login = () => {
         // alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
         return <Redirect to="/home" />
     }
+
+    const handleKeypress = (event) => {
+        if(event.key === 'Enter'){
+          console.log('enter press here! ')
+          submitLogin()
+        }
+      }
+
+
     return (
         <Fragment>
             {
@@ -145,21 +154,21 @@ const Login = () => {
                         }
                         <span className="text-2xl font-light">Login to your account</span>
                         <div className="relative mt-4 bg-white shadow-md sm:rounded-lg text-left">
-                            <div className="h-2 bg-indigo-400 rounded-t-md"></div>
+                            <div className="h-2 bg-pink-600 rounded-t-md"></div>
                             <div className="py-6 px-8">
                                 <label className="block font-semibold">Email</label>
-                                <input type="text" placeholder="Email" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md" value={user_email} onChange={onChangeEmail} />
+                                <input type="text" placeholder="Email" id="myInput" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_email} onChange={onChangeEmail} onKeyPress={handleKeypress}/>
                                 <label className="block mt-3 font-semibold">Password</label>
-                                <input type="password" placeholder="Password" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md" value={user_password} onChange={onChangePassword} />
+                                <input type="password" placeholder="Password" id="myInput" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_password} onChange={onChangePassword} onKeyPress={handleKeypress}/>
                                 <div className="flex justify-between items-baseline">
-                                    <button className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg" onClick={submitLogin}>Login</button>
+                                    <button className="mt-4 bg-pink-600 hover:bg-pink-500 text-white py-2 px-6 rounded-lg" id="myBtn" onClick={submitLogin}>Login</button>
                                     <a href="#" className="text-sm hover:underline">Forgot password?</a>
                                 </div>
                             </div>
                         </div>
                         <div className="text-grey-dark mt-6">
                             don't have an account? &nbsp;
-                    <a className="underline font-semibold text-blue-600" href="/daftar">
+                    <a className="underline font-semibold text-pink-600" href="/daftar">
                                 Sign Up
                     </a>.
             </div>

@@ -1,31 +1,37 @@
 
 import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
+import swal from 'sweetalert';
+
 export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const [masuk, setMasuk] = useState(false);
-  const [sideBar, setSideBar ] = useState(false);
+  const [sideBar, setSideBar] = useState(false);
   const token = localStorage.token
-  const [tvalue, setTValue] = useState();
+  const [value, setValue] = useState();
   const [isOpen, setIsOpen] = useState();
+
+
   const refresh = () => {
     // re-renders the component
-    setTValue({});
+    setValue({});
   }
+
+
   useEffect(() => {
     // console.log(isLogin)
     if (token == null || token == undefined) {
       setisLogin(false);
-      // setTValue({});
     }
     else {
       setisLogin(true);
-      // setTValue({});
     }
-    // setTValue({});
   }, [])
+
+
+
   const klikLogout = () => {
     localStorage.clear()
     alert("Anda Berhasil Logout!");
@@ -40,6 +46,22 @@ export default function Navbar({ fixed }) {
     history.push("/daftar")
   }
   const fotoprofil = localStorage.getItem('profilImage')
+
+
+  const fotoprofilklik = () => {
+    swal({
+      title: 'Sweet!',
+      icon: fotoprofil,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Profil Picture',
+    })
+  }
+
+
+
+
+
   return (
     <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white">
       <div class="container flex items-center justify-between">
@@ -62,8 +84,8 @@ export default function Navbar({ fixed }) {
           </div>
           {isLogin ? (
             <>
-            {/* cart start */}
-               < button class=" focus:outline-none mx-2 sm:mx-0">
+              {/* cart start */}
+              < button class=" focus:outline-none mx-2 sm:mx-0">
                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
@@ -74,8 +96,9 @@ export default function Navbar({ fixed }) {
               </svg>
               {/* cart end */}
               <ul className="flex flex-wrap lg:flex-row list-none lg:ml-auto align-center justify-center items-center flex-between">
-
-                <img src={fotoprofil === "null" || fotoprofil === null ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle border-none border-white mr-4" />
+                <button onClick={fotoprofilklik}>
+                  <img class="fotoprofil" src={fotoprofil === "null" || fotoprofil === null ? "defaultpic.png" : fotoprofil} alt="..." className="shadow rounded-full w-8 h-8 align-middle border-2 border-yellow-500 mr-4" />
+                </button>
                 <li className="nav-item">
                   <div className="dropdown inline-block relative">
                     <button className="text-center ">
@@ -88,7 +111,7 @@ export default function Navbar({ fixed }) {
                       Profil
                       {/* </a> */}
 
-</li>
+                      </li>
                       <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboard')} style={{ cursor: 'pointer' }}>
                         {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
                       Dashboard
@@ -114,32 +137,32 @@ export default function Navbar({ fixed }) {
               </ul> */}
             </>
           ) : (
-            <>
-              
-              {/* cart end */}
-              <svg xmlns="htts://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-              </svg>
-              {/* profil start */}
-              <div class="flex justify-between text-white">
-                <button class="focus:outline-none mx-2 sm:mx-0 flex items-center gap-2 hover:text-black hover:bg-pink-100 rounded" onClick={onClickRegister}>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                  </svg>
-                  <span class="flex items-center text-sm">Sign Up</span>
-                </button>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <>
+
+                {/* cart end */}
+                <svg xmlns="htts://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                 </svg>
-                <button class="focus:outline-none mx-2 sm:mx-0 flex items-center gap-2 hover:text-black hover:bg-pink-100 rounded " onClick={onClickLogin}>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                {/* profil start */}
+                <div class="flex justify-between text-white">
+                  <button class="focus:outline-none mx-2 sm:mx-0 flex items-center gap-2 hover:text-black hover:bg-pink-100 rounded" onClick={onClickRegister}>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                    </svg>
+                    <span class="flex items-center text-sm">Sign Up</span>
+                  </button>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                   </svg>
-                  <span class="flex items-center text-sm mr-2">Sign In</span>
-                </button>
-              </div>
-            </>
-          )
+                  <button class="focus:outline-none mx-2 sm:mx-0 flex items-center gap-2 hover:text-black hover:bg-pink-100 rounded " onClick={onClickLogin}>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span class="flex items-center text-sm mr-2">Sign In</span>
+                  </button>
+                </div>
+              </>
+            )
           }
           {/* profil end */}
           <div class="flex sm:hidden" >

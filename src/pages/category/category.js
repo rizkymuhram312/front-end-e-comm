@@ -5,7 +5,7 @@ import React, { useState, useEffect, Alert } from 'react';
 import { useHistory } from "react-router";
 import swal from "sweetalert";
 import { toast } from "react-toastify";
-import _ from "lodash"
+// import _ from "lodash"
 import ReactPaginate from "react-paginate";
 import Pagination from "../../components/pagination/pagination";
 

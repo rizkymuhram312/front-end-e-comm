@@ -22,9 +22,8 @@ import Kecamatan from './pages/kecamatan/kecamatan'
 import Kodepos from './pages/kodepos/kodepos'
 import RegisterAccount from './pages/users/RegisterAccount'
 import DashboardUserAccount from './pages/home/DashboardUserAccount'
-import Address from './pages/address/address2'
+import Address from './pages/address/Address'
 import Wallet from './pages/payment/MyWallet'
-// import MyOrders from './pages/orders/myOrders'
 import Advertising from './pages/advertising'
 import TambahProduct from './pages/product/tambahProduct';
 import Product from './pages/product/product';
@@ -52,6 +51,13 @@ import addCate from './pages/category/addCate';
 import CateUpload from './pages/category/cateUpload';
 
 import FilesUpload from "./components/FilesUpload";
+import EditAddress from './pages/address/EditAddress';
+import ReCaptchaSignup from './pages/users/reCaptcha';
+import MyOrders from './pages/orders/MyOrders';
+import CheckoutMyOrder from './pages/users/DashboardOrder';
+import DashboardOrder from './pages/users/DashboardOrder';
+import Penjualanku from './pages/users/Pembelianku';
+import Pembelianku from './pages/users/Pembelianku';
 
 
 function App() {
@@ -95,7 +101,7 @@ function App() {
           <Route path="/registerAccount" component={RegisterAccount} exact />
           <Route path="/dashboarduser" component={DashboardUserAccount} exact />
           <Route path="/address" component={Address} exact />
-          {/* <Route path="/myorders" component={MyOrders}/> */}
+          <Route path="/myorders" component={MyOrders}/>
           <Route path="/advertising/my-pkg" component={Advertising}/>
           <Route path="/product/:prod_id" component={Product} />
           <Route path="/productsaya" component={ProductSaya}/>
@@ -113,9 +119,20 @@ function App() {
           <Route path="/bank-account/" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
           <Route path="/upload" component={FilesUpload}/>
+          <Route path="/editAddress" component={EditAddress}/>
+
 
           <Route path="/order-kw" component={OrdersKw}/>
           <Route path="/wallet-bank" component={WalletAndBank}/>
+
+          <Route path="/daftar-captcha" component={ReCaptchaSignup}/>
+          <Route path="/penjualanku" component={Penjualanku}/>
+
+          <Route path="/pembelianku" component={Pembelianku}/>
+          <Route path="/dashboard-order" component={DashboardOrder}/>
+
+
+
           <Route component={PageNotFound}/>
         </Switch>
       </div>
