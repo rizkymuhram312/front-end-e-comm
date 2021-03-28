@@ -149,7 +149,9 @@ export default function Product() {
         
         
                             } 
-                        }notify()
+                        }
+                        notify()
+                        window.location.reload()
                     })
                     .catch((e) => {
                         setError(e.response.message)

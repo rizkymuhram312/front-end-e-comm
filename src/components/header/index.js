@@ -1,7 +1,10 @@
 
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Redirect, useHistory } from "react-router-dom";
 import swal from 'sweetalert';
+import { apiOrder, apiUserMaster } from "../../config/apiUrl";
+
 
 export default function Navbar({ fixed }) {
   const history = useHistory()
@@ -13,6 +16,12 @@ export default function Navbar({ fixed }) {
   const [value, setValue] = useState();
   const [isOpen, setIsOpen] = useState();
 
+  const [accId, setaccId] = useState(localStorage.getItem("dataAccountId"));
+
+
+  const [hitungCart, setHitungCart] = useState()
+
+
 
   const refresh = () => {
     // re-renders the component
@@ -21,6 +30,7 @@ export default function Navbar({ fixed }) {
 
 
   useEffect(() => {
+    fetchHitungCart();
     // console.log(isLogin)
     if (token == null || token == undefined) {
       setisLogin(false);
@@ -31,13 +41,44 @@ export default function Navbar({ fixed }) {
   }, [])
 
 
+  const fetchHitungCart = async () => {
+    let res = await axios({
+      url: `${apiUserMaster}/users/hitungcart/${accId}`,
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        res.data.map((x, y) => {});
+        setHitungCart(res.data);
+        console.log(res.data);
+        // console.log(res);
+       
+      })
+      .catch((err) => console.error(err));
+  };
+
 
   const klikLogout = () => {
-    localStorage.clear()
-    alert("Anda Berhasil Logout!");
-    setisLogin(false)
+    swal({
+      title: "Are You Sure Want To LogOut?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willLogout) => {
+      if (willLogout) {
+        swal("success to logout!", {
+          icon: "success",
+        });
+      localStorage.clear()
+      setisLogin(false)
+      history.push("/login")
+      }
+    });
+    
     // setTValue({});
-    history.push("/login")
   }
   const onClickLogin = () => {
     history.push("/login")
@@ -58,6 +99,7 @@ export default function Navbar({ fixed }) {
     })
   }
 
+ 
 
 
 
@@ -90,6 +132,16 @@ export default function Navbar({ fixed }) {
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
               </button>
+
+              {hitungCart?(
+              <div className="flex font-semibold text-white text-center text-sm -mt-4 -ml-4 rounded-full h-4 w-4 bg-green-500 items-center justify-center">
+              {hitungCart?.reduce((val, element)=>{
+                            return val + element.clit_qty
+                          },0)
+                        }
+              </div>
+              ): (null)}
+              
 
               <svg xmlns="htts://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
@@ -175,7 +227,7 @@ export default function Navbar({ fixed }) {
           </div>
         </div>
       </div>
-      {/* navbar */}
+      {isLogin? (
       <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
         <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
@@ -188,15 +240,21 @@ export default function Navbar({ fixed }) {
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">About</a>
         </div>
       </nav>
-      {/* search */}
-      {/* <div class="relative mt-6 max-w-lg mx-auto">
-        <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
-          <svg class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none">
-            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </span>
-        <input class="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline" type="text" placeholder="Search" />
-      </div> */}
+      ) : (
+
+        <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
+        <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
+        </div>
+      </nav>
+
+
+      )
+      }
+
+
     </div >
   );
 }

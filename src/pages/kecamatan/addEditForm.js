@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { create, updateKecamatan } from './api-kecamatan';
+import swal from 'sweetalert';
 
 export default class AddEditForm extends Component {
 
@@ -55,21 +56,21 @@ export default class AddEditForm extends Component {
         if (!this.state.isEdit) {
             await create(kecamatan).then(response => {
                 console.log(response);
-                alert('berhasil tambah data')
+                swal(`${kecamatan.kec_name}`, "berhasil ditambahkan!", "success");
 
             }).catch(function (error) {
                 console.log(error);
-                alert('gagal tambah data')
+                swal(`error`, "gagal tambah data!", "error");
 
             });;
         } else {
             await updateKecamatan(kecamatan).then(response => {
                 console.log(response);
-                alert('berhasil ubah data')
+                swal(`${kecamatan.kec_name}`, "berhasil diubah!", "success");
 
             }).catch(function (error) {
                 console.log(error);
-                alert('gagal ubah data')
+                swal(`error`, "gagal ubah data!", "error");
 
             });;
         }

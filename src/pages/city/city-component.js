@@ -1,4 +1,5 @@
 // import { useState } from 'react';
+import swal from 'sweetalert';
 
 
 
@@ -54,9 +55,25 @@ export const TableCity = props => {
                                                         Edit
                                     </button>
                                                     <button onClick={() => {
-                                                        if (window.confirm("apakah anda yakin ingin menghapus data ini?")) {
-                                                            props.setDelete(city.city_id);
+                                                       swal({
+                                                        title: `Are you sure want to DELETE ${city.city_name}?`,
+                                                        text: "Once deleted, you will not be able to recover this record!",
+                                                        icon: "warning",
+                                                        buttons: true,
+                                                        dangerMode: true,
+                                                      })
+                                                      .then((willDelete) => {
+                                                        if (willDelete) {
+                                                          swal(`Poof! ${city.city_name} has been deleted!`, {
+                                                            icon: "success",
+                                                          });
+                                                          props.setDelete(city.city_id);
+                                                        } else {
+                                                          swal({
+                                                            title: `${city.city_name} is safe!`,
+                                                          });
                                                         }
+                                                      });
 
                                                     }}
                                                         className="text-white bg-red-500 border border-solid border-gray-300 hover:bg-red-800 hover:text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">

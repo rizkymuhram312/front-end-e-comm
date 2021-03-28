@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Province from '../province/province';
 import { create, updateCity } from './api-city';
+import swal from 'sweetalert';
 
 export default class AddEditForm extends Component {
 
@@ -53,23 +54,22 @@ export default class AddEditForm extends Component {
         if (!this.state.isEdit) {
              create(city).then(response => {
                 console.log(response);
-                alert('berhasil tambah data')
+                swal(`${city.city_name}`, "berhasil ditambahkan!", "success");
 
                 this.props.setRefreshTable();
             }).catch(function (error) {
                 console.log(error);
-                alert('gagal tambah data')
-
+                swal(`error`, "gagal tambah data!", "error");
             });;
         } else {
              updateCity(city).then(response => {
                 console.log(response);
-                alert('berhasil ubah data')
+                swal(`${city.city_name}`, "berhasil diubah!", "success");
+
                 this.props.setRefreshTable();
             }).catch(function (error) {
                 console.log(error);
-                alert('gagal ubah data')
-
+                swal(`error`, "gagal ubah data!", "error");
             });;
         }
 
