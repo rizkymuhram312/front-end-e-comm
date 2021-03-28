@@ -1,18 +1,27 @@
 
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
+import { apiProductMaster } from "../../config/apiUrl";
+import ProductSidebar from "../sideBarMenu/product";
 export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
+  const [product, setproduct] = useState([])
+
+  // const [product, setproduct] = useState([]);
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const [alertLogin, setAlertLogin] = useState('');
   const [isOpen, setIsOpen] = React.useState(false);
+  const [masuk, setMasuk] = useState(false);
+  const [sideBar, setSideBar] = useState(false);
+  const token = localStorage.token
   const [tvalue, setTValue] = useState();
 
 
-  let token = localStorage.token
+ 
 
-  const [value, setValue] = useState();
+  
   const refresh = () => {
     // re-renders the component
     setTValue({});
@@ -60,8 +69,23 @@ export default function Navbar({ fixed }) {
   }
   const fotoprofil = localStorage.getItem('profilImage')
 
+  useEffect(() => {
+    // console.log(product)
+    // setLoading(true);
+    axios({
+      url: `${apiProductMaster}/product/prod/`,
+      method: "get",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then((res) => setproduct(res.data))
+      .catch((err) => console.error(err))
+  }, [])
 
-
+  const searchProd = async (prod_name) => {
+    history.push("/");
+    localStorage.setItem("prod_name", prod_name);
+  }
   return (
 
     
@@ -87,8 +111,8 @@ export default function Navbar({ fixed }) {
           {isLogin ?  (
               
             <>
-            {/* cart start */}
-               < button class=" focus:outline-none mx-2 sm:mx-0">
+              {/* cart start */}
+              < button class=" focus:outline-none mx-2 sm:mx-0">
                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
@@ -110,6 +134,7 @@ export default function Navbar({ fixed }) {
                         {/* <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser"> */}
                       Profil
                       {/* </a> */}
+
                       </li>
                       <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboard')} style={{ cursor: 'pointer' }}>
                         {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
@@ -188,11 +213,12 @@ export default function Navbar({ fixed }) {
         <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/advertising/my-adv">Advertising</a>
+          {/* <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/advertising/my-adv">Orders</a> */}
           {/* <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">About</a> */}
         </div>
       </nav>

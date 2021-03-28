@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import EditProduct from './editProduct'
-import convertToRupiah from './convertToRupiah'
+import convertToRupiah from '../product/convertToRupiah'
 import { apiProductMaster, apiProductTransaction, apiUserMaster } from '../../config/apiUrl'
 import { toast } from 'react-toastify'
+import EditProduct from '../product/editProduct'
 
-export default function ProductSaya() {
+export default function Completed() {
   const history = useHistory()
   const [Product, setProduct] = useState([]);
   const [Category, setCategory] = useState([]);
@@ -22,14 +22,7 @@ export default function ProductSaya() {
   const onClickAddProduct = () => {
     history.push('/tambahProduct')
   }
- 
-  const onClickEditProduct = (e) => {
-    console.log(e)
-    setProdToEdit(e.target.value)
-    setShowEdit(true)
-    // history.push('/editProduct')
-    localStorage.setItem("id", e.target.value)
-  }
+
 
   const deleteProduct = async (y) => {
 
@@ -46,7 +39,7 @@ export default function ProductSaya() {
 
   useEffect(() => {
     axios({
-      url: `${apiProductTransaction}/product/getaccount/${acco_id}`,
+      url: `${apiProductTransaction}/product/getabis/${acco_id}`,
       method: "get",
       headers: {
         "Content-type": "application/json"
@@ -68,18 +61,6 @@ export default function ProductSaya() {
       .catch((err) => console.error(err));
     console.log(Category)
   }, [])
-
-  useEffect(() => {
-    axios({
-      url: `${apiProductMaster}/product/prod/${search}`,
-      method: "get",
-      headers: {
-        "Content-type": "application/json"
-      }
-    }).then((res) => setProduct(res.data))
-      .catch((err) => console.error(err));
-    console.log(Category)
-  }, [search])
   //  useEffect(() => {
   //       Product.map((x)=> {
   //         if(x.category.cate_name.includes(Category))
@@ -106,8 +87,15 @@ export default function ProductSaya() {
     history.push("/login");
   }
 
+  const onClickEditProduct = (e) => {
+    console.log(e)
+    setProdToEdit(e.target.value)
+    setShowEdit(true)
+    // history.push('/editProduct')
+    localStorage.setItem("id", e.target.value)
+  }
+
   {
-    
     return (
       <div>
 
@@ -134,12 +122,10 @@ export default function ProductSaya() {
                             text-gray-700 focus:bg-white 
                             focus:placeholder-gray-600 focus:text-gray-700 
                             focus:outline-none " placeholder="Search "
-                            onChange={(event) => {
-                              setSearch(event.target.value)
-                            }} 
-                   />
+                    onChange={(event) => {
+                      setSearch(event.target.value)
+                    }} />
                 </div>
-                {console.log(search)}
 
                 {/* <div className="  items-center ">
                   Kategory
@@ -162,10 +148,10 @@ export default function ProductSaya() {
                     onChange={(event) => {
                       setSearch(event.target.value)
                     }} />
-                </div> */}
+                </div>
 
               </div>
-              {/* <div class="grid grid-cols-4 gap-4 ml-5 items-center justify-between">
+              <div class="grid grid-cols-4 gap-4 ml-5 items-center justify-between">
                 <div className="  items-center ">
                   Stock
                 </div>
@@ -188,17 +174,12 @@ export default function ProductSaya() {
                       setSearch(event.target.value)
                     }} />
                 </div>
+                  */}
 
-
-              </div> */}
-
-            </div>
-            <div class="grid grid-cols-2 gap-4 ml-5 items-center flex sm:justify-items-end">
-              <button onClick={onClickAddProduct} class="bg-primary hover:bg-blue-dark text-white font-bold py-2 px-4 rounded m-auto">
-                Tambah Produk Baru
-          </button>
+              </div>
 
             </div>
+           
 
 
 
@@ -214,8 +195,7 @@ export default function ProductSaya() {
                 <thead>
                   <tr>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Produk Id</th>
-                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell"colSpan="2">Nama Produk</th>
-                    {/* <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell"></th> */}
+                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Nama Produk</th>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Deskripsi Produk</th>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Harga</th>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Stok</th>
@@ -226,19 +206,19 @@ export default function ProductSaya() {
                 </thead>
                 <tbody>
                   {Product
-                    // .filter((val) => {
-                    //   if (search == "") {
-                    //     return val
-                    //   } else if (val.prod_name.toLowerCase().includes(search.toLocaleLowerCase())) {
-                    //     return val
-                    //   }
-                      
-                    // })
+                    .filter((val) => {
+                      if (search == "") {
+                        return val
+                      } else if (val.prod_name.toLowerCase().includes(search.toLocaleLowerCase())) {
+                        return val
+                      }
+                      else if (val.prod_desc.toLowerCase().includes(search.toLowerCase())) {
+                        return val
+                      }
+                    })
                     .map((x) => {
-                      
                       console.log(x)
                       return (
-                        x.prod_status === 'blokir' | x.prod_stock < 1 ? null :
                         <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Produk Id</span>
@@ -246,13 +226,8 @@ export default function ProductSaya() {
                             {x.prod_id}
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Gambar</span>
-                            <img class= "bg-center h-20 w-20 my-2" src={x.prim_path}/>
-                          </td>
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama Produk</span>
                             {x.prod_name}
-                            
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Deskripsi</span>
@@ -273,7 +248,7 @@ export default function ProductSaya() {
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
                             <button class="text-blue-400 hover:text-blue-600 underline" value={x.prod_id} onClick={onClickEditProduct}>Edit</button>
-                            <a href="" class="text-blue-400 hover:text-blue-600 underline pl-2" onClick={() => {
+                            <a href="" class="text-blue-400 hover:text-blue-600 underline pl-6" onClick={() => {
                               if (
                                 window.confirm(
                                   "apakah anda yakin ingin menghapus data ini?"
@@ -290,12 +265,13 @@ export default function ProductSaya() {
             </div>
           </div>
         ) : //showEdit true, menampilkan form edit, tampilan product tidak dtiampilkan
+          
           <EditProduct
             setShowEdit={setShowEdit}
 
 
           />
-        }
+        } 
       </div >
     )
   }

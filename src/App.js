@@ -42,7 +42,7 @@ import AddAdv from './pages/advertising/addAdv'
 import BankAccount from './pages/payment/BankAccount'
 import Transaction from './pages/payment/Transactions'
 import OrdersKw from './pages/payment/Orders'
-import productMaster from './components/sideBarMenu/productMaster';
+// import productMaster from './components/sideBarMenu/productMaster';
 import WalletAndBank from './pages/payment/WalletAndBank'
 import Brand from './pages/brand/brand';
 import AddBrand from './pages/brand/addBrand';
@@ -63,8 +63,18 @@ import SummaryPDAM from './pages/billTopup/summaryPDAM';
 import OrderBK from './pages/admin/orderBK';
 import UpdateStatus from './pages/product/updateStatus';
 import AllProduct from './pages/admin/allProduct';
-import sidebar from './components/sideBarMenu/productMaster';
+// import sidebar from './components/sideBarMenu/productMaster';
 import Sidebar from './pages/admin/sidebarAdmin'
+import ProductSidebar from './components/sideBarMenu/product';
+import BrandSidebar from './components/sideBarMenu/brand';
+import CategorySidebar from './components/sideBarMenu/category';
+import ConditionSidebar from './components/sideBarMenu/condition';
+import ArchieveSidebar from './components/sideBarMenu/productArchieve';
+import CompletedSidebar from './components/sideBarMenu/productCompleted';
+import BlokirSidebar from './components/sideBarMenu/productBlokir';
+
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -76,17 +86,21 @@ function App() {
           <Route path="/shop" component={Dashboard} exact />
           <Route path="/" component={Home} exact/>
           {/* brand */}
-          <Route path="/brand" component={Brand} exact />
+          <Route path="/product" component={ProductSidebar} exact />
+          <Route path="/brand" component={BrandSidebar} exact />
+          <Route path="/category" component={CategorySidebar} exact />
+          <Route path="/condition" component={ConditionSidebar} exact />
           <Route path="/addBrand" component={AddBrand} exact />
           <Route path="/editBrand" component={EditBrand} exact />
           {/* end Brand */}
           {/* start Condition */}
-          <Route path="/condition" component={Condition} exact />
+          {/* <Route path="/condition" component={Condition} exact /> */}
           <Route path="/addCond" component={addCond} exact />
           <Route path="/editCond" component={EditCond} exact />
           {/* end Condition */}
+
           {/* start category */}
-          <Route path="/category" component={Category} exact />
+          {/* <Route path="/category" component={Category} exact /> */}
           <Route path="/addCate" component={addCate} exact />
           <Route path="/upload" component={CateUpload} exact />
           <Route path="/editcate" component={EditCate} exact />
@@ -110,7 +124,12 @@ function App() {
           {/* <Route path="/myorders" component={MyOrders}/> */}
           <Route path="/advertising/my-pkg" component={Advertising}/>
           <Route path="/product/:prod_id" component={Product} />
-          <Route path="/productsaya" component={ProductSaya}/>
+
+          {/* <Route path="/product" component={ProductSaya}/> */}
+          <Route path="/Archieve" component={ArchieveSidebar}/>
+          <Route path="/Completed" component={CompletedSidebar}/>
+          <Route path="/Blokir" component={BlokirSidebar}/>
+
           <Route path="/tambahproduct" component={TambahProduct} />
           <Route path="/editproduct" component={EditProduct}/>
           <Route path="/billTopup" component={billTopup}/>
@@ -122,7 +141,7 @@ function App() {
           <Route path="/advertising/my-adv" component={MyAdv}/>
           <Route path="/advertising/add-adv" component={AddAdv}/>
           <Route path="/advertising/orad" component={OrderAdvertising}/>
-          <Route path="/advertising/orap" component={OrderAdvertisingProduct}/>
+          {/* <Route path="/advertising/orap" component={OrderAdvertisingProduct}/> */}
           <Route path="/wallet" component={Wallet}/>
           <Route path="/bank-account/" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
