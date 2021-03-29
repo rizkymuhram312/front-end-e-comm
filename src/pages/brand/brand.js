@@ -168,7 +168,7 @@ function Brand(props) {
                                     <thead class="bg-primary">
                                         <tr>
                                             <th
-                                                class="px-5 py-3 border-b-3 border-black-200  text-center text-white sm:text-md lg:text-lg font-semibold  uppercase tracking-wider">
+                                                class="px-5 py-3 border-b-3 border-black-200  text-center text-white sm:text-sm xl:text-lg font-semibold  uppercase tracking-wider">
                                                 Brand ID
                         </th>
                                             <th
@@ -198,8 +198,8 @@ function Brand(props) {
                                                         return (
                                                             <tr key={brand.id} >
 
-                                                                <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 ">{brand.brand_id}</td>
-                                                                <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 uppercase">{brand.brand_name}</td>
+                                                                <td className="text-center md:text-lg sm:text-md lg:text-xl text-black border-2  my-2 ">{brand.brand_id}</td>
+                                                                <td className="text-center md:text-lg sm:text-md lg:text-xl text-black border-2  my-2 uppercase">{brand.brand_name}</td>
                                                                 <td className="border-2">
                                                                     <div class="flex justify-center  ">
                                                                         <button
