@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { create, updateProvince } from './api-province';
 import { toast } from 'react-toastify'
+import swal from 'sweetalert';
 
 export default class AddEditForm extends Component {
 
@@ -55,18 +56,19 @@ export default class AddEditForm extends Component {
         if (!this.state.isEdit){
             await create(province).then(response => {
                 console.log(response);
-                alert('berhasil tambah data')
+                swal(`${province.prov_name}`, "berhasil ditambahkan!", "success");
             }).catch(function (error) {
                 console.log(error);
-                alert('gagal tambah data')
+                swal(`error`, "gagal tambah data!", "error");
             });;
         }else{
             await updateProvince(province).then(response => {
                 console.log(response);
-                alert('berhasil ubah data')
+                swal(`${province.prov_name}`, "berhasil diubah!", "success");
             }).catch(function (error) {
                 console.log(error);
-                alert('gagal ubah data')
+                swal(`error`, "gagal ubah data!", "error");
+
             });;
         }
 

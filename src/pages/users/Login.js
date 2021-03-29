@@ -79,8 +79,7 @@ const Login = () => {
                     const hasiltoken = JSON.parse(rawPayload)
                     console.log(hasiltoken) // outputs 'bob'
                     console.log(result.data.token) // outputs 'bob'
-
-
+                    // dispatch(fetchAdv()) // redux adv
                     // console.log(a)
                     // setRedirect(true)
                     history.push('/home')

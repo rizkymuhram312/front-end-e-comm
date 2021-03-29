@@ -174,6 +174,7 @@ export default function AllProduct() {
                     .map((x) => {
                       console.log(x)
                       return (
+                          x.prod_status === "blokir" ? null :
                         <tr class="bg-white lg:hover:bg-pink-200 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Produk Id</span>

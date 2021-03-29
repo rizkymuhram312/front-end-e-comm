@@ -20,11 +20,15 @@ export default function Pembelianku() {
   const [showDefault, setShowDefault] = useState()
   const [showTerbanyak, setShowTerbanyak] = useState()
 
+  const [hitungCart, setHitungCart] = useState()
+
+
  
 
   useEffect(() => {
     fetchMyOrders();
     fetchOrderTerbanyak();
+    fetchHitungCart();
   }, [modal, dataFormOrderArrival, stat]);
 
   const fetchMyOrders = async () => {
@@ -69,6 +73,30 @@ export default function Pembelianku() {
       })
       .catch((err) => console.error(err));
   };
+
+
+
+  const fetchHitungCart = async () => {
+    let res = await axios({
+      url: `${apiUserMaster}/users/hitungcart/${accId}`,
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        res.data.map((x, y) => {});
+        setHitungCart(res.data);
+        console.log(res.data);
+        // console.log(res);
+       
+      })
+      .catch((err) => console.error(err));
+  };
+
+
+
+
 
   useEffect(() => {
     switch (selectedNav) {

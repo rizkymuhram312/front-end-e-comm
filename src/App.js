@@ -64,6 +64,17 @@ import UpdateStatus from './pages/product/updateStatus';
 import AllProduct from './pages/admin/allProduct';
 // import sidebar from './components/sideBarMenu/productMaster';
 import Sidebar from './pages/admin/sidebarAdmin'
+import ProductSidebar from './components/sideBarMenu/product';
+import BrandSidebar from './components/sideBarMenu/brand';
+import CategorySidebar from './components/sideBarMenu/category';
+import ConditionSidebar from './components/sideBarMenu/condition';
+import ArchieveSidebar from './components/sideBarMenu/productArchieve';
+import CompletedSidebar from './components/sideBarMenu/productCompleted';
+import BlokirSidebar from './components/sideBarMenu/productBlokir';
+import { useDispatch } from 'react-redux';
+import { fetchAdv } from './features/adv/advSlices';
+import { useEffect } from 'react';
+
 import OrderSK from './pages/admin/orderSK';
 
 import FilesUpload from "./components/FilesUpload";
@@ -78,17 +89,15 @@ import IndexAdmin from './pages/admin/indexAdmin'
 import TotalOrderBK from './pages/admin/totalOrderBK';
 import TotalProdBK from './pages/admin/totalProdBK';
 import TotalProdSK from './pages/admin/totalProdSK';
-import ProductSidebar from './components/sideBarMenu/product';
-import BrandSidebar from './components/sideBarMenu/brand';
-import CategorySidebar from './components/sideBarMenu/category';
-import ConditionSidebar from './components/sideBarMenu/condition';
-import ArchieveSidebar from './components/sideBarMenu/productArchieve';
-import CompletedSidebar from './components/sideBarMenu/productCompleted';
-import BlokirSidebar from './components/sideBarMenu/productBlokir';
+
 
 
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchAdv())
+  }, [])
   return (
     <BrowserRouter>
       <>
@@ -154,7 +163,7 @@ function App() {
           <Route path="/advertising/my-adv" component={MyAdv}/>
           <Route path="/advertising/add-adv" component={AddAdv}/>
           <Route path="/advertising/orad" component={OrderAdvertising}/>
-          {/* <Route path="/advertising/orap" component={OrderAdvertisingProduct}/> */}
+          <Route path="/advertising/orap" component={OrderAdvertisingProduct}/>
           <Route path="/wallet" component={Wallet}/>
           <Route path="/bank-account/" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>

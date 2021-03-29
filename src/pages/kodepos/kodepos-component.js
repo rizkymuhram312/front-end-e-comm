@@ -1,4 +1,5 @@
 // import { useState } from 'react';
+import swal from 'sweetalert';
 
 
 export const TableKodepos = props => {
@@ -70,9 +71,27 @@ export const TableKodepos = props => {
                                     
 
                                                 <button onClick = { () => {
-                                                    if (window.confirm("apakah anda yakin ingin menghapus data ini?")) {
-                                                        props.setDelete(kodepos.kodepos);
-                                                      }
+
+                                                    swal({
+                                                        title: `Are you sure want to DELETE ${kodepos.kodepos}?`,
+                                                        text: "Once deleted, you will not be able to recover this record!",
+                                                        icon: "warning",
+                                                        buttons: true,
+                                                        dangerMode: true,
+                                                      })
+                                                      .then((willDelete) => {
+                                                        if (willDelete) {
+                                                          swal(`Poof! ${kodepos.kodepos} has been deleted!`, {
+                                                            icon: "success",
+                                                          });
+                                                          props.setDelete(kodepos.kodepos);
+                                                        } else {
+                                                          swal({
+                                                            title: `${kodepos.kodepos} is safe!`,
+                                                          });
+                                                        }
+                                                      });
+
                                                     
                                                 }}
                                                     className="text-white bg-red-500 border border-solid border-gray-300 hover:bg-red-800 hover:text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">

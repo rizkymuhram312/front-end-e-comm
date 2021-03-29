@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { create, updateKodepos } from './api-kodepos';
+import swal from 'sweetalert';
 
 export default class AddEditForm extends Component {
 
@@ -53,21 +54,23 @@ export default class AddEditForm extends Component {
         if (!this.state.isEdit){
             await create(kodepos).then(response => {
                 console.log(response);
-                alert('berhasil tambah data')
+                swal(`${kodepos.kodepos}`, "berhasil ditambahkan!", "success");
 
             }).catch(function (error) {
                 console.log(error);
-                alert('gagal tambah data')
+                swal(`error`, "gagal tambah data!", "error");
+
 
             });;
         }else{
             await updateKodepos(kodepos, this.props.kodepos_id).then(response => {
                 console.log(response);
-                alert('berhasil ubah data')
+                swal(`${kodepos.kodepos}`, "berhasil diubah!", "success");
 
             }).catch(function (error) {
                 console.log(error);
-                alert('gagal ubah data')
+                swal(`error`, "gagal ubah data!", "error");
+
 
             });;
         }
