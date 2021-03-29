@@ -109,8 +109,8 @@ function Brand(props) {
         <>
 
             <body class="antialiased font-sans mt-4 ">
-                <div class="container mx-auto px-4 sm:px-8">
-                    <div class="py-3 ml-2">
+                <div class="container mx-auto border-4 border-pink-500 rounded ml-2 px-4 sm:px-8">
+                    <div class="py-3 ml-2 ">
                         <div class="text-2xl md:text:lg  sm:text-md">
                             <h2 class=" font-semibold leading-tight">Table Brands</h2>
                         </div>

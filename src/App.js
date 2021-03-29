@@ -89,6 +89,7 @@ import IndexAdmin from './pages/admin/indexAdmin'
 import TotalOrderBK from './pages/admin/totalOrderBK';
 import TotalProdBK from './pages/admin/totalProdBK';
 import TotalProdSK from './pages/admin/totalProdSK';
+import contact from './components/contact/index'
 
 
 
@@ -104,6 +105,8 @@ function App() {
       <Header />
       <div className="container mx-auto ">
         <Switch>
+          <Route path="/contact" component={contact} exact />
+
           <Route path="/home" component={Home} exact />
           <Route path="/shop" component={Dashboard} exact />
           <Route path="/" component={Home} exact/>
