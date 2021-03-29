@@ -4,13 +4,14 @@ import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { apiProductMaster } from "../../config/apiUrl";
 import { apiOrder, apiUserMaster } from "../../config/apiUrl";
+import convertToRupiah from "../../pages/product/convertToRupiah";
 
 
 export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
   const [product, setproduct] = useState([])
-  const[isAdmin, setisAdmin] =useState([])
+  const [isAdmin, setisAdmin] = useState([])
 
   // const [product, setproduct] = useState([]);
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -31,17 +32,17 @@ export default function Navbar({ fixed }) {
 
 
 
- 
 
-  
+
+
   const refresh = () => {
     // re-renders the component
     setTValue({});
   }
 
-  
 
- 
+
+
 
   useEffect(() => {
     // console.log(isLogin)
@@ -57,7 +58,7 @@ export default function Navbar({ fixed }) {
       refresh();
     }
 
-    
+
     if (admin == 'Admin') {
       setisAdmin(true);
       setTValue({});
@@ -68,8 +69,8 @@ export default function Navbar({ fixed }) {
       refresh();
     }
 
-    
-  }, token,tvalue)
+
+  }, token, tvalue)
 
   // useEffect(() => {
 
@@ -85,11 +86,11 @@ export default function Navbar({ fixed }) {
       },
     })
       .then((res) => {
-        res.data.map((x, y) => {});
+        res.data.map((x, y) => { });
         setHitungCart(res.data);
         console.log(res.data);
         // console.log(res);
-       
+
       })
       .catch((err) => console.error(err));
   };
@@ -102,17 +103,17 @@ export default function Navbar({ fixed }) {
       buttons: true,
       dangerMode: true,
     })
-    .then((willLogout) => {
-      if (willLogout) {
-        swal("success to logout!", {
-          icon: "success",
-        });
-      localStorage.clear()
-      setisLogin(false)
-      history.push("/login")
-      }
-    });
-    
+      .then((willLogout) => {
+        if (willLogout) {
+          swal("success to logout!", {
+            icon: "success",
+          });
+          localStorage.clear()
+          setisLogin(false)
+          history.push("/login")
+        }
+      });
+
     // setTValue({});
   }
   const onClickLogin = () => {
@@ -149,15 +150,26 @@ export default function Navbar({ fixed }) {
       imageAlt: 'Profil Picture',
     })
   }
+
+  const DetailProduct = (prod_id, product_images)=>{
+		localStorage.setItem('productDetail', prod_id);
+		localStorage.setItem('productImages', product_images);
+		console.log(prod_id)
+		console.log(product_images)
+
+		history.push(`/product/${prod_id}`)
+	}
+
+
   return (
 
- 
 
 
 
 
 
- 
+
+
     <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white">
       <div class="container flex items-center justify-between">
         <div class="hidden w-full text-white md:flex md:items-center">
@@ -180,25 +192,90 @@ export default function Navbar({ fixed }) {
           {isLogin ? (
             <>
               {/* cart start */}
-              < button class=" focus:outline-none mx-2 sm:mx-0" onClick={() => history.push('/cart')} style={{ cursor: 'pointer' }}>
-                <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                  <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                </svg>
-              </button>
-
-              {hitungCart?(
-              <div className="flex font-semibold text-white text-center text-sm -mt-4 -ml-4 rounded-full h-4 w-4 bg-green-500 items-center justify-center">
-              {hitungCart?.reduce((val, element)=>{
-                            return val + element.clit_qty
-                          },0)
-                        }
-              </div>
-              ): (null)}
               
 
-              <svg xmlns="htts://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-              </svg>
+              {/* ============== CART ============= */}
+
+
+
+              <ul className="flex flex-wrap lg:flex-row list-none lg:ml-auto align-center justify-center items-center flex-between">
+                {/* <li className="nav-item"> */}
+                {/* <div className="dropdown inline-block relative"> */}
+                <li className="dropdown inline-block relative">
+                  <div class="static  mr-6 ">
+                    < button class=" focus:outline-none mx-2 sm:mx-0 flex justify-center" onClick={() => history.push('/cart')} style={{ cursor: 'pointer' }}>
+                      <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                      </svg>
+                    </button>
+
+                    <div class="flex absolute items-right ml-3 ">
+                      {hitungCart ? (
+                        <div className="flex font-semibold text-white text-center text-sm -mt-8 rounded-full h-4 w-4 bg-green-500 items-center justify-center">
+                          {hitungCart?.reduce((val, element) => {
+                            return val + element.clit_qty
+                          }, 0)
+                          }
+                        </div>
+                      ) : (null)}
+                    </div>
+                  </div>
+
+                  <ul className="dropdown-menu absolute hidden text-gray-700 ">
+                    <li className="origin-top-right absolute -right-5 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="grid grid-cols-3 bg-pastel">
+                          <tr className='col-span-3 justify-center'>
+                            baru ditambahkan
+                          </tr>
+                        </thead>
+
+                        <tbody class="bg-white divide-y divide-gray-200">
+                          {hitungCart?.map((x) => (
+
+                            <>
+                              <tr className='hover:bg-pastel'
+
+                            onClick={()=> DetailProduct(x.prod_id, x.prim_path)}
+                              
+                              >
+                                <td className='flex justify-center'>
+                                  <div className='justify-center'>
+                                    <img src={x.prim_path} class="text-sm text-center h-16 w-16 font-medium text-gray-900">
+                                    </img>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div>
+                                    <div class="text-sm text-center font-medium text-gray-900">
+                                      {x.prod_name}
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div>
+                                    <div class="text-sm text-pink-600 text-center font-medium text-gray-900">
+                                      {convertToRupiah(x.prod_price)}
+                                    </div>
+                                  </div>
+                                </td>
+
+
+
+                              </tr>
+                            </>
+                          ))}
+
+                        </tbody>
+                      </table>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+
+
+
               {/* cart end */}
               <ul className="flex flex-wrap lg:flex-row list-none lg:ml-auto align-center justify-center items-center flex-between">
                 <button onClick={fotoprofilklik}>
@@ -280,34 +357,34 @@ export default function Navbar({ fixed }) {
           </div>
         </div>
       </div>
-      {isLogin? (
-      <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
-        <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">Contact</a>
-          {isAdmin ? (
-            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/admin">Admin</a>
-          ):null}
-          
-        </div>
-      </nav>
+      {isLogin ? (
+        <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
+          <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
+            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
+            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
+            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
+            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
+            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
+            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
+            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">Contact</a>
+            {isAdmin ? (
+              <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/admin">Admin</a>
+            ) : null}
+
+          </div>
+        </nav>
       ) : (
 
-        <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
-        <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
-        </div>
-      </nav>
+          <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
+            <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
+              <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
+              <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
+              <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
+            </div>
+          </nav>
 
 
-      )
+        )
       }
 
 
