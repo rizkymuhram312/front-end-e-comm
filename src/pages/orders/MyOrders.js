@@ -10,11 +10,12 @@ import {ModalCancelOrder} from './ModalCancelOrder'
 
 export default function MyOrders() {
   let history = useHistory();
-  let [modalCancel,setModalCancel] = useState(false)
   let [modal, setModal] = useState(false);
   let [dataFormOrderArrival, setDataFormArrival] = useState({});
-  let [orderToCancel,setOrderToCancel] = useState('')
   const [MyOrders, setMyOrders] = useState();
+
+  let [modalCancel,setModalCancel] = useState(false)
+  let [orderToCancel,setOrderToCancel] = useState('')
   const [status, setStatus] = useState();
   const [accId, setaccId] = useState(localStorage.getItem("dataAccountId"));
   const [data, setData] = useState({
@@ -314,9 +315,6 @@ const getOrderToCancel = async (e) => {
                         </>
                       ))
                     :null
-                  //   <tr>
-                  //   <td colSpan={3}>No Records Found.</td>
-                  // </tr>
                   }
                 </tbody>
               </table>

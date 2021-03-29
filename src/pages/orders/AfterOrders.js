@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import {apiOrder } from "../../config/apiUrl";
+import {apiOrder, apiPayment } from "../../config/apiUrl";
 import { numberWithCommas } from "../../utils/utils";
 import {ModalPayment} from '../payment/ModalPayment'
 import {ModalCancelOrder} from './ModalCancelOrder'
@@ -35,6 +35,7 @@ export default function AfterOrders() {
       url: `${apiOrder}/orders/${accId}`,
       method: "get",
       headers: {
+        
         "Content-Type": "application/json",
       },
     })
@@ -98,7 +99,7 @@ export default function AfterOrders() {
 
   const onCancel = async () => {
     try {
-        await axios.post('http://localhost:3005/api/orders/cancel',{order_name:orderToCancel})
+        await axios.post(""+apiPayment+"/orders/cancel",{order_name:orderToCancel})
         setModalCancel(false)
     } catch (error) {
 
@@ -114,8 +115,6 @@ const getOrderToCancel = async (e) => {
     console.log(error)
   }
 }
-
-
 
   const onShow = async () => {
     history.push("/checkout-mycart");
