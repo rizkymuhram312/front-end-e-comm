@@ -5,6 +5,9 @@ import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { apiProductMaster } from "../../config/apiUrl";
 import ProductSidebar from "../sideBarMenu/product";
+import { apiOrder, apiUserMaster } from "../../config/apiUrl";
+
+
 export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
@@ -22,6 +25,12 @@ export default function Navbar({ fixed }) {
   // const token = localStorage.token
   const admin = localStorage.getItem('dataUserName')
   const id = localStorage.getItem('dataUserId')
+
+  const [accId, setaccId] = useState(localStorage.getItem("dataAccountId"));
+
+
+  const [hitungCart, setHitungCart] = useState()
+
 
 
  
@@ -44,6 +53,8 @@ export default function Navbar({ fixed }) {
     }
     else {
       setisLogin(true);
+      fetchHitungCart();
+
       setTValue({});
       refresh();
     }
@@ -67,13 +78,44 @@ export default function Navbar({ fixed }) {
   // },[isLogin,isAdmin,admin])
 
 
+  const fetchHitungCart = async () => {
+    let res = await axios({
+      url: `${apiUserMaster}/users/hitungcart/${accId}`,
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        res.data.map((x, y) => {});
+        setHitungCart(res.data);
+        console.log(res.data);
+        // console.log(res);
+       
+      })
+      .catch((err) => console.error(err));
+  };
+
 
   const klikLogout = () => {
-    localStorage.clear()
-    alert("Anda Berhasil Logout!");
-    setisLogin(false)
+    swal({
+      title: "Are You Sure Want To LogOut?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willLogout) => {
+      if (willLogout) {
+        swal("success to logout!", {
+          icon: "success",
+        });
+      localStorage.clear()
+      setisLogin(false)
+      history.push("/login")
+      }
+    });
+    
     // setTValue({});
-    history.push("/login")
   }
   const onClickLogin = () => {
     history.push("/login")
@@ -111,6 +153,7 @@ export default function Navbar({ fixed }) {
   }
   return (
 
+ 
 
 
 
@@ -139,11 +182,21 @@ export default function Navbar({ fixed }) {
           {isLogin ? (
             <>
               {/* cart start */}
-              < button class=" focus:outline-none mx-2 sm:mx-0">
+              < button class=" focus:outline-none mx-2 sm:mx-0"onClick={() => history.push('/cart')} style={{ cursor: 'pointer' }}>
                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
               </button>
+
+              {hitungCart?(
+              <div className="flex font-semibold text-white text-center text-sm -mt-4 -ml-4 rounded-full h-4 w-4 bg-green-500 items-center justify-center">
+              {hitungCart?.reduce((val, element)=>{
+                            return val + element.clit_qty
+                          },0)
+                        }
+              </div>
+              ): (null)}
+              
 
               <svg xmlns="htts://www.w3.org/2000/svg" class="h-6 w-6 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
@@ -229,7 +282,6 @@ export default function Navbar({ fixed }) {
           </div>
         </div>
       </div>
-      {/* navbar */}
       {isLogin? (
       <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
         <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
@@ -248,17 +300,19 @@ export default function Navbar({ fixed }) {
       </nav>
       ) : (
 
-      <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
+        <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
         <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
         </div>
       </nav>
 
-      )}
 
-      
+      )
+      }
+
+
     </div >
   );
 }
