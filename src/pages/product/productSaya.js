@@ -46,12 +46,12 @@ export default function ProductSaya() {
 
   useEffect(() => {
     axios({
-      url: `${apiProductTransaction}/account/${acco_id}`,
+      url: `${apiProductTransaction}/product/getaccount/${acco_id}`,
       method: "get",
       headers: {
         "Content-type": "application/json"
       }
-    }).then((res) => setProduct(res.data.products))
+    }).then((res) => setProduct(res.data))
       .catch((err) => console.error(err));
   }, [showEdit])
 
@@ -107,6 +107,7 @@ export default function ProductSaya() {
   }
 
   {
+    
     return (
       <div>
 
@@ -213,7 +214,8 @@ export default function ProductSaya() {
                 <thead>
                   <tr>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Produk Id</th>
-                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Nama Produk</th>
+                    <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell"colSpan="2">Nama Produk</th>
+                    {/* <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell"></th> */}
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Deskripsi Produk</th>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Harga</th>
                     <th class="p-3 font-bold uppercase bg-pink-600 text-white border border-gray-300 hidden lg:table-cell">Stok</th>
@@ -244,8 +246,13 @@ export default function ProductSaya() {
                             {x.prod_id}
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Gambar</span>
+                            <img class= "bg-center h-20 w-20 my-2" src={x.prim_path}/>
+                          </td>
+                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama Produk</span>
                             {x.prod_name}
+                            
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Deskripsi</span>
@@ -266,7 +273,7 @@ export default function ProductSaya() {
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
                             <button class="text-blue-400 hover:text-blue-600 underline" value={x.prod_id} onClick={onClickEditProduct}>Edit</button>
-                            <a href="" class="text-blue-400 hover:text-blue-600 underline pl-6" onClick={() => {
+                            <a href="" class="text-blue-400 hover:text-blue-600 underline pl-2" onClick={() => {
                               if (
                                 window.confirm(
                                   "apakah anda yakin ingin menghapus data ini?"
