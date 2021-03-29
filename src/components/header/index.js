@@ -1,20 +1,28 @@
-
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import swal from 'sweetalert'
+import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
-import swal from 'sweetalert';
+import { apiProductMaster } from "../../config/apiUrl";
 import { apiOrder, apiUserMaster } from "../../config/apiUrl";
 
 
 export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
+  const [product, setproduct] = useState([])
+  const[isAdmin, setisAdmin] =useState([])
+
+  // const [product, setproduct] = useState([]);
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const [alertLogin, setAlertLogin] = useState('');
+  const [isOpen, setIsOpen] = React.useState(false);
   const [masuk, setMasuk] = useState(false);
   const [sideBar, setSideBar] = useState(false);
   const token = localStorage.token
-  const [value, setValue] = useState();
-  const [isOpen, setIsOpen] = useState();
+  const [tvalue, setTValue] = useState();
+  // const token = localStorage.token
+  const admin = localStorage.getItem('dataUserName')
+  const id = localStorage.getItem('dataUserId')
 
   const [accId, setaccId] = useState(localStorage.getItem("dataAccountId"));
 
@@ -23,22 +31,49 @@ export default function Navbar({ fixed }) {
 
 
 
+ 
+
+  
   const refresh = () => {
     // re-renders the component
-    setValue({});
+    setTValue({});
   }
 
+  
+
+ 
 
   useEffect(() => {
-    fetchHitungCart();
     // console.log(isLogin)
     if (token == null || token == undefined) {
       setisLogin(false);
+      setTValue({})
     }
     else {
       setisLogin(true);
+      fetchHitungCart();
+
+      setTValue({});
+      refresh();
     }
-  }, [])
+
+    
+    if (admin == 'Admin') {
+      setisAdmin(true);
+      setTValue({});
+    }
+    else {
+      setisAdmin(false);
+      setTValue({});
+      refresh();
+    }
+
+    
+  }, token,tvalue)
+
+  // useEffect(() => {
+
+  // },[isLogin,isAdmin,admin])
 
 
   const fetchHitungCart = async () => {
@@ -88,7 +123,23 @@ export default function Navbar({ fixed }) {
   }
   const fotoprofil = localStorage.getItem('profilImage')
 
+  useEffect(() => {
+    // console.log(product)
+    // setLoading(true);
+    axios({
+      url: `${apiProductMaster}/product/prod/`,
+      method: "get",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then((res) => setproduct(res.data))
+      .catch((err) => console.error(err))
+  }, [])
 
+  const searchProd = async (prod_name) => {
+    history.push("/");
+    localStorage.setItem("prod_name", prod_name);
+  }
   const fotoprofilklik = () => {
     swal({
       title: 'Sweet!',
@@ -98,13 +149,15 @@ export default function Navbar({ fixed }) {
       imageAlt: 'Profil Picture',
     })
   }
+  return (
 
  
 
 
 
 
-  return (
+
+ 
     <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white">
       <div class="container flex items-center justify-between">
         <div class="hidden w-full text-white md:flex md:items-center">
@@ -113,7 +166,7 @@ export default function Navbar({ fixed }) {
           </svg>
           <span class="mx-1 text-sm">NY</span> */}
         </div>
-        <a href="/" class="w-full md:text-center text-2xl font-semibold">
+        <a href="/" class="w-full md:text-center text-2xl font-semibold absolute -ml-8">
           E-Commerce
             </a>
         <div class="flex items-center justify-end w-full lg:gap-2">
@@ -127,7 +180,7 @@ export default function Navbar({ fixed }) {
           {isLogin ? (
             <>
               {/* cart start */}
-              < button class=" focus:outline-none mx-2 sm:mx-0">
+              < button class=" focus:outline-none mx-2 sm:mx-0" onClick={() => history.push('/cart')} style={{ cursor: 'pointer' }}>
                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
@@ -232,12 +285,15 @@ export default function Navbar({ fixed }) {
         <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">Contact</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">About</a>
+          {isAdmin ? (
+            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/admin">Admin</a>
+          ):null}
+          
         </div>
       </nav>
       ) : (
@@ -246,7 +302,7 @@ export default function Navbar({ fixed }) {
         <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
         </div>
       </nav>
 

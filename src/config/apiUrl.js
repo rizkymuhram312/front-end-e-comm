@@ -1,5 +1,5 @@
 export const apiUserAccount = 'https://backend-user-account.herokuapp.com/api'
-export const apiUserMaster = ' http://localhost:3001/api'
+export const apiUserMaster = 'https://backend-usermaster.herokuapp.com/api'
 export const apiProductMaster = 'https://product-master-backend.herokuapp.com/api'
 export const apiProductTransaction = 'https://product-transaction-module.herokuapp.com/api'
 export const apiCart = 'https://cart-model.herokuapp.com/api'
