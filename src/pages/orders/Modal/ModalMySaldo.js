@@ -1,34 +1,40 @@
-import axios from 'axios'
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { apiOrder } from "../../../config/apiUrl";
+import { GetWallet } from "../../payment/api/GetWallet";
+// import { numberWithCommas } from "../../../utils/utils";
 
-function ModalMyOrders({ setModal, dataFormOrderArrival }) {
-  let [orderName, setOrderName] = useState(dataFormOrderArrival.order_name);
-  let [orderStatName, setOrderStatName] = useState("CLOSED");
+function ModalMySaldo({ setModal, dataFormOrderArrival }) {
+  const userId = localStorage.getItem("dataAccountId");
+  const [wallet, setWallet] = useState([]);
 
-  console.log(dataFormOrderArrival.order_name);
   const onCancelEdit = () => {
     setModal(false);
   };
 
+  useEffect(() => {
+    fetchWallet();
+  });
+
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const data = {
-      order_name: orderName,
-      order_stat_name: orderStatName,
-    };
     await axios
-      .put(`${apiOrder}/orders`, data)
       .then((result) => {
         if (result) {
           console.log(result.data);
           setModal(false);
         }
-
         console.log(result.data);
         return 0;
       })
       .catch((err) => err.message);
+  };
+
+  const fetchWallet = async () => {
+    try {
+      let walletData = await GetWallet(userId);
+      setWallet(walletData);
+    } catch (error) {}
   };
 
   return (
@@ -39,9 +45,33 @@ function ModalMyOrders({ setModal, dataFormOrderArrival }) {
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-              <h6 className="text-gray-500 text-sm mt-3 mb-6 font-bold uppercase">
-                Barang Sudah Diterima ?
-              </h6>
+              <div className="flex items-center justify-end p-6  rounded-b">
+                {/* <span class="fas fa-wallet text-pink-500 text-xl" />
+                <span class="ml-2 font-semibold text-xl text-pink-500">
+                  My Wallet
+                </span>
+                <span class="float-left text-base font-semibold text-pink-400">
+                  ID Account
+                </span>
+
+                <div class="float-right text-base font-semibold text-pink-700">
+                  {wallet[0]?.wale_acco_id}
+                </div> */}
+
+                <div class="float-left text-base font-semibold text-pink-400">
+                  ID Wallet
+                </div> 
+                <div class="float-right text-base font-semibold text-pink-700">
+                  {wallet[0]?.wale_id}
+                </div>
+
+                <div class="float-left text-base font-semibold text-pink-400">
+                  Balance
+                </div>
+                <div class="float-right text-base font-semibold text-pink-700">
+                  {wallet[0]?.wale_saldo}
+                </div>
+              </div>
               <button
                 onClick={() => this.props.setShowModal(false)}
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -51,23 +81,23 @@ function ModalMyOrders({ setModal, dataFormOrderArrival }) {
                 </span>
               </button>
             </div>
-            {/*body*/}
+
             <div className="flex-auto px-4 lg:px-10 py-6 pt-0">
               <form>
                 <div className="flex items-center justify-end p-6  rounded-b">
                   <button
                     onClick={onCancelEdit}
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   >
-                    Belum
+                    Close
                   </button>
                   <button
                     onClick={handleUpdate}
                     className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="submit"
                   >
-                    Iya, Sudah Diterima
+                    TopUp
                   </button>
                 </div>
               </form>
@@ -80,4 +110,4 @@ function ModalMyOrders({ setModal, dataFormOrderArrival }) {
   );
 }
 
-export default ModalMyOrders;
+export default ModalMySaldo;

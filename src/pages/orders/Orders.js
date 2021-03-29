@@ -298,7 +298,7 @@ export default function CartOrders() {
   useEffect(() => {}, [selectedEkspedisi]);
 
   const onToDetail = ()=>{
-    history.push('/checkout-orders')
+    history.push('/checkout-myorders')
   } 
 
   return (
