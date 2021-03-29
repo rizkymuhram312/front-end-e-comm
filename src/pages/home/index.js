@@ -45,6 +45,8 @@ export default function Navbar({ fixed }) {
 		history.push(`/product/${prod_id}`)		
 	}
 
+
+
 	// token untuk mengambil data login
 	useEffect(() => {
 		// console.log(isLogin)
@@ -72,23 +74,25 @@ export default function Navbar({ fixed }) {
 			headers: {
 				"Content-type": "application/json"
 			}
+			
 		}).then((res) => setProduct(res.data))
 			.catch((err) => console.error(err))
 	}, [])
 
 
-	useEffect(() => {
-		console.log(Category)
-		setLoading(true);
-		axios({
-			url: `${apiProductMaster}/category/`,
-			method: "get",
-			headers: {
-				"Content-type": "application/json"
-			}
-		}).then((res) => setCategory(res.data))
-			.catch((err) => console.error(err))
-	}, [])
+	// useEffect(() => {
+	// 	console.log(Category)
+	// 	setLoading(true);
+	// 	axios({
+	// 		url: `${apiProductMaster}/category/`,
+	// 		method: "get",
+	// 		headers: {
+	// 			"Content-type": "application/json"
+	// 		}
+	// 	}).then((res) => setCategory(res.data))
+	// 		.catch((err) => console.error(err))
+	// }, [])
+
 
 	// slider config options
 	const HeroSliderConfigs = {

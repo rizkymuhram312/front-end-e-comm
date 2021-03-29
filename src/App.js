@@ -75,6 +75,9 @@ import DashboardOrder from './pages/users/DashboardOrder';
 import Penjualanku from './pages/users/Pembelianku';
 import Pembelianku from './pages/users/Pembelianku';
 import IndexAdmin from './pages/admin/indexAdmin'
+import TotalOrderBK from './pages/admin/totalOrderBK';
+import TotalProdBK from './pages/admin/totalProdBK';
+import TotalProdSK from './pages/admin/totalProdSK';
 
 
 function App() {
@@ -145,6 +148,9 @@ function App() {
           <Route path="/admin" component={IndexAdmin} exact/>
           <Route path="/admin/order-bk" component={OrderBK} exact/>
           <Route path="/admin/order-sk" component={OrderSK} exact/>
+          <Route path="/admin/total-order-bk" component={TotalOrderBK} exact />
+          <Route path="/admin/total-prod-bk" component={TotalProdBK} exact />
+          <Route path="/admin/total-prod-sk" component={TotalProdSK} exact />
           <Route path="/admin/allproduct" component={AllProduct} exact/>
 
           <Route component={PageNotFound}/>
