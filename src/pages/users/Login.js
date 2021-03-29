@@ -2,8 +2,13 @@ import React, { useState, Fragment } from 'react';
 import { Redirect, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
 import { fetchAdv } from '../../features/adv/advSlices';
+=======
+import { toast } from 'react-toastify'
+import swal from 'sweetalert';
+>>>>>>> 62e79c6078e8662a02d2f14824975c0e95f4b5e1
 
 
 
@@ -13,7 +18,26 @@ const Login = () => {
     const [redirect, setRedirect] = useState(false);
     const [error, setError] = useState('');
     const history = useHistory()
+<<<<<<< HEAD
 	const dispatch = useDispatch();
+=======
+
+    toast.configure()
+    localStorage.getItem('dataUserName')
+   
+    const notify = () => {
+        swal(`Halo ${localStorage.getItem('dataUserName')}`, "Selamat Berbelanja!", "success");
+    }
+
+    const notifyErr = () => {
+
+        toast.error('Gagal Login', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000
+        })
+    }
+
+>>>>>>> 62e79c6078e8662a02d2f14824975c0e95f4b5e1
     const onChangeEmail = (e) => {
         const value = e.target.value
         setEmail(value)
@@ -28,14 +52,8 @@ const Login = () => {
         const data = {
             user_email: user_email,
             user_password: user_password
-
         }
         // console.log(data)
-
-
-
-
-
         axios.post(`${apiUserAccount}/users/signin`, data)
             .then(result => {
                 console.log(result)
@@ -43,25 +61,18 @@ const Login = () => {
                     // console.log(result)
                     let acco_id = result.data.users.accounts.acco_id
                     localStorage.setItem('dataAccountId', acco_id)
-
                     let acco_nama = result.data.users.accounts.acco_nama
                     localStorage.setItem('dataAccountName', acco_nama)
-
                     let acco_shopname = result.data.users.accounts.acco_shopname
                     localStorage.setItem('dataAccountShopName', acco_shopname)
-
                     let acco_birthdate = result.data.users.accounts.acco_birthdate
                     localStorage.setItem('dataAccountBirthdate', acco_birthdate)
-
                     let acco_phone = result.data.users.accounts.acco_phone
                     localStorage.setItem('dataAccountPhone', acco_phone)
-
                     let acco_gender = result.data.users.accounts.acco_gender
                     localStorage.setItem('dataAccountGender', acco_gender)
-
                     let acco_avatar = result.data.users.accounts.acco_avatar
                     localStorage.setItem('profilImage', acco_avatar)
-
                     localStorage.setItem('dataUserName', result.data.users.user_name)
                     localStorage.setItem('token', result.data.token)
                     // localStorage.setItem('dataUserPass', data.user_password)
@@ -81,6 +92,7 @@ const Login = () => {
                     // console.log(a)
                     // setRedirect(true)
                     history.push('/home')
+                    notify()
                 }
                 else {
                     console.log(result)
@@ -140,6 +152,15 @@ const Login = () => {
             return <Redirect to="/home" />
         }
     }
+
+    const handleKeypress = (event) => {
+        if(event.key === 'Enter'){
+          console.log('enter press here! ')
+          submitLogin()
+        }
+      }
+
+
     return (
         <Fragment>
             {
@@ -162,11 +183,11 @@ const Login = () => {
                             <div className="h-2 bg-pink-600 rounded-t-md"></div>
                             <div className="py-6 px-8">
                                 <label className="block font-semibold">Email</label>
-                                <input type="text" placeholder="Email" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_email} onChange={onChangeEmail} />
+                                <input type="text" placeholder="Email" id="myInput" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_email} onChange={onChangeEmail} onKeyPress={handleKeypress}/>
                                 <label className="block mt-3 font-semibold">Password</label>
-                                <input type="password" placeholder="Password" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_password} onChange={onChangePassword} />
+                                <input type="password" placeholder="Password" id="myInput" className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-pink-600 rounded-md" value={user_password} onChange={onChangePassword} onKeyPress={handleKeypress}/>
                                 <div className="flex justify-between items-baseline">
-                                    <button className="mt-4 bg-pink-600 hover:bg-pink-500 text-white py-2 px-6 rounded-lg" onClick={submitLogin}>Login</button>
+                                    <button className="mt-4 bg-pink-600 hover:bg-pink-500 text-white py-2 px-6 rounded-lg" id="myBtn" onClick={submitLogin}>Login</button>
                                     <a href="#" className="text-sm hover:underline">Forgot password?</a>
                                 </div>
                             </div>
@@ -179,11 +200,8 @@ const Login = () => {
             </div>
                     </div>
                 </div>
-
-
             </div>
         </Fragment>
-
     )
 }
 export default Login;

@@ -180,8 +180,7 @@ export default function RegisterAccount() {
 
   const editAccount = () => {
     
-    
-    
+
     const data = {
       
       acco_username: userName,

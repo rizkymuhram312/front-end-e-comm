@@ -1,4 +1,5 @@
 // import { useState } from 'react';
+import swal from 'sweetalert';
 
 
 export const TableKecamatan = props => {
@@ -9,6 +10,7 @@ export const TableKecamatan = props => {
                     <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                             <h3 className="uppercase font-semibold text-base text-gray-800">List kecamatan</h3>
+                            <button onClick={() => props.setRefreshTable()}>refresh</button>
                         </div>
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                             <button onClick= {() => props.setShowModal(true) }
@@ -54,10 +56,29 @@ export const TableKecamatan = props => {
                                     
 
                                                 <button onClick = { () => {
-                                                    if (window.confirm("apakah anda yakin ingin menghapus data ini?")) {
+
+                                                    swal({
+                                                        title: `Are you sure want to DELETE ${kecamatan.kec_name}?`,
+                                                        text: "Once deleted, you will not be able to recover this record!",
+                                                        icon: "warning",
+                                                        buttons: true,
+                                                        dangerMode: true,
+                                                      })
+                                                      .then((willDelete) => {
+                                                        if (willDelete) {
+                                                          swal(`Poof! ${kecamatan.kec_name} has been deleted!`, {
+                                                            icon: "success",
+                                                          });
                                                         props.setDelete(kecamatan.kec_id);
-                                                      }
-                                                    
+
+                                                        } else {
+                                                          swal({
+                                                            title: `${kecamatan.kec_name} is safe!`,
+                                                          });
+                                                        }
+                                                      });
+
+                                                
                                                 }}
                                                     className="text-white bg-red-500 border border-solid border-gray-300 hover:bg-red-800 hover:text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                                     Delete

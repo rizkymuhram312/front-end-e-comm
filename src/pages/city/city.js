@@ -35,8 +35,7 @@ export default class City extends Component {
         this.refresh()
         this.showListCity();
         this.showListProvince();
-
-        
+        console.log('table city-province direfresh')
     }
 
     
@@ -102,7 +101,7 @@ export default class City extends Component {
                         setShowModal = {this.onShowModal}
                         setDelete = {this.onDeleteRow}
                         setEdit = {this.onEditRow}
-                            
+                        setRefreshTable = {this.onRefreshTable}
                     ></TableCity>
                     {
                         (isModalShow ? (

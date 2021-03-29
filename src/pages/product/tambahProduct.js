@@ -51,7 +51,7 @@ export default function TambahProduct() {
 
 
     const onCLickBackProduct = () => {
-        history.push('/productsaya')
+        history.push('/product')
     }
 
     const onChangeProductName = (e) => {
@@ -394,7 +394,7 @@ export default function TambahProduct() {
                 </option>
                             {Condition.map((y) => {
                                 return (
-                                    <option value={y.cond_name}>{y.cond_desc}
+                                    <option value={y.cond_name}>{y.cond_name}
 
                                     </option>)
                             })}

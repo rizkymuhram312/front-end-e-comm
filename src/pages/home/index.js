@@ -27,6 +27,9 @@ export default function Navbar({ fixed }) {
 		// re-renders the component
 		setValue({});
 	}
+
+	// ============ ALERT LOGIN BERHASIL ==============
+	
 	// redirect to deskripsi
 	const DetailProduct = (prod_id, product_images, prod_acco_id) => {
 		localStorage.setItem('productDetail', prod_id);
