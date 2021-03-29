@@ -4,14 +4,19 @@ import React, { useEffect, useState } from "react";
 import { apiUserMaster, apiUserAccount } from "../../config/apiUrl";
 import { useHistory } from "react-router";
 
-
-const Address = () => {
-  const [alamat, setAddress] = useState([]);
-  const [showModal, setShowModal] = React.useState(false);
+export default function EditAddress() {
+    const [alamat, setAddress] = useState([]);
+    const [alamat2, setAddress2] = useState([]);
+    
+  const [showModal, setShowModal] = React.useState(true);
   const [provinsi, setProvinsi] = useState([]);
+  const [provinsiEdit, setProvinsiEdit] = useState("");
   const [kota, setKota] = useState([]);
+  const [kotaEdit, setKotaEdit] = useState("");
   const [kecamatan, setKecamatan] = useState([]);
+  const [kecamatanEdit, setKecamatanEdit] = useState("");
   const [kodepos, setKodepos] = useState([]);
+  const [kodeposEdit, setKodeposEdit] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [jalan, setJalan] = useState("");
   const [optional, setOptional] = useState("");
@@ -24,20 +29,20 @@ const Address = () => {
   const [kecId, setKecId] = useState(0);
   const [error, setError] = useState("");
   const apiAccoId = localStorage.getItem('dataAccountId');
+  const apiAddrId = localStorage.getItem('Addressid');
   const lengthAlamat = alamat.length;
   const [input, setInput] = useState(false);
   const [hapus, setHapus] = useState(false);
-  const [Isedit, setIsEdit] = useState(false)
-
-  let [utama, setUtama] = useState(false)
-
-
   let history = useHistory();
 
   const GetAlamat = async () => {
+    const response = await axios.get(`${apiUserAccount}/address/cari/${apiAddrId}`);
+    return response.data;
+  };
+
+  const GetAlamat2 = async () => {
     const response = await axios.get(`${apiUserAccount}/address/search/${apiAccoId}`);
-    response.data.sort((a, b) => b.addr_is_primary - a.addr_is_primary)
-    return response.data
+    return response.data;
   };
 
   const GetProvinsi = async () => {
@@ -54,55 +59,83 @@ const Address = () => {
   }, []);
 
   let GetKota = async (Prov_Id) => {
-    const response = await axios.get(`${apiUserAccount}/city/search/${Prov_Id}`);
+    const response = await axios.get(`${apiUserAccount}/city/ambil/${Prov_Id}`);
     return response.data;
   };
 
   useEffect(() => {
     const getListKota = async () => {
       const listKota = await GetKota(provId);
-      setKota(listKota);
+     setKota(listKota);
     };
     getListKota();
   }, [provId]);
 
   let OnChangeProvince = (e) => {
+      console.log(e)
     let value = e.target.options[e.target.selectedIndex].value;
     // localStorage.setItem('AddProvId',value)
+    setProvinsiEdit(value)
     setProvId(value)
-    console.log(value);
-  };
+     console.log(value);
+   };
 
-  useEffect(() => {
-
-    const getListAlamat = async () => {
-      let listAlamat = await GetAlamat();
-      console.log(listAlamat);
-      if (listAlamat) setAddress(listAlamat);
-      // setProvinsi(listAlamat)
-      setInput(false);
-      setHapus(false);
-      if (listAlamat.length > 0) {
+   useEffect(() => {
+     
+    const getListAlamat2 = async () => {
+       let listAlamat = await GetAlamat2();
+       console.log(listAlamat);
+       if (listAlamat) setAddress2(listAlamat);
+       // setProvinsi(listAlamat)
+       setInput(false);
+       setHapus(false);
+       if (listAlamat.length > 0) {
         setPrimary(false)
       } else {
         setPrimary(true)
       }
-    };
-    getListAlamat();
-  }, [input, hapus]);
+     };
+     getListAlamat2();
+  }, [input,hapus]);
 
+   useEffect(() => {
+     
+     const getListAlamat = async () => {
+        let listAlamat = await GetAlamat();
+        console.log(listAlamat);
+        if (listAlamat) setAddress(listAlamat);
+
+        setInput(false);
+        setHapus(false);
+        setPrimary(listAlamat[0].addr_is_primary)
+        setProvinsiEdit(listAlamat[0].prov_name)
+        setKotaEdit(listAlamat[0].city_name)
+        setKecamatanEdit(listAlamat[0].kec_name)
+        setKodeposEdit(listAlamat[0].kodepos)
+        setJalan(listAlamat[0].addr_address)
+        setOptional(listAlamat[0].addr_optional)
+      };
+      getListAlamat();
+    //   console.log(provinsiEdit)
+     if (alamat.length > 0) {
+      setPrimary(false)
+    } else {
+      setPrimary(true)
+    }
+   }, [input,hapus]);
+ 
   //  console.log(alamat);
   //  console.log(provinsi);
 
-  let GetKecamatan = async (City_Id) => {
-    const response = await axios.get(`${apiUserAccount}/kecamatan/search/${City_Id}`);
+   let GetKecamatan = async (City_Id) => {
+    const response = await axios.get(`${apiUserAccount}/kecamatan/ambil/${City_Id}`);
     return response.data;
   };
 
   useEffect(() => {
     const getListKecamatan = async () => {
       const listKecamatan = await GetKecamatan(cityId);
-      setKecamatan(listKecamatan);
+     setKecamatan(listKecamatan);
     };
     getListKecamatan();
   }, [cityId]);
@@ -110,11 +143,12 @@ const Address = () => {
   let onChangeCity = (e) => {
     let value = e.target.options[e.target.selectedIndex].value;
     // localStorage.setItem('AddProvId',value)
+    setKotaEdit(value)
     setCityId(value)
-    console.log(value);
-  };
+     console.log(value);
+   };
 
-  let GetKodepos = async (Kec_Id) => {
+   let GetKodepos = async (Kec_Id) => {
     const response = await axios.get(`${apiUserAccount}/kodepos/search/${Kec_Id}`);
     return response.data;
   };
@@ -122,7 +156,7 @@ const Address = () => {
   useEffect(() => {
     const getListKodepos = async () => {
       const listKodepos = await GetKodepos(kecId);
-      setKodepos(listKodepos);
+     setKodepos(listKodepos);
     };
     getListKodepos();
   }, [kecId]);
@@ -131,17 +165,17 @@ const Address = () => {
     let value = e.target.options[e.target.selectedIndex].value;
     // localStorage.setItem('AddProvId',value)
     setKecId(value)
-    console.log(value);
-  };
+     console.log(value);
+   };
 
-  let onChangeKodepos = (e) => {
+   let onChangeKodepos = (e) => {
     let value = e.target.options[e.target.selectedIndex].value;
     // localStorage.setItem('AddProvId',value)
     setZipCode(value)
-    console.log(value);
-  };
+     console.log(value);
+   };
 
-  const onChangeJalan = (e) => {
+   const onChangeJalan = (e) => {
     const value = e.target.value;
     setJalan(value);
     setError("");
@@ -153,34 +187,35 @@ const Address = () => {
     setError("");
   };
 
+   
 
-
-  const onClose = () => {
+   const onClose = () => {
     setShowModal(false);
-
+    history.push("/dashboardUser")
+    
     setKota([]);
     setKecamatan([]);
     setKodepos([]);
-  }
+   }
 
 
 
-  const inputAddress = async () => {
+   const inputAddress = async () => {
     setShowModal(false);
     setInput(true)
-
+    
     const data = {
-      addr_address: jalan,
-      addr_optional: optional,
-      addr_is_primary: primary,
-      addr_langitude: null,
-      addr_latitude: null,
-      addr_kodepos: zipCode,
-      addr_accu_id: apiAccoId,
+    addr_address: jalan,
+    addr_optional: optional,
+    addr_is_primary: primary,
+    addr_langitude: null,
+    addr_latitude: null,
+    addr_kodepos: zipCode,
+    addr_accu_id: apiAccoId,
     }
 
     return await axios
-      .post(`${apiUserAccount}/address`, data)
+    .put(`${apiUserAccount}/address/${apiAddrId}`, data)
       .then(async (result) => {
         if (result) {
           console.log(result.data);
@@ -188,6 +223,7 @@ const Address = () => {
             setJalan("");
             setOptional("");
             setShowModal(false)
+            history.push("/dashboardUser")
             return await GetAlamat();
           }
         }
@@ -206,70 +242,30 @@ const Address = () => {
     //         if (result.data) {
     //           setShowModal(false)
     //           await GetAlamat();
-
+             
     //         }
     //       }
-
+          
     // )
+      
 
+   }
 
-  }
-
-  const deleteAddress = async (id) => {
-    setHapus(true);
+   const deleteAddress = async (id) => {
+     setHapus(true);
     console.log(id);
     const response = await axios.delete(`${apiUserAccount}/address/${id}`);
     return response.data;
   };
 
   const editAddress = async (id) => {
-    setIsEdit(true)
     history.push("/editAddress");
     localStorage.setItem("Addressid", id);
   }
 
-  // useEffect(() => {
-  //   const getListKota = async () => {
-  //     const listKota = await GetKota();
-  //     if (listKota) setKota(listKota);
-  //   };
-  //   getListKota();
-  // }, []);
-
-  // useEffect(() => {
-  //   OnChangeProvince(value);
-  // }, [value]);
-
-
-  const editPrimary = async (id) => {
-   
-
-    const data = {
-      addr_is_primary: true,
-      addr_accu_id: apiAccoId,
-    }
-
-    return await axios
-
-    // ================ ubah primary yang dipilih ============
-      .put(`${apiUserAccount}/address/primary/${id}`, data)
-      .then(async (result) => {
-        if (result) {
-          console.log(result.data);
-          if (result.data) {
-            return await GetAlamat();
-          }
-        }
-      })
-      .catch((e) => {
-        setError(e.response.data.message);
-      });
-
-  }
-
   return (
     <>
-      {alamat[0] ? (
+      {alamat2[0] ? (
         <>
           <div class="w-full mb-12 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
@@ -291,26 +287,20 @@ const Address = () => {
                   </div>
                 </div>
               </div>
-              {alamat.map((x, index) => {
-                return (
-                  <>
-                    <div className="grid grid-cols-6 relative p-6 flex-auto bg-white border-white">
-                      <div className="col-span-5 ">
-                        <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center border-pink-500">
+               { alamat2.map ((x,index) =>{
+                 return (
+                   <>
+              <div className="grid grid-cols-6 relative p-6 flex-auto mb-2">
+                  <div className="col-span-5">
+                      <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center">
                           <h1 className="justify-self-end">Nama Kamu/Toko : </h1>
                           <h1 className="capitalize font-bold">{x.acco_nama}</h1>
-                          
-                          <div className="text-white text-center px-0 font-bold capitalize" value={x.addr_is_primary}>
-                            {x.addr_is_primary === false ? "" : (<button className="px-2 mr-20 bg-white border-2 border-pink-600 text-pink-600" disabled>Utama</button>)}
-
-                          </div>
-
-                        </div>
-                        <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center">
+                      </div>
+                      <div className=" grid grid-cols-4 gap-4 my-2 content-center items-center justify-center place-content-center">
                           <h1 className="justify-self-end">Telepon : </h1>
                           <h1>{x.acco_phone}</h1>
-                        </div>
-                        <div className=" grid grid-cols-4 gap-4 my-2 justify-center place-content-center">
+                      </div>
+                      <div className=" grid grid-cols-4 gap-4 my-2 justify-center place-content-center">
                           <h1 className="justify-self-end">Alamat : </h1>
                           <h1 className="capitalize">
                             {x.addr_address}<br></br>
@@ -320,59 +310,38 @@ const Address = () => {
                             {x.prov_name}
                             <br />
                             {x.kodepos}
-                            <br />
-
-
                           </h1>
-                        </div>
                       </div>
+                  </div>
+                <div className="col-span-1 my-4">
+                  <button className="mx-4 underline" onClick={() => editAddress(x.addr_id)}>Edit</button>
+                  <button className="mx-4 underline" onClick={() => {
+                              if (
+                                window.confirm(
+                                  "apakah anda yakin ingin menghapus alamat ini?"
+                                )
+                              ) {
+                                deleteAddress(x.addr_id);
+                              }
+                            }}>Hapus</button>
 
-                      <div className="col-span-1 my-4">
-                        <button className="mx-4 underline font-semibold text-blue-500" onClick={() => editAddress(x.addr_id)}>Edit</button>
-                        <button className="mx-4 underline font-semibold text-red-500" onClick={() => {
-                          if (
-                            window.confirm(
-                              "apakah anda yakin ingin menghapus alamat ini?"
-                            )
-                          ) {
-                            deleteAddress(x.addr_id);
-                          }
-                        }}>
-                          Hapus
+<button className="text-black bg-green-500 border border-solid border-gray-300 mt-1 hover:bg-green-800 hover:text-white active:bg-gray-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                      Atur Sebagai Utama
                     </button>
-
-
-                        {/* {x.addr_is_primary === false ? "Atur Sebagai Utama" : null} */}
-
-                        <button className={x.addr_is_primary === false ? "text-white bg-pink-600 mt-1 hover:bg-pink-500 hover:text-white active:bg-gray-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150": null} type="hidden" onClick={() => {
-                          if (
-                            window.confirm(
-                              "ubah menjadi utama?"
-                            )
-                          ) {
-                            editPrimary(x.addr_id);
-                          }
-                        }}> 
-
-                        {x.addr_is_primary === false ? "Atur Sebagai Utama" : null}
-
-
-                        
-                    </button>
-                        
-                      </div>
-                    </div>
-                    <hr className="bg-white border-pink-600 border-1"></hr>
-                  </>
-                )
-              })}
-
+                </div>
+                
+              </div>
+              <hr className="bg-gray-500 border-2"></hr>
+                   </>
+                 )
+               })}
             </div>
           </div>
+                   
         </>
       ) : (
-          <>
-            <div class="w-full mb-12 xl:mb-0 px-4">
+        <>
+          <div class="w-full mb-12 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded ">
               <div class="rounded-t mb-0 px-4 py-3 border-0 bg-pink-600">
                 <div class="flex flex-wrap items-center">
@@ -399,17 +368,17 @@ const Address = () => {
                 </div>
               </div>
             </div>
-          </>
-        )}
+        </>
+      )}
 
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
-              <div className="border-0 rounded-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-white rounded-t">
+                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
                   <h3 className="text-xl font-semibold">Tambah Alamat</h3>
                 </div>
                 {/*body*/}
@@ -417,18 +386,21 @@ const Address = () => {
                   <div className=" grid grid-cols-6 gap-4 my-4 content-center items-center justify-center place-content-center">
                     <h1 className="justify-self-end">Provinsi : </h1>
                     <select
-                      name="province"
-                      id="province"
+                      
                       className="col-span-4 flex-1 capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
-                      // value={provinsiEdit}
+                      name="provinsi"
+                      value={provinsiEdit}
                       onChange={OnChangeProvince} 
                     >
+                        <option value="oke">Pilih Provinsi</option>
+                        {
+                     
+                      provinsi.map((e) => {
+                        return ( <option value={e.prov_name
+                        }>{e.prov_name}</option>)
+                      })
                       
-                      <option>Silahkan Pilih Provinsi</option>
-
-                      {provinsi.map((e,index) => {
-                        return <option value={e.prov_id} key={index} >{e.prov_name}</option>;
-                      })}
+                }
                     </select>
                   </div>
                   <div className=" grid grid-cols-6 gap-4 my-4 content-center items-center justify-center place-content-center">
@@ -437,20 +409,20 @@ const Address = () => {
                       name="kota"
                       id="kota"
                       className="col-span-4 flex-1 capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
-
-                      onChange={onChangeCity}
+                      value={kotaEdit}
+                      onChange={onChangeCity} 
                     >
                       <option>Silahkan Pilih Kota</option>
-                      {kota ? (
-                        kota.map((e, index) => {
-                          return <option value={e.city_id} key={index} >{e.city_name}</option>;
-                        })
-                      ) :
-                        (
-                          <option>Select</option>
-                        )
-                      }
-
+                      { kota ? (
+                        kota.map((e) => {
+                        return <option value={e.city_name}>{e.city_name}</option>;
+                      })
+                      ):
+                      (
+                        <option>Select</option>
+                      )
+                    }
+                      
                     </select>
                   </div>
 
@@ -460,20 +432,20 @@ const Address = () => {
                       name="kecamatan"
                       id="kecamatan"
                       className="col-span-4 flex-1 capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
-
-                      onChange={onChangeKecamatan}
+                      
+                      onChange={onChangeKecamatan} 
                     >
                       <option>Silahkan Pilih Kecamatan</option>
-                      {kecamatan ? (
-                        kecamatan.map((e, index) => {
-                          return <option value={e.kec_id} key={index} >{e.kec_name}</option>;
-                        })
-                      ) :
-                        (
-                          <option>Select</option>
-                        )
-                      }
-
+                      { kecamatan ? (
+                        kecamatan.map((e,index) => {
+                        return <option value={e.kec_id} key={index} >{e.kec_name}</option>;
+                      })
+                      ):
+                      (
+                        <option>Select</option>
+                      )
+                    }
+                      
                     </select>
                   </div>
 
@@ -483,54 +455,54 @@ const Address = () => {
                       name="kodepos"
                       id="kodepos"
                       className="col-span-4 flex-1 capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
-
-                      onChange={onChangeKodepos}
+                  
+                      onChange={onChangeKodepos} 
                     >
                       <option>Silahkan Pilih Kodepos</option>
-                      {kodepos ? (
-                        kodepos.map((e, index) => {
-                          return <option value={e.kodepos} key={index} >{e.kodepos}</option>;
-                        })
-                      ) :
-                        (
-                          <option>Select</option>
-                        )
-                      }
-
+                      { kodepos ? (
+                        kodepos.map((e,index) => {
+                        return <option value={e.kodepos} key={index} >{e.kodepos}</option>;
+                      })
+                      ):
+                      (
+                        <option>Select</option>
+                      )
+                    }
+                      
                     </select>
                   </div>
 
                   <div class=" grid grid-cols-6 gap-4 my-4 content-center items-center justify-center place-content-center">
-                    <h1 className="justify-self-end">Alamat : </h1>
+              <h1 className="justify-self-end">Alamat : </h1>
 
-                    <textarea
-                      type="text"
-                      id="jalan"
-                      class="col-span-4 flex-1 resize-y capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
-                      placeholder="Mohon masukkan Alamat"
-                      value={jalan}
-                      onChange={onChangeJalan}
-                    />
-                  </div>
+              <textarea
+                type="text"
+                id="jalan"
+                class="col-span-4 flex-1 resize-y capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
+                placeholder="Mohon masukkan Alamat"
+                value={jalan}
+                onChange={onChangeJalan}
+              />
+            </div>
 
-                  <div class=" grid grid-cols-6 gap-4 my-4 content-center items-center justify-center place-content-center">
-                    <h1 className="justify-self-end">Rincian : </h1>
+            <div class=" grid grid-cols-6 gap-4 my-4 content-center items-center justify-center place-content-center">
+              <h1 className="justify-self-end">Rincian : </h1>
 
-                    <textarea
-                      type="text"
-                      id="optional"
-                      class="col-span-4 flex-1 resize-y capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
-                      placeholder="Rincian Tambahan Alamat (Optional)"
-                      value={optional}
-                      onChange={onChangeOptional}
-                    />
-                  </div>
+              <textarea
+                type="text"
+                id="optional"
+                class="col-span-4 flex-1 resize-y capitalize border border-gray-300 py-2 px-2 bg-white text-gray-700 rounded-lg placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary-600 mb-2"
+                placeholder="Rincian Tambahan Alamat (Optional)"
+                value={optional}
+                onChange={onChangeOptional}
+              />
+            </div>
 
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                   <button
-                    className="text-gray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
                     type="button"
                     style={{ transition: "all .15s ease" }}
                     onClick={onClose}
@@ -554,6 +526,4 @@ const Address = () => {
       ) : null}
     </>
   );
-};
-
-export default Address;
+}
