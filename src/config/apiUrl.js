@@ -20,6 +20,7 @@ export const apiProductTransaction = 'https://product-transaction-module.herokua
 export const apiCart = 'https://cart-model.herokuapp.com/api'
 export const apiOrder = 'https://backend-orders-module.herokuapp.com/api'
 // export const apiOrder = 'http://localhost:3005/api'
+// export const apiPayment = "http://localhost:3005/api"
 export const apiPayment = 'https://payment-module-mpcomm.herokuapp.com/api'
 export const apiShipping = 'https://shipping-model.herokuapp.com/api'
 export const apiExpedition = 'https://expedition-model.herokuapp.com/api'
