@@ -202,7 +202,8 @@ function Brand(props) {
                                                                 <td className="text-center md:text-lg sm:text-md lg:text-xl text-black border-2  my-2 uppercase">{brand.brand_name}</td>
                                                                 <td className="border-2">
                                                                     <div class="flex justify-center items-center mx-2 ">
-                                                                        <svg onClick={() => onClickEditBrand(brand.brand_id)} className="p-3  flex items-center
+                                                                        <svg onClick={() => onClickEditBrand(brand.brand_id)} 
+                                                                        className="p-3  flex items-center
                                                                        xl:w-14 sm:h-12
                                                                         bg-green-200 hover:bg-green-500 text-green-dark uppercase hover:text-white border border-green 
                                                                             hover:border-transparent rounded mr-2 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

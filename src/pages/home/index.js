@@ -4,7 +4,6 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 // import Slider from "../../components/slider/slider";
 import { apiProductMaster, apiProductTransaction } from "../../config/apiUrl";
 import convertToRupiah from '../product/convertToRupiah'
-import  '../home/app.css'
 
 
 
@@ -236,7 +235,7 @@ export default function Navbar({ fixed }) {
 					</div> */}
 
 
-					<div class="mt-16">
+					<div class="mt-5">
 						<h3 class="text-gray-600 text-2xl font-medium">All Product</h3>
 						<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-6">
 							{

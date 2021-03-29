@@ -97,7 +97,7 @@ export const EditCate = () => {
         }
 
         console.log(data)
-        axios.post(`${apiProductMaster}/category/${id}`, data)
+        axios.put(`${apiProductMaster}/category/${id}`, data,)
             .then(async result => {
                 if (result.data.error) {
                     console.log(result.data)

@@ -71,14 +71,14 @@ function Category(props) {
         getListCate();
     }, [])
 
-    const deleteCate = async (cate_id) => {
+    const deleteCate = async (id) => {
         if (window.confirm('Are you sure?')) {
 
             const data = {
                 cate_name: cate_name,
-                // cate_cateId: cate_cateId
+                cate_cateId: cate_cateId
             }
-            axios.delete(`${apiProductMaster}/category/${cate_id}`)
+            axios.delete(`${apiProductMaster}/category/${id}`)
                 .then((data) => {
                     notify()
                     console.log(data)
