@@ -1,14 +1,19 @@
 
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import swal from 'sweetalert';
+import { apiProductMaster } from "../../config/apiUrl";
+import ProductSidebar from "../sideBarMenu/product";
 
 export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
   const [isAdmin, setisAdmin] = useState(false)
-
+  const [product, setproduct] = useState([]);
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const [alertLogin, setAlertLogin] = useState('');
+  const [isOpen, setIsOpen] = React.useState(false);
   const [masuk, setMasuk] = useState(false);
   const [sideBar, setSideBar] = useState(false);
   const [tvalue, setTValue] = useState();
@@ -17,10 +22,9 @@ export default function Navbar({ fixed }) {
   const id = localStorage.getItem('dataUserId')
 
 
-  const [value, setValue] = useState();
-  const [isOpen, setIsOpen] = useState();
+ 
 
-
+  
   const refresh = () => {
     // re-renders the component
     setTValue({});
@@ -88,11 +92,29 @@ export default function Navbar({ fixed }) {
     })
   }
 
+  useEffect(() => {
+    // console.log(product)
+    // setLoading(true);
+    axios({
+      url: `${apiProductMaster}/product/prod/`,
+      method: "get",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then((res) => setproduct(res.data))
+      .catch((err) => console.error(err))
+  }, [])
 
-
-
-
+  const searchProd = async (prod_name) => {
+    history.push("/");
+    localStorage.setItem("prod_name", prod_name);
+  }
   return (
+
+
+
+
+  
     <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white">
       <div class="container flex items-center justify-between">
         <div class="hidden w-full text-white md:flex md:items-center">
@@ -206,12 +228,18 @@ export default function Navbar({ fixed }) {
         </div>
       </div>
       {/* navbar */}
+
+
       {isLogin? (
-      <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
+
+
+
+
+      <nav className={`${isOpen ? 'block' : 'hidden'} -py-10 sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
         <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/productsaya">Product</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>

@@ -7,6 +7,7 @@ import { apiCart, apiProductTransaction, apiUserAccount, apiUserMaster } from ".
 import { useHistory } from 'react-router'
 import { toast } from 'react-toastify'
 import swal from 'sweetalert'
+import ImageZoom from 'js-image-zoom'
 
 export default function Product() {
 
@@ -300,6 +301,16 @@ export default function Product() {
         console.log(Account)
     }, [])
 
+    var option = {
+        // width : 400,
+        // height : 250,
+        // zoomWidth:500,
+        // offset: auto,
+        // scale: 1.5
+        opacity: 0.1
+    }
+    new ImageZoom (document.getElementById("zoom"),option)
+
 
 
     {
@@ -307,11 +318,15 @@ export default function Product() {
             <>
                 <div>
                     <div className="flex flex-wrap rounded-lg shadow py-5 mb-5 border-4 border-pink-500" >
-                        <div className="w-1/2 sm:w-1/3 product">
+                        <div className="z-10 w-1/2 sm:w-1/3 product "id ="zoom">
                             
-                            <img src={selectedImg} alt="Selected"style={{ cursor: 'pointer' }}
+                            <img src={selectedImg} alt="Selected"
+                            // style={{ cursor: 'pointer' }}
                                 className="selected"
-                            onClick={fotoproduct}/>
+                            // onClick={fotoproduct}
+                            />
+                            
+                            
                             
                             {/* <div className=" imgContainer">
                             {Images.map((img, index) => (

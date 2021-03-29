@@ -6,7 +6,7 @@ import {useHistory} from 'react-router-dom'
 import ModalUpdateStatus from '../product/modalUpdate'
 import {apiProductTransaction} from '../../config/apiUrl'
 import convertToRupiah from '../product/convertToRupiah'
-import swal from 'sweetalert'
+import Swal from 'sweetalert'
 
 
 export default function AllProduct() {
@@ -31,7 +31,13 @@ export default function AllProduct() {
 //   const onCancelEdit = () => {
 //     setModalS(false);
 //   };
-  
+    const berhasil = () => {
+    Swal(
+    'Produk berhasil diblokir',
+    'Data Berhasil disimpan',
+    'success'
+    )}
+
   const onClickEditStatus = (e) => {
       console.log(e)
       setShowModal(true)
@@ -59,7 +65,8 @@ export default function AllProduct() {
         setErorr('')
     }
     
-      const UpdateStatus =  () => {
+      const UpdateStatus =  (x) => {
+          x.preventDefault()
        
         // const data = {
         //   prod_reason: prod_reason,
@@ -78,23 +85,23 @@ export default function AllProduct() {
         //   })
         //   .catch((err) => err.message);
       ;
-      const dataVariant = {
+      const data = {
         prod_reason: prod_reason
     }
-    console.log(dataVariant)
-    axios.put(`${apiProductTransaction}/product/blokir/${prod_id}`, dataVariant)
+    console.log(data)
+    axios.put(`${apiProductTransaction}/product/blokir/${prod_id}`, data)
         .then(result => {
-            if (result.dataVariant.error) {
-                console.log(result.dataVariant)
+            if (result.data.error) {
+                console.log(result.data)
                 // notifyErr()
             } else {
-                if (result.dataVariant) {
+                if (result.data) {
                     setProdReason('')
                       ('')
                     // setProvaProdId('')
     
                 } 
-                // notify()
+                berhasil()
             }
         })
         .catch((e) => {
@@ -104,7 +111,7 @@ export default function AllProduct() {
                             setTimeout(() => {
                                 setAlert("");
                             }, 2500);
-                            // notify()
+                            berhasil()
                         setShowModal(false)
                         // .catch((e) => {
                         //     setErorr(e.response.message);
@@ -141,12 +148,12 @@ export default function AllProduct() {
                         <thead>
                             <tr>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Produk Id</th>
-                                <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Nama Produk</th>
+                                <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center"colSpan="2">Nama Produk</th>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Deskirpsi Produk</th>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Harga</th>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Stok</th>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Berat</th>
-                                <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Gambar</th>
+                                {/* <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Gambar</th> */}
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Action</th>
                             </tr>
                         </thead>
@@ -174,6 +181,10 @@ export default function AllProduct() {
                             {x.prod_id}
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"></span>
+                            <img class= "bg-center h-20 w-20 my-2" src={x.product_images[0].prim_path}/>
+                          </td>
+                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama Produk</span>
                             {x.prod_name}
                           </td>
@@ -194,10 +205,6 @@ export default function AllProduct() {
                             {x.prod_weight}
                           </td>
                           
-                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"></span>
-                            <img class= "bg-center h-20 w-20 my-2" src={x.product_images[0].prim_path}/>
-                          </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
                             <button class="text-red-500 hover:text-red-600 underline" value={x.prod_id} onClick={() => onClickEditStatus(x.prod_id)}>Blokir</button>

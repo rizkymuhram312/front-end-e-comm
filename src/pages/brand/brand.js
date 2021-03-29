@@ -107,13 +107,7 @@ function Brand(props) {
 
     return (
         <>
-            <div class="container gap-8 justify-center  flex flex-row flex-wrap   text-2xl uppercase rounded ">
-                <Link to="/productSaya" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Product</Link>
-                <Link to="/brand" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Brand</Link>
-                <Link to="/category" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Category</Link>
-                <Link to="/condition" class="w-50 bg-primary text-white font-bold hover:text-black  tracking-wide text-white  rounded  hover:border-item-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">Condition</Link>
-            </div>
-
+          
             <body class="antialiased font-sans mt-4 ">
                 <div class="container mx-auto px-4 sm:px-8">
                     <div class="py-3 ml-2">
