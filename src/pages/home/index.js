@@ -6,15 +6,11 @@ import { apiProductMaster, apiProductTransaction } from "../../config/apiUrl";
 import convertToRupiah from '../product/convertToRupiah'
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { useDispatch, useSelector } from "react-redux";
-import { clickAdv, fetchAdv } from "../../features/adv/advSlices";
-
-
-
+import { clickAdv} from "../../features/adv/advSlices";
 
 export default function Navbar({ fixed }) {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 	const { entities } = useSelector((state) => state.adv);
-	// console.log(entities)
 	const token = localStorage.getItem('token')
 	const id = localStorage.getItem('prod_name')
 
@@ -32,19 +28,22 @@ export default function Navbar({ fixed }) {
 		setValue({});
 	}
 	// redirect to deskripsi
-	const DetailProduct = (prod_id, product_images) => {
+	const DetailProduct = (prod_id, product_images, prod_acco_id) => {
 		localStorage.setItem('productDetail', prod_id);
 		localStorage.setItem('productImages', product_images);
-		console.log(prod_id)
-		console.log(product_images)
-
+		localStorage.setItem('productAccount', prod_acco_id);
+		// console.log(prod_id)
+		// console.log(product_images)
+		console.log(entities)
+        dispatch(clickAdv({
+            prod_id:prod_id,
+            entities: entities
+        }))
+		// dispatch(fetchAdv());
 		history.push(`/product/${prod_id}`)
 	}
 
-	useEffect(() => {
-		dispatch(fetchAdv());
-		console.log(entities)
-	  }, [dispatch]);
+	
 
 	// token untuk mengambil data login
 	useEffect(() => {
@@ -202,13 +201,8 @@ export default function Navbar({ fixed }) {
 										(	
 											<>
 												<div key={prod.prod_id} class="w-full max-w-sm mx-auto rounded-md shadow-xl overflow-hidden">
-													<Link onClick={() => {
-														dispatch(clickAdv({
-															prod_id: prod.prod_id,
-															entities
-														}))
-														DetailProduct(prod.prod_id, prod.product_images[0].prim_id)
-													}
+													<Link onClick={() => 
+														DetailProduct(prod.prod_id, prod.product_images[0].prim_id, prod.prod_acco_id)
 													}>
 														<div class="flex items-end justify-end h-56 w-full bg-cover" >
 															<img src={prod.product_images[0]?.prim_path} />

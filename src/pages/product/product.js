@@ -10,7 +10,7 @@ import swal from 'sweetalert'
 import ImageZoom from 'js-image-zoom'
 
 export default function Product() {
-
+	
     const [selectedImg, setSelectetImg] = useState([]);
     const [count, setCount] = useState(0)
     const [Size, setSize] = useState([])
@@ -48,28 +48,6 @@ export default function Product() {
           imageAlt: 'Foto Product',
         })
       }
-
-    useEffect(() => {
-        async function fetchCart() {
-            return await axios({
-                url: `${apiCart}/cart/${acco_id}`,
-                method: 'GET'
-            }).then((result) => setCartId(result.data[0].cart_id))
-                .catch((err) => console.log(err));
-        }
-        fetchCart()
-    }, [])
-
-    useEffect(() => {
-        async function fetchImg() {
-            return await axios({
-                url: `${apiProductTransaction}/productImages/${primId}`,
-                method: 'GET'
-            }).then((result) => setSelectetImg(result.data.prim_path))
-                .catch((err) => console.log(err));
-        }
-        fetchImg()
-    }, [])
 
     const klikCart = (x) => {
         x.preventDefault()
@@ -262,6 +240,22 @@ export default function Product() {
                 .catch((err) => console.error(err));
         }
         fetchProduct()
+        async function fetchCart() {
+            return await axios({
+                url: `${apiCart}/cart/${acco_id}`,
+                method: 'GET'
+            }).then((result) => setCartId(result.data[0].cart_id))
+                .catch((err) => console.log(err));
+        }
+        fetchCart()
+        async function fetchImg() {
+            return await axios({
+                url: `${apiProductTransaction}/productImages/${primId}`,
+                method: 'GET'
+            }).then((result) => setSelectetImg(result.data.prim_path))
+                .catch((err) => console.log(err));
+        }
+        fetchImg()
     }, [])
 
     useEffect(() => {
@@ -288,18 +282,6 @@ export default function Product() {
             // console.log(variantArray)
         }
     }, [Product])
-
-    useEffect(() => {
-        axios({
-            url: `${apiUserAccount}/api/account/1001`,
-            method: "get",
-            headers: {
-                "Content-type": "application/json"
-            }
-        }).then((res) => setAccount(res.data))
-            .catch((err) => console.error(err));
-        console.log(Account)
-    }, [])
 
     var option = {
         // width : 400,

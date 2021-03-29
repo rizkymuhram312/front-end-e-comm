@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const acco_id = localStorage.getItem("dataAccountId")
+// const acco_id = localStorage.getItem("productAccount")
 
 export const fetchAdv = createAsyncThunk(
   "adv/fetchAdv",
@@ -9,13 +9,13 @@ export const fetchAdv = createAsyncThunk(
     let data = []
     try {
       data = await axios.get(
-        `https://advertising-model.herokuapp.com/api/orderAdvertising/${acco_id}`
+        `https://advertising-model.herokuapp.com/api/orderAdvertising/`
       )
       // .then(async(res) => console.log(res.json()) );  
     } catch (error) {
       console.log(error)
     }
-    console.log(data)
+    // console.log(data)
     return data;
   }
 );
@@ -31,8 +31,11 @@ const advSlice = createSlice({
       // console.log(state.entities)
       // console.log(action)
       const {prod_id, entities} = action.payload
-      entities.map(adv=> adv.order_advertising_products.map(x=>{
-          if(x.orap_prod_id===prod_id){
+      // console.log(action)
+      entities.map(adv=> {
+        return adv.order_advertising_products.map(x=>{
+          console.log(x.orap_prod_id+"="+prod_id)
+          if(x.orap_prod_id==prod_id){  
             const pack = Number(adv.orad_pack_name.substring(0,3))
             const data = {
               orap_current_duration: x.orap_current_duration-1,
@@ -41,7 +44,7 @@ const advSlice = createSlice({
             return axios.put(`https://advertising-model.herokuapp.com/api/orderAdvertisingProduct/click/${x.orap_id}`,data)
           }
         })
-      )    
+      })    
     },
     // contactInitFirst(state, action) {
     //   state.initialState.entities = action.payload;

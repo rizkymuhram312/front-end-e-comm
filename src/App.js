@@ -72,10 +72,17 @@ import ConditionSidebar from './components/sideBarMenu/condition';
 import ArchieveSidebar from './components/sideBarMenu/productArchieve';
 import CompletedSidebar from './components/sideBarMenu/productCompleted';
 import BlokirSidebar from './components/sideBarMenu/productBlokir';
+import { useDispatch } from 'react-redux';
+import { fetchAdv } from './features/adv/advSlices';
+import { useEffect } from 'react';
 
 
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchAdv())
+  }, [])
   return (
     <BrowserRouter>
       <>
