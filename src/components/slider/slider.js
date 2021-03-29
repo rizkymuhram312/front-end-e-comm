@@ -1,20 +1,14 @@
 import React from 'react';
-import { Carousel } from 'react-responsive-carousel';
+import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
-export default () => (
-    <Carousel autoPlay>
-        <div class="">
-            <img alt="" src="http://lorempixel.com/output/cats-q-c-640-480-1.jpg" />
-
-        </div>
-        <div>
-            <img alt="" src="http://lorempixel.com/output/cats-q-c-640-480-2.jpg" />
-
-        </div>
-        <div>
-            <img alt="" src="http://lorempixel.com/output/cats-q-c-640-480-3.jpg" />
-
-        </div>
-
-    </Carousel>
+const MyCarousel = () => (
+  <Carousel plugins={['arrows']}>
+    <img src={https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80} />
+    <img src={https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80} />
+    <img src={https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80} />
+  
+  </Carousel>
 );
+
+export default MyCarousel;

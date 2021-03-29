@@ -65,7 +65,7 @@ export default function Navbar({ fixed }) {
     localStorage.setItem("prod_name", prod_name);
   }
   return (
-    <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white">
+    <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white ">
       <div class="container flex items-center justify-between">
         <div class="hidden w-full text-white md:flex md:items-center">
           {/* <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

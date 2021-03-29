@@ -78,7 +78,7 @@ const AddCond = () => {
 
             <div class=" flex flex-col items-center justify-center my-10 ">
                 <div class="flex flex-col bg-primary shadow-md  px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
-                    <div class="font-medium self-center text-4xl sm:text-3xl uppercase text-white">Insert Brand</div>
+                    <div class="font-medium self-center text-4xl sm:text-3xl uppercase text-white">Insert Condition</div>
                     <div class="relative mt-7 h-px bg-gray-300">
                         <div class="absolute left-0 top-0 flex justify-center w-full -mt-2">
                             <span class="bg-white px-4 text-xs text-gray-500 uppercase"></span>
@@ -104,13 +104,13 @@ const AddCond = () => {
                                     onChange={onChangeCondDesc} class="text-md sm:text-base placeholder-gray-400 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Name Brand" />
                                 </div>
                             </div>
-                            <div class="flex w-full gap-4">
+                            <div class="flex flex-row-reverse gap-4">
 
-                                <Link onClick={insertCond} type="submit" class="flex items-center justify-center focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 w-full transition duration-150 ease-in">
+                                <Link onClick={insertCond} type="submit" class="flex p-4 items-center justify-center focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2  transition duration-150 ease-in">
 
                                     Save
                             </Link>
-                                <Link to="/condition" type="submit" class="flex items-center justify-center focus:outline-none text-black bg-white text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 w-full transition duration-150 ease-in">
+                                <Link to="/condition" type="submit" class="flex p-4 items-center justify-center focus:outline-none text-black bg-white text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2  transition duration-150 ease-in">
 
                                     Cancel
                             </Link>

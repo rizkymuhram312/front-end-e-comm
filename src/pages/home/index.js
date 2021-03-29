@@ -4,7 +4,7 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 // import Slider from "../../components/slider/slider";
 import { apiProductMaster, apiProductTransaction } from "../../config/apiUrl";
 import convertToRupiah from '../product/convertToRupiah'
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import  '../home/app.css'
 
 
 
@@ -15,6 +15,7 @@ export default function Navbar({ fixed }) {
 
 	const [isLogin, setisLogin] = useState(false)
 	const [navbarOpen, setNavbarOpen] = React.useState(false);
+	const [search, setSearch] = useState('')
 
 	const [loading, setLoading] = useState(false);
 	const [Category, setCategory] = useState([]);
@@ -57,7 +58,7 @@ export default function Navbar({ fixed }) {
 		console.log(Product)
 		setLoading(true);
 		axios({
-			url: `${apiProductTransaction}/product/priority`,
+			url: `${apiProductTransaction}/product/`,
 			method: "get",
 			headers: {
 				"Content-type": "application/json"
@@ -79,6 +80,57 @@ export default function Navbar({ fixed }) {
 		}).then((res) => setCategory(res.data))
 			.catch((err) => console.error(err))
 	}, [])
+
+	useEffect(() => {
+		axios({
+			url: `${apiProductMaster}/product/search/${search}`,
+			method: "get",
+			headers: {
+				"Content-type": "application/json"
+			}
+		}).then((res) => setProduct(res.data))
+			.catch((err) => console.error(err));
+		// console.log(Category)
+	}, [search.length >= 3])
+
+	const getPactImg = (x) => {
+		console.log(x)
+		let prodImg = undefined;
+		try {
+
+			prodImg = x.product_images[0].prim_path
+
+		} catch (error) {
+
+		}
+
+		if (prodImg === undefined) {
+			prodImg = x.prim_path;
+		}
+
+		console.log(prodImg);
+		return prodImg;
+
+	}
+
+	const handleOnChange = (e) => {
+
+		setSearch(e.target.value)
+		console.log(e.target.value.length);
+	}
+
+	const handleKeyPress = (e) => {
+		if (e.keyCode == 13) {
+			console.log(e.target.value);
+			console.log("on enter")
+
+			//setSearch(e.target.value)
+
+		}
+
+
+	}
+	
 
 
 
@@ -108,12 +160,28 @@ export default function Navbar({ fixed }) {
 
 			<main class="my-8">
 				<div class="container mx-auto px-6">
+					<div class="relative mt-6 max-w-lg mx-auto my-4">
+						<span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+							<svg class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none">
+								<path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</span>
+
+						<input class="w-full border rounded-md pl-10 pr-4 text-black py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline" type="text" placeholder="Search"
+							onChange={handleOnChange} onKeyPress={handleKeyPress}
+						/>
+					</div>
+
+
 
 
 					<div class="h-64 rounded-md overflow-hidden bg-cover w-full bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80')` }}>
 
+
 					</div>
 
+					
+			
 					{/* <div class="bg-white bg-opacity-50 flex flex-col mt-2  h-full">
 						<h3 class="text-gray-600 text-2xl font-medium  ">Kategory</h3>
 						<div class=" flex flex-wrap "> */}
@@ -174,12 +242,13 @@ export default function Navbar({ fixed }) {
 							{
 								Product.map((prod) => {
 									return (
-										prod.prod_stock < 1  | prod.prod_status === "blokir" ? null   : 
+										prod.prod_stock < 1 | prod.prod_status === "blokir" ? null :
 											<>
 												<div key={prod.prod_id} class="w-full max-w-sm mx-auto rounded-md shadow-xl overflow-hidden">
-													<Link onClick={() => DetailProduct(prod.prod_id, prod.product_images[0].prim_id)}>
+													<Link onClick={() => DetailProduct(prod.prod_id, prod.product_images[0]?.prim_id)}>
 														<div class="flex items-end justify-end h-56 w-full bg-cover" >
-															<img src={prod.product_images[0]?.prim_path} />
+															<img src={getPactImg(prod)} />
+
 															<div class="absolute flex items-center">
 																<button class="p-2 rounded-full bg-primary text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500 items-center">
 																	<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
