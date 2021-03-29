@@ -11,6 +11,7 @@ function Index() {
     let [ShippingArrival, setShippingArrival]= useState([]);
     let [modal, setModal]= useState (false);
     let [dataFormOrderArrival, setDataFormArrival] = useState({})
+    let [search, setSearch] = useState('');
 
     useEffect(()=>{
         fetchShippingArrival()
@@ -60,6 +61,18 @@ function Index() {
 
     return (
         <div>
+            <div className="w-3/12 md:mt-10 px-1 mr-5">
+                <div class="relative">
+                  <div class="absolute top-4 left-3"> <i class="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i> </div>
+                  <input type="search" class="h-14 w-96 pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none"
+                    placeholder="Search anything..."
+                    onChange={(event) => {
+                      setSearch(event.target.value)
+                    }}
+                  >
+                  </input>
+                </div>
+            </div>
              <div class="flex flex-wrap">
                     <div class="-my-2 p-8 overflow-x-auto">
                         <div class="py-2 align-middle inline-block max-w-full">
@@ -91,7 +104,15 @@ function Index() {
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         {
-                                            ShippingArrival.filter((x)=> (x.status.stat_name=== "SHIPPING" && x.order_acco_id_seller == localStorage.getItem('dataAccountId')) || (x.status.stat_name=== "ARRIVED" && x.order_acco_id_seller == localStorage.getItem('dataAccountId')) || (x.status.stat_name=== "CLOSED" && x.order_acco_id_seller == localStorage.getItem('dataAccountId'))).map(x=>
+                                            ShippingArrival.filter((x)=> (x.order_stat_name=== "SHIPPING" && x.order_acco_id_seller == localStorage.getItem('dataAccountId')) || (x.order_stat_name=== "ARRIVED" && x.order_acco_id_seller == localStorage.getItem('dataAccountId')) || (x.order_stat_name=== "CLOSED" && x.order_acco_id_seller == localStorage.getItem('dataAccountId')))
+                                            .filter(x => {
+                                                if (search === ""){
+                                                    return x;
+                                                } else if (x.order_name.toLowerCase().includes(search.toLocaleLowerCase())){
+                                                    return x;
+                                                }
+                                            })
+                                            .map(x=>
                                             
                                             <tr key={x.order_name}>     
                                             <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -111,7 +132,7 @@ function Index() {
                                             </td>
                                             <td class="px-5 py-4 whitespace-nowrap">
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                {x.status.stat_name}
+                                                {x.order_stat_name}
                                                 </span>
                                             </td>
                                             {
