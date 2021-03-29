@@ -12,7 +12,7 @@ export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
   const [product, setproduct] = useState([])
-  const [isAdmin, setisAdmin] = useState([])
+  const[isAdmin, setisAdmin] =useState([])
 
   // const [product, setproduct] = useState([]);
   const [navbarOpen, setNavbarOpen] = React.useState(false);

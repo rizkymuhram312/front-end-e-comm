@@ -71,6 +71,9 @@ import ConditionSidebar from './components/sideBarMenu/condition';
 import ArchieveSidebar from './components/sideBarMenu/productArchieve';
 import CompletedSidebar from './components/sideBarMenu/productCompleted';
 import BlokirSidebar from './components/sideBarMenu/productBlokir';
+import { useDispatch } from 'react-redux';
+import { fetchAdv } from './features/adv/advSlices';
+import { useEffect } from 'react';
 
 import OrderSK from './pages/admin/orderSK';
 
@@ -83,9 +86,18 @@ import DashboardOrder from './pages/users/DashboardOrder';
 import Penjualanku from './pages/users/Pembelianku';
 import Pembelianku from './pages/users/Pembelianku';
 import IndexAdmin from './pages/admin/indexAdmin'
+import TotalOrderBK from './pages/admin/totalOrderBK';
+import TotalProdBK from './pages/admin/totalProdBK';
+import TotalProdSK from './pages/admin/totalProdSK';
+
+
 
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchAdv())
+  }, [])
   return (
     <BrowserRouter>
       <>
@@ -151,7 +163,7 @@ function App() {
           <Route path="/advertising/my-adv" component={MyAdv}/>
           <Route path="/advertising/add-adv" component={AddAdv}/>
           <Route path="/advertising/orad" component={OrderAdvertising}/>
-          {/* <Route path="/advertising/orap" component={OrderAdvertisingProduct}/> */}
+          <Route path="/advertising/orap" component={OrderAdvertisingProduct}/>
           <Route path="/wallet" component={Wallet}/>
           <Route path="/bank-account/" component={BankAccount}/>
           <Route path="/transactions/:acco_id" component={Transaction}/>
@@ -162,6 +174,9 @@ function App() {
           <Route path="/admin" component={IndexAdmin} exact/>
           <Route path="/admin/order-bk" component={OrderBK} exact/>
           <Route path="/admin/order-sk" component={OrderSK} exact/>
+          <Route path="/admin/total-order-bk" component={TotalOrderBK} exact />
+          <Route path="/admin/total-prod-bk" component={TotalProdBK} exact />
+          <Route path="/admin/total-prod-sk" component={TotalProdSK} exact />
           <Route path="/admin/allproduct" component={AllProduct} exact/>
 
           <Route component={PageNotFound}/>
