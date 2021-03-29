@@ -65,7 +65,7 @@ export default function Product() {
             clit_subtotal: count * Number(Product.prod_price),
             clit_prod_id: 1511,
             clit_qty: count,
-            clit_stat_name: 'PENDING'
+            clit_stat_name: 'OPEN'
 
 
         }
@@ -127,7 +127,7 @@ export default function Product() {
             clit_subtotal: count * Number(Product.prod_price),
             clit_prod_id: 1511,
             clit_qty: count,
-            clit_stat_name: 'PENDING'
+            clit_stat_name: 'OPEN'
 
 
         }
