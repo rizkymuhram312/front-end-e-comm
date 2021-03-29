@@ -57,7 +57,7 @@ export default function Navbar({ fixed }) {
 		console.log(Product)
 		setLoading(true);
 		axios({
-			url: `${apiProductTransaction}/product/priorty`,
+			url: `${apiProductTransaction}/product/priority`,
 			method: "get",
 			headers: {
 				"Content-type": "application/json"
