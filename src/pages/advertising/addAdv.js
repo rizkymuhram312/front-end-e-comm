@@ -168,12 +168,11 @@ export default function AddAdv() {
   }
 
   useEffect(()=>{
-    console.log(watrNumbers)
     if(watrNumbers){
       try {
           let priority = ''
           if(Number(Package.pack_satuan)>250){
-            priority = { prod_priority: 'higest'}
+            priority = { prod_priority: 'highest'}
           }
           else{
             priority = { prod_priority: 'high'}
@@ -247,7 +246,7 @@ export default function AddAdv() {
               </div>
               : paid ? <div className="h-screen w-full text-center">
                 <h1 className="text-4xl">Pembayaran Berhasil</h1>
-                <a href="/advertising/my-pkg" className="bg-primary text-white h-1/6 px-4 rounded-md">KEMBALI</a>
+                <a href="/advertising/my-adv" className="bg-primary text-white h-1/6 px-4 rounded-md">KEMBALI</a>
               </div> :
                 <div className="flex flex-wrap">
                   <Sidebar />
