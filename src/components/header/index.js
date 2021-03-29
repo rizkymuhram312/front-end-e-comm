@@ -183,7 +183,7 @@ export default function Navbar({ fixed }) {
           </svg>
           <span class="mx-1 text-sm">NY</span> */}
         </div>
-        <a href="/" class="w-full md:text-center text-2xl font-semibold absolute -ml-8">
+        <a href="/" class="w-4/6 md:text-center ml-48 text-2xl font-semibold absolute">
           E-Commerce
             </a>
         <div class="flex items-center justify-end w-full lg:gap-2">
@@ -229,11 +229,7 @@ export default function Navbar({ fixed }) {
                   <ul className="dropdown-menu absolute hidden text-gray-700 ">
                     <li className="origin-top-right absolute -right-5 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="grid grid-cols-3 bg-pastel">
-                          <tr className='col-span-3 justify-center'>
-                            baru ditambahkan
-                          </tr>
-                        </thead>
+                        
 
                         <tbody class="bg-white divide-y divide-gray-200">
                           {hitungCart?.map((x) => (
