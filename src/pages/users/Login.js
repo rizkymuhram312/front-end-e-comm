@@ -2,13 +2,8 @@ import React, { useState, Fragment } from 'react';
 import { Redirect, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { apiUserMaster, apiUserAccount } from '../../config/apiUrl'
-<<<<<<< HEAD
-import { useDispatch } from 'react-redux';
-import { fetchAdv } from '../../features/adv/advSlices';
-=======
 import { toast } from 'react-toastify'
 import swal from 'sweetalert';
->>>>>>> 62e79c6078e8662a02d2f14824975c0e95f4b5e1
 
 
 
@@ -18,9 +13,6 @@ const Login = () => {
     const [redirect, setRedirect] = useState(false);
     const [error, setError] = useState('');
     const history = useHistory()
-<<<<<<< HEAD
-	const dispatch = useDispatch();
-=======
 
     toast.configure()
     localStorage.getItem('dataUserName')
@@ -37,7 +29,6 @@ const Login = () => {
         })
     }
 
->>>>>>> 62e79c6078e8662a02d2f14824975c0e95f4b5e1
     const onChangeEmail = (e) => {
         const value = e.target.value
         setEmail(value)
