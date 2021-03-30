@@ -13,6 +13,7 @@ export default function MyOrders() {
   let [modal, setModal] = useState(false);
   let [dataFormOrderArrival, setDataFormArrival] = useState({});
   const [MyOrders, setMyOrders] = useState();
+  const [refresh,setRefresh] = useState()
 
   let [modalCancel,setModalCancel] = useState(false)
   let [orderToCancel,setOrderToCancel] = useState('')
@@ -31,7 +32,7 @@ export default function MyOrders() {
     // fetchMyOrders();
     fetchFilterOrders();
     fetchMyOrders()
-  }, [modal, dataFormOrderArrival, status, showPayment,modalCancel]);
+  }, [modal, dataFormOrderArrival, status, showPayment,modalCancel,refresh]);
 
   const fetchMyOrders = async () => {
     let res = await axios({
@@ -115,8 +116,7 @@ export default function MyOrders() {
 
   const onCancel = async () => {
     try {
-        console.log("hit")
-        console.log(orderToCancel)
+        
         await axios.post(apiPayment+"/orders/cancel",{order_name:orderToCancel})
         setModalCancel(false)
     } catch (error) {
@@ -325,8 +325,10 @@ const getOrderToCancel = async (e) => {
         {modal ? (
           <ModalMyOrders
             setModal={setModal}
+            setRefresh={setRefresh}
             setDataFormArrival={setDataFormArrival}
             dataFormOrderArrival={dataFormOrderArrival}
+            refresh={refresh}
           />
         ) : null}
         {modalCancel ? (
