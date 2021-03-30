@@ -209,18 +209,18 @@ const AddCate = () => {
                                 <div class="relative">
 
                                     <input id="file" type="file" name="file"
-                                        // value={cate_cate_id}
+                                        // value={cate_cateId}
                                         onChange={uploadImage} 
                                         class="text-md sm:text-base placeholder-gray-400 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Name Brand" />
                                 </div>
                             </div>
-                            <div class="flex w-full gap-4">
+                            <div class="flex flex-row-reverse  gap-4">
 
-                                <Link onClick={insertCate} type="submit" class="flex items-center justify-center focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 w-full transition duration-150 ease-in">
+                                <Link onClick={insertCate} type="submit" class="flex items-center justify-center p-5 focus:outline-none bg-white  text-primary text-md sm:text-base bg-white hover:bg-red-300 hover:text-black rounded py-2  transition duration-150 ease-in">
 
                                     Save
                             </Link>
-                                <Link to="/category" type="submit" class="flex items-center justify-center focus:outline-none text-black bg-white text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 w-full transition duration-150 ease-in">
+                                <Link to="/category" type="submit" class="flex items-center justify-center p-5 focus:outline-none text-primary bg-white text-md sm:text-base bg-white hover:bg-red-300 hover:text-black rounded py-2  transition duration-150 ease-in">
 
                                     Cancel
                             </Link>

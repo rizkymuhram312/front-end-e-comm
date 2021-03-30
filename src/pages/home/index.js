@@ -6,7 +6,8 @@ import { apiProductMaster, apiProductTransaction } from "../../config/apiUrl";
 import convertToRupiah from '../product/convertToRupiah'
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { useDispatch, useSelector } from "react-redux";
-import { clickAdv} from "../../features/adv/advSlices";
+import { clickAdv } from "../../features/adv/advSlices";
+import "./app.css";
 
 export default function Navbar({ fixed }) {
 	const dispatch = useDispatch()
@@ -16,11 +17,14 @@ export default function Navbar({ fixed }) {
 
 	const [isLogin, setisLogin] = useState(false)
 	const [navbarOpen, setNavbarOpen] = React.useState(false);
+	const [search, setSearch] = useState('')
 
 	const [loading, setLoading] = useState(false);
 	const [Category, setCategory] = useState([]);
 	const [Product, setProduct] = useState([]);
 	let history = useHistory();
+
+
 
 	const [value, setValue] = useState();
 	const refresh = () => {
@@ -29,7 +33,7 @@ export default function Navbar({ fixed }) {
 	}
 
 	// ============ ALERT LOGIN BERHASIL ==============
-	
+
 	// redirect to deskripsi
 	const DetailProduct = (prod_id, product_images, prod_acco_id) => {
 		localStorage.setItem('productDetail', prod_id);
@@ -38,15 +42,15 @@ export default function Navbar({ fixed }) {
 		// console.log(prod_id)
 		// console.log(product_images)
 		console.log(entities)
-        dispatch(clickAdv({
-            prod_id:prod_id,
-            entities: entities
-        }))
+		dispatch(clickAdv({
+			prod_id: prod_id,
+			entities: entities
+		}))
 		// dispatch(fetchAdv());
 		history.push(`/product/${prod_id}`)
 	}
 
-	
+
 
 	// token untuk mengambil data login
 	useEffect(() => {
@@ -74,7 +78,7 @@ export default function Navbar({ fixed }) {
 			headers: {
 				"Content-type": "application/json"
 			}
-			
+
 		}).then((res) => setProduct(res.data))
 			.catch((err) => console.error(err))
 	}, [])
@@ -92,6 +96,60 @@ export default function Navbar({ fixed }) {
 		}).then((res) => setCategory(res.data))
 			.catch((err) => console.error(err))
 	}, [])
+
+	useEffect(() => {
+		axios({
+			url: `${apiProductMaster}/product/search/${search}`,
+			method: "get",
+			headers: {
+				"Content-type": "application/json"
+			}
+		}).then((res) => setProduct(res.data))
+			.catch((err) => console.error(err));
+		// console.log(Category)
+	}, [search.length >= 3])
+
+	const getPactImg = (x) => {
+		console.log(x)
+		let prodImg = undefined;
+		try {
+
+			prodImg = x.product_images[0].prim_path
+
+		} catch (error) {
+
+		}
+
+		if (prodImg === undefined) {
+			prodImg = x.prim_path;
+		}
+
+		console.log(prodImg);
+		return prodImg;
+
+	}
+
+	const handleOnChange = (e) => {
+
+		setSearch(e.target.value)
+		console.log(e.target.value.length);
+	}
+
+	const handleKeyPress = (e) => {
+		if (e.keyCode == 13) {
+			console.log(e.target.value);
+			console.log("on enter")
+
+			//setSearch(e.target.value)
+
+		}
+
+
+	}
+
+
+	// carousel
+
 
 
 
@@ -123,9 +181,14 @@ export default function Navbar({ fixed }) {
 				<div class="container mx-auto px-6">
 
 
+
+
 					<div class="h-64 rounded-md overflow-hidden bg-cover w-full bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80')` }}>
 
+
 					</div>
+
+
 
 					{/* <div class="bg-white bg-opacity-50 flex flex-col mt-2  h-full">
 						<h3 class="text-gray-600 text-2xl font-medium  ">Kategory</h3>
@@ -182,57 +245,120 @@ export default function Navbar({ fixed }) {
 					</div> */}
 
 
-					<div class="mt-16">
-						<h3 class="text-gray-600 text-2xl font-medium">All Product</h3>
+					<div class="mt-5">
+						<div className="flex justify-between">
+
+							<h3 class="text-gray-600 text-2xl font-medium">All Product</h3>
+							<div class="relative ">
+								<span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+									<svg class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none">
+										<path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+									</svg>
+								</span>
+
+								<input class="w-full border rounded-md pl-10 pr-4 text-black py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline" type="text" placeholder="Search"
+									onChange={handleOnChange} onKeyPress={handleKeyPress}
+								/>
+							</div>
+						</div>
+
 						<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-6">
 							{
-								Product
-								.sort((highest,high, normal)=>{
-									if (highest.Product < high.Product){
-										return -1
-									} if (high < normal){
-										return 1
-									} if (highest < normal){
-										return 0
-									}
-								})
-								.map((prod) => {
-									
+								Product.map((prod) => {
 									return (
-										prod.prod_stock < 1  | prod.prod_status === "blokir" ?  null :
-
-								
-										(	
+										prod.prod_stock < 1 | prod.prod_status === "blokir" ? null :
 											<>
-												<div key={prod.prod_id} class="w-full max-w-sm mx-auto rounded-md shadow-xl overflow-hidden">
-													<Link onClick={() => 
-														DetailProduct(prod.prod_id, prod.product_images[0].prim_id, prod.prod_acco_id)
-													}>
-														<div class="flex items-end justify-end h-56 w-full bg-cover" >
-															<img src={prod.product_images[0]?.prim_path} />
-															<div class="absolute flex items-center">
-																<button class="p-2 rounded-full bg-primary text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500 items-center">
-																	<svg class="h-7 w-7" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-																</button>
+												<div class="relative ...">
+													<div key={prod.prod_id} class="w-full max-w-sm mx-auto rounded-md shadow-xl overflow-hidden">
+														<Link onClick={() =>
+															DetailProduct(prod.prod_id, prod.product_images[0].prim_id, prod.prod_acco_id)
+														}>
+															<div class="flex items-end justify-end h-56 w-full bg-cover" >
+																<img src={getPactImg(prod)} />
 
+																<div class="absolute flex items-center">
+																	<button class="p-2 rounded-full bg-primary text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500 items-center">
+																		<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+																	</button>
+
+																</div>
 															</div>
-														</div>
-														<div class="px-5 py-3">
-															<h3 class="text-gray-700 text-xl uppercase">{prod.prod_name}</h3>
-															<span class="text-gray-500 text-xl mt-2"> {convertToRupiah(prod.prod_price)}</span>
-														</div>
-													</Link>
+															<div class="px-5 py-3">
+																<h3 class="text-gray-700 text-xl  uppercase">{prod.prod_name}</h3>
+																<span class="text-gray-500 text-xl font-bold mt-2"> {convertToRupiah(prod.prod_price)}</span>
+															</div>
+														</Link>
+													</div>
+													<div class="absolute top-0 md:left-17 lg:left-11 xl:left-0 ...">
+														<svg class="bg-primary rounded p-2 text-white uppercase h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+															<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+
+														</svg>
+													</div>
+													{/* <div class="absolute top-0 right-0 ...">
+														<button class="bg-primary rounded p-2 text-white uppercase">{prod.prod_priorty}</button>
+													</div> */}
 												</div>
-											
 											</>
-)
+
 									)
 								})
 
 							}
 						</div>
+
+
+
 					</div>
-					
+					{/* <div class="mt-16">
+						<h3 class="text-gray-600 text-2xl font-medium">Fashions</h3>
+						<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+							<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1563170351-be82bc888aa4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=376&q=80')` }}>
+									<button class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+										<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+									</button>
+								</div>
+								<div class="px-5 py-3">
+									<h3 class="text-gray-700 uppercase">Chanel</h3>
+									<span class="text-gray-500 mt-2">$12</span>
+								</div>
+							</div>
+							<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1544441893-675973e31985?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80')` }}>
+									<button class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+										<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+									</button>
+								</div>
+								<div class="px-5 py-3">
+									<h3 class="text-gray-700 uppercase">Man Mix</h3>
+									<span class="text-gray-500 mt-2">$12</span>
+								</div>
+							</div>
+							<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')` }}>
+									<button class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+										<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+									</button>
+								</div>
+								<div class="px-5 py-3">
+									<h3 class="text-gray-700 uppercase">Classic watch</h3>
+									<span class="text-gray-500 mt-2">$12</span>
+								</div>
+							</div>
+							<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+								<div class="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1590664863685-a99ef05e9f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=345&q=80')` }}>
+									<button class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+										<svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+									</button>
+								</div>
+								<div class="px-5 py-3">
+									<h3 class="text-gray-700 uppercase">woman mix</h3>
+									<span class="text-gray-500 mt-2">$12</span>
+								</div>
+							</div>
+						</div>
+					</div> */}
 				</div>
 			</main>
 		</div>

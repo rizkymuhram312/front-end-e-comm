@@ -108,16 +108,16 @@ export const EditCond = () => {
                     </div>
                     {error.text && <p>{error.text.message}</p>}
 
-                    <div class="flex items-center justify-end gap-2">
+                    <div class="flex flex-row-reverse gap-2 mr-3">
                         <Link
                             onClick={editCond}
                             value="editcond"
 
-                            class="flex items-center justify-center focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 w-full transition duration-150 ease-in"
+                            class="flex items-center justify-center p-5 focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 transition duration-150 ease-in"
                         >
                             Submit
                   </Link>
-                        <Link class="flex items-center justify-center focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 w-full transition duration-150 ease-in"
+                        <Link class="flex items-center justify-center p-5 focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 transition duration-150 ease-in"
                             type="button" to="/condition">
 
                             Cancel

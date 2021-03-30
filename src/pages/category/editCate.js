@@ -25,6 +25,27 @@ export const EditCate = () => {
         setCateId(value)
         setError('')
     }
+
+    const uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append("upload_preset", "qlkloipy")
+
+        const res = await fetch(
+            'https://api.cloudinary.com/v1_1/deto1sqrl/image/upload',
+
+            {
+                method: 'POST',
+                body: data
+            }
+        )
+        const file = await res.json()
+
+        setImage(file.secure_url)
+    }
+    console.log(image)
+
     useEffect(() => {
         axios({
             url: `${apiProductMaster}/category`,
@@ -76,7 +97,7 @@ export const EditCate = () => {
         }
 
         console.log(data)
-        axios.post(`${apiProductMaster}/category/${id}`, data)
+        axios.put(`${apiProductMaster}/category/${id}`, data,)
             .then(async result => {
                 if (result.data.error) {
                     console.log(result.data)
@@ -186,20 +207,20 @@ export const EditCate = () => {
                             <div class="relative">
 
                                 <input id="file" type="file" name="file"
-                                    // value={cate_cate_id}
-                                    // onChange={uploadImage} 
+                                    // value={cate_cateId}
+                                    onChange={uploadImage} 
                                     class="text-md sm:text-base placeholder-gray-400 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Name Brand" />
                             </div>
                         </div>
-                        <div class="flex w-full gap-4">
+                        <div class="flex flex-row-reverse   gap-4">
 
                             <Link
-                                // onClick={insertCate}
-                                type="submit" class="flex items-center justify-center focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 w-full transition duration-150 ease-in">
+                                onClick={changeCate}
+                                type="submit" class="flex items-center p-5 justify-center focus:outline-none bg-white  text-black text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2  transition duration-150 ease-in">
 
                                 Save
                     </Link>
-                            <Link to="/category" type="submit" class="flex items-center justify-center focus:outline-none text-black bg-white text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2 w-full transition duration-150 ease-in">
+                            <Link to="/category" type="submit" class="flex items-center p-5 justify-center focus:outline-none text-black bg-white text-md sm:text-base bg-button hover:bg-red-300 hover:text-black rounded py-2  transition duration-150 ease-in">
 
                                 Cancel
                     </Link>

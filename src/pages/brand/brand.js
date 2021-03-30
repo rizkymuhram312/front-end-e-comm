@@ -107,10 +107,10 @@ function Brand(props) {
 
     return (
         <>
-          
+
             <body class="antialiased font-sans mt-4 ">
-                <div class="container mx-auto px-4 sm:px-8">
-                    <div class="py-3 ml-2">
+                <div class="container mx-auto border-4 border-pink-500 rounded ml-2 px-4 sm:px-8">
+                    <div class="py-3 ml-2 ">
                         <div class="text-2xl md:text:lg  sm:text-md">
                             <h2 class=" font-semibold leading-tight">Table Brands</h2>
                         </div>
@@ -168,7 +168,7 @@ function Brand(props) {
                                     <thead class="bg-primary">
                                         <tr>
                                             <th
-                                                class="px-5 py-3 border-b-3 border-black-200  text-center text-white sm:text-md lg:text-lg font-semibold  uppercase tracking-wider">
+                                                class="px-5 py-3 border-b-3 border-black-200  text-center text-white sm:text-sm xl:text-lg font-semibold  uppercase tracking-wider">
                                                 Brand ID
                         </th>
                                             <th
@@ -198,32 +198,30 @@ function Brand(props) {
                                                         return (
                                                             <tr key={brand.id} >
 
-                                                                <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 ">{brand.brand_id}</td>
-                                                                <td className="text-center md:text-xl sm:text-lg lg:text-2xl text-black border-2  my-2 uppercase">{brand.brand_name}</td>
+                                                                <td className="text-center md:text-lg sm:text-md lg:text-xl text-black border-2  my-2 ">{brand.brand_id}</td>
+                                                                <td className="text-center md:text-lg sm:text-md lg:text-xl text-black border-2  my-2 uppercase">{brand.brand_name}</td>
                                                                 <td className="border-2">
-                                                                    <div class="flex justify-center  ">
-                                                                        <button
-                                                                            onClick={() => onClickEditBrand(brand.brand_id)}
-                                                                            class="bg-green-200 hover:bg-green-500 text-green-dark uppercase hover:text-white my-2 py-2 px-4 border border-green 
-                                                                            hover:border-transparent rounded mr-2 "
-                                                                            type="button">
+                                                                    <div class="flex justify-center items-center mx-2 ">
+                                                                        <svg onClick={() => onClickEditBrand(brand.brand_id)} 
+                                                                        className="p-3  flex items-center
+                                                                       xl:w-14 sm:h-12
+                                                                        bg-green-200 hover:bg-green-500 text-green-dark uppercase hover:text-white border border-green 
+                                                                            hover:border-transparent rounded mr-2 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                                        </svg>
 
-                                                                            Edit
-
-                                                                        </button>
-
-                                                                        <button
-
+                                                                        <svg
                                                                             onClick={() => {
                                                                                 deleteBrand(brand.brand_id)
                                                                             }}
-                                                                            className="bg-red-200 hover:bg-red-500 
-                                                                            text-green-dark uppercase hover:text-white 
-                                                                            py-2 px-4 border border-green  my-2
-                                                                            hover:border-transparent rounded mr-2" type="button">
+                                                                            className="p-3 xl:w-14 sm:h-12 fle items-center
+                                                                        bg-red-200 hover:bg-red-500 text-red-dark uppercase hover:text-white border border-red 
+                                                                            hover:border-transparent rounded mr-2 "
+                                                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                                        </svg>
 
-                                                                            Delete
-                                                                        </button>
+                                                                      
                                                                     </div>
                                                                 </td>
                                                             </tr>)

@@ -167,6 +167,7 @@ export default function Navbar({ fixed }) {
 
 
   return (
+    // <div class=" mx-auto px-6 py-3 mb-5 bg-primary text-white ">
 
 
 
@@ -225,6 +226,7 @@ export default function Navbar({ fixed }) {
                       ) : (null)}
                     </div>
                   </div>
+                
 
                   <ul className="dropdown-menu absolute hidden text-gray-700 ">
                     <li className="origin-top-right absolute -right-5 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -271,6 +273,9 @@ export default function Navbar({ fixed }) {
                   </ul>
                 </li>
               </ul>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 fa-rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                  </svg>
 
 
 
