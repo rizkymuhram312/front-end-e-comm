@@ -49,7 +49,7 @@ export default function AllProduct() {
     }
   useEffect(() => {
       axios({
-        url: `${apiProductTransaction}/product`,
+        url: `${apiProductTransaction}/product/ga/get-admin`,
         method: "get",
         headers: {
           "Content-type": "application/json"
@@ -148,12 +148,12 @@ export default function AllProduct() {
                         <thead>
                             <tr>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Produk Id</th>
+                                <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Nama Penjual</th>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center"colSpan="2">Nama Produk</th>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Deskirpsi Produk</th>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Harga</th>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Stok</th>
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Berat</th>
-                                {/* <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Gambar</th> */}
                                 <th className=" p-3 bg-pink-500 text-white align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center">Action</th>
                             </tr>
                         </thead>
@@ -182,8 +182,12 @@ export default function AllProduct() {
                             {x.prod_id}
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"></span>
-                            <img class= "bg-center h-20 w-20 my-2" src={x.product_images[0].prim_path}/>
+                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama Produk</span>
+                            {x.acco_nama}
+                          </td>
+                          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Gambar Produk</span>
+                            <img class= "bg-center w-full h-32 my-2" src={x.prim_path}/>
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama Produk</span>
