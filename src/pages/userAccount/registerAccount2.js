@@ -8,6 +8,7 @@ export default function RegisterAccount() {
   console.log(userName);
   const user_id = localStorage.getItem("dataUserId");
   const acco_id = localStorage.getItem("dataAccountId")
+  const jk = localStorage.getItem("dataAccountGender")
 
   const [value, setValue] = useState();
   const [isAccount, setisAccount] = useState(false);
@@ -114,6 +115,7 @@ export default function RegisterAccount() {
   };
 
   const onChangeGender = (e) => {
+    console.log(e)
     const value = e.target.value;
     setGender(value);
     setError("");
@@ -185,7 +187,7 @@ export default function RegisterAccount() {
       acco_nama: nama,
       acco_phone: phone,
       acco_shopname: shopName,
-      acco_gender: gender? (gender):("L"),
+      acco_gender: gender? (gender):(jk),
       acco_birthdate: birthdate,
       acco_avatar: image,
       acco_user_id: user_id,
@@ -207,7 +209,7 @@ export default function RegisterAccount() {
             console.log(result)
             setAlert(result.data.message);
             setTimeout(() => {
-              setAlert("");
+              setAlert("Akun Sudah di Update");
               const dataAccount = JSON.parse(result.config.data)
               console.log(dataAccount)
               localStorage.setItem("dataAccountShopName",dataAccount.acco_shopname);
@@ -241,7 +243,7 @@ export default function RegisterAccount() {
         )}
         {/* {alert && (
           <div
-            className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
+            className="bg-pink-600 border-l-4 border-pink-800 text-white p-4"
             role="alert"
           >
             <p>{alert}</p>
@@ -256,14 +258,14 @@ export default function RegisterAccount() {
             mengamankan akun
           </p>
           <hr className="my-4"></hr>
-          {alert && (
+          {/* {alert && (
             <div
-              className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
+              className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
               role="alert"
             >
               <p>{alert}</p>
             </div>
-          )}
+          )} */}
 
           { isAccount? (
             <div>
@@ -561,26 +563,7 @@ export default function RegisterAccount() {
         </>
         <div className="relative py-1 sm:max-w-xl mx-auto text-center">
 
-        {alert && (
-            <div
-              className="flex flex-col jusctify-center"
-              role="alert"
-            >
-              <div class="flex items-center bg-green-500 border-l-4 border-green-700 py-2 px-3 shadow-md mb-2">
-                {/* <!-- icons --> */}
-                <div class="text-green-500 rounded-full bg-white mr-3">
-                  <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z" />
-                  </svg>
-                </div>
-                {/* <!-- message --> */}
-                <div class="text-white max-w-xs ">
-                {alert}
-                </div>
-              </div>
-              
-          </div>
-        )}
+        
         </div>
         </div>
     </>

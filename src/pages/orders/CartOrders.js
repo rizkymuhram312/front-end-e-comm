@@ -2,6 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Orders from "./Orders";
 import { Redirect } from "react-router-dom";
+import swal from 'sweetalert';
+import {TopUpWallet} from '../payment/TopUpWallet'
+import {apiPayment} from '../../config/apiUrl'
+
 
 import { numberWithCommas } from "../../utils/utils";
 import {
@@ -23,7 +27,7 @@ import { toast } from "react-toastify";
 
 export default function CartOrders() {
   let history = useHistory();
-  const [CartOrders, setCartOrders] = useState([]);
+  const [CartOrders, setCartOrders] = useState({});
   const [accId, setaccId] = useState(localStorage.getItem("dataAccountId"));
   const [accIdProd, setaccIdProd] = useState([]);
   const [accIdSeller, setaccIdSeller] = useState([]);
@@ -74,9 +78,23 @@ export default function CartOrders() {
   };
 
   const notifyErr = () => {
-    toast.error("Saldo Kurang : Rp. " + numberWithCommas(saldo), {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
+    
+    // ---
+
+    swal({
+      title: "Saldo Kurang! Saldo anda Rp. "  + numberWithCommas(saldo),
+      text: "Silahkan isi saldo lebih dulu!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willTopup) => {
+      if (willTopup) {
+        swal("Silahkan Topup");
+        history.push('/wallet')
+      } else {
+       
+      }
     });
   };
 
@@ -255,11 +273,12 @@ export default function CartOrders() {
       notify();
     } else {
       setLess(false);
-      notifyErr();
+      notify();
     }
   }
 
   const onCreateOrder = () => {
+    
     if (saldo < totalOrder) {
       notifyErr();
     } else if (ongkir === 0) {
@@ -279,10 +298,12 @@ export default function CartOrders() {
         order_line_items: [],
         // ongkir : ongkir,
       };
-      CartOrders.cart_line_items.map((x) =>
+      CartOrders.cart_line_items.map((x) =>{
+        x.cart_stat_name='CLOSED'
         orders.order_line_items.push(JSON.stringify(x))
-      );
-      console.log(orders);
+      });
+      // console.log(orders);
+      deleteCart(CartOrders.cart_id);
       createOrders(orders);
     }
     // history.push('/orders')
@@ -295,6 +316,16 @@ export default function CartOrders() {
       });
       data.order_name = response.data.order_name;
       return await response.data;
+    } catch (err) {
+      return await err.message;
+    }
+  };
+
+  const deleteCart = async (cart_id) => {
+    try {
+      let response = await axios.delete(`${apiCart}/cartLineItems/${cart_id}`)
+      .then(async()=> await axios.delete(`${apiCart}/cart/${cart_id}`));
+      return response
     } catch (err) {
       return await err.message;
     }
@@ -387,7 +418,7 @@ export default function CartOrders() {
                     <div class="flex flex-wrap md:w-6/12 md:mt-1 px-5 font-normal md:font-light text-left font-sans-serif">
                       <img
                         class="h-20 w-20 "
-                        src={x.product.product_images[0].prim_filename}
+                        src={x.product.product_images[0].prim_path}
                       />
                       <label class="p-5">{x.product.prod_name} </label>
                     </div>
@@ -413,7 +444,7 @@ export default function CartOrders() {
               <div className="text-sm block my-1 p-2 text-black">
                 <div className="flex flex-wrap justify-between text-gray-500">
                   <button
-                    class="bg-blue-500 hover:bg-blue-800 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg"
+                    class="bg-button hover:bg-green-300 focus:outline-none cursor-pointer text-white transition duration-200 font-sans-serif py-2 px-8 rounded-lg"
                     onClick={onHandleClickCodePay}
                   >
                     CodePay

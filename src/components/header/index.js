@@ -3,6 +3,7 @@ import swal from 'sweetalert'
 import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { apiProductMaster } from "../../config/apiUrl";
+import ProductSidebar from "../sideBarMenu/product";
 import { apiOrder, apiUserMaster } from "../../config/apiUrl";
 import convertToRupiah from "../../pages/product/convertToRupiah";
 
@@ -11,7 +12,7 @@ export default function Navbar({ fixed }) {
   const history = useHistory()
   const [isLogin, setisLogin] = useState(false)
   const [product, setproduct] = useState([])
-  const [isAdmin, setisAdmin] = useState([])
+  const[isAdmin, setisAdmin] =useState([])
 
   // const [product, setproduct] = useState([]);
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -32,14 +33,17 @@ export default function Navbar({ fixed }) {
 
 
 
+ 
 
-
-
+  
   const refresh = () => {
     // re-renders the component
     setTValue({});
   }
 
+  
+
+ 
 
 
 
@@ -58,7 +62,7 @@ export default function Navbar({ fixed }) {
       refresh();
     }
 
-
+    
     if (admin == 'Admin') {
       setisAdmin(true);
       setTValue({});
@@ -69,8 +73,8 @@ export default function Navbar({ fixed }) {
       refresh();
     }
 
-
-  }, token, tvalue)
+    
+  }, token,tvalue)
 
   // useEffect(() => {
 
@@ -150,6 +154,7 @@ export default function Navbar({ fixed }) {
       imageAlt: 'Profil Picture',
     })
   }
+  
 
   const DetailProduct = (prod_id, product_images)=>{
 		localStorage.setItem('productDetail', prod_id);
@@ -178,7 +183,7 @@ export default function Navbar({ fixed }) {
           </svg>
           <span class="mx-1 text-sm">NY</span> */}
         </div>
-        <a href="/" class="w-3/6 md:text-right text-2xl font-semibold absolute ml-12">
+        <a href="/" class="w-3/6 ml-10 text-center md:text-right sm:text-left text-2xl font-semibold absolute">
           E-Commerce
         </a>
         <div class="flex items-center justify-end w-full lg:gap-2">
@@ -226,10 +231,6 @@ export default function Navbar({ fixed }) {
                   <ul className="dropdown-menu absolute hidden text-gray-700 ">
                     <li className="origin-top-right absolute -right-5 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <table class="min-w-full divide-y divide-gray-200">
-                        
-                      
-                        
-
                         <tbody class="bg-white divide-y divide-gray-200">
                           {hitungCart?.map((x) => (
 
@@ -288,19 +289,19 @@ export default function Navbar({ fixed }) {
                       <span className="mr-1 font-semibold capitalize">{localStorage.getItem('dataUserName')}
                       </span>
                     </button>
-                    <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
-                      <li className=" bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboarduser')} style={{ cursor: 'pointer' }}>
+                    <ul className="dropdown-menu hidden absolute text-gray-700 pt-1">
+                      <li className=" bg-gray-200 hover:bg-pastel py-2 px-4 block whitespace-no-wrap " onClick={() => history.push('/dashboarduser')} style={{ cursor: 'pointer' }}>
                         {/* <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser"> */}
                       Profil
                       {/* </a> */}
 
                       </li>
-                      <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboard')} style={{ cursor: 'pointer' }}>
+                      <li className="bg-gray-200 hover:bg-pastel py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboard')} style={{ cursor: 'pointer' }}>
                         {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
                       Dashboard
                       {/* </a> */}
                       </li>
-                      <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={klikLogout} style={{ cursor: 'pointer' }}>
+                      <li className="bg-gray-200 hover:bg-pastel py-2 px-4 block whitespace-no-wrap" onClick={klikLogout} style={{ cursor: 'pointer' }}>
                         {/* <a className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={klikLogout}> */}
                       Sign Out
                       {/* </a> */}
@@ -358,31 +359,31 @@ export default function Navbar({ fixed }) {
           </div>
         </div>
       </div>
-      {isLogin ? (
-        <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
-          <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
-            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
-            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
-            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
-            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
-            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
-            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
-            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">Contact</a>
-            {isAdmin ? (
-              <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/admin">Admin</a>
-            ) : null}
-
-          </div>
-        </nav>
+      {isLogin? (
+      <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
+        <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/adverising/my-adv">Advertising</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">Contact</a>
+          {isAdmin ? (
+            <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/admin">Admin</a>
+          ):null}
+          
+        </div>
+      </nav>
       ) : (
 
-          <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
-            <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
-              <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
-              <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
-              <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a>
-            </div>
-          </nav>
+        <nav className={`${isOpen ? 'block' : 'hidden'} sm:flex sm:justify-center sm:items-center mt-4  nav-toggler`} id="#navigation">
+        <div class="flex flex-col sm:flex-row text-white sm:flex-wrap sm:justify-center">
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/">Home</a>
+          {/* <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/cart">Cart</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/product">Product</a> */}
+        </div>
+      </nav>
 
 
         )

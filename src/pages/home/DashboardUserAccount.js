@@ -23,10 +23,10 @@ import Account from "../userAccount/account";
 import Upload from "../userAccount/upload";
 import RegisterAccount from "../userAccount/registerAccount2";
 import UbahPassword from "../users/ubahpassword";
-// import Address from "../address/Address";
+// import Address fro../address/Addressess";
 
 import Profil2 from "../userAccount/profil2";
-import Address from "../address/Address";
+import Address from "../address/address";
 import MyWallet from "../payment/WalletAndBank";
 import DashboardOrder from "../users/DashboardOrder";
 const axios = require("axios");

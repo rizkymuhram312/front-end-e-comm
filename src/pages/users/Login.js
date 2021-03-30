@@ -12,7 +12,6 @@ const Login = () => {
     const [user_password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
     const [error, setError] = useState('');
-
     const history = useHistory()
 
     toast.configure()
@@ -80,6 +79,7 @@ const Login = () => {
                     const hasiltoken = JSON.parse(rawPayload)
                     console.log(hasiltoken) // outputs 'bob'
                     console.log(result.data.token) // outputs 'bob'
+                    // dispatch(fetchAdv()) // redux adv
                     // console.log(a)
                     // setRedirect(true)
                     history.push('/home')
@@ -87,9 +87,10 @@ const Login = () => {
                 }
                 else {
                     console.log(result)
+
                     localStorage.setItem('dataUserName', result.data.users.user_name)
                     localStorage.setItem('token', result.data.token)
-                    localStorage.setItem('dataUserPass', data.user_password)
+                    // localStorage.setItem('dataUserPass', data.user_password)
                     localStorage.setItem('dataUserEmail', data.user_email)
                     localStorage.setItem('dataUserId', result.data.users.user_id)
                     const a = axios.defaults.headers.common['Authorization'] = 'Bearer ' + result.data.token
@@ -102,29 +103,45 @@ const Login = () => {
                     // console.log(a)
                     setRedirect(true)
                 }
+
             })
             .catch(e => {
+
                 setError(e.response.data.message)
             })
+
+
+
         // const config = {
         //     headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
         // };
+
         // const bodyParameters = {
         //    key: "value"
         // };
+
         // axios.post( 
         //   'http://192.168.100.35:3001/api/users',
         //   bodyParameters,
         //   config
         // ).then(console.log).catch(console.log);
+
+
+
     }
+
+    
     const token = localStorage.getItem('token')
     // console.log(token)
     const a = axios.defaults.headers.common['Authorization'] = 'bearer ' + token
     console.log(a)
     if (token) {
         // alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
-        return <Redirect to="/home" />
+        if (localStorage.getItem('dataUserName')== 'Admin') {
+            return <Redirect to="/admin" />
+        } else {
+            return <Redirect to="/home" />
+        }
     }
 
     const handleKeypress = (event) => {

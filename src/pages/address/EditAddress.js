@@ -117,16 +117,11 @@ export default function EditAddress() {
       };
       getListAlamat();
     //   console.log(provinsiEdit)
-    //  if (alamat.length > 0) {
-    //     console.log(alamat.addr_is_primary)
-
-    //      if (alamat.addr_is_primary == true) {
-    //         setPrimary(true) 
-    //      } else {
-    //         setPrimary(false) 
-    //      }
-    //      console.log(primary)
-    // }
+     if (alamat.length > 0) {
+      setPrimary(false)
+    } else {
+      setPrimary(true)
+    }
    }, [input,hapus]);
  
   //  console.log(alamat);
@@ -196,11 +191,11 @@ export default function EditAddress() {
 
    const onClose = () => {
     setShowModal(false);
+    history.push("/dashboardUser")
     
     setKota([]);
     setKecamatan([]);
     setKodepos([]);
-    history.push('/dashboarduser')
    }
 
 
@@ -228,7 +223,7 @@ export default function EditAddress() {
             setJalan("");
             setOptional("");
             setShowModal(false)
-            history.push("/address")
+            history.push("/dashboardUser")
             return await GetAlamat();
           }
         }
@@ -273,8 +268,8 @@ export default function EditAddress() {
       {alamat2[0] ? (
         <>
           <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-purple-100">
-              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-gray-500">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
+              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-pink-600">
                 <div class="flex flex-wrap items-center">
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
                     <h3 class="font-semibold text-xl text-gray-50">
@@ -284,7 +279,7 @@ export default function EditAddress() {
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button
                       onClick={() => setShowModal(true)}
-                      className="px-6 bg-gray-200 text-black align-middle border border-solid border-gray-800 hover:bg-green-200 hover:text-green-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                      className="px-6 bg-gray-50 text-black align-middle hover:bg-pink-200 hover:text-pink-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                       type="button"
                     >
                       Tambah Alamat
@@ -347,8 +342,8 @@ export default function EditAddress() {
       ) : (
         <>
           <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded bg-purple-100">
-              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-gray-500">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded ">
+              <div class="rounded-t mb-0 px-4 py-3 border-0 bg-pink-600">
                 <div class="flex flex-wrap items-center">
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
                     <h3 class="font-semibold text-xl text-gray-50">
@@ -359,7 +354,7 @@ export default function EditAddress() {
                   <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button
                       onClick={() => setShowModal(true)}
-                      className="px-6 bg-gray-200 text-black align-middle border border-solid border-gray-800 hover:bg-green-200 hover:text-green-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                      className="px-6 bg-gray-50 text-black align-middle hover:bg-pink-200 hover:text-pink-800 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                       type="button"
                     >
                       Tambah Alamat
@@ -367,12 +362,12 @@ export default function EditAddress() {
                   </div>
                 </div>
               </div>
-              <div className="relative p-6 flex-auto">
-                <label>Tidak ada Alamat </label>
-                
+                <div className="relative p-6 flex-auto">
+                  <label>Tidak ada Alamat </label>
+
+                </div>
               </div>
             </div>
-          </div>
         </>
       )}
 
