@@ -91,7 +91,7 @@ export default function IndexAdmin() {
             <span class="ml-2 font-semibold text-3xl text-pink-500 my-6">Summary</span>
             <hr className="mt-4 mb-4 border-b-2 border-table"/>
             <div class="float-left text-2xl font-semibold text-pink-400">Jumlah Users Aktif</div>
-            <span class="float-right text-2xl font-semibold text-pink-700">{Order} Users </span>
+            <span class="float-right text-2xl font-semibold text-pink-700">{Users} Users </span>
             <br/>
             <br/>
             <div class="float-left text-2xl font-semibold text-pink-400">Jumlah Brand</div>

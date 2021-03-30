@@ -183,7 +183,7 @@ export default function AllProduct() {
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"></span>
-                            <img class= "bg-center h-20 w-20 my-2" src={x.product_images[0].prim_path}/>
+                            <img class= "bg-center w-52 my-2" src={x.product_images[0].prim_path}/>
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama Produk</span>

@@ -61,7 +61,8 @@ export default function OrderSK() {
                           </td>
                           <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Total Order</span>
-                            {x.total_order === null ? '0 Order' : x.total_order+' Order' }
+                            {
+                            x.total_order === null ? '0 Order' : x.total_order+' Order' }
                           </td>
                                         </tr>
                                      ) 
