@@ -182,6 +182,8 @@ function App() {
           <Route path="/admin/total-prod-bk" component={TotalProdBK} exact />
           <Route path="/admin/total-prod-sk" component={TotalProdSK} exact />
           <Route path="/admin/allproduct" component={AllProduct} exact/>
+          <Route path="/admin/dashboard" component={Dashboard} />
+
 
           <Route component={PageNotFound}/>
           <Route path="/summaryPulsa" component={SummaryPulsa}/>
