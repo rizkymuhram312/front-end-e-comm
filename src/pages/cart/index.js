@@ -213,7 +213,8 @@ export default function Cart() {
   }
 
   const numberWithCommas = (n) => {
-    let nString = ""
+    try {
+      let nString = ""
     let nStringCheck = n.toString()
     let nSLength = nStringCheck.length
     while(nSLength>3){
@@ -223,6 +224,10 @@ export default function Cart() {
     nString = nStringCheck.slice(0,nSLength) + "." + nString
     nString = nString.slice(0,-1)
     return nString
+    } catch (error) {
+      console.log(error)
+    }
+    
 }
 
   return (

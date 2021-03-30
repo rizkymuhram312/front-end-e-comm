@@ -294,14 +294,18 @@ export default function Navbar({ fixed }) {
                         {/* <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboarduser"> */}
                       Profil
                       {/* </a> */}
-
                       </li>
                       <li className="bg-gray-200 hover:bg-pastel py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/dashboard')} style={{ cursor: 'pointer' }}>
                         {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
                       Dashboard
                       {/* </a> */}
                       </li>
-                      <li className="bg-gray-200 hover:bg-pastel py-2 px-4 block whitespace-no-wrap" onClick={klikLogout} style={{ cursor: 'pointer' }}>
+                      <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => history.push('/checkout-mycart')} style={{ cursor: 'pointer' }}>
+                        {/* <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/dashboard"> */}
+                      My Orders
+                      {/* </a> */}
+                      </li>
+                      <li className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={klikLogout} style={{ cursor: 'pointer' }}>
                         {/* <a className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={klikLogout}> */}
                       Sign Out
                       {/* </a> */}
@@ -367,7 +371,7 @@ export default function Navbar({ fixed }) {
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/wallet">Wallet</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/ordershipping">Shipping</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/billTopup">BillTopup</a>
-          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/adverising/my-adv">Advertising</a>
+          <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/advertising/my-adv">Advertising</a>
           <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="#">Contact</a>
           {isAdmin ? (
             <a class=" lg:inline-flex text-lg sm:mx-2 sm:mt-0 px-3 py-2 rounded hover:text-black hover:bg-pink-100" href="/admin">Admin</a>
