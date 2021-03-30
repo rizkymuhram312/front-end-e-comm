@@ -149,17 +149,20 @@ export default function CartOrders() {
   };
 
   const fetchAddress = async () => {
-    let result = await axios({
-      url: `${apiUserAccount}/address/search/${accId}`,
-      method: "get",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    // console.log(result.data[0].acco_nama)
-    setAddress(result.data[0]);
-
-    setCityTo(result.data[0].city_name);
+    try {
+      let result = await axios({
+        url: `${apiUserAccount}/address/search/${accId}`,
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      // console.log(result.data[0].acco_nama)
+      setAddress(result.data[0]);
+      setCityTo(result.data[0].city_name); 
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const fetchAddressProd = async () => {
@@ -252,7 +255,10 @@ export default function CartOrders() {
       // console.log(orders);
       deleteCart(CartOrders.cart_id);
       createOrders(orders);
-      history.push('/checkout-mycart')
+      setTimeout(()=>{
+        history.push('/checkout-mycart')
+      },1000)
+      
 
     }
   };

@@ -12,7 +12,7 @@ export default function AfterOrders() {
   let [dataFormOrderArrival, setDataFormArrival] = useState({});
   const [AfterOrders, setAfterOrders] = useState([]);
   const [FilterOrders, setFilterOrders] = useState([]);
-
+  const [refresh,setRefresh] = useState(false)
   let [modalCancel,setModalCancel] = useState(false)
   let [orderToCancel,setOrderToCancel] = useState('')
   const [status, setStatus] = useState();
@@ -28,7 +28,7 @@ export default function AfterOrders() {
 
   useEffect(() => {
     fetchAfterOrders();
-  }, [modal, dataFormOrderArrival,showPayment]);
+  }, [modal, dataFormOrderArrival,showPayment,modalCancel,refresh]);
 
   const fetchAfterOrders = async () => {
     return await axios({
@@ -98,11 +98,21 @@ export default function AfterOrders() {
   };
 
   const onCancel = async () => {
+    console.log("order hitted")
+    console.log(orderToCancel)
     try {
-        await axios.post(""+apiPayment+"/orders/cancel",{order_name:orderToCancel})
+      await axios(
+        {url:apiPayment+"/orders/cancel",
+        method:'POST',
+        data:{order_name:orderToCancel},
+        headers:{
+          'Content-Type':'Application/json'
+        }
+      })
+      console.log("i nvever hitted, i dont know what happen")
         setModalCancel(false)
+        setRefresh(!refresh)
     } catch (error) {
-
         console.log(error)
     }
 }
