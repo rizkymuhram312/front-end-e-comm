@@ -4,6 +4,7 @@ import { useState } from 'react'
 // import { Transition } from '@headlessui/react'
 import Daftar from '../users/Daftar'
 import { Route, Switch, Redirect, BrowserRouter, render } from 'react-router-dom'
+import SidebarAdmin from '../admin/sidebarAdmin'
 
 import Province from '../province/province'
 import Users from '../users/users'
@@ -18,7 +19,11 @@ const progress = 50;
 
 
 const DashboardUsers = () => {
+  const[isAdmin, setisAdmin] =useState([])
+
+
   const token = localStorage.getItem('token')
+  const admin = localStorage.getItem('dataUserName')
 
   const [isLogin, setisLogin] = useState(false)
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -74,6 +79,11 @@ const DashboardUsers = () => {
   if (!token) {
     // alert("Tidak Bisa Akses Halaman Ini. Silakan Login Dulu!");
     return <Redirect to="/login" />
+  }
+
+  if (admin !== 'Admin') {
+    alert('anda dilarang mengakses halaman ini!')
+    return <Redirect to="/home" /> 
   }
 
 
